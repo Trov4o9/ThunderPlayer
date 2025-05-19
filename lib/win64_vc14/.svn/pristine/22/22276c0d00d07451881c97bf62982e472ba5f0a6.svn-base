@@ -1,11 +1,3 @@
-OpenShadingLanguage 1.00
-# Compiled by oslc 1.9.9
-# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_dot_surfaceshader.oso
-shader mx_dot_surfaceshader	%meta{string,help,"surfaceshader no-op "} 
-param	closure color	in			%read{0,0} %write{2147483647,-1}
-oparam	closure color	out			%read{2147483647,-1} %write{0,0}
-code ___main___
-# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_dot_surfaceshader.osl:16
-#     out = in; 
-	assign		out in 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_dot_surfaceshader.osl"} %line{16} %argrw{"wr"}
-	end
+version https://git-lfs.github.com/spec/v1
+oid sha256:f6817ce1f3e1a631f8407a18e7a5249e937676903356becd3991f5c1ea4d2243
+size 948

@@ -1,17 +1,3 @@
-// Boost.Geometry (aka GGL, Generic Geometry Library)
-
-// Copyright (c) 2015 Oracle and/or its affiliates.
-
-// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
-
-// Use, modification and distribution is subject to the Boost Software License,
-// Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-
-#ifndef BOOST_GEOMETRY_ALGORITHMS_RELATION_HPP
-#define BOOST_GEOMETRY_ALGORITHMS_RELATION_HPP
-
-#include <boost/geometry/algorithms/detail/relation/interface.hpp>
-#include <boost/geometry/algorithms/detail/relation/implementation.hpp>
-
-#endif // BOOST_GEOMETRY_ALGORITHMS_RELATION_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:23872d849d887c21627c76444e2c78cdafb0eeb5fc08cb17a78795c0533c0281
+size 652

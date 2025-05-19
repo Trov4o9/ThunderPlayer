@@ -1,23 +1,3 @@
-#ifndef BOOST_METAPARSE_UTIL_IS_DIGIT_HPP
-#define BOOST_METAPARSE_UTIL_IS_DIGIT_HPP
-
-// Copyright Abel Sinkovics (abel@sinkovics.hu)  2009 - 2010.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/metaparse/v1/util/is_digit.hpp>
-
-namespace boost
-{
-  namespace metaparse
-  {
-    namespace util
-    {
-      using v1::util::is_digit;
-    }
-  }
-}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:07873b4d51689b085514f01c46de3d77383d45268e0b4d1c737574c0571c5b18
+size 487

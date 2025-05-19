@@ -1,16 +1,3 @@
-/*==============================================================================
-    Copyright (c) 2001-2010 Joel de Guzman
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-#ifndef BOOST_PHOENIX_BIND_HPP
-#define BOOST_PHOENIX_BIND_HPP
-
-#include <boost/phoenix/version.hpp>
-#include <boost/phoenix/bind/bind_function.hpp>
-#include <boost/phoenix/bind/bind_function_object.hpp>
-#include <boost/phoenix/bind/bind_member_function.hpp>
-#include <boost/phoenix/bind/bind_member_variable.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:2622cf4cff2455efd59025d116f0c2ed2b116e8cf8689f0ecd6bcde5e13a362a
+size 682

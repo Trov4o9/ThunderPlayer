@@ -1,30 +1,3 @@
-//  equal_to.hpp
-//
-//  (C) Copyright 2011 Vicente J. Botet Escriba
-//  Use, modification and distribution are subject to the Boost Software License,
-//  Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
-//  http://www.boost.org/LICENSE_1_0.txt).
-//
-
-#ifndef BOOST_RATIO_MPL_EQUAL_TO_HPP
-#define BOOST_RATIO_MPL_EQUAL_TO_HPP
-
-#include <boost/ratio/ratio.hpp>
-#include <boost/ratio/mpl/numeric_cast.hpp>
-#include <boost/mpl/equal_to.hpp>
-
-namespace boost { 
-namespace mpl {
-
-template<>
-struct equal_to_impl< rational_c_tag,rational_c_tag >
-{
-    template< typename R1, typename R2 > struct apply
-        : ratio_equal<R1, R2>
-    {
-    };
-};    
-}
-}
-
-#endif  // BOOST_RATIO_MPL_EQUAL_TO_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:e8f63dd88ee94010b61d8b56e7cfd178cc2e3fb47f069c737c7d01bcbc3d562c
+size 703

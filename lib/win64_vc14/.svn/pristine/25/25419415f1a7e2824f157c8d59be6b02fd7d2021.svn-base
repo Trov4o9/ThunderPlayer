@@ -1,13 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2007 Joel de Guzman
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-#if !defined(FUSION_INCLUDE_DEQUE)
-#define FUSION_INCLUDE_DEQUE
-
-#include <boost/fusion/support/config.hpp>
-#include <boost/fusion/container/deque/deque_fwd.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:290aa8c7048af433ffaa10cdb2b4fcc4714c08655763b213d9af0e4bcd1c88c8
+size 530

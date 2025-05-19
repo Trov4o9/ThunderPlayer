@@ -1,16 +1,3 @@
-#ifndef BOOST_THREAD_THREAD_HPP
-#define BOOST_THREAD_THREAD_HPP
-
-//  thread.hpp
-//
-//  (C) Copyright 2007-8 Anthony Williams
-//
-//  Distributed under the Boost Software License, Version 1.0. (See
-//  accompanying file LICENSE_1_0.txt or copy at
-//  http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/thread/thread_only.hpp>
-#include <boost/thread/detail/thread_group.hpp>
-
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:73fe1d09a035d0d9cc2b9f94969a70a8042601913af813f587a6b2b3781ce500
+size 385

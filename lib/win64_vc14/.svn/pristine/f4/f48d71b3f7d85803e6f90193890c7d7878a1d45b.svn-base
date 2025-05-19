@@ -1,22 +1,3 @@
-// Copyright David Abrahams 2002.
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-#ifndef SHARED_PTR_DELETER_DWA2002121_HPP
-# define SHARED_PTR_DELETER_DWA2002121_HPP
-
-namespace boost { namespace python { namespace converter { 
-
-struct BOOST_PYTHON_DECL shared_ptr_deleter
-{
-    shared_ptr_deleter(handle<> owner);
-    ~shared_ptr_deleter();
-
-    void operator()(void const*);
-        
-    handle<> owner;
-};
-
-}}} // namespace boost::python::converter
-
-#endif // SHARED_PTR_DELETER_DWA2002121_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:5548c9ac5c0d0c99fedfd76c20b2c7df23db46958b5ae3cc60c31768fb1b3141
+size 605

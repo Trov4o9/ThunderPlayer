@@ -1,25 +1,3 @@
-//  (C) Copyright 2009-2011 Frederic Bron.
-//
-//  Use, modification and distribution are subject to the Boost Software License,
-//  Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
-//  http://www.boost.org/LICENSE_1_0.txt).
-//
-//  See http://www.boost.org/libs/type_traits for most recent version including documentation.
-
-#ifndef BOOST_TT_HAS_NEGATE_HPP_INCLUDED
-#define BOOST_TT_HAS_NEGATE_HPP_INCLUDED
-
-#define BOOST_TT_TRAIT_NAME has_negate
-#define BOOST_TT_TRAIT_OP -
-#define BOOST_TT_FORBIDDEN_IF\
-   /* pointer */\
-   ::boost::is_pointer< Rhs_noref >::value
-
-
-#include <boost/type_traits/detail/has_prefix_operator.hpp>
-
-#undef BOOST_TT_TRAIT_NAME
-#undef BOOST_TT_TRAIT_OP
-#undef BOOST_TT_FORBIDDEN_IF
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:7b7dfeec82bd923d419afe3df8ae69e98adf239a7d1e1bc8249b465f6a0a00a8
+size 731

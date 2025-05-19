@@ -1,17 +1,3 @@
-/*
- * Copyright (c) 2014 Glen Fernandes
- *
- * Distributed under the Boost Software License, Version 1.0. (See
- * accompanying file LICENSE_1_0.txt or copy at
- * http://www.boost.org/LICENSE_1_0.txt)
- */
-
-#ifndef BOOST_NONCOPYABLE_HPP
-#define BOOST_NONCOPYABLE_HPP
-
-// The header file at this path is deprecated;
-// use boost/core/noncopyable.hpp instead.
-
-#include <boost/core/noncopyable.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:131d47ed18fd22ee9b057f134fc554c839769f282d4c4c23e7e81191fe9763c1
+size 402

@@ -1,28 +1,3 @@
-// BuiltinsWebAssembly.def - WebAssembly builtin function database -*- C++ -*-//
-//
-//                     The LLVM Compiler Infrastructure
-//
-// This file is distributed under the University of Illinois Open Source
-// License. See LICENSE.TXT for details.
-//
-//===----------------------------------------------------------------------===//
-///
-/// \file
-/// \brief This file defines the WebAssembly-specific builtin function database.
-/// Users of this file must define the BUILTIN macro to make use of this
-/// information.
-///
-//===----------------------------------------------------------------------===//
-
-// The format of this database matches clang/Basic/Builtins.def.
-
-// Note that current_memory is not "c" (readnone) because it must be sequenced
-// with respect to grow_memory calls.
-BUILTIN(__builtin_wasm_current_memory, "z", "n")
-BUILTIN(__builtin_wasm_grow_memory, "zz", "n")
-
-// Exception handling builtins.
-BUILTIN(__builtin_wasm_throw, "vUiv*", "r")
-BUILTIN(__builtin_wasm_rethrow, "v", "r")
-
-#undef BUILTIN
+version https://git-lfs.github.com/spec/v1
+oid sha256:42700db52889114d4efc24454a0a645991201821d6a33dfd9de37fb30ea35207
+size 1026

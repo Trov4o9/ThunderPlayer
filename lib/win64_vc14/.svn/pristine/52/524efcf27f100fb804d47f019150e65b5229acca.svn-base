@@ -1,18 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2011 Hartmut Kaiser
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-
-#if !defined(BOOST_SPIRIT_AUTO_NOV_29_2009_0335PM)
-#define BOOST_SPIRIT_AUTO_NOV_29_2009_0335PM
-
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
-#include <boost/spirit/home/qi/auto/auto.hpp>
-#include <boost/spirit/home/qi/detail/parse_auto.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:8ff3bb188c7c08aa20caf86f301c0960349ec7ffa9c1203f7e48a3d990895998
+size 609

@@ -1,19 +1,3 @@
-// Open Shading Language : Copyright (c) 2009-2017 Sony Pictures Imageworks Inc., et al.
-// https://github.com/imageworks/OpenShadingLanguage/blob/master/LICENSE
-// 
-// MaterialX specification (c) 2017 Lucasfilm Ltd. 
-// http://www.materialx.org/
-
-#include "mx_funcs.h"
-
-shader mx_clamp_float_vector 
-    [[ string help = "Vector"" Clamp incoming value to a specified range of values." ]]
-  (
-    vector in = 0,
-    float low = 0.0,
-    float high = 1.0,
-    output vector out = 0
-  )
-{
-    out = clamp(in, low, high);
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:d0740f94e174f23e6214849281661a3f103075e41aa493d7956d9d744feaf71d
+size 540

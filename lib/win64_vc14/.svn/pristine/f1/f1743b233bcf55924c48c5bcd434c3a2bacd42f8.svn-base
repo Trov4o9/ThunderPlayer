@@ -1,12 +1,3 @@
-/*=============================================================================
-  Copyright (c) 2001-2008 Joel de Guzman
-  Copyright (c) 2001-2008 Hartmut Kaiser
-  http://spirit.sourceforge.net/
-
-  Distributed under the Boost Software License, Version 1.0. (See accompanying
-  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#ifndef BOOST_SPIRIT_INCLUDE_CLASSIC_PUSH_FRONT_ACTOR
-#define BOOST_SPIRIT_INCLUDE_CLASSIC_PUSH_FRONT_ACTOR
-#include <boost/spirit/home/classic/actor/push_front_actor.hpp>
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:e0e2f74e09ffaf4e64d7e2dca4b77ebf74425954c42c1c9739972d18ff477874
+size 606

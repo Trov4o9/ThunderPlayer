@@ -1,17 +1,3 @@
-// Copyright (C) 2005 Arkadiy Vertleyb, Peder Holt.
-// Use, modification and distribution is subject to the Boost Software
-// License, Version 1.0. (http://www.boost.org/LICENSE_1_0.txt)
-
-#ifndef BOOST_TYPEOF_STD_stack_hpp_INCLUDED
-#define BOOST_TYPEOF_STD_stack_hpp_INCLUDED
-
-#include <stack>
-#include <boost/typeof/typeof.hpp>
-#include <boost/typeof/std/memory.hpp>
-
-#include BOOST_TYPEOF_INCREMENT_REGISTRATION_GROUP()
-
-BOOST_TYPEOF_REGISTER_TEMPLATE(std::stack, 1)
-BOOST_TYPEOF_REGISTER_TEMPLATE(std::stack, 2)
-
-#endif//BOOST_TYPEOF_STD_stack_hpp_INCLUDED
+version https://git-lfs.github.com/spec/v1
+oid sha256:5af2f76d2a3302b26cbdb50fab70a6f38306229ad2943ead3ff8379fdb0ac9b3
+size 560

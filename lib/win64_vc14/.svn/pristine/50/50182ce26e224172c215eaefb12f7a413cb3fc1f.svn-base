@@ -1,13 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2007 Joel de Guzman
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-#if !defined(FUSION_INCLUDE_MAKE_VECTOR)
-#define FUSION_INCLUDE_MAKE_VECTOR
-
-#include <boost/fusion/support/config.hpp>
-#include <boost/fusion/container/generation/make_vector.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:a04ef786100f85265165df05479e96346b4978473c2e3c52e4ef907a8c24769f
+size 549

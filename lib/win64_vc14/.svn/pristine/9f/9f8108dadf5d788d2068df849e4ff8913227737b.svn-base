@@ -1,33 +1,3 @@
-/*!
-@file
-Defines `boost::hana::Product`.
-
-@copyright Louis Dionne 2013-2017
-Distributed under the Boost Software License, Version 1.0.
-(See accompanying file LICENSE.md or copy at http://boost.org/LICENSE_1_0.txt)
- */
-
-#ifndef BOOST_HANA_CONCEPT_PRODUCT_HPP
-#define BOOST_HANA_CONCEPT_PRODUCT_HPP
-
-#include <boost/hana/fwd/concept/product.hpp>
-
-#include <boost/hana/config.hpp>
-#include <boost/hana/core/default.hpp>
-#include <boost/hana/core/tag_of.hpp>
-#include <boost/hana/detail/integral_constant.hpp>
-#include <boost/hana/first.hpp>
-#include <boost/hana/second.hpp>
-
-
-BOOST_HANA_NAMESPACE_BEGIN
-    template <typename P>
-    struct Product
-        : hana::integral_constant<bool,
-            !is_default<first_impl<typename tag_of<P>::type>>::value &&
-            !is_default<second_impl<typename tag_of<P>::type>>::value
-        >
-    { };
-BOOST_HANA_NAMESPACE_END
-
-#endif // !BOOST_HANA_CONCEPT_PRODUCT_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:c0f0c310e54b5ff9d37348dac416451e9c3ef705bb99070c7cc1d0472810884a
+size 915

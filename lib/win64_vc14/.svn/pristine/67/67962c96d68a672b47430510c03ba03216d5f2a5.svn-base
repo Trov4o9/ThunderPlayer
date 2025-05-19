@@ -1,13 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2011 Eric Niebler
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-#if !defined(BOOST_FUSION_INCLUDE_SEGMENTED_ITERATOR)
-#define BOOST_FUSION_INCLUDE_SEGMENTED_ITERATOR
-
-#include <boost/fusion/support/config.hpp>
-#include <boost/fusion/iterator/segmented_iterator.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:a1312911a3cac7ce85612ecf86dfaf27876bb69d8ec41a249fbe55b56e0bfe93
+size 563

@@ -1,26 +1,3 @@
-
-#ifndef BOOST_MPL_SEQUENCE_TAG_FWD_HPP_INCLUDED
-#define BOOST_MPL_SEQUENCE_TAG_FWD_HPP_INCLUDED
-
-// Copyright Aleksey Gurtovoy 2000-2004
-//
-// Distributed under the Boost Software License, Version 1.0. 
-// (See accompanying file LICENSE_1_0.txt or copy at 
-// http://www.boost.org/LICENSE_1_0.txt)
-//
-// See http://www.boost.org/libs/mpl for documentation.
-
-// $Id$
-// $Date$
-// $Revision$
-
-namespace boost { namespace mpl {
-
-struct nested_begin_end_tag;
-struct non_sequence_tag;
-
-template< typename Sequence > struct sequence_tag;
-
-}}
-
-#endif // BOOST_MPL_SEQUENCE_TAG_FWD_HPP_INCLUDED
+version https://git-lfs.github.com/spec/v1
+oid sha256:026ad6db1cbefeaead66b087de30406949be26887b27d2822b79d5cc03d74a63
+size 588

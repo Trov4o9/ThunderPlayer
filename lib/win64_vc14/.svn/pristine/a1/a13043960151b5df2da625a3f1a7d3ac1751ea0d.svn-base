@@ -1,24 +1,3 @@
-
-#ifndef BOOST_MPL_AUX_RANGE_C_TAG_HPP_INCLUDED
-#define BOOST_MPL_AUX_RANGE_C_TAG_HPP_INCLUDED
-
-// Copyright Aleksey Gurtovoy 2000-2004
-//
-// Distributed under the Boost Software License, Version 1.0. 
-// (See accompanying file LICENSE_1_0.txt or copy at 
-// http://www.boost.org/LICENSE_1_0.txt)
-//
-// See http://www.boost.org/libs/mpl for documentation.
-
-// $Id$
-// $Date$
-// $Revision$
-
-namespace boost { namespace mpl { namespace aux {
-
-struct half_open_range_tag;
-struct r_iter_tag;
-
-}}}
-
-#endif // BOOST_MPL_AUX_RANGE_C_TAG_HPP_INCLUDED
+version https://git-lfs.github.com/spec/v1
+oid sha256:a3e6d3e3d9608cce1fadac4d5766823a266150d5c72fc2c53981acceef371b08
+size 543

@@ -1,29 +1,3 @@
-from .adapter import CacheControlAdapter
-from .cache import DictCache
-
-
-def CacheControl(
-    sess,
-    cache=None,
-    cache_etags=True,
-    serializer=None,
-    heuristic=None,
-    controller_class=None,
-    adapter_class=None,
-    cacheable_methods=None,
-):
-
-    cache = cache or DictCache()
-    adapter_class = adapter_class or CacheControlAdapter
-    adapter = adapter_class(
-        cache,
-        cache_etags=cache_etags,
-        serializer=serializer,
-        heuristic=heuristic,
-        controller_class=controller_class,
-        cacheable_methods=cacheable_methods,
-    )
-    sess.mount("http://", adapter)
-    sess.mount("https://", adapter)
-
-    return sess
+version https://git-lfs.github.com/spec/v1
+oid sha256:b1fafd6075b1fb94f0373d47e6b4fa40ea3c820208eafdef6c40e3405c11eb07
+size 671

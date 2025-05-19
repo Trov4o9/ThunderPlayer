@@ -1,23 +1,3 @@
-/*
-Copyright (c) 2016 Barrett Adair
-
-Distributed under the Boost Software License, Version 1.0.
-(See accompanying file LICENSE.md or copy at http://boost.org/LICENSE_1_0.txt)
-
-HEADER GUARDS INTENTIONALLY OMITTED
-DO NOT INCLUDE THIS HEADER DIRECTLY
-*/
-
-#define BOOST_CLBL_TRTS_INCLUDE_TRANSACTION_SAFE
-#define BOOST_CLBL_TRTS_IS_TRANSACTION_SAFE std::false_type
-#include <boost/callable_traits/detail/unguarded/function_2.hpp>
-#undef BOOST_CLBL_TRTS_INCLUDE_TRANSACTION_SAFE
-#undef BOOST_CLBL_TRTS_IS_TRANSACTION_SAFE
-
-#ifdef BOOST_CLBL_TRTS_ENABLE_TRANSACTION_SAFE
-#define BOOST_CLBL_TRTS_IS_TRANSACTION_SAFE std::true_type
-#define BOOST_CLBL_TRTS_INCLUDE_TRANSACTION_SAFE transaction_safe
-#include <boost/callable_traits/detail/unguarded/function_2.hpp>
-#undef BOOST_CLBL_TRTS_INCLUDE_TRANSACTION_SAFE
-#undef BOOST_CLBL_TRTS_IS_TRANSACTION_SAFE
-#endif // #ifdef BOOST_CLBL_TRTS_ENABLE_TRANSACTION_SAFE
+version https://git-lfs.github.com/spec/v1
+oid sha256:da8028b90ec2f8689da81b7907fcd40e3d1130c1e5ca8dce444a34f58c90f5f9
+size 902

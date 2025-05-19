@@ -1,22 +1,3 @@
-//  Copyright (c) 2001-2011 Hartmut Kaiser
-// 
-//  Distributed under the Boost Software License, Version 1.0. (See accompanying 
-//  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-
-#if !defined(BOOST_SPIRIT_KARMA_OPERATOR_FEB_28_2007_0351PM)
-#define BOOST_SPIRIT_KARMA_OPERATOR_FEB_28_2007_0351PM
-
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
-#include <boost/spirit/home/karma/operator/sequence.hpp>
-#include <boost/spirit/home/karma/operator/and_predicate.hpp>
-#include <boost/spirit/home/karma/operator/not_predicate.hpp>
-#include <boost/spirit/home/karma/operator/alternative.hpp>
-#include <boost/spirit/home/karma/operator/kleene.hpp>
-#include <boost/spirit/home/karma/operator/plus.hpp>
-#include <boost/spirit/home/karma/operator/optional.hpp>
-#include <boost/spirit/home/karma/operator/list.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:2063f888a84f03299aa5d637734ec020ae6a6170df0189671fce381df66ab23c
+size 831

@@ -1,18 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2010 Joel de Guzman
-    Copyright (c) 2001-2010 Hartmut Kaiser
-    http://spirit.sourceforge.net/
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#ifndef BOOST_SPIRIT_INCLUDE_QI_MATCHES
-#define BOOST_SPIRIT_INCLUDE_QI_MATCHES
-
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
-#include <boost/spirit/home/qi/directive/matches.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:d273ea44b9e43bced8d1dfa2bef012432863a41480ec105d8ea7104de0f45d7b
+size 623

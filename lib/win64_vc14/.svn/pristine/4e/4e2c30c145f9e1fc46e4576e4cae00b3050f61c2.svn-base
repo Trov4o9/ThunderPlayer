@@ -1,24 +1,3 @@
-#ifndef LOCAL_TIME_LOCAL_TIME_HPP__
-#define LOCAL_TIME_LOCAL_TIME_HPP__
-
-/* Copyright (c) 2003-2004 CrystalClear Software, Inc.
- * Subject to the Boost Software License, Version 1.0. 
- * (See accompanying file LICENSE_1_0.txt or http://www.boost.org/LICENSE_1_0.txt)
- * Author: Jeff Garland, Bart Garst
- * $Date$
- */
-
-#include "boost/date_time/posix_time/posix_time.hpp"
-#include "boost/date_time/local_time/local_date_time.hpp"
-#include "boost/date_time/local_time/local_time_types.hpp"
-#if !defined(USE_DATE_TIME_PRE_1_33_FACET_IO)
-#include "boost/date_time/local_time/local_time_io.hpp"
-#endif // USE_DATE_TIME_PRE_1_33_FACET_IO
-#include "boost/date_time/local_time/posix_time_zone.hpp"
-#include "boost/date_time/local_time/custom_time_zone.hpp"
-#include "boost/date_time/local_time/tz_database.hpp"
-#include "boost/date_time/local_time/conversion.hpp"
-#include "boost/date_time/time_zone_base.hpp"
-
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:5da700d67733e74ed6c05cb751a5c5680b8690e333f95ea97aa4e0d76272f1e1
+size 911

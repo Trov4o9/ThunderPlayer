@@ -1,12 +1,3 @@
-//---------------------------------------------------------------------------//
-// Copyright (c) 2013-2014 Kyle Lutz <kyle.r.lutz@gmail.com>
-//
-// Distributed under the Boost Software License, Version 1.0
-// See accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt
-//
-// See http://boostorg.github.com/compute for more information.
-//---------------------------------------------------------------------------//
-
-// deprecated, use <boost/compute/types/fundamental.hpp> instead
-#include <boost/compute/types/fundamental.hpp>
+version https://git-lfs.github.com/spec/v1
+oid sha256:6e5e45377fe7c155cc6203f8aa80089299e8bcf9d35a5e4104291822792ea707
+size 557

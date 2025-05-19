@@ -1,33 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2011 Joel de Guzman
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying 
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-#if !defined(FUSION_BACK_10022005_1620)
-#define FUSION_BACK_10022005_1620
-
-#include <boost/fusion/support/config.hpp>
-#include <boost/mpl/back.hpp>
-#include <boost/fusion/sequence/intrinsic/end.hpp>
-#include <boost/fusion/iterator/prior.hpp>
-#include <boost/fusion/iterator/value_of.hpp>
-
-namespace boost { namespace mpl
-{
-    template <typename Tag>
-    struct back_impl;
-
-    template <>
-    struct back_impl<fusion::fusion_sequence_tag>
-    {
-        template <typename Sequence>
-        struct apply : 
-            fusion::result_of::value_of<
-                typename fusion::result_of::prior<
-                    typename fusion::result_of::end<Sequence>::type
-                >::type> {};
-    };
-}}
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:70bcd9db277512b6ce885e90d3ddfbbcba9f6a7ee4f675f2f5c6272f7a0b5a7a
+size 1075

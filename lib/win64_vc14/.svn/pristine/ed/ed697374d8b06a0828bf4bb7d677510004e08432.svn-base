@@ -1,12 +1,3 @@
-/*=============================================================================
-  Copyright (c) 2001-2008 Joel de Guzman
-  Copyright (c) 2001-2008 Hartmut Kaiser
-  http://spirit.sourceforge.net/
-
-  Distributed under the Boost Software License, Version 1.0. (See accompanying
-  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#ifndef BOOST_SPIRIT_INCLUDE_CLASSIC_SUBRULE
-#define BOOST_SPIRIT_INCLUDE_CLASSIC_SUBRULE
-#include <boost/spirit/home/classic/core/non_terminal/subrule.hpp>
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:dabe66bd27a382c9f62c125b61b4318aecf7d7485d04da2a043556757aadb6fa
+size 591

@@ -1,23 +1,3 @@
-/*
- [auto_generated]
- /boost/numeric/odeint/external/mtl4/mtl4.hpp
-
- [begin_description]
- includes all headers required for using mtl4 with odeint
- [end_description]
-
- Copyright 2013 Karsten Ahnert
- Copyright 2013 Mario Mulansky
-
- Distributed under the Boost Software License, Version 1.0.
- (See accompanying file LICENSE_1_0.txt or
- copy at http://www.boost.org/LICENSE_1_0.txt)
- */
-
-#ifndef BOOST_NUMERIC_ODEINT_EXTERNAL_MTL4_MTL4_HPP_INCLUDED
-#define BOOST_NUMERIC_ODEINT_EXTERNAL_MTL4_MTL4_HPP_INCLUDED
-
-#include <boost/numeric/odeint/external/mtl4/mtl4_algebra_dispatcher.hpp>
-#include <boost/numeric/odeint/external/mtl4/mtl4_resize.hpp>
-
-#endif // BOOST_NUMERIC_ODEINT_EXTERNAL_MTL4_MTL4_INCLUDED
+version https://git-lfs.github.com/spec/v1
+oid sha256:5a85f77fb44e394bfd70ff9a2c947b3c2064aefff05170a002fd7dc68b3321e6
+size 704

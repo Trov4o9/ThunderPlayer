@@ -1,21 +1,3 @@
-
-#ifndef BOOST_MPL_AUX_TEST_TEST_CASE_HPP_INCLUDED
-#define BOOST_MPL_AUX_TEST_TEST_CASE_HPP_INCLUDED
-
-// Copyright Aleksey Gurtovoy 2002-2004
-//
-// Distributed under the Boost Software License, Version 1.0. 
-// (See accompanying file LICENSE_1_0.txt or copy at 
-// http://www.boost.org/LICENSE_1_0.txt)
-//
-// See http://www.boost.org/libs/mpl for documentation.
-
-// $Id$
-// $Date$
-// $Revision$
-
-#include <boost/preprocessor/cat.hpp>
-
-#define MPL_TEST_CASE() void BOOST_PP_CAT(test,__LINE__)()
-
-#endif // BOOST_MPL_AUX_TEST_TEST_CASE_HPP_INCLUDED
+version https://git-lfs.github.com/spec/v1
+oid sha256:0669b85dd2a392dae20d0118adadd10f6761415e224fddd297b3e68db4ee699e
+size 547

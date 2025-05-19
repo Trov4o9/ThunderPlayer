@@ -1,24 +1,3 @@
-//---------------------------------------------------------------------------//
-// Copyright (c) 2013 Kyle Lutz <kyle.r.lutz@gmail.com>
-//
-// Distributed under the Boost Software License, Version 1.0
-// See accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt
-//
-// See http://boostorg.github.com/compute for more information.
-//---------------------------------------------------------------------------//
-
-#ifndef BOOST_COMPUTE_RANDOM_DEFAULT_RANDOM_ENGINE_HPP
-#define BOOST_COMPUTE_RANDOM_DEFAULT_RANDOM_ENGINE_HPP
-
-#include <boost/compute/random/mersenne_twister_engine.hpp>
-
-namespace boost {
-namespace compute {
-
-typedef mt19937 default_random_engine;
-
-} // end compute namespace
-} // end boost namespace
-
-#endif // BOOST_COMPUTE_RANDOM_DEFAULT_RANDOM_ENGINE_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:e275a4175e9f2cd4d212091393815549d174cae20466b14570ca8d48480bd5f5
+size 801

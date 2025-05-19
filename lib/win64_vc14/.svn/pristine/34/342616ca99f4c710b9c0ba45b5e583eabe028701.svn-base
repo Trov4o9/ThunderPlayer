@@ -1,30 +1,3 @@
-//  Copyright (c) 2001-2011 Hartmut Kaiser
-//
-//  Distributed under the Boost Software License, Version 1.0. (See accompanying
-//  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-
-#if !defined(BOOST_SPIRIT_QI_DETAIL_ENABLE_LIT_JAN_06_2011_0945PM)
-#define BOOST_SPIRIT_QI_DETAIL_ENABLE_LIT_JAN_06_2011_0945PM
-
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
-#include <boost/spirit/home/qi/domain.hpp>
-#include <boost/spirit/home/qi/parser.hpp>
-#include <boost/spirit/home/qi/meta_compiler.hpp>
-#include <boost/spirit/home/qi/auxiliary/lazy.hpp>
-#include <boost/fusion/include/vector.hpp>
-#include <boost/spirit/home/support/string_traits.hpp>
-#include <boost/spirit/home/support/common_terminals.hpp>
-
-namespace boost { namespace spirit
-{
-    // enables lazy lit(...) for qi
-    template <>
-    struct use_lazy_terminal<qi::domain, tag::lit, 1> 
-      : mpl::true_ {};
-}}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:86fe62ee9e5ac6445b5c338402d8606b0772fd6ba2fa3f687ba0ff7b42063f8d
+size 897

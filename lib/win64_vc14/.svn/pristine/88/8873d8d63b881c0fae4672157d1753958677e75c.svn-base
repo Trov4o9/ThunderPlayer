@@ -1,25 +1,3 @@
-#ifndef BOOST_METAPARSE_V1_FWD_GET_RESULT_HPP
-#define BOOST_METAPARSE_V1_FWD_GET_RESULT_HPP
-
-//    Copyright Abel Sinkovics (abel@sinkovics.hu) 2013.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-namespace boost
-{
-  namespace metaparse
-  {
-    namespace v1
-    {
-      template <class>
-      struct get_result_impl;
-
-      template <class>
-      struct get_result;
-    }
-  }
-}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:14371e50ccdb4ff7e01b9b3b6b5f499b001543df7653d159af38ddae5a9c9e03
+size 509

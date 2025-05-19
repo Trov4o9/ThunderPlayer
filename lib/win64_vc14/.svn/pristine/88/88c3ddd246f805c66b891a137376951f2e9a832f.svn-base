@@ -1,16 +1,3 @@
-// Boost.Geometry (aka GGL, Generic Geometry Library)
-
-// Copyright (c) 2014, Oracle and/or its affiliates.
-
-// Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
-
-// Licensed under the Boost Software License version 1.0.
-// http://www.boost.org/users/license.html
-
-#ifndef BOOST_GEOMETRY_ALGORITHMS_IS_VALID_HPP
-#define BOOST_GEOMETRY_ALGORITHMS_IS_VALID_HPP
-
-#include <boost/geometry/algorithms/detail/is_valid/interface.hpp>
-#include <boost/geometry/algorithms/detail/is_valid/implementation.hpp>
-
-#endif // BOOST_GEOMETRY_ALGORITHMS_IS_VALID_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:1245aabaad34f31fc7817b8fe94b1e092a4b3ea1020e73dc5c5c59898b152de8
+size 570

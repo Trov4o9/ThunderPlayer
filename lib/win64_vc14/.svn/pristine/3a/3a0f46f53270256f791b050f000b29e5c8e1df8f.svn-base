@@ -1,12 +1,3 @@
-/*=============================================================================
-  Copyright (c) 2001-2008 Joel de Guzman
-  Copyright (c) 2001-2008 Hartmut Kaiser
-  http://spirit.sourceforge.net/
-
-  Distributed under the Boost Software License, Version 1.0. (See accompanying
-  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#ifndef BOOST_SPIRIT_INCLUDE_CLASSIC_TRAVERSE
-#define BOOST_SPIRIT_INCLUDE_CLASSIC_TRAVERSE
-#include <boost/spirit/home/classic/meta/traverse.hpp>
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:47c79e44e9fb109ac9b100ca3442e47521f136911a63b315d5c40caa79910430
+size 581

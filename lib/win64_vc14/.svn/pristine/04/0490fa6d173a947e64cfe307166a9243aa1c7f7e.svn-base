@@ -1,20 +1,3 @@
-#ifndef BOOST_METAPARSE_ENTIRE_INPUT_HPP
-#define BOOST_METAPARSE_ENTIRE_INPUT_HPP
-
-// Copyright Abel Sinkovics (abel@sinkovics.hu)  2013.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/metaparse/v1/entire_input.hpp>
-
-namespace boost
-{
-  namespace metaparse
-  {
-    using v1::entire_input;
-  }
-}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:3861399676b5d37bdc40270ddc57af38267002a61ff29677aa2b06aab39e22ad
+size 442

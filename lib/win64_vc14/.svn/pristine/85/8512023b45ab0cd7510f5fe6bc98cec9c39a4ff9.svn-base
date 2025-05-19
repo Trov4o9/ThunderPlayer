@@ -1,13 +1,3 @@
-/*==============================================================================
-    Copyright (c) 2005-2010 Joel de Guzman
-    Copyright (c) 2010 Thomas Heller
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-#ifndef BOOST_PHOENIX_FUSION_HPP
-#define BOOST_PHOENIX_FUSION_HPP
-
-#include <boost/phoenix/fusion/at.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:1b071e5e5c3e281d2620ed013dfba98ff92f9ad6dfee640fdd625be4e5d1965d
+size 512

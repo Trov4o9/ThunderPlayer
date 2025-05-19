@@ -1,13 +1,3 @@
-//////////////////////////////////////////////////////////////////////////////
-//
-// (C) Copyright Ion Gaztanaga 2005-2013. Distributed under the Boost
-// Software License, Version 1.0. (See accompanying file
-// LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-//
-// See http://www.boost.org/libs/container for documentation.
-//
-//////////////////////////////////////////////////////////////////////////////
-#if defined BOOST_MSVC
-   #pragma warning (pop)
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:f35bfe1070009b6dd95b4d76bd60399fc0ba4fcfd462709851499949b552c227
+size 480

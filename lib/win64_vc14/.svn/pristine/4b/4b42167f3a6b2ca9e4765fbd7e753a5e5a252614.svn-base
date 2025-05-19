@@ -1,23 +1,3 @@
-// Copyright (C) 2005-2006 Douglas Gregor <doug.gregor -at- gmail.com>.
-
-// Use, modification and distribution is subject to the Boost Software
-// License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-
-// Message Passing Interface 1.1 -- Section 4. MPI Collectives
-
-/** @file collectives_fwd.hpp
- *
- *  This header provides forward declarations for all of the
- *  collective operations contained in the header @c collectives.hpp.
- */
-#ifndef BOOST_MPI_COLLECTIVES_FWD_HPP
-#define BOOST_MPI_COLLECTIVES_FWD_HPP
-
-/// INTERNAL ONLY
-#define BOOST_MPI_COLLECTIVES_FORWARD_ONLY
-#include <boost/mpi/collectives.hpp>
-#undef BOOST_MPI_COLLECTIVES_FORWARD_ONLY
-
-#endif // BOOST_MPI_COLLECTIVES_FWD_HPP
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:1cef47d9a74ed545c82820222b7599e752dd0e36ee9d97611b66ed31695e88dc
+size 752

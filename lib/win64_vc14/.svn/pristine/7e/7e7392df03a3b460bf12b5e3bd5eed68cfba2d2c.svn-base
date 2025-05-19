@@ -1,18 +1,3 @@
-from distutils import log
-import distutils.command.register as orig
-
-
-class register(orig.register):
-    __doc__ = orig.register.__doc__
-
-    def run(self):
-        try:
-            # Make sure that we are using valid current name/version info
-            self.run_command('egg_info')
-            orig.register.run(self)
-        finally:
-            self.announce(
-                "WARNING: Registering is deprecated, use twine to "
-                "upload instead (https://pypi.org/p/twine/)",
-                log.WARN
-            )
+version https://git-lfs.github.com/spec/v1
+oid sha256:2cedccbd828f13c74dd66f8a92b0511c2ebc645a0fbc0fef23c5e0a7bbefeb32
+size 534

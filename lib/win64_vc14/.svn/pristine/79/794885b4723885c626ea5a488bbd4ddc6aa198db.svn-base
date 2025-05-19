@@ -1,35 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2011 Joel de Guzman
-    Copyright (c) 2006 Dan Marsden
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying 
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-#if !defined(FUSION_SIZE_IMPL_20060124_0800)
-#define FUSION_SIZE_IMPL_20060124_0800
-
-namespace boost { namespace fusion {
-    
-    struct zip_view_tag;
-
-    namespace extension
-    {
-        template<typename Sequence>
-        struct size;
-
-        template<typename Tag>
-        struct size_impl;
-
-        template<>
-        struct size_impl<zip_view_tag>
-        {
-            template<typename Sequence>
-            struct apply
-            {
-                typedef typename Sequence::size type;
-            };
-        };
-    }
-}}
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:5fc7efd4f7c19e2f14269b53bf71c1597894b1484cb0f710dcf1c4808eb8ebe1
+size 939

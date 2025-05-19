@@ -1,18 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2011 Joel de Guzman
-    Copyright (c) 2001-2011 Hartmut Kaiser
-    http://spirit.sourceforge.net/
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#ifndef BOOST_SPIRIT_INCLUDE_KARMA_REPOSITORY_CONFIX
-#define BOOST_SPIRIT_INCLUDE_KARMA_REPOSITORY_CONFIX
-
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
-#include <boost/spirit/repository/home/karma/directive/confix.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:2c75603a178823440cd993e49c5766fcf98e90dae100c9a57ae4cc23fd4e3c11
+size 662

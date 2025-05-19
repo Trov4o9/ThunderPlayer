@@ -1,23 +1,3 @@
-# /* Copyright (C) 2001
-#  * Housemarque Oy
-#  * http://www.housemarque.com
-#  *
-#  * Distributed under the Boost Software License, Version 1.0. (See
-#  * accompanying file LICENSE_1_0.txt or copy at
-#  * http://www.boost.org/LICENSE_1_0.txt)
-#  */
-#
-# /* Revised by Paul Mensonides (2002) */
-#
-# /* See http://www.boost.org for most recent version. */
-#
-# ifndef BOOST_PREPROCESSOR_FACILITIES_EMPTY_HPP
-# define BOOST_PREPROCESSOR_FACILITIES_EMPTY_HPP
-#
-# include <boost/preprocessor/config/config.hpp>
-#
-# /* BOOST_PP_EMPTY */
-#
-# define BOOST_PP_EMPTY()
-#
-# endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:0e086fd6efde0fabbf12715c72a80d9fa2916d14bed6a6e8631cc3a9efd7d648
+size 567

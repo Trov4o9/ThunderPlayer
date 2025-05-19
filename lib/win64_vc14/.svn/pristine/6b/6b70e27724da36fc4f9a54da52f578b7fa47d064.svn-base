@@ -1,17 +1,3 @@
-// Open Shading Language : Copyright (c) 2009-2017 Sony Pictures Imageworks Inc., et al.
-// https://github.com/imageworks/OpenShadingLanguage/blob/master/LICENSE
-// 
-// MaterialX specification (c) 2017 Lucasfilm Ltd. 
-// http://www.materialx.org/
-
-#include "mx_funcs.h"
-
-shader mx_normal_vector
-    [[ string help = "The geometric normal associated" ]]
-  (
-    string space = "object",
-    output vector out = 0
-  )
-{
-    out = transform(space, N);
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:a26b522e065b58331ad367fbc2a2ebc4763f49c9b6f821087639f700e3d80df8
+size 468

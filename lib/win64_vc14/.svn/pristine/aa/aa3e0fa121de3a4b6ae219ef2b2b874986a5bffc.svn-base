@@ -1,21 +1,3 @@
-// Boost.Geometry (aka GGL, Generic Geometry Library)
-
-// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
-
-// Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
-// (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
-
-// Use, modification and distribution is subject to the Boost Software License,
-// Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-
-#ifndef BOOST_GEOMETRY_MULTI_ALGORITHMS_DETAIL_FOR_EACH_RANGE_HPP
-#define BOOST_GEOMETRY_MULTI_ALGORITHMS_DETAIL_FOR_EACH_RANGE_HPP
-
-
-#include <boost/geometry/algorithms/detail/for_each_range.hpp>
-
-
-#endif // BOOST_GEOMETRY_MULTI_ALGORITHMS_DETAIL_FOR_EACH_RANGE_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:9e588f50d6352766ad8c864bf9dc26d71d5d1954df5d696cc8c0deb20b5ff1e2
+size 847

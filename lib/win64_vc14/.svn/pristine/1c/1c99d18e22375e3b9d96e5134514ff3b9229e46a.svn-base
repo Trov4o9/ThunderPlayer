@@ -1,26 +1,3 @@
-/*
-Copyright 2014-2015 Glen Joseph Fernandes
-(glenjofe@gmail.com)
-
-Distributed under the Boost Software License, Version 1.0.
-(http://www.boost.org/LICENSE_1_0.txt)
-*/
-#ifndef BOOST_ALIGN_DETAIL_MAX_SIZE_HPP
-#define BOOST_ALIGN_DETAIL_MAX_SIZE_HPP
-
-#include <boost/align/detail/integral_constant.hpp>
-#include <cstddef>
-
-namespace boost {
-namespace alignment {
-namespace detail {
-
-template<std::size_t A, std::size_t B>
-struct max_size
-    : integral_constant<std::size_t, (A > B) ? A : B> { };
-
-} /* detail */
-} /* alignment */
-} /* boost */
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:d2ad0b795dfbbe33b36f6f1b580b8bbc4777440660d31ea6987d57e2272453dd
+size 551

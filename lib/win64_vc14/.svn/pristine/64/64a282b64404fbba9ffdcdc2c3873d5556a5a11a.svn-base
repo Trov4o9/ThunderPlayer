@@ -1,15 +1,3 @@
-// Copyright (C) 2013 Vicente J. Botet Escriba
-//
-//  Distributed under the Boost Software License, Version 1.0. (See accompanying
-//  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-//
-// 2013/09 Vicente J. Botet Escriba
-//    Adapt to boost from CCIA C++11 implementation
-//    first implementation of a simple pool thread using a vector of threads and a sync_queue.
-
-#ifndef BOOST_THREAD_THREAD_POOL_HPP
-#define BOOST_THREAD_THREAD_POOL_HPP
-
-#include <boost/thread/executors/basic_thread_pool.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:a7efc89682f14cad9c7f0e5518e523dd4c77f67cd6c6c0dd5a052f1768989b39
+size 531

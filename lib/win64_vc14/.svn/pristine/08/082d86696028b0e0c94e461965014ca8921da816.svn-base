@@ -1,31 +1,3 @@
-//===- llvm/MC/MCAsmInfoELF.h - ELF Asm info --------------------*- C++ -*-===//
-//
-//                     The LLVM Compiler Infrastructure
-//
-// This file is distributed under the University of Illinois Open Source
-// License. See LICENSE.TXT for details.
-//
-//===----------------------------------------------------------------------===//
-
-#ifndef LLVM_MC_MCASMINFOELF_H
-#define LLVM_MC_MCASMINFOELF_H
-
-#include "llvm/MC/MCAsmInfo.h"
-
-namespace llvm {
-
-class MCAsmInfoELF : public MCAsmInfo {
-  virtual void anchor();
-  MCSection *getNonexecutableStackSection(MCContext &Ctx) const final;
-
-protected:
-  /// Targets which have non-executable stacks by default can set this to false
-  /// to disable the special section which requests a non-executable stack.
-  bool UsesNonexecutableStackSection = true;
-
-  MCAsmInfoELF();
-};
-
-} // end namespace llvm
-
-#endif // LLVM_MC_MCASMINFOELF_H
+version https://git-lfs.github.com/spec/v1
+oid sha256:f6f5cd025f5549680d13de6bad96c1a9b5c1a1f5c2fa2f0e7f7f7d962e7357f2
+size 885

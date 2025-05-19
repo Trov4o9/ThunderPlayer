@@ -1,17 +1,3 @@
-/*
-Copyright 2015 NumScale SAS
-Copyright 2015 LRI UMR 8623 CNRS/University Paris Sud XI
-
-Copyright 2015 Glen Joseph Fernandes
-(glenjofe@gmail.com)
-
-Distributed under the Boost Software License, Version 1.0.
-(http://www.boost.org/LICENSE_1_0.txt)
-*/
-#ifndef BOOST_ALIGN_DETAIL_ASSUME_ALIGNED_GCC_HPP
-#define BOOST_ALIGN_DETAIL_ASSUME_ALIGNED_GCC_HPP
-
-#define BOOST_ALIGN_ASSUME_ALIGNED(p, n) \
-(p) = static_cast<__typeof__(p)>(__builtin_assume_aligned((p), (n)))
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:6cfc6e4794c5bdb2e4666b4182fd4ea4824ee6e7d15b38efc1b4f7dcccf1a8a5
+size 470

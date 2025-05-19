@@ -1,25 +1,3 @@
-//
-//  (C) Copyright 2010-2011 Vicente J. Botet Escriba
-//  Use, modification and distribution are subject to the Boost Software License,
-//  Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
-//  http://www.boost.org/LICENSE_1_0.txt).
-//
-
-#ifndef BOOST_CHRONO_CLOCK_STRING_HPP
-#define BOOST_CHRONO_CLOCK_STRING_HPP
-
-#include <string>
-
-namespace boost
-{
-  namespace chrono
-  {
-
-    template<class Clock, class CharT>
-    struct clock_string;
-
-  } // chrono
-
-} // boost
-
-#endif  // BOOST_CHRONO_CLOCK_STRING_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:6e8c0adfada256ebda1594a95abfa410f732c067ac980eef7ccb936bb03c5ae6
+size 523

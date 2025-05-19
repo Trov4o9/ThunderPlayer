@@ -1,18 +1,3 @@
-///////////////////////////////////////////////////////////////////////////////
-/// \file proto.hpp
-/// Includes all of Proto.
-//
-//  Copyright 2008 Eric Niebler. Distributed under the Boost
-//  Software License, Version 1.0. (See accompanying file
-//  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-
-#ifndef BOOST_PROTO_HPP_EAN_04_01_2005
-#define BOOST_PROTO_HPP_EAN_04_01_2005
-
-#include <boost/proto/core.hpp>
-#include <boost/proto/debug.hpp>
-#include <boost/proto/context.hpp>
-#include <boost/proto/transform.hpp>
-#include <boost/proto/functional.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:5e7161a1a84bff7292680f6053c7ac5270f6d32cb1b843c56205c5453c95df3f
+size 581

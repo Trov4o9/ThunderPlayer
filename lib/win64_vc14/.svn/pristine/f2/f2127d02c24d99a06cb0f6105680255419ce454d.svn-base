@@ -1,20 +1,3 @@
-#ifndef BOOST_METAPARSE_GET_COL_HPP
-#define BOOST_METAPARSE_GET_COL_HPP
-
-//    Copyright Abel Sinkovics (abel@sinkovics.hu) 2013.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/metaparse/v1/get_col.hpp>
-
-namespace boost
-{
-  namespace metaparse
-  {
-    using v1::get_col;
-  }
-}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:a019016827094f7aa9a25c68c4af15b2ee07a6139116d9b1eaea3d55f306f44a
+size 424

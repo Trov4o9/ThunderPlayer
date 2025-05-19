@@ -1,6 +1,3 @@
-
-// Copyright 2005-2009 Daniel James.
-// Distributed under the Boost Software License, Version 1.0. (See accompanying
-// file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/container_hash/hash.hpp>
+version https://git-lfs.github.com/spec/v1
+oid sha256:3c1e756b0c98774fb26f75e8880ff4bbcfc53e18d8a39e686b32c7af45baa2d1
+size 233

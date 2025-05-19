@@ -1,14 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2010 Christopher Schmidt
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-
-#ifndef BOOST_FUSION_INCLUDE_PROXY_TYPE_HPP
-#define BOOST_FUSION_INCLUDE_PROXY_TYPE_HPP
-
-#include <boost/fusion/support/config.hpp>
-#include <boost/fusion/adapted/struct/detail/proxy_type.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:6540c5f7be409fc962c84d6a9528c24133a172ee5e230d0802318f2e43e03602
+size 562

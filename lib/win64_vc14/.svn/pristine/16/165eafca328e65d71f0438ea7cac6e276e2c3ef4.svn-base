@@ -1,17 +1,3 @@
-# /* **************************************************************************
-#  *                                                                          *
-#  *     (C) Copyright Paul Mensonides 2002.
-#  *     Distributed under the Boost Software License, Version 1.0. (See
-#  *     accompanying file LICENSE_1_0.txt or copy at
-#  *     http://www.boost.org/LICENSE_1_0.txt)
-#  *                                                                          *
-#  ************************************************************************** */
-#
-# /* See http://www.boost.org for most recent version. */
-#
-# ifndef BOOST_PREPROCESSOR_ENUM_PARAMS_WITH_DEFAULTS_HPP
-# define BOOST_PREPROCESSOR_ENUM_PARAMS_WITH_DEFAULTS_HPP
-#
-# include <boost/preprocessor/repetition/enum_params_with_defaults.hpp>
-#
-# endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:534a616fa8441b69dfe026b641b8ccac09b020c031a5866adaf52e816421c3e7
+size 802

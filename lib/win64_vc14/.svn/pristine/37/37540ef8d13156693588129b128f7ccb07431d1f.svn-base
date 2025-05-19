@@ -1,13 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2007 Joel de Guzman
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-#if !defined(FUSION_INCLUDE_LIST_FWD)
-#define FUSION_INCLUDE_LIST_FWD
-
-#include <boost/fusion/support/config.hpp>
-#include <boost/fusion/container/list/list_fwd.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:de2dbf126b790254c159a90efb54a2209211dba9ca9c2d41ea1810af7d67d98b
+size 534

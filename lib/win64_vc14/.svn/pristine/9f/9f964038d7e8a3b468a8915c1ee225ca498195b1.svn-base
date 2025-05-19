@@ -1,24 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2011 Hartmut Kaiser
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#if !defined(BOOST_SPIRIT_OUTPUT_UTREE_TRAITS_FWD_FEB_14_2011_0632AM)
-#define BOOST_SPIRIT_OUTPUT_UTREE_TRAITS_FWD_FEB_14_2011_0632AM
-
-///////////////////////////////////////////////////////////////////////////////
-// forward declarations only
-///////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace spirit 
-{ 
-    class utree;
-}}
-
-namespace boost
-{
-    template <typename T>
-    inline T get(boost::spirit::utree const& x);
-}
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:cd7c1887301bc7a034c37ecf318addb806e19f17297e13b7e8e7c5706cfd61ce
+size 846

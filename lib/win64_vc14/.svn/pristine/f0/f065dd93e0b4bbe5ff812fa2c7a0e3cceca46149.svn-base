@@ -1,20 +1,3 @@
-/*
- * Copyright 2017 Andrey Semashev
- *
- * Distributed under the Boost Software License, Version 1.0.
- * See http://www.boost.org/LICENSE_1_0.txt
- *
- * This header is deprecated, use boost/winapi/limits.hpp instead.
- */
-
-#ifndef BOOST_DETAIL_WINAPI_LIMITS_HPP_
-#define BOOST_DETAIL_WINAPI_LIMITS_HPP_
-
-#include <boost/winapi/limits.hpp>
-#include <boost/detail/winapi/detail/deprecated_namespace.hpp>
-
-#ifdef BOOST_HAS_PRAGMA_ONCE
-#pragma once
-#endif
-
-#endif // BOOST_DETAIL_WINAPI_LIMITS_HPP_
+version https://git-lfs.github.com/spec/v1
+oid sha256:255ec01d72f6003225b3d9cd4ceb5422a97ad9a7a4e820d3b2b3bafb3c297917
+size 493

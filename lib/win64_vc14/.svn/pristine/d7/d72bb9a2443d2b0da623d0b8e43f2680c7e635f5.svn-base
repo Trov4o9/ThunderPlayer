@@ -1,23 +1,3 @@
-
-#ifndef BOOST_MPL_AUX_TEMPLATE_ARITY_FWD_HPP_INCLUDED
-#define BOOST_MPL_AUX_TEMPLATE_ARITY_FWD_HPP_INCLUDED
-
-// Copyright Aleksey Gurtovoy 2001-2004
-//
-// Distributed under the Boost Software License, Version 1.0. 
-// (See accompanying file LICENSE_1_0.txt or copy at 
-// http://www.boost.org/LICENSE_1_0.txt)
-//
-// See http://www.boost.org/libs/mpl for documentation.
-
-// $Id$
-// $Date$
-// $Revision$
-
-namespace boost { namespace mpl { namespace aux {
-
-template< typename F > struct template_arity;
-
-}}}
-
-#endif // BOOST_MPL_AUX_TEMPLATE_ARITY_FWD_HPP_INCLUDED
+version https://git-lfs.github.com/spec/v1
+oid sha256:cf95228a7010cfaf32d7c214b20000e09c26afdf4739d698d29238098147c80f
+size 563

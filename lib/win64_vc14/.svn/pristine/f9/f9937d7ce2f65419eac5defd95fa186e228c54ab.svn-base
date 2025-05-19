@@ -1,21 +1,3 @@
-// Boost.Geometry Index
-//
-// Copyright (c) 2011-2013 Adam Wulkiewicz, Lodz, Poland.
-//
-// Use, modification and distribution is subject to the Boost Software License,
-// Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/config.hpp>
-
-#ifdef BOOST_MSVC
-
-    #pragma warning (push)
-    #pragma warning (disable : 4512) // assignment operator could not be generated
-    #pragma warning (disable : 4127) // conditional expression is constant
-
-    // temporary?
-    #pragma warning (disable : 4180) // qualifier applied to function type has no meaning
-
-#endif   //BOOST_MSVC
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:5001027d4325e4e9bd8c8e6c2956d32c6bbc1aa131aee8556135ec512595518d
+size 642

@@ -1,16 +1,3 @@
-
-//          Copyright Oliver Kowalke 2014.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#ifndef BOOST_COROUTINES2_ALL_H
-#define BOOST_COROUTINES2_ALL_H
-
-#include <boost/coroutine2/coroutine.hpp>
-#include <boost/coroutine2/fixedsize_stack.hpp>
-#include <boost/coroutine2/pooled_fixedsize_stack.hpp>
-#include <boost/coroutine2/protected_fixedsize_stack.hpp>
-#include <boost/coroutine2/segmented_stack.hpp>
-
-#endif // BOOST_COROUTINES2_ALL_H
+version https://git-lfs.github.com/spec/v1
+oid sha256:9a5fc8adc5ab1fc4360a318f7d5b128419842aaafcb4dd9ed580578c77c4025d
+size 564

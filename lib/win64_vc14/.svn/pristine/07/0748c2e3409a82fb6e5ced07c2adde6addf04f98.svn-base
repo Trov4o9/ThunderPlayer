@@ -1,20 +1,3 @@
-#ifndef BOOST_METAPARSE_ACCEPT_WHEN_HPP
-#define BOOST_METAPARSE_ACCEPT_WHEN_HPP
-
-// Copyright Abel Sinkovics (abel@sinkovics.hu)  2013.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/metaparse/v1/accept_when.hpp>
-
-namespace boost
-{
-  namespace metaparse
-  {
-    using v1::accept_when;
-  }
-}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:35e79064ea032dc3ff3e4a6c116fccc94f4ee0efbf1bd87c252d78e08f337d07
+size 438

@@ -1,12 +1,3 @@
-/*=============================================================================
-  Copyright (c) 2001-2008 Joel de Guzman
-  Copyright (c) 2001-2008 Hartmut Kaiser
-  http://spirit.sourceforge.net/
-
-  Distributed under the Boost Software License, Version 1.0. (See accompanying
-  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#ifndef BOOST_SPIRIT_INCLUDE_PHOENIX1_TUPLES
-#define BOOST_SPIRIT_INCLUDE_PHOENIX1_TUPLES
-#include <boost/spirit/home/classic/phoenix/tuples.hpp>
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:8f153d44ff86c30230210ccfaf74d105b623d6e604060cf2721037326a2fc87c
+size 580

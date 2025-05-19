@@ -1,32 +1,3 @@
-/*
-Copyright 2014-2015 Glen Joseph Fernandes
-(glenjofe@gmail.com)
-
-Distributed under the Boost Software License, Version 1.0.
-(http://www.boost.org/LICENSE_1_0.txt)
-*/
-#ifndef BOOST_ALIGN_DETAIL_ALIGNMENT_OF_MSVC_HPP
-#define BOOST_ALIGN_DETAIL_ALIGNMENT_OF_MSVC_HPP
-
-#include <boost/align/detail/min_size.hpp>
-
-namespace boost {
-namespace alignment {
-namespace detail {
-
-template<class T>
-struct offset_value {
-    T first;
-    char value;
-    T second;
-};
-
-template<class T>
-struct alignment_of
-    : min_size<sizeof(T), sizeof(offset_value<T>) - (sizeof(T) << 1)> { };
-
-} /* detail */
-} /* alignment */
-} /* boost */
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:b7b80c009a40376962f4bf6bb89bab207abb5235aae7bde3f806d0d769d3dc32
+size 627

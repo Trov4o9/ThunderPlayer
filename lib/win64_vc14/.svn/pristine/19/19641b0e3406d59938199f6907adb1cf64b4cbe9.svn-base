@@ -1,12 +1,3 @@
-/*=============================================================================
-  Copyright (c) 2001-2008 Joel de Guzman
-  Copyright (c) 2001-2008 Hartmut Kaiser
-  http://spirit.sourceforge.net/
-
-  Distributed under the Boost Software License, Version 1.0. (See accompanying
-  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#ifndef BOOST_SPIRIT_INCLUDE_CLASSIC_FILE_ITERATOR_FWD
-#define BOOST_SPIRIT_INCLUDE_CLASSIC_FILE_ITERATOR_FWD
-#include <boost/spirit/home/classic/iterator/file_iterator_fwd.hpp>
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:548812a641e5433c0f5865f4beb40d8e9ee894862a7715c98c283f962d642c8d
+size 612

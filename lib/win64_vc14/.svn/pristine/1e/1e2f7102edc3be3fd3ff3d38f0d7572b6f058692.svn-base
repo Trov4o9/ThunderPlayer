@@ -1,19 +1,3 @@
-// Boost.Bimap
-//
-// Copyright (c) 2006-2007 Matias Capeletto
-//
-// Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-
-//  See www.boost.org/libs/bimap for documentation.
-
-// Convenience header
-
-#include <boost/bimap/bimap.hpp>
-
-namespace boost
-{
-    using ::boost::bimaps::bimap;
-}
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:2929a1e172355c73b51b3dfcfbbb0d06d65aadc2be40a66aaf9337bdba57de5f
+size 387

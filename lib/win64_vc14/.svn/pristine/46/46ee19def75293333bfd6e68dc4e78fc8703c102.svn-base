@@ -1,19 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2005-2013 Joel de Guzman
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-#if !defined(BOOST_FUSION_MAP_INDEX_02032013_2233)
-#define BOOST_FUSION_MAP_INDEX_02032013_2233
-
-namespace boost { namespace fusion { namespace detail
-{
-    template <int N>
-    struct map_index
-    {
-        static int const value = N;
-    };
-}}}
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:40a4d257252b78fe595222ce737248ebbc347fa1f4a8eb887a71d1b2e9a21aa1
+size 616

@@ -1,29 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2009 Christopher Schmidt
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-
-#ifndef BOOST_FUSION_VIEW_REVERSE_VIEW_DETAIL_KEY_OF_IMPL_HPP
-#define BOOST_FUSION_VIEW_REVERSE_VIEW_DETAIL_KEY_OF_IMPL_HPP
-
-#include <boost/fusion/support/config.hpp>
-#include <boost/fusion/iterator/key_of.hpp>
-
-namespace boost { namespace fusion { namespace extension
-{
-    template <typename>
-    struct key_of_impl;
-
-    template <>
-    struct key_of_impl<reverse_view_iterator_tag>
-    {
-        template <typename It>
-        struct apply
-          : result_of::key_of<typename It::it_type>
-        {};
-    };
-}}}
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:f1632ed7285224518f4a2ae38dbc2ff5c5657265a4d900f0ed0a5dea51a4d200
+size 889

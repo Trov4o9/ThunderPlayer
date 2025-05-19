@@ -1,15 +1,3 @@
-
-//  (C) Copyright John Maddock 2000.
-//  Use, modification and distribution are subject to the Boost Software License,
-//  Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
-//  http://www.boost.org/LICENSE_1_0.txt).
-//
-//  See http://www.boost.org/libs/type_traits for most recent version including documentation.
-
-#ifndef BOOST_TT_ALIGNMENT_TRAITS_HPP_INCLUDED
-#define BOOST_TT_ALIGNMENT_TRAITS_HPP_INCLUDED
-
-#include <boost/type_traits/alignment_of.hpp>
-#include <boost/type_traits/type_with_alignment.hpp>
-
-#endif // BOOST_TT_ALIGNMENT_TRAITS_HPP_INCLUDED
+version https://git-lfs.github.com/spec/v1
+oid sha256:97bf6a4fcb2d3cfc0da802afce8cd21d9e0c3fc5b98d554df11a65bd456072de
+size 573

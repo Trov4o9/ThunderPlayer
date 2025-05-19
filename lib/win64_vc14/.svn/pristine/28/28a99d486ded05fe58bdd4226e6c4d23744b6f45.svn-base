@@ -1,20 +1,3 @@
-#ifndef BOOST_METAPARSE_FOLDL1_HPP
-#define BOOST_METAPARSE_FOLDL1_HPP
-
-// Copyright Abel Sinkovics (abel@sinkovics.hu)  2013.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/metaparse/v1/foldl1.hpp>
-
-namespace boost
-{
-  namespace metaparse
-  {
-    using v1::foldl1;
-  }
-}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:eeb6da9ff42b732681342bd1be4fe44ef5cf2b5710dc6a316f5d39745b33f7a7
+size 418

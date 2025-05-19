@@ -1,22 +1,3 @@
-#ifndef BOOST_METAPARSE_V1_FWD_BUILD_PARSER_HPP
-#define BOOST_METAPARSE_V1_FWD_BUILD_PARSER_HPP
-
-// Copyright Abel Sinkovics (abel@sinkovics.hu)  2013.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-namespace boost
-{
-  namespace metaparse
-  {
-    namespace v1
-    {
-      template <class P>
-      struct build_parser;
-    }
-  }
-}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:a129b0e4132cf4c14d64388dd109717eba00f4f40f8f23653ffc8cac84c19e85
+size 461

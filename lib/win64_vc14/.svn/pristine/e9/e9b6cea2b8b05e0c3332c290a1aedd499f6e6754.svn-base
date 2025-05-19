@@ -1,20 +1,3 @@
-#ifndef BOOST_METAPARSE_LETTER_HPP
-#define BOOST_METAPARSE_LETTER_HPP
-
-// Copyright Abel Sinkovics (abel@sinkovics.hu)  2013.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/metaparse/v1/letter.hpp>
-
-namespace boost
-{
-  namespace metaparse
-  {
-    using v1::letter;
-  }
-}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:2371b17c24517222d3785012488bf0be5f3100df9c0b3988fa1b233a0e96c066
+size 418

@@ -1,20 +1,3 @@
-#ifndef BOOST_METAPARSE_FOLDR_REJECT_INCOMPLETE1_HPP
-#define BOOST_METAPARSE_FOLDR_REJECT_INCOMPLETE1_HPP
-
-// Copyright Abel Sinkovics (abel@sinkovics.hu)  2015.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/metaparse/v1/foldr_reject_incomplete1.hpp>
-
-namespace boost
-{
-  namespace metaparse
-  {
-    using v1::foldr_reject_incomplete1;
-  }
-}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:07f84a803989beac8f1dc3acd2db8b49471c1c0e2594c4e96c3b463c1a2d2c3f
+size 490

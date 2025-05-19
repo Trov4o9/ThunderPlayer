@@ -1,23 +1,3 @@
-#include "arrayobject.h"
-
-#ifndef REFCOUNT
-#  define REFCOUNT NPY_REFCOUNT
-#  define MAX_ELSIZE 16
-#endif
-
-#define PyArray_UNSIGNED_TYPES
-#define PyArray_SBYTE NPY_BYTE
-#define PyArray_CopyArray PyArray_CopyInto
-#define _PyArray_multiply_list PyArray_MultiplyIntList
-#define PyArray_ISSPACESAVER(m) NPY_FALSE
-#define PyScalarArray_Check PyArray_CheckScalar
-
-#define CONTIGUOUS NPY_CONTIGUOUS
-#define OWN_DIMENSIONS 0
-#define OWN_STRIDES 0
-#define OWN_DATA NPY_OWNDATA
-#define SAVESPACE 0
-#define SAVESPACEBIT 0
-
-#undef import_array
-#define import_array() { if (_import_array() < 0) {PyErr_Print(); PyErr_SetString(PyExc_ImportError, "numpy.core.multiarray failed to import"); } }
+version https://git-lfs.github.com/spec/v1
+oid sha256:1d0287f912ebc2ad8a4d3f9ea1f279a8afe6a91b38198372b3fcca4df1c37960
+size 680

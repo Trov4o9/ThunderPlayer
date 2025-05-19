@@ -1,20 +1,3 @@
-#ifndef BOOST_METAPARSE_NEXT_LINE_HPP
-#define BOOST_METAPARSE_NEXT_LINE_HPP
-
-//    Copyright Abel Sinkovics (abel@sinkovics.hu) 2013.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/metaparse/v1/next_line.hpp>
-
-namespace boost
-{
-  namespace metaparse
-  {
-    using v1::next_line;
-  }
-}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:dae289c212fb0529bb152f5fd9be38e5e99c828f51daf53b894f29b883469f4e
+size 432

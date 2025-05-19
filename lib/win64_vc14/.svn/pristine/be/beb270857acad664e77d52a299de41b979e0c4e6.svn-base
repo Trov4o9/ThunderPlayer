@@ -1,14 +1,3 @@
-import sys
-
-# This code exists for backwards compatibility reasons.
-# I don't like it either. Just look the other way. :)
-
-for package in ('urllib3', 'idna', 'chardet'):
-    locals()[package] = __import__(package)
-    # This traversal is apparently necessary such that the identities are
-    # preserved (requests.packages.urllib3.* is urllib3.*)
-    for mod in list(sys.modules):
-        if mod == package or mod.startswith(package + '.'):
-            sys.modules['requests.packages.' + mod] = sys.modules[mod]
-
-# Kinda cool, though, right?
+version https://git-lfs.github.com/spec/v1
+oid sha256:436ac5d0be66737c1002f73aabf94056d3d30ce68e785803fbb9164902e48c44
+size 542

@@ -1,18 +1,3 @@
-//
-//  Copyright (c) 2009-2011 Artyom Beilis (Tonkikh)
-//
-//  Distributed under the Boost Software License, Version 1.0. (See
-//  accompanying file LICENSE_1_0.txt or copy at
-//  http://www.boost.org/LICENSE_1_0.txt)
-//
-#ifndef BOOST_LOCALE_BOUNDARY_HPP_INCLUDED
-#define BOOST_LOCALE_BOUNDARY_HPP_INCLUDED
-
-#include <boost/locale/boundary/types.hpp>
-#include <boost/locale/boundary/facets.hpp>
-#include <boost/locale/boundary/segment.hpp>
-#include <boost/locale/boundary/boundary_point.hpp>
-#include <boost/locale/boundary/index.hpp>
-
-#endif
-// vim: tabstop=4 expandtab shiftwidth=4 softtabstop=4
+version https://git-lfs.github.com/spec/v1
+oid sha256:47eac1e65140c72b99714a142f7d539c9a0da4d7c4f749fd265d059273b30da4
+size 597

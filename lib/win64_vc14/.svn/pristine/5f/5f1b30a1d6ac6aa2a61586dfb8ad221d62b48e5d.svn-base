@@ -1,33 +1,3 @@
-#ifndef BOOST_METAPARSE_V1_IMPL_IS_CHAR_C_HPP
-#define BOOST_METAPARSE_V1_IMPL_IS_CHAR_C_HPP
-
-// Copyright Abel Sinkovics (abel@sinkovics.hu)  2015.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/mpl/bool.hpp>
-
-namespace boost
-{
-  namespace metaparse
-  {
-    namespace v1
-    {
-      namespace impl
-      {
-        template <char C>
-        struct is_char_c
-        {
-          typedef is_char_c type;
-
-          template <class Ch>
-          struct apply : boost::mpl::bool_<Ch::type::value == C> {};
-        };
-      }
-    }
-  }
-}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:9a88f01c0fa64fc8f98c70601cf81bc7cc611b0b9737b42bf1c079607e63d1f6
+size 679

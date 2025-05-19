@@ -1,20 +1,3 @@
-#ifndef BOOST_METAPARSE_ALWAYS_C_HPP
-#define BOOST_METAPARSE_ALWAYS_C_HPP
-
-// Copyright Abel Sinkovics (abel@sinkovics.hu)  2013.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/metaparse/v1/always_c.hpp>
-
-namespace boost
-{
-  namespace metaparse
-  {
-    using v1::always_c;
-  }
-}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:427faa3b2d255db7a0a404ee6cf0ede61bfb2ae98c829a60240938e71ca26110
+size 426

@@ -1,13 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2007 Joel de Guzman
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-#if !defined(FUSION_INCLUDE_LESS)
-#define FUSION_INCLUDE_LESS
-
-#include <boost/fusion/support/config.hpp>
-#include <boost/fusion/sequence/comparison/less.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:685d534052f650ad151f4f375ff532e86dfd7707c93011bbd81da6d6f5b27383
+size 527

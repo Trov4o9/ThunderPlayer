@@ -1,22 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2011 Joel de Guzman
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-
-    This is an auto-generated file. Do not edit!
-==============================================================================*/
-
-#if FUSION_MAX_LIST_SIZE <= 10
-#include <boost/fusion/container/list/detail/cpp03/preprocessed/list_to_cons10.hpp>
-#elif FUSION_MAX_LIST_SIZE <= 20
-#include <boost/fusion/container/list/detail/cpp03/preprocessed/list_to_cons20.hpp>
-#elif FUSION_MAX_LIST_SIZE <= 30
-#include <boost/fusion/container/list/detail/cpp03/preprocessed/list_to_cons30.hpp>
-#elif FUSION_MAX_LIST_SIZE <= 40
-#include <boost/fusion/container/list/detail/cpp03/preprocessed/list_to_cons40.hpp>
-#elif FUSION_MAX_LIST_SIZE <= 50
-#include <boost/fusion/container/list/detail/cpp03/preprocessed/list_to_cons50.hpp>
-#else
-#error "FUSION_MAX_LIST_SIZE out of bounds for preprocessed headers"
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:70e2346be6d06e710690c89ac4353d298a7e70cc116aee1a8401ea4bef7a669c
+size 1076

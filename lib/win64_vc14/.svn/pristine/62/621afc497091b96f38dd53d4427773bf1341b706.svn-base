@@ -1,18 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2011 Joel de Guzman
-    Copyright (c) 2001-2011 Hartmut Kaiser
-    http://spirit.sourceforge.net/
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#ifndef BOOST_SPIRIT_INCLUDE_KARMA_VERBATIM
-#define BOOST_SPIRIT_INCLUDE_KARMA_VERBATIM
-
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
-#include <boost/spirit/home/karma/directive/verbatim.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:3c0a828fdb8d3b82d8791a7370f6e0e57a7fa0d5e004953e03d5bef6e4c2c0ba
+size 635

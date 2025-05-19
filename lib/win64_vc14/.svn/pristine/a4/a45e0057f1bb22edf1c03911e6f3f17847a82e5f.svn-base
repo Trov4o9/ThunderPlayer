@@ -1,12 +1,3 @@
-/*=============================================================================
-  Copyright (c) 2001-2008 Joel de Guzman
-  Copyright (c) 2001-2008 Hartmut Kaiser
-  http://spirit.sourceforge.net/
-
-  Distributed under the Boost Software License, Version 1.0. (See accompanying
-  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#ifndef BOOST_SPIRIT_INCLUDE_CLASSIC_STORED_RULE_FWD
-#define BOOST_SPIRIT_INCLUDE_CLASSIC_STORED_RULE_FWD
-#include <boost/spirit/home/classic/dynamic/stored_rule_fwd.hpp>
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:f6150a11b485519940ea310bde60db20038abe214a33099947ae888237978378
+size 605

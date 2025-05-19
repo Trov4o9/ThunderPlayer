@@ -1,23 +1,3 @@
-/*-----------------------------------------------------------------------------+    
-Copyright (c) 2008-2009: Joachim Faulhaber
-+------------------------------------------------------------------------------+
-   Distributed under the Boost Software License, Version 1.0.
-      (See accompanying file LICENCE.txt or copy at
-           http://www.boost.org/LICENSE_1_0.txt)
-+-----------------------------------------------------------------------------*/
-#ifndef BOOST_ICL_TYPE_TRAITS_IS_TOTAL_HPP_JOFA_081004
-#define BOOST_ICL_TYPE_TRAITS_IS_TOTAL_HPP_JOFA_081004
-
-namespace boost{ namespace icl
-{
-    template <class Type> struct is_total
-    { 
-        typedef is_total<Type> type;
-        BOOST_STATIC_CONSTANT(bool, value = false); 
-    };
-
-}} // namespace boost icl
-
-#endif
-
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:d6910d21f12807efa6e6c6744657f8ce2f75a6aa6c974385e48288809e8304c2
+size 780

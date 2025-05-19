@@ -1,13 +1,3 @@
-/*
-Copyright 2014 Glen Joseph Fernandes
-(glenjofe@gmail.com)
-
-Distributed under the Boost Software License, Version 1.0.
-(http://www.boost.org/LICENSE_1_0.txt)
-*/
-#ifndef BOOST_MAKE_UNIQUE_HPP_INCLUDED
-#define BOOST_MAKE_UNIQUE_HPP_INCLUDED
-
-#include <boost/smart_ptr/make_unique.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:42cf482bf6d03f01eddeeae6432daf04955700a74caebefb79718c89aad18c19
+size 293

@@ -1,28 +1,3 @@
-from __future__ import division, absolute_import, print_function
-
-import os
-
-ref_dir = os.path.join(os.path.dirname(__file__))
-
-__all__ = sorted(f[:-3] for f in os.listdir(ref_dir) if f.endswith('.py') and
-           not f.startswith('__'))
-
-for f in __all__:
-    __import__(__name__ + '.' + f)
-
-del f, ref_dir
-
-__doc__ = """\
-Topical documentation
-=====================
-
-The following topics are available:
-%s
-
-You can view them by
-
->>> help(np.doc.TOPIC)                                      #doctest: +SKIP
-
-""" % '\n- '.join([''] + __all__)
-
-__all__.extend(['__doc__'])
+version https://git-lfs.github.com/spec/v1
+oid sha256:043a714ccd22c36178b618c1918aa32175f9ec5e4a7c8687f3131debb37a261d
+size 574

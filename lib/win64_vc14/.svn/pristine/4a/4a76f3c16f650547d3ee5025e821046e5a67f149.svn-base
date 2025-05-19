@@ -1,30 +1,3 @@
-//===-- DomPrinter.h - Dom printer external interface ------------*- C++ -*-===//
-//
-//                     The LLVM Compiler Infrastructure
-//
-// This file is distributed under the University of Illinois Open Source
-// License. See LICENSE.TXT for details.
-//
-//===----------------------------------------------------------------------===//
-//
-// This file defines external functions that can be called to explicitly
-// instantiate the dominance tree printer.
-//
-//===----------------------------------------------------------------------===//
-
-#ifndef LLVM_ANALYSIS_DOMPRINTER_H
-#define LLVM_ANALYSIS_DOMPRINTER_H
-
-namespace llvm {
-  class FunctionPass;
-  FunctionPass *createDomPrinterPass();
-  FunctionPass *createDomOnlyPrinterPass();
-  FunctionPass *createDomViewerPass();
-  FunctionPass *createDomOnlyViewerPass();
-  FunctionPass *createPostDomPrinterPass();
-  FunctionPass *createPostDomOnlyPrinterPass();
-  FunctionPass *createPostDomViewerPass();
-  FunctionPass *createPostDomOnlyViewerPass();
-} // End llvm namespace
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:2cad516f2cea7f866df88ac7484b487a0a8052d8a03feab0fa7abe6e69a1b17c
+size 1036

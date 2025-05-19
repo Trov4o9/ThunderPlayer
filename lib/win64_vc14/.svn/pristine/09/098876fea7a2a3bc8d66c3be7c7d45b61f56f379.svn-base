@@ -1,33 +1,3 @@
-
-//          Copyright Oliver Kowalke 2014.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#ifndef BOOST_FIBERS_FIXEDSIZE_STACK_H
-#define BOOST_FIBERS_FIXEDSIZE_STACK_H
-
-#include <boost/config.hpp>
-#include <boost/context/fixedsize_stack.hpp>
-
-#include <boost/fiber/detail/config.hpp>
-
-#ifdef BOOST_HAS_ABI_HEADERS
-#  include BOOST_ABI_PREFIX
-#endif
-
-namespace boost {
-namespace fibers {
-
-using fixedsize_stack = boost::context::fixedsize_stack;
-#if !defined(BOOST_USE_SEGMENTED_STACKS)
-using   default_stack = boost::context::default_stack;
-#endif
-
-}}
-
-#ifdef BOOST_HAS_ABI_HEADERS
-#  include BOOST_ABI_SUFFIX
-#endif
-
-#endif // BOOST_FIBERS_FIXEDSIZE_STACK_H
+version https://git-lfs.github.com/spec/v1
+oid sha256:e62ec692bcd93e981395072ce5d81ce82fb13d7164d59f0af1d84af683f5b2ed
+size 782

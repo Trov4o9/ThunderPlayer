@@ -1,30 +1,3 @@
-//===--- PartiallyInlineLibCalls.h - Partially inline libcalls --*- C++ -*-===//
-//
-//                     The LLVM Compiler Infrastructure
-//
-// This file is distributed under the University of Illinois Open Source
-// License. See LICENSE.TXT for details.
-//
-//===----------------------------------------------------------------------===//
-//
-// This pass tries to partially inline the fast path of well-known library
-// functions, such as using square-root instructions for cases where sqrt()
-// does not need to set errno.
-//
-//===----------------------------------------------------------------------===//
-
-#ifndef LLVM_TRANSFORMS_SCALAR_PARTIALLYINLINELIBCALLS_H
-#define LLVM_TRANSFORMS_SCALAR_PARTIALLYINLINELIBCALLS_H
-
-#include "llvm/IR/Module.h"
-#include "llvm/IR/PassManager.h"
-
-namespace llvm {
-class PartiallyInlineLibCallsPass
-    : public PassInfoMixin<PartiallyInlineLibCallsPass> {
-public:
-  PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
-};
-}
-
-#endif // LLVM_TRANSFORMS_SCALAR_PARTIALLYINLINELIBCALLS_H
+version https://git-lfs.github.com/spec/v1
+oid sha256:ec9e5f2dbcb85787f0bec0c5933ab45a290ad85a12d450520a7315955e205fc7
+size 1037

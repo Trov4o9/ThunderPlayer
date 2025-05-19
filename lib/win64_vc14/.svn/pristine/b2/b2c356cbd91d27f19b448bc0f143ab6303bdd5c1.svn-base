@@ -1,13 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2007 Joel de Guzman
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-#if !defined(FUSION_INCLUDE_HAS_KEY)
-#define FUSION_INCLUDE_HAS_KEY
-
-#include <boost/fusion/support/config.hpp>
-#include <boost/fusion/sequence/intrinsic/has_key.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:7256e924406e9779736f95f01524c26303780956a93db47fb5bffeace15c2159
+size 535

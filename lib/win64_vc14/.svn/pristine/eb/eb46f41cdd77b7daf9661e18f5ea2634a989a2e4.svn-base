@@ -1,13 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2007 Joel de Guzman
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-#if !defined(FUSION_INCLUDE_REMOVE_IF)
-#define FUSION_INCLUDE_REMOVE_IF
-
-#include <boost/fusion/support/config.hpp>
-#include <boost/fusion/algorithm/transformation/remove_if.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:49ed30696362e4c49f681baaeebd219a058924fdb3e035060c0476c4572e489a
+size 547

@@ -1,19 +1,3 @@
-#ifndef BOOST_SHARED_ARRAY_HPP_INCLUDED
-#define BOOST_SHARED_ARRAY_HPP_INCLUDED
-
-//
-//  shared_array.hpp
-//
-//  (C) Copyright Greg Colvin and Beman Dawes 1998, 1999.
-//  Copyright (c) 2001, 2002 Peter Dimov
-//
-//  Distributed under the Boost Software License, Version 1.0. (See
-//  accompanying file LICENSE_1_0.txt or copy at
-//  http://www.boost.org/LICENSE_1_0.txt)
-//
-//  See http://www.boost.org/libs/smart_ptr/ for documentation.
-//
-
-#include <boost/smart_ptr/shared_array.hpp>
-
-#endif  // #ifndef BOOST_SHARED_ARRAY_HPP_INCLUDED
+version https://git-lfs.github.com/spec/v1
+oid sha256:e5cccb5eb0f126667c864484644c99a8f9ba7a108a98330737336b300f9fd600
+size 536

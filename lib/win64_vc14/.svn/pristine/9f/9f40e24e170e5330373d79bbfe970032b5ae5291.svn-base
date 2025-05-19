@@ -1,10 +1,3 @@
-from __future__ import division, absolute_import, print_function
-
-major = 2
-
-try:
-    from __svn_version__ import version
-    version_info = (major, version)
-    version = '%s_%s' % version_info
-except (ImportError, ValueError):
-    version = str(major)
+version https://git-lfs.github.com/spec/v1
+oid sha256:ac41c1f619569a9af284d6b412632794094308623819720b0bd09950457759ec
+size 254

@@ -1,15 +1,3 @@
-// Copyright David Abrahams 2002.
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-
-// DEPRECATED HEADER (2006 Jan 12)
-// Provided only for backward compatibility.
-// The boost::python::len() function is now defined in object.hpp.
-
-#ifndef BOOST_PYTHON_API_PLACE_HOLDER_HPP
-#define BOOST_PYTHON_API_PLACE_HOLDER_HPP
-
-#include <boost/python/object.hpp>
-
-#endif // BOOST_PYTHON_API_PLACE_HOLDER_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:edce50ba95c6c5203bf4824b7ba5e4dd3198dc0c35f54169eb1b4dac50bf637a
+size 504

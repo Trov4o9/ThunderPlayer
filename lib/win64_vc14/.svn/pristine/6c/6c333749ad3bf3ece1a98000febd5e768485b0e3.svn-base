@@ -1,18 +1,3 @@
-// Open Shading Language : Copyright (c) 2009-2017 Sony Pictures Imageworks Inc., et al.
-// https://github.com/imageworks/OpenShadingLanguage/blob/master/LICENSE
-// 
-// MaterialX specification (c) 2017 Lucasfilm Ltd. 
-// http://www.materialx.org/
-
-#include "mx_funcs.h"
-
-shader mx_dodge_color
-    [[ string help = "Color"" Take two 1-4 channel inputs and apply the same operator to all channels: B/(1-F)" ]]
-  (
-    color fg = 0,
-    color bg = 0,
-    output color out = 0
-  )
-{
-    out = bg / (1 - fg); 
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:04bb1812d0d51033bf8f24f1b685fe12e19f929605d8d36672e9de681897b26a
+size 525

@@ -1,16 +1,3 @@
-//---------------------------------------------------------------------------//
-// Copyright (c) 2013-2014 Kyle Lutz <kyle.r.lutz@gmail.com>
-//
-// Distributed under the Boost Software License, Version 1.0
-// See accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt
-//
-// See http://boostorg.github.com/compute for more information.
-//---------------------------------------------------------------------------//
-
-#ifndef BOOST_COMPUTE_INTEROP_QT_QTGUI_HPP
-#define BOOST_COMPUTE_INTEROP_QT_QTGUI_HPP
-
-#include <boost/compute/interop/qt/qimage.hpp>
-
-#endif // BOOST_COMPUTE_INTEROP_QT_QTGUI_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:79197d5a5cd96a6c34dd6894ac976a501df60f9efc0d83fe576c33ae6217c20a
+size 625

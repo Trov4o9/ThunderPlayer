@@ -1,13 +1,3 @@
-// Copyright (C) 2016-2018 T. Zachary Laine
-//
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-#ifndef BOOST_YAP_YAP_HPP_INCLUDED
-#define BOOST_YAP_YAP_HPP_INCLUDED
-
-
-#include <boost/yap/algorithm.hpp>
-#include <boost/yap/expression.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:2be00988f6eaf4694b82833908ac1457f555d00900fc40d879947843b0682369
+size 354

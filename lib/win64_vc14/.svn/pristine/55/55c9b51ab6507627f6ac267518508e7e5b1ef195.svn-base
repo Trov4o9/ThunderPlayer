@@ -1,24 +1,3 @@
-///////////////////////////////////////////////////////////////////////////////
-// ignore_unused.hpp
-//
-//  Copyright 2008 Eric Niebler. Distributed under the Boost
-//  Software License, Version 1.0. (See accompanying file
-//  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-
-#ifndef BOOST_XPRESSIVE_DETAIL_UTILITY_IGNORE_UNUSED_HPP_EAN_10_04_2005
-#define BOOST_XPRESSIVE_DETAIL_UTILITY_IGNORE_UNUSED_HPP_EAN_10_04_2005
-
-// MS compatible compilers support #pragma once
-#if defined(_MSC_VER)
-# pragma once
-#endif
-
-#include "boost/proto/detail/ignore_unused.hpp"
-
-namespace boost { namespace xpressive { namespace detail
-{
-  using boost::proto::detail::ignore_unused;
-}}}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:e43ce3cd717496186e9cb5b61db78d78bf17c5106c8e21e80b80e4c229723e15
+size 696

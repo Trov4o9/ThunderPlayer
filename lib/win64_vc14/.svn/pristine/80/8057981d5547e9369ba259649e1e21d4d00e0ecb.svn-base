@@ -1,19 +1,3 @@
-// Boost.Units - A C++ library for zero-overhead dimensional analysis and 
-// unit/quantity manipulation and conversion
-//
-// Copyright (C) 2003-2008 Matthias Christian Schabel
-// Copyright (C) 2007-2008 Steven Watanabe
-//
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-
-#ifndef BOOST_UNIT_SYSTEMS_METRIC_BAR_HPP_INCLUDED
-#define BOOST_UNIT_SYSTEMS_METRIC_BAR_HPP_INCLUDED
-
-#include <boost/units/conversion.hpp>
-#include <boost/units/systems/si/pressure.hpp>
-
-BOOST_UNITS_DEFINE_BASE_UNIT_WITH_CONVERSIONS(metric, bar, "bar", "bar", 1.0e5, si::pressure, 14);
-
-#endif // BOOST_UNIT_SYSTEMS_METRIC_BAR_HPP_INCLUDED
+version https://git-lfs.github.com/spec/v1
+oid sha256:0f37e82c580d0f27ea972b4041ec99c79a6268729e4c76e1fa9b8ecfe9ad3ca4
+size 722

@@ -1,18 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2011 Joel de Guzman
-    Copyright (c) 2001-2011 Hartmut Kaiser
-    http://spirit.sourceforge.net/
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#ifndef BOOST_SPIRIT_INCLUDE_SUPPORT_LOOK_AHEAD
-#define BOOST_SPIRIT_INCLUDE_SUPPORT_LOOK_AHEAD
-
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
-#include <boost/spirit/home/support/iterators/look_ahead.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:848c4a2540a8320f962b3793ef56c46f2642d9152cc415755b777310f67b555e
+size 647

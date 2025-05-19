@@ -1,32 +1,3 @@
-//  (c) Copyright Fernando Luis Cacciola Carballal 2000-2004
-//  Use, modification, and distribution is subject to the Boost Software
-//  License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
-//  http://www.boost.org/LICENSE_1_0.txt)
-
-//  See library home page at http://www.boost.org/libs/numeric/conversion
-//
-// Contact the author at: fernando_cacciola@hotmail.com
-// 
-#ifndef BOOST_NUMERIC_CONVERSION_CONVERSION_TRAITS_FLC_12NOV2002_HPP
-#define BOOST_NUMERIC_CONVERSION_CONVERSION_TRAITS_FLC_12NOV2002_HPP
-
-#include "boost/numeric/conversion/detail/conversion_traits.hpp"
-#include "boost/detail/workaround.hpp"
-#include "boost/config.hpp"
-
-namespace boost { namespace numeric
-{
-
-template<class T, class S>
-struct conversion_traits 
-    : convdetail::get_conversion_traits<T,S>::type 
-{
-} ;
-
-} } // namespace boost::numeric
-
-#endif
-//
-///////////////////////////////////////////////////////////////////////////////////////////////
-
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:7d76a813b2688b11d8e6668b021811343df8aae28b0d35adf64949e64ea7cc3d
+size 954

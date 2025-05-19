@@ -1,16 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2011 Hartmut Kaiser
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-#if !defined(BOOST_SPIRIT_BINARY_MAY_08_2007_0906AM)
-#define BOOST_SPIRIT_BINARY_MAY_08_2007_0906AM
-
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
-#include <boost/spirit/home/qi/binary/binary.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:5af218cdd6f21e2cbf6fcd1b45dd4ff2e861985d131eca63e35ed9a376220502
+size 562

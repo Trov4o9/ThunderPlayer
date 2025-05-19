@@ -1,19 +1,3 @@
-/*==============================================================================
-    Copyright (c) 2001-2010 Joel de Guzman
-    Copyright (c) 2010 Thomas Heller
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-#ifndef BOOST_PHOENIX_OBJECT_HPP
-#define BOOST_PHOENIX_OBJECT_HPP
-
-#include <boost/phoenix/object/const_cast.hpp>
-#include <boost/phoenix/object/construct.hpp>
-#include <boost/phoenix/object/delete.hpp>
-#include <boost/phoenix/object/dynamic_cast.hpp>
-#include <boost/phoenix/object/new.hpp>
-#include <boost/phoenix/object/reinterpret_cast.hpp>
-#include <boost/phoenix/object/static_cast.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:8f417c406b78a0114467118dbe74d6a45166ade4223506789eb7ee9010d2e6a4
+size 799

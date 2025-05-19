@@ -1,20 +1,3 @@
-#ifndef BOOST_METAPARSE_DIGIT_VAL_HPP
-#define BOOST_METAPARSE_DIGIT_VAL_HPP
-
-// Copyright Abel Sinkovics (abel@sinkovics.hu)  2013.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/metaparse/v1/digit_val.hpp>
-
-namespace boost
-{
-  namespace metaparse
-  {
-    using v1::digit_val;
-  }
-}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:c9a6d8b3ae0dbe93b7fab434dfa1badcdefc55d568725ea836dbe607877e2a1d
+size 430

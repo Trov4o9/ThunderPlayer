@@ -1,19 +1,3 @@
-import sys
-
-try:
-    # Our match_hostname function is the same as 3.5's, so we only want to
-    # import the match_hostname function if it's at least that good.
-    if sys.version_info < (3, 5):
-        raise ImportError("Fallback to vendored code")
-
-    from ssl import CertificateError, match_hostname
-except ImportError:
-    try:
-        # Backport of the function from a pypi module
-        from backports.ssl_match_hostname import CertificateError, match_hostname
-    except ImportError:
-        # Our vendored copy
-        from ._implementation import CertificateError, match_hostname
-
-# Not needed, but documenting what we provide.
-__all__ = ('CertificateError', 'match_hostname')
+version https://git-lfs.github.com/spec/v1
+oid sha256:58155bc500688cd0317d9c0d6af928c77060262300f412669befdfc1dd230ffa
+size 688

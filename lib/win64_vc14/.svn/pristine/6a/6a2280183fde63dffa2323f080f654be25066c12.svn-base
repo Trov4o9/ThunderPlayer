@@ -1,12 +1,3 @@
-/*=============================================================================
-  Copyright (c) 2001-2008 Joel de Guzman
-  Copyright (c) 2001-2008 Hartmut Kaiser
-  http://spirit.sourceforge.net/
-
-  Distributed under the Boost Software License, Version 1.0. (See accompanying
-  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#ifndef BOOST_SPIRIT_INCLUDE_CLASSIC_CHSET
-#define BOOST_SPIRIT_INCLUDE_CLASSIC_CHSET
-#include <boost/spirit/home/classic/utility/chset.hpp>
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:58a61086b2b9e944724d33cb988be3f6ecac3f5685347cd2303711f048b94fab
+size 575

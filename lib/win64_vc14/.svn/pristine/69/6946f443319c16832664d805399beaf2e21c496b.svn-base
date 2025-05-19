@@ -1,36 +1,3 @@
-
-//          Copyright Oliver Kowalke 2014.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#ifndef BOOST_FIBER_DETAIL_DECAY_COPY_H
-#define BOOST_FIBER_DETAIL_DECAY_COPY_H
-
-#include <type_traits>
-
-#include <boost/config.hpp>
-
-#include <boost/fiber/detail/config.hpp>
-
-#ifdef BOOST_HAS_ABI_HEADERS
-# include BOOST_ABI_PREFIX
-#endif
-
-namespace boost {
-namespace fibers {
-namespace detail {
-
-template< typename T >
-typename std::decay< T >::type
-decay_copy( T && t) {
-    return std::forward< T >( t);
-}
-
-}}}
-
-#ifdef BOOST_HAS_ABI_HEADERS
-#include BOOST_ABI_SUFFIX
-#endif
-
-#endif // BOOST_FIBER_DETAIL_DECAY_COPY_H
+version https://git-lfs.github.com/spec/v1
+oid sha256:5b60c097f9ca159e9d12feee2d280fac61e9a895c542ab7d0bd44108746fcc00
+size 733

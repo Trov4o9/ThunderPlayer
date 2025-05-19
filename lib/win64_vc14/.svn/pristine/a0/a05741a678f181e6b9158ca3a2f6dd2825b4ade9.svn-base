@@ -1,34 +1,3 @@
-
-#ifndef BOOST_MPL_LIST_AUX_EMPTY_HPP_INCLUDED
-#define BOOST_MPL_LIST_AUX_EMPTY_HPP_INCLUDED
-
-// Copyright Aleksey Gurtovoy 2000-2004
-//
-// Distributed under the Boost Software License, Version 1.0. 
-// (See accompanying file LICENSE_1_0.txt or copy at 
-// http://www.boost.org/LICENSE_1_0.txt)
-//
-// See http://www.boost.org/libs/mpl for documentation.
-
-// $Id$
-// $Date$
-// $Revision$
-
-#include <boost/mpl/empty_fwd.hpp>
-#include <boost/mpl/not.hpp>
-#include <boost/mpl/list/aux_/tag.hpp>
-
-namespace boost { namespace mpl {
-
-template<>
-struct empty_impl< aux::list_tag >
-{
-    template< typename List > struct apply
-        : not_<typename List::size>
-    {
-    };
-};
-
-}}
-
-#endif // BOOST_MPL_LIST_AUX_EMPTY_HPP_INCLUDED
+version https://git-lfs.github.com/spec/v1
+oid sha256:ce6e6b3a9be51a4acb82c6f4a73298f3d5cde9234fbe562e9c893283787ede03
+size 723

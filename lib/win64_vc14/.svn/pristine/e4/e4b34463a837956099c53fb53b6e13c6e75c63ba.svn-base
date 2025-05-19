@@ -1,22 +1,3 @@
-//  Copyright (c) 2001-2011 Hartmut Kaiser
-// 
-//  Distributed under the Boost Software License, Version 1.0. (See accompanying 
-//  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-
-#if !defined(BOOST_SPIRIT_REPOSITORY_SUPPORT_DISTINCT_APR_28_2009_0110PM)
-#define BOOST_SPIRIT_REPOSITORY_SUPPORT_DISTINCT_APR_28_2009_0110PM
-
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
-#include <boost/spirit/home/support/terminal.hpp>
-
-namespace boost { namespace spirit { namespace repository
-{
-    // The distinct extended terminal
-    BOOST_SPIRIT_DEFINE_TERMINALS_NAME_EX(( distinct, distinct_type ))
-
-}}}
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:74ead6399ce01ff771d3bfb432f8c91a8b2ace4c9be7241907976f9a608f0743
+size 623

@@ -1,24 +1,3 @@
-
-#ifndef BOOST_MPL_FRONT_FWD_HPP_INCLUDED
-#define BOOST_MPL_FRONT_FWD_HPP_INCLUDED
-
-// Copyright Aleksey Gurtovoy 2000-2004
-//
-// Distributed under the Boost Software License, Version 1.0. 
-// (See accompanying file LICENSE_1_0.txt or copy at 
-// http://www.boost.org/LICENSE_1_0.txt)
-//
-// See http://www.boost.org/libs/mpl for documentation.
-
-// $Id$
-// $Date$
-// $Revision$
-
-namespace boost { namespace mpl {
-
-template< typename Tag > struct front_impl;
-template< typename Sequence > struct front;
-
-}}
-
-#endif // BOOST_MPL_FRONT_FWD_HPP_INCLUDED
+version https://git-lfs.github.com/spec/v1
+oid sha256:c716fa5a6a6c845b4f0f2660f5cb725f484d7a2565aa2dc01e3b0d574beb8ba5
+size 549

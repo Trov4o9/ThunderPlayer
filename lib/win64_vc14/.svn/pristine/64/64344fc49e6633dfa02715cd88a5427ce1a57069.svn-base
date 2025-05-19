@@ -1,20 +1,3 @@
-#ifndef BOOST_METAPARSE_TRANSFORM_HPP
-#define BOOST_METAPARSE_TRANSFORM_HPP
-
-// Copyright Abel Sinkovics (abel@sinkovics.hu)  2013.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/metaparse/v1/transform.hpp>
-
-namespace boost
-{
-  namespace metaparse
-  {
-    using v1::transform;
-  }
-}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:7ee3097b651c6123b47399cb040e856363b2ace6c87064f81ec7413eb015bf5c
+size 430

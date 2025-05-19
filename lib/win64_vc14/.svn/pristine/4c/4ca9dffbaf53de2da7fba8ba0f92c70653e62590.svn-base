@@ -1,36 +1,3 @@
-//////////////////////////////////////////////////////////////////////////////
-//
-// (C) Copyright Ion Gaztanaga 2008-2012. Distributed under the Boost
-// Software License, Version 1.0. (See accompanying file
-// LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-//
-// See http://www.boost.org/libs/interprocess for documentation.
-//
-//////////////////////////////////////////////////////////////////////////////
-
-#ifndef BOOST_INTERPROCESS_CONTAINERS_SLIST_HPP
-#define BOOST_INTERPROCESS_CONTAINERS_SLIST_HPP
-
-#ifndef BOOST_CONFIG_HPP
-#  include <boost/config.hpp>
-#endif
-#
-#if defined(BOOST_HAS_PRAGMA_ONCE)
-#  pragma once
-#endif
-
-#include <boost/interprocess/detail/config_begin.hpp>
-#include <boost/container/slist.hpp>
-#include <boost/interprocess/containers/containers_fwd.hpp>
-
-namespace boost {
-namespace interprocess {
-
-using boost::container::slist;
-
-}  //namespace interprocess {
-}  //namespace boost {
-
-#include <boost/interprocess/detail/config_end.hpp>
-
-#endif //   #ifndef  BOOST_INTERPROCESS_CONTAINERS_SLIST_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:c6ac4acc98e1ba2d651baa103806e01c4f08c54ad48039e0a571c298d3a971e6
+size 1043

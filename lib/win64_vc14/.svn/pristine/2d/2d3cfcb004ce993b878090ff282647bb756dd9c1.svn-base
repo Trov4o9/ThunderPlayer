@@ -1,24 +1,3 @@
-#ifndef BOOST_METAPARSE_V1_SPACES_HPP
-#define BOOST_METAPARSE_V1_SPACES_HPP
-
-// Copyright Abel Sinkovics (abel@sinkovics.hu)  2009 - 2010.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/metaparse/v1/repeated1.hpp>
-#include <boost/metaparse/v1/space.hpp>
-
-namespace boost
-{
-  namespace metaparse
-  {
-    namespace v1
-    {
-      typedef repeated1<space> spaces;
-    }
-  }
-}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:43364405069a3c8f0d5d153ff60959e7b7b8e59b96bbfb9cdf40200665a9ca16
+size 520

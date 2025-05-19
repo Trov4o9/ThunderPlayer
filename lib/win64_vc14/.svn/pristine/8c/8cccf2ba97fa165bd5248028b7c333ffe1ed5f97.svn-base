@@ -1,17 +1,3 @@
-// Open Shading Language : Copyright (c) 2009-2017 Sony Pictures Imageworks Inc., et al.
-// https://github.com/imageworks/OpenShadingLanguage/blob/master/LICENSE
-// 
-// MaterialX specification (c) 2017 Lucasfilm Ltd. 
-// http://www.materialx.org/
-
-#include "mx_funcs.h"
-
-shader mx_geomattrvalue_color4
-    [[ string help = "The value assigned to the current geometry through the specified geomattr name" ]]
-  (
-    string attrname = "",
-    output color4 out = {color(0,0,0), 0}
-  )
-{
-    getattribute(attrname, out);
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:26d97d814e3ca0afc0a59417bc468b8c0e8736ecaaafc35e093b6e386292e99f
+size 537

@@ -1,21 +1,3 @@
-//---------------------------------------------------------------------------//
-// Copyright (c) 2013 Kyle Lutz <kyle.r.lutz@gmail.com>
-//
-// Distributed under the Boost Software License, Version 1.0
-// See accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt
-//
-// See http://boostorg.github.com/compute for more information.
-//---------------------------------------------------------------------------//
-
-#ifndef BOOST_COMPUTE_ASYNC_HPP
-#define BOOST_COMPUTE_ASYNC_HPP
-
-/// \file
-///
-/// Meta-header to include all Boost.Compute async headers.
-
-#include <boost/compute/async/future.hpp>
-#include <boost/compute/async/wait_guard.hpp>
-
-#endif // BOOST_COMPUTE_ASYNC_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:d32016296fd9eeeeb65663f85c5b66dbc3f1d8920a3e6e9642b6f5fd015a0850
+size 703

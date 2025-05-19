@@ -1,22 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2011 Joel de Guzman
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-
-    This is an auto-generated file. Do not edit!
-==============================================================================*/
-
-#if FUSION_MAX_LIST_SIZE <= 10
-#include <boost/fusion/container/generation/detail/preprocessed/list_tie10.hpp>
-#elif FUSION_MAX_LIST_SIZE <= 20
-#include <boost/fusion/container/generation/detail/preprocessed/list_tie20.hpp>
-#elif FUSION_MAX_LIST_SIZE <= 30
-#include <boost/fusion/container/generation/detail/preprocessed/list_tie30.hpp>
-#elif FUSION_MAX_LIST_SIZE <= 40
-#include <boost/fusion/container/generation/detail/preprocessed/list_tie40.hpp>
-#elif FUSION_MAX_LIST_SIZE <= 50
-#include <boost/fusion/container/generation/detail/preprocessed/list_tie50.hpp>
-#else
-#error "FUSION_MAX_LIST_SIZE out of bounds for preprocessed headers"
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:2c85a493d6e2c5e9ea77784c63a66e1e3fe3e125a8429f798c1d5d93e57058bd
+size 1056

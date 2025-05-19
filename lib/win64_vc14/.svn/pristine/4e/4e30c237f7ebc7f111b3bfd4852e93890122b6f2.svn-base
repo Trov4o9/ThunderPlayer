@@ -1,28 +1,3 @@
-/*
-Copyright 2015 Glen Joseph Fernandes
-(glenjofe@gmail.com)
-
-Distributed under the Boost Software License, Version 1.0.
-(http://www.boost.org/LICENSE_1_0.txt)
-*/
-#ifndef BOOST_ALIGN_DETAIL_ALIGN_DOWN_HPP
-#define BOOST_ALIGN_DETAIL_ALIGN_DOWN_HPP
-
-#include <boost/align/detail/is_alignment.hpp>
-#include <boost/assert.hpp>
-
-namespace boost {
-namespace alignment {
-
-inline void*
-align_down(void* ptr, std::size_t alignment) BOOST_NOEXCEPT
-{
-    BOOST_ASSERT(detail::is_alignment(alignment));
-    return reinterpret_cast<void*>(~(alignment - 1) &
-        reinterpret_cast<std::size_t>(ptr));
-}
-
-} /* alignment */
-} /* boost */
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:d399299829800a75c353c7eca5c6c0bb0682b9bac0b6cf5c8bc580d9d75f6cc4
+size 633

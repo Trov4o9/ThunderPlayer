@@ -1,32 +1,3 @@
-//
-// Boost.Pointer Container
-//
-//  Copyright Thorsten Ottosen 2003-2007. Use, modification and
-//  distribution is subject to the Boost Software License, Version
-//  1.0. (See accompanying file LICENSE_1_0.txt or copy at
-//  http://www.boost.org/LICENSE_1_0.txt)
-//
-// For more information, see http://www.boost.org/libs/ptr_container/
-//
-
-#ifndef BOOST_PTR_CONTAINER_DETAIL_SERIALIZE_XML_NAMES
-#define BOOST_PTR_CONTAINER_DETAIL_SERIALIZE_XML_NAMES
-
-namespace boost
-{
-    namespace ptr_container_detail
-    {
-        inline const char* count()  { return "count"; }
-        inline const char* item()   { return "item"; }
-        inline const char* first()  { return "first"; }
-        inline const char* second() { return "second"; }
-
-        template<class T>
-        inline T const& serialize_as_const(T const& r)
-        {
-            return r;
-        }
-    }
-}
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:7b5a31206efdefd6bf2d8cf22334d1f9bf996cab82bb53c8e665d01ebbcb103e
+size 876

@@ -1,17 +1,3 @@
-/*
- * Copyright (c) 2014 Glen Fernandes
- *
- * Distributed under the Boost Software License, Version 1.0. (See
- * accompanying file LICENSE_1_0.txt or copy at
- * http://www.boost.org/LICENSE_1_0.txt)
- */
-
-#ifndef BOOST_UTILITY_EXPLICIT_OPERATOR_BOOL_HPP
-#define BOOST_UTILITY_EXPLICIT_OPERATOR_BOOL_HPP
-
-// The header file at this path is deprecated;
-// use boost/core/explicit_operator_bool.hpp instead.
-
-#include <boost/core/explicit_operator_bool.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:be708809716ceb97102f330bafb58a849e8d2e1a5fa1786cba3f6368760abe87
+size 462

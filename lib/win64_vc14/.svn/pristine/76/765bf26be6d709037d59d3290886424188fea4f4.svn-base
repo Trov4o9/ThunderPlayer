@@ -1,22 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2011 Joel de Guzman
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-
-    This is an auto-generated file. Do not edit!
-==============================================================================*/
-
-#if FUSION_MAX_MAP_SIZE <= 10
-#include <boost/fusion/container/map/detail/cpp03/preprocessed/map10_fwd.hpp>
-#elif FUSION_MAX_MAP_SIZE <= 20
-#include <boost/fusion/container/map/detail/cpp03/preprocessed/map20_fwd.hpp>
-#elif FUSION_MAX_MAP_SIZE <= 30
-#include <boost/fusion/container/map/detail/cpp03/preprocessed/map30_fwd.hpp>
-#elif FUSION_MAX_MAP_SIZE <= 40
-#include <boost/fusion/container/map/detail/cpp03/preprocessed/map40_fwd.hpp>
-#elif FUSION_MAX_MAP_SIZE <= 50
-#include <boost/fusion/container/map/detail/cpp03/preprocessed/map50_fwd.hpp>
-#else
-#error "FUSION_MAX_MAP_SIZE out of bounds for preprocessed headers"
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:f8153f82d474911ba886a624f1face9d56a941107b85f1bb0a8a6430d70a9351
+size 1040

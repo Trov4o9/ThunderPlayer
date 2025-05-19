@@ -1,23 +1,3 @@
-
-#ifndef BOOST_MPL_AUX_HAS_BEGIN_HPP_INCLUDED
-#define BOOST_MPL_AUX_HAS_BEGIN_HPP_INCLUDED
-
-// Copyright Aleksey Gurtovoy 2002-2004
-//
-// Distributed under the Boost Software License, Version 1.0. 
-// (See accompanying file LICENSE_1_0.txt or copy at 
-// http://www.boost.org/LICENSE_1_0.txt)
-//
-// See http://www.boost.org/libs/mpl for documentation.
-
-// $Id$
-// $Date$
-// $Revision$
-
-#include <boost/mpl/has_xxx.hpp>
-
-namespace boost { namespace mpl { namespace aux {
-BOOST_MPL_HAS_XXX_TRAIT_NAMED_DEF(has_begin, begin, true)
-}}}
-
-#endif // BOOST_MPL_AUX_HAS_BEGIN_HPP_INCLUDED
+version https://git-lfs.github.com/spec/v1
+oid sha256:df7faf3ad4060d3ff0685cbe0de686187adf57b24e8960f35900bf3969221fef
+size 580

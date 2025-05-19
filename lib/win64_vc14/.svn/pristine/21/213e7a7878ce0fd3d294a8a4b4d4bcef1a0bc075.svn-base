@@ -1,19 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2011 Joel de Guzman
-    Copyright (c) 2001-2011 Hartmut Kaiser
-    Copyright (c) 2009 Francois Barel
-    http://spirit.sourceforge.net/
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#ifndef BOOST_SPIRIT_REPOSITORY_INCLUDE_KARMA_NONTERMINAL
-#define BOOST_SPIRIT_REPOSITORY_INCLUDE_KARMA_NONTERMINAL
-
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
-#include <boost/spirit/repository/home/karma/nonterminal.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:5b18821e8ed68f57cd2a155285a8cff749a24e79a44bac15112ecc24cb7c8aa8
+size 705

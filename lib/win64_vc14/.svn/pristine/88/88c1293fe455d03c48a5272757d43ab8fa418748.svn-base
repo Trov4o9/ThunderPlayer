@@ -1,30 +1,3 @@
-
-// (C) Copyright Tobias Schwinger
-//
-// Use modification and distribution are subject to the boost Software License,
-// Version 1.0. (See http://www.boost.org/LICENSE_1_0.txt).
-
-//------------------------------------------------------------------------------
-
-#ifndef BOOST_FT_FUNCTION_REFERENCE_HPP_INCLUDED
-#define BOOST_FT_FUNCTION_REFERENCE_HPP_INCLUDED
-
-#include <boost/mpl/aux_/lambda_support.hpp>
-
-#include <boost/function_types/function_type.hpp>
-
-namespace boost 
-{ 
-  namespace function_types 
-  {
-    template<typename Types, typename Tag = null_tag> struct function_reference
-    {
-      typedef typename function_types::function_type<Types,Tag>::type & type;
-
-      BOOST_MPL_AUX_LAMBDA_SUPPORT(2,function_reference,(Types,Tag))
-    };
-  } 
-} 
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:b5cafcd204aa13640bbe03b62c8cdf85dc6d4047e757b5fcce18c8d4b0d8ea8a
+size 767

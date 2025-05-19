@@ -1,9 +1,3 @@
-//Copyright (c) 2008-2016 Emil Dotchevski and Reverge Studios, Inc.
-
-//Distributed under the Boost Software License, Version 1.0. (See accompanying
-//file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-
-#ifndef BOOST_QVM_ASSERT
-#include <boost/assert.hpp>
-#define BOOST_QVM_ASSERT BOOST_ASSERT
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:ffec553cb337dd0d6021fc4d14b75a4692f05361511e799833f64827d07593c3
+size 328

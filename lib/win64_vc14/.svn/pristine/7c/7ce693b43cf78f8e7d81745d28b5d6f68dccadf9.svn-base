@@ -1,14 +1,3 @@
-#ifndef BOOST_METAPARSE_LIMIT_ONE_OF_SIZE_HPP
-#define BOOST_METAPARSE_LIMIT_ONE_OF_SIZE_HPP
-
-// Copyright Abel Sinkovics (abel@sinkovics.hu)  2013.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#ifndef BOOST_METAPARSE_LIMIT_ONE_OF_SIZE
-#  define BOOST_METAPARSE_LIMIT_ONE_OF_SIZE 20
-#endif
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:3a0712f621426a1219e62d5a62acdc03ed130909226b8232d12c1fe65940b643
+size 422

@@ -1,6 +1,3 @@
-include(CheckCXXCompilerFlag)
-
-function(check_linker_flag flag out_var)
-  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${flag}")
-  check_cxx_compiler_flag("" ${out_var})
-endfunction()
+version https://git-lfs.github.com/spec/v1
+oid sha256:dc40c5e5bf6a92dc2b772236561cd5414b7072e8f3481521c471399fd3b4cd7a
+size 193

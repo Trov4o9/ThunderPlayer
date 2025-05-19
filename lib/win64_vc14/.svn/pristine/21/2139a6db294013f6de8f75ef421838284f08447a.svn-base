@@ -1,24 +1,3 @@
-/*
-Copyright 2017-2018 Glen Joseph Fernandes
-<glenjofe -at- gmail.com>
-
-Distributed under the Boost Software License,
-Version 1.0. (See accompanying file LICENSE_1_0.txt
-or copy at http://www.boost.org/LICENSE_1_0.txt)
-*/
-
-#ifndef BOOST_TT_DETECTED_HPP_INCLUDED
-#define BOOST_TT_DETECTED_HPP_INCLUDED
-
-#include <boost/type_traits/detail/detector.hpp>
-#include <boost/type_traits/nonesuch.hpp>
-
-namespace boost {
-
-template<template<class...> class Op, class... Args>
-using detected_t = typename
-    detail::detector<nonesuch, void, Op, Args...>::type;
-
-} /* boost */
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:f390a163ee72e0fbb7702f097e719bb3b1982e749112d6c5c5a901c505e15c22
+size 574

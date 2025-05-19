@@ -1,11 +1,3 @@
-// Copyright (C) 2006 The Trustees of Indiana University.
-
-// Use, modification and distribution is subject to the Boost Software
-// License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-
-//  Authors: Douglas Gregor
-//           Andrew Lumsdaine
-
-// File moved
-#include <boost/property_map/parallel/unsafe_serialize.hpp>
+version https://git-lfs.github.com/spec/v1
+oid sha256:c4a905a3f412306acfb2f7b33b5d45d59c0174c6555f0934171660b7dce135cb
+size 380

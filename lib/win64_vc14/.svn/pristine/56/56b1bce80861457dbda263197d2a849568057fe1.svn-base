@@ -1,12 +1,3 @@
-/*=============================================================================
-  Copyright (c) 2001-2008 Joel de Guzman
-  Copyright (c) 2001-2008 Hartmut Kaiser
-  http://spirit.sourceforge.net/
-
-  Distributed under the Boost Software License, Version 1.0. (See accompanying
-  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#ifndef BOOST_SPIRIT_INCLUDE_CLASSIC_SCOPED_LOCK
-#define BOOST_SPIRIT_INCLUDE_CLASSIC_SCOPED_LOCK
-#include <boost/spirit/home/classic/utility/scoped_lock.hpp>
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:7338e09f0403e1ea7bc5bfd3b9f280378b89adc1f0a69291cd0ff65cff3ae9d5
+size 593

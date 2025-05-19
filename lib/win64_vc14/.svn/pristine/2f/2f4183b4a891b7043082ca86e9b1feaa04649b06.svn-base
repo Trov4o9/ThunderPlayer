@@ -1,20 +1,3 @@
-#ifndef BOOST_METAPARSE_GET_POSITION_HPP
-#define BOOST_METAPARSE_GET_POSITION_HPP
-
-//    Copyright Abel Sinkovics (abel@sinkovics.hu) 2013.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/metaparse/v1/get_position.hpp>
-
-namespace boost
-{
-  namespace metaparse
-  {
-    using v1::get_position;
-  }
-}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:ca2562890b12c2a26936a81d369eeafc946578116ae5d4e00e9277aa1579d826
+size 444

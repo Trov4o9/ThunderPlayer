@@ -1,25 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2003 Joel de Guzman
-    http://spirit.sourceforge.net/
-
-  Distributed under the Boost Software License, Version 1.0. (See accompanying
-  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#if !defined(BOOST_SPIRIT_NIL_HPP)
-#define BOOST_SPIRIT_NIL_HPP
-
-#include <boost/spirit/home/classic/namespace.hpp>
-
-namespace boost { namespace spirit {
-
-BOOST_SPIRIT_CLASSIC_NAMESPACE_BEGIN
-
-    struct nil_t {};
-
-BOOST_SPIRIT_CLASSIC_NAMESPACE_END
-
-}}
-
-#endif
-
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:76c5787e821fb00e81f8b400d6ba3a0d1d7a48b3f2588bf7330ff8484a8c0e0c
+size 654

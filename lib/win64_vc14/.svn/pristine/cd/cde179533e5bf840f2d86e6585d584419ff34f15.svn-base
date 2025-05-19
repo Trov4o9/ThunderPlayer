@@ -1,12 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2011 Joel de Guzman
-    Copyright (c) 2001-2011 Hartmut Kaiser
-    http://spirit.sourceforge.net/
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#ifndef BOOST_SPIRIT_INCLUDE_PHOENIX_OBJECT
-#define BOOST_SPIRIT_INCLUDE_PHOENIX_OBJECT
-#include <boost/phoenix/object.hpp>
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:2313ebd6bca277ba654f370d675142d129ccd4df253e0ea77e889467a4e863f7
+size 568

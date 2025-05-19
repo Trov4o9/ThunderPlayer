@@ -1,23 +1,3 @@
-//  (C) Copyright John Maddock 2005.
-//  Use, modification and distribution are subject to the
-//  Boost Software License, Version 1.0. (See accompanying file
-//  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-
-#ifndef BOOST_MATH_COMPLEX_FABS_INCLUDED
-#define BOOST_MATH_COMPLEX_FABS_INCLUDED
-
-#ifndef BOOST_MATH_HYPOT_INCLUDED
-#  include <boost/math/special_functions/hypot.hpp>
-#endif
-
-namespace boost{ namespace math{
-
-template<class T> 
-inline T fabs(const std::complex<T>& z)
-{
-   return ::boost::math::hypot(z.real(), z.imag());
-}
-
-} } // namespaces
-
-#endif // BOOST_MATH_COMPLEX_FABS_INCLUDED
+version https://git-lfs.github.com/spec/v1
+oid sha256:6f904e6f516a0b87d5141ef8cd4913c3c3b2ee7c27ff4f8aee4e603e07ec5d26
+size 618

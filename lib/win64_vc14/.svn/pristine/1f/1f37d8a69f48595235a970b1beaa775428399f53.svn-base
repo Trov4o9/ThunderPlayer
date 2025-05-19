@@ -1,26 +1,3 @@
-from __future__ import division, absolute_import, print_function
-
-import sys
-have_setuptools = ('setuptools' in sys.modules)
-
-from distutils.command.install_data import install_data as old_install_data
-
-#data installer with improved intelligence over distutils
-#data files are copied into the project directory instead
-#of willy-nilly
-class install_data (old_install_data):
-
-    def run(self):
-        old_install_data.run(self)
-
-        if have_setuptools:
-            # Run install_clib again, since setuptools does not run sub-commands
-            # of install automatically
-            self.run_command('install_clib')
-
-    def finalize_options (self):
-        self.set_undefined_options('install',
-                                   ('install_lib', 'install_dir'),
-                                   ('root', 'root'),
-                                   ('force', 'force'),
-                                  )
+version https://git-lfs.github.com/spec/v1
+oid sha256:ee2593c3ddedcb6b013f01f083f10486042165265ee92b0a75f4d2f516d447d0
+size 914

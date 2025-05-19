@@ -1,16 +1,3 @@
-//  include.hpp  ---------------------------------------------------------------//
-
-//  Copyright 2011 Vicente J. Botet Escriba
-
-//  Distributed under the Boost Software License, Version 1.0.
-//  See http://www.boost.org/LICENSE_1_0.txt
-
-#ifndef BOOST_RATIO_INCLUDE_HPP
-#define BOOST_RATIO_INCLUDE_HPP
-
-#include <boost/ratio/ratio.hpp>
-#include <boost/ratio/ratio_io.hpp>
-#ifdef BOOST_RATIO_EXTENSIONS
-#include <boost/ratio/mpl/rational_constant.hpp>
-#endif
-#endif  // BOOST_RATIO_INCLUDE_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:9b8a802e9c8b0f108ada0a2084a8d3fe921eb75a5894a55fa9286865c1ab0392
+size 493

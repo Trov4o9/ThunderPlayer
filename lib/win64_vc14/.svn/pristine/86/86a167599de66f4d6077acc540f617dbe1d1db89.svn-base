@@ -1,20 +1,3 @@
-/*
-Copyright 2014 Glen Joseph Fernandes
-(glenjofe@gmail.com)
-
-Distributed under the Boost Software License, Version 1.0.
-(http://www.boost.org/LICENSE_1_0.txt)
-*/
-#ifndef BOOST_ALIGN_ALIGNMENT_OF_FORWARD_HPP
-#define BOOST_ALIGN_ALIGNMENT_OF_FORWARD_HPP
-
-namespace boost {
-namespace alignment {
-
-template<class T>
-struct alignment_of;
-
-} /* alignment */
-} /* boost */
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:4950007e086dadae1dcb5e4bc56f7ae8b3fed441efbce39f6d90aad50a8c7b06
+size 375

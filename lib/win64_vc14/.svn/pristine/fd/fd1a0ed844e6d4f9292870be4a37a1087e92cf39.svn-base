@@ -1,34 +1,3 @@
-/*
-Copyright 2014 Glen Joseph Fernandes
-(glenjofe@gmail.com)
-
-Distributed under the Boost Software License, Version 1.0.
-(http://www.boost.org/LICENSE_1_0.txt)
-*/
-#ifndef BOOST_ALIGN_DETAIL_ALIGNED_ALLOC_SUNOS_HPP
-#define BOOST_ALIGN_DETAIL_ALIGNED_ALLOC_SUNOS_HPP
-
-#include <boost/align/detail/is_alignment.hpp>
-#include <boost/assert.hpp>
-#include <stdlib.h>
-
-namespace boost {
-namespace alignment {
-
-inline void*
-aligned_alloc(std::size_t alignment, std::size_t size) BOOST_NOEXCEPT
-{
-    BOOST_ASSERT(detail::is_alignment(alignment));
-    return ::memalign(alignment, size);
-}
-
-inline void
-aligned_free(void* ptr) BOOST_NOEXCEPT
-{
-    ::free(ptr);
-}
-
-} /* alignment */
-} /* boost */
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:0192f5ac7c7f29794014e6154f34b03dc9b95581d3e8873fccdf0c097c93c1fd
+size 695

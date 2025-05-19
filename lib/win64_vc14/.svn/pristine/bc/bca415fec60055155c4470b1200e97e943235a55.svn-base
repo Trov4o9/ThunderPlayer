@@ -1,24 +1,3 @@
-
-#ifndef BOOST_MPL_PUSH_BACK_FWD_HPP_INCLUDED
-#define BOOST_MPL_PUSH_BACK_FWD_HPP_INCLUDED
-
-// Copyright Aleksey Gurtovoy 2000-2004
-//
-// Distributed under the Boost Software License, Version 1.0. 
-// (See accompanying file LICENSE_1_0.txt or copy at 
-// http://www.boost.org/LICENSE_1_0.txt)
-//
-// See http://www.boost.org/libs/mpl for documentation.
-
-// $Id$
-// $Date$
-// $Revision$
-
-namespace boost { namespace mpl {
-
-template< typename Tag > struct push_back_impl;
-template< typename Sequence, typename T > struct push_back;
-
-}}
-
-#endif // BOOST_MPL_PUSH_BACK_FWD_HPP_INCLUDED
+version https://git-lfs.github.com/spec/v1
+oid sha256:18a3af3de643c04c01efc2db3ee6c11931578638bb151cf3d006cf120cfacadb
+size 581

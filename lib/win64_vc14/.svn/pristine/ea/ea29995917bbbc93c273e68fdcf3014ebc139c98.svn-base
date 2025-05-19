@@ -1,16 +1,3 @@
-
-// (C) Copyright Tobias Schwinger
-//
-// Use modification and distribution are subject to the boost Software License,
-// Version 1.0. (See http://www.boost.org/LICENSE_1_0.txt).
-
-//------------------------------------------------------------------------------
-
-// no include guards, this file is intended for multiple inclusions
-
-#undef callable_builtin
-#undef member
-#undef non_member
-#undef variadic
-#undef non_variadic
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:2eb79f1fe933be811635948bd73214f7bc66f8092023ae282959cac9c8999a4a
+size 423

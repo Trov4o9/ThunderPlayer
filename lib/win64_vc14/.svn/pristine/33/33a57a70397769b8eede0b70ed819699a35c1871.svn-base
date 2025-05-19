@@ -1,21 +1,3 @@
-
-#ifndef BOOST_MPL_LESS_HPP_INCLUDED
-#define BOOST_MPL_LESS_HPP_INCLUDED
-
-// Copyright Aleksey Gurtovoy 2000-2004
-//
-// Distributed under the Boost Software License, Version 1.0. 
-// (See accompanying file LICENSE_1_0.txt or copy at 
-// http://www.boost.org/LICENSE_1_0.txt)
-//
-// See http://www.boost.org/libs/mpl for documentation.
-
-// $Id$
-// $Date$
-// $Revision$
-
-#define AUX778076_OP_NAME less
-#define AUX778076_OP_TOKEN <
-#include <boost/mpl/aux_/comparison_op.hpp>
-
-#endif // BOOST_MPL_LESS_HPP_INCLUDED
+version https://git-lfs.github.com/spec/v1
+oid sha256:766fd3ef7a1f934d525025577ea9649af1b53cc2401add2062982b1176c12a12
+size 511

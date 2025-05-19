@@ -1,3 +1,4 @@
+*.svn-base filter=lfs diff=lfs merge=lfs -text
 /lib/win64_vc14/.svn/pristine/00/00ee7241432c2bfdbd88e21a66de2eeda6472198.svn-base filter=lfs diff=lfs merge=lfs -text
 /lib/win64_vc14/.svn/pristine/0a/0ad4a72fc81b8b11ae1379bfe4ff2faf0c994215.svn-base filter=lfs diff=lfs merge=lfs -text
 /lib/win64_vc14/.svn/pristine/0b/0b0f2d2e8af75ae9ad244e0f61fcd30428db6ae2.svn-base filter=lfs diff=lfs merge=lfs -text

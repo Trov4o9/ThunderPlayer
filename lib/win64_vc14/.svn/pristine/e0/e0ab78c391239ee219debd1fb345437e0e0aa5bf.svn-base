@@ -1,17 +1,3 @@
-/*
- * Copyright (c) 2014 Glen Fernandes
- *
- * Distributed under the Boost Software License, Version 1.0. (See
- * accompanying file LICENSE_1_0.txt or copy at
- * http://www.boost.org/LICENSE_1_0.txt)
- */
-
-#ifndef BOOST_UTILITY_ENABLE_IF_HPP
-#define BOOST_UTILITY_ENABLE_IF_HPP
-
-// The header file at this path is deprecated;
-// use boost/core/enable_if.hpp instead.
-
-#include <boost/core/enable_if.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:82ca441edd4f8c603b956b36c76f7db4b7b1287e4e9399e15b918ff64f480fcb
+size 410

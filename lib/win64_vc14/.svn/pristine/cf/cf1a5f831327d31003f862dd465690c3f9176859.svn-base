@@ -1,13 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2007 Joel de Guzman
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-#if !defined(FUSION_INCLUDE_POP_BACK)
-#define FUSION_INCLUDE_POP_BACK
-
-#include <boost/fusion/support/config.hpp>
-#include <boost/fusion/algorithm/transformation/pop_back.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:38bf615811ab08a6b08d24f435c900c110fcfe9c6946e30eecb239a4becab999
+size 544

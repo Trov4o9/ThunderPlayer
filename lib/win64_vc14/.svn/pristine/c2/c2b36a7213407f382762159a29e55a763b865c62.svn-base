@@ -1,21 +1,3 @@
-
-//  (C) Copyright Edward Diener 2011-2015
-//  Use, modification and distribution are subject to the Boost Software License,
-//  Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
-//  http://www.boost.org/LICENSE_1_0.txt).
-
-#if !defined(BOOST_VMD_DETAIL_IDENTIFIER_CONCAT_HPP)
-#define BOOST_VMD_DETAIL_IDENTIFIER_CONCAT_HPP
-
-#include <boost/preprocessor/cat.hpp>
-#include <boost/vmd/detail/idprefix.hpp>
-
-#define BOOST_VMD_DETAIL_IDENTIFIER_CONCATENATE(vseq) \
-    BOOST_PP_CAT \
-        ( \
-        BOOST_VMD_DETAIL_IDENTIFIER_REGISTRATION_PREFIX, \
-        vseq \
-        ) \
-/**/
-
-#endif /* BOOST_VMD_DETAIL_IDENTIFIER_CONCAT_HPP */
+version https://git-lfs.github.com/spec/v1
+oid sha256:74b84d915603d66a06a30d5acfeeb077bf560e9aa5b54e833dd34e046c1f1024
+size 648

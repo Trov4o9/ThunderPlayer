@@ -1,17 +1,3 @@
-# /* **************************************************************************
-#  *                                                                          *
-#  *     (C) Copyright Paul Mensonides 2002.
-#  *     Distributed under the Boost Software License, Version 1.0. (See
-#  *     accompanying file LICENSE_1_0.txt or copy at
-#  *     http://www.boost.org/LICENSE_1_0.txt)
-#  *                                                                          *
-#  ************************************************************************** */
-#
-# /* See http://www.boost.org for most recent version. */
-#
-# ifndef BOOST_PREPROCESSOR_REPEAT_HPP
-# define BOOST_PREPROCESSOR_REPEAT_HPP
-#
-# include <boost/preprocessor/repetition/repeat.hpp>
-#
-# endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:4afc30370c1de2b7bd9d2a9670f901d4c5fadb26a5b5d6dd647bf78644df8e3d
+size 745

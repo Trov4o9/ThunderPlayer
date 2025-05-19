@@ -1,11 +1,3 @@
-OpenShadingLanguage 1.00
-# Compiled by oslc 1.9.9
-# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_constant_vector.oso
-shader mx_constant_vector	%meta{string,help,"constant source"} 
-param	vector	value	0 0 0		%read{0,0} %write{2147483647,-1}
-oparam	vector	out	0 0 0		%read{2147483647,-1} %write{0,0}
-code ___main___
-# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_constant_vector.osl:16
-#     out = value;
-	assign		out value 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_constant_vector.osl"} %line{16} %argrw{"wr"}
-	end
+version https://git-lfs.github.com/spec/v1
+oid sha256:b56e3547257ec930e63dd412dff9b62278fba6eca6e151b3d1ad941d31380d5e
+size 939

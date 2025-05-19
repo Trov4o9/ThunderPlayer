@@ -1,15 +1,3 @@
-//  chrono.hpp  --------------------------------------------------------------//
-
-//  Copyright 2009-2011 Vicente J. Botet Escriba
-
-//  Distributed under the Boost Software License, Version 1.0.
-//  See http://www.boost.org/LICENSE_1_0.txt
-
-#ifndef BOOST_CHRONO_CHRONO_HPP
-#define BOOST_CHRONO_CHRONO_HPP
-
-#include <boost/chrono/duration.hpp>
-#include <boost/chrono/time_point.hpp>
-#include <boost/chrono/system_clocks.hpp>
-
-#endif // BOOST_CHRONO_CHRONO_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:8ff9b947f62a0bb90747b4ab41739b0d66d3be7e3c60e7085382a6871346be32
+size 459

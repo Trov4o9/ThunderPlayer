@@ -1,11 +1,3 @@
-#ifndef Py_ARRAYOBJECT_H
-#define Py_ARRAYOBJECT_H
-
-#include "ndarrayobject.h"
-#include "npy_interrupt.h"
-
-#ifdef NPY_NO_PREFIX
-#include "noprefix.h"
-#endif
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:4978fed9abd31d5f26356befeec3981cb2a444a71a7c31bbfc736940da2dd461
+size 164

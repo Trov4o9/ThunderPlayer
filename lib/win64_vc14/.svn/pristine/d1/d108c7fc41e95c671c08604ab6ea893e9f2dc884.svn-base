@@ -1,15 +1,3 @@
-
-//          Copyright Oliver Kowalke 2009.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/config.hpp>
-
-#if defined(BOOST_USE_SEGMENTED_STACKS)
-# if defined(BOOST_WINDOWS)
-#  error "segmented stacks are not supported by Windows"
-# else
-#  include <boost/coroutine/posix/segmented_stack_allocator.hpp>
-# endif
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:b41ea7c254941d00f07002fa48f88164c02031a9237f175c4743a899d4de5ac0
+size 454

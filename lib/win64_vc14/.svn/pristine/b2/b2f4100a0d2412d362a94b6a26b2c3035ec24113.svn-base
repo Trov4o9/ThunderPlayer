@@ -1,28 +1,3 @@
-//===- llvm/TableGen/TableGenBackend.h - Backend utilities ------*- C++ -*-===//
-//
-//                     The LLVM Compiler Infrastructure
-//
-// This file is distributed under the University of Illinois Open Source
-// License. See LICENSE.TXT for details.
-//
-//===----------------------------------------------------------------------===//
-//
-// Useful utilities for TableGen backends.
-//
-//===----------------------------------------------------------------------===//
-
-#ifndef LLVM_TABLEGEN_TABLEGENBACKEND_H
-#define LLVM_TABLEGEN_TABLEGENBACKEND_H
-
-namespace llvm {
-
-class StringRef;
-class raw_ostream;
-
-/// emitSourceFileHeader - Output an LLVM style file header to the specified
-/// raw_ostream.
-void emitSourceFileHeader(StringRef Desc, raw_ostream &OS);
-
-} // End llvm namespace
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:55e3a272fa2bb903407ad58a8cb29253e21b7fd0c4f7fa089e7a30eb50837351
+size 795

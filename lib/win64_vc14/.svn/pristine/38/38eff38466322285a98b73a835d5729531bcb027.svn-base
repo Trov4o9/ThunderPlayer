@@ -1,16 +1,3 @@
-// Boost.Geometry Index
-//
-// R-tree kmeans algorithm implementation
-//
-// Copyright (c) 2011-2013 Adam Wulkiewicz, Lodz, Poland.
-//
-// Use, modification and distribution is subject to the Boost Software License,
-// Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-
-#ifndef BOOST_GEOMETRY_INDEX_DETAIL_RTREE_KMEANS_KMEANS_HPP
-#define BOOST_GEOMETRY_INDEX_DETAIL_RTREE_KMEANS_KMEANS_HPP
-
-#include <boost/geometry/index/rtree/kmeans/split.hpp>
-
-#endif // BOOST_GEOMETRY_INDEX_DETAIL_RTREE_KMEANS_KMEANS_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:116ab0839fa63c9222e444de735e11780308ec464f84728a81661c21d4fcd672
+size 560

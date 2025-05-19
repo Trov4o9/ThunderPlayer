@@ -1,25 +1,3 @@
-#ifndef BOOST_METAPARSE_V1_DEFINE_ERROR_HPP
-#define BOOST_METAPARSE_V1_DEFINE_ERROR_HPP
-
-// Copyright Abel Sinkovics (abel@sinkovics.hu)  2013.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#include <string>
-
-#ifdef BOOST_METAPARSE_V1_DEFINE_ERROR
-#  error BOOST_METAPARSE_V1_DEFINE_ERROR already defined
-#endif
-#define BOOST_METAPARSE_V1_DEFINE_ERROR(name, msg) \
-  struct name \
-  { \
-    typedef name type; \
-    static std::string get_value() \
-    { \
-      return msg; \
-    } \
-  }
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:e5762530f94c2dbbcc3664b1319f85aa04d67f1e33c73d6aa6e609210b433645
+size 621

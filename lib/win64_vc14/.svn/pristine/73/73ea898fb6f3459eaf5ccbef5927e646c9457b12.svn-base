@@ -1,31 +1,3 @@
-//===- Transforms/GCOVProfiler.h - GCOVProfiler pass  ----------*- C++ -*-===//
-//
-//                     The LLVM Compiler Infrastructure
-//
-// This file is distributed under the University of Illinois Open Source
-// License. See LICENSE.TXT for details.
-//
-//===----------------------------------------------------------------------===//
-/// \file
-/// This file provides the interface for the GCOV style profiler  pass.
-//===----------------------------------------------------------------------===//
-
-#ifndef LLVM_TRANSFORMS_GCOVPROFILER_H
-#define LLVM_TRANSFORMS_GCOVPROFILER_H
-
-#include "llvm/IR/PassManager.h"
-#include "llvm/Transforms/Instrumentation.h"
-
-namespace llvm {
-/// The gcov-style instrumentation pass
-class GCOVProfilerPass : public PassInfoMixin<GCOVProfilerPass> {
-public:
-  GCOVProfilerPass(const GCOVOptions &Options = GCOVOptions::getDefault()) : GCOVOpts(Options) { }
-  PreservedAnalyses run(Module &M, ModuleAnalysisManager &AM);
-
-private:
-  GCOVOptions GCOVOpts;
-};
-
-} // End llvm namespace
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:e36bc7617f41657e976bab267d2be9adb76098d2807d64d8e58bb9bf4aa01fc1
+size 1024

@@ -1,20 +1,3 @@
-// Boost.Geometry
-
-// This file was modified by Oracle on 2018.
-// Modifications copyright (c) 2018, Oracle and/or its affiliates.
-// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
-
-// Use, modification and distribution is subject to the Boost Software License,
-// Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-
-#ifndef BOOST_GEOMETRY_SRS_SHARED_GRIDS_HPP
-#define BOOST_GEOMETRY_SRS_SHARED_GRIDS_HPP
-
-
-#include <boost/geometry/srs/projections/impl/pj_apply_gridshift_shared.hpp>
-#include <boost/geometry/srs/projections/impl/pj_gridlist_shared.hpp>
-#include <boost/geometry/srs/projections/shared_grids.hpp>
-
-
-#endif // BOOST_GEOMETRY_SRS_SHARED_GRIDS_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:6509d28c056657cfc7c26a38d2d8b2cd762042988819cb3e05175fc57c06d0f8
+size 735

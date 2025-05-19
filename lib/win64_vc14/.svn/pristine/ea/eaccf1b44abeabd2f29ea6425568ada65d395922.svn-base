@@ -1,19 +1,3 @@
-// Boost.Units - A C++ library for zero-overhead dimensional analysis and 
-// unit/quantity manipulation and conversion
-//
-// Copyright (C) 2003-2008 Matthias Christian Schabel
-// Copyright (C) 2007-2008 Steven Watanabe
-//
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-
-#ifndef BOOST_UNIT_SYSTEMS_METRIC_KNOT_HPP_INCLUDED
-#define BOOST_UNIT_SYSTEMS_METRIC_KNOT_HPP_INCLUDED
-
-#include <boost/units/conversion.hpp>
-#include <boost/units/systems/si/velocity.hpp>
-
-BOOST_UNITS_DEFINE_BASE_UNIT_WITH_CONVERSIONS(metric, knot, "knot", "kt", 1852./3600., boost::units::si::velocity, -403);
-
-#endif // BOOST_UNIT_SYSTEMS_METRIC_KNOT_HPP_INCLUDED
+version https://git-lfs.github.com/spec/v1
+oid sha256:dc892ccd2c12f46c77dcd6e30e6a56164b63b66c5d5f0c10fcee5ba7a56792d5
+size 748

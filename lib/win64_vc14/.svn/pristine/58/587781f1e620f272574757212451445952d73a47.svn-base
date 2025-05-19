@@ -1,26 +1,3 @@
-
-#ifndef BOOST_MPL_GET_TAG_HPP_INCLUDED
-#define BOOST_MPL_GET_TAG_HPP_INCLUDED
-
-// Copyright Sergey Krivonos 2017
-//
-// Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-//
-// See http://www.boost.org/libs/mpl for documentation.
-
-// $Id$
-// $Date$
-// $Revision$
-
-
-#define BOOST_MPL_GET_TAG_DEF(TAG) \
-    namespace boost { namespace mpl { \
-        template<typename T> \
-        struct get_##TAG { \
-            typedef typename T::TAG type; \
-        }; \
-    }}
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:68f397ef0a3fcce76b4d80df7b8c6f85311bca57da9c0fc7bc25690e1e2869db
+size 576

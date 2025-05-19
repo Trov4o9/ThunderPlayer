@@ -1,13 +1,3 @@
-class TomlError(RuntimeError):
-    def __init__(self, message, line, col, filename):
-        RuntimeError.__init__(self, message, line, col, filename)
-        self.message = message
-        self.line = line
-        self.col = col
-        self.filename = filename
-
-    def __str__(self):
-        return '{}({}, {}): {}'.format(self.filename, self.line, self.col, self.message)
-
-    def __repr__(self):
-        return 'TomlError({!r}, {!r}, {!r}, {!r})'.format(self.message, self.line, self.col, self.filename)
+version https://git-lfs.github.com/spec/v1
+oid sha256:f42acb2d3b353dd5a3130467633b7f8b87611dc66f1b1b3f1ac3256005f7898e
+size 509

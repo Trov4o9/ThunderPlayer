@@ -1,18 +1,3 @@
-// Open Shading Language : Copyright (c) 2009-2017 Sony Pictures Imageworks Inc., et al.
-// https://github.com/imageworks/OpenShadingLanguage/blob/master/LICENSE
-// 
-// MaterialX specification (c) 2017 Lucasfilm Ltd. 
-// http://www.materialx.org/
-
-#include "mx_funcs.h"
-
-shader mx_dotproduct_vector
-    [[ string help = "Vector"" Perform a dot product of two 2-4 channel vectors" ]]
-  (
-    vector in1 = 0,
-    vector in2 = 0,
-    output float out = 0
-  )
-{
-    out = dot(in1, in2); 
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:db7a2363909fab29b1f35cf146e4c492fe36d47783aedb7b630e01f68e017c7b
+size 504

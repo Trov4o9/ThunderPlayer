@@ -1,8 +1,3 @@
-//  (C) Copyright John Maddock 2003. 
-//  Use, modification and distribution are subject to the 
-//  Boost Software License, Version 1.0. (See accompanying file 
-//  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-
-#pragma pack(pop)
-
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:e401a3cc760fde65b6ff0681094eaab365a5716632d8526d4847e98f842927ac
+size 252

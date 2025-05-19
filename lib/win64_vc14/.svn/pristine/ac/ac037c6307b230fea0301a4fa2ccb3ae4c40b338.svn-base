@@ -1,17 +1,3 @@
-// Open Shading Language : Copyright (c) 2009-2017 Sony Pictures Imageworks Inc., et al.
-// https://github.com/imageworks/OpenShadingLanguage/blob/master/LICENSE
-// 
-// MaterialX specification (c) 2017 Lucasfilm Ltd. 
-// http://www.materialx.org/
-
-#include "mx_funcs.h"
-
-shader mx_absval_vector2
-    [[ string help = "The per-channel absolute value of the incoming float/color/vector." ]]
-  (
-    vector2 in = {0,0},
-    output vector2 out = {0,0}
-  )
-{
-    out = abs(in);
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:469372ce206ce194e928f8f87f20fa6917dc5529e660c5db84c0bb55d9371381
+size 492

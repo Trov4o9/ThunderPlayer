@@ -1,8 +1,3 @@
-// Copyright (C) 2005 Arkadiy Vertleyb
-// Use, modification and distribution is subject to the Boost Software
-// License, Version 1.0. (http://www.boost.org/LICENSE_1_0.txt)
-
-#if defined(_MSC_VER) && defined BOOST_TYPEOF_MESSAGES
-#    pragma message(BOOST_TYPEOF_TEXT)
-#endif
-#undef BOOST_TYPEOF_TEXT
+version https://git-lfs.github.com/spec/v1
+oid sha256:37605e92107c37fc4999d783542095195bd567d73f365cf6a0e52341a8437cfd
+size 301

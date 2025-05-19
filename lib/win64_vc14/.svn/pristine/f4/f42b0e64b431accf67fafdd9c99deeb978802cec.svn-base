@@ -1,18 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2011 Joel de Guzman
-    Copyright (c) 2001-2011 Hartmut Kaiser
-    http://spirit.sourceforge.net/
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#ifndef BOOST_SPIRIT_INCLUDE_KARMA_DELIMIT
-#define BOOST_SPIRIT_INCLUDE_KARMA_DELIMIT
-
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
-#include <boost/spirit/home/karma/directive/delimit.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:ca92e3fdb4c51ae88dff64edd3585dc0e46e5b93a55065b85d78c84459eb4975
+size 632

@@ -1,21 +1,3 @@
-
-#ifndef BOOST_MPL_LIMITS_SET_HPP_INCLUDED
-#define BOOST_MPL_LIMITS_SET_HPP_INCLUDED
-
-// Copyright Aleksey Gurtovoy 2000-2004
-//
-// Distributed under the Boost Software License, Version 1.0. 
-// (See accompanying file LICENSE_1_0.txt or copy at 
-// http://www.boost.org/LICENSE_1_0.txt)
-//
-// See http://www.boost.org/libs/mpl for documentation.
-
-// $Id$
-// $Date$
-// $Revision$
-
-#if !defined(BOOST_MPL_LIMIT_SET_SIZE)
-#   define BOOST_MPL_LIMIT_SET_SIZE 20
-#endif
-
-#endif // BOOST_MPL_LIMITS_SET_HPP_INCLUDED
+version https://git-lfs.github.com/spec/v1
+oid sha256:f3772c2e36e5c9ee6ecd6990d936b470f372a30bd46dc46037134a9a5e16f8de
+size 510

@@ -1,15 +1,3 @@
-"""
-Back compatibility decorators module. It will import the appropriate
-set of tools
-
-"""
-from __future__ import division, absolute_import, print_function
-
-import warnings
-
-# 2018-04-04, numpy 1.15.0
-warnings.warn("Importing from numpy.testing.decorators is deprecated "
-              "since numpy 1.15.0, import from numpy.testing instead.",
-              DeprecationWarning, stacklevel=2)
-
-from ._private.decorators import *
+version https://git-lfs.github.com/spec/v1
+oid sha256:04492d9f43ee5659a0510ff3195357bb4c10621dd6d3f6eeeb52e740faf1636d
+size 428

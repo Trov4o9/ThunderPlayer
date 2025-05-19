@@ -1,21 +1,3 @@
-
-#ifndef BOOST_MPL_EQUAL_TO_HPP_INCLUDED
-#define BOOST_MPL_EQUAL_TO_HPP_INCLUDED
-
-// Copyright Aleksey Gurtovoy 2000-2004
-//
-// Distributed under the Boost Software License, Version 1.0. 
-// (See accompanying file LICENSE_1_0.txt or copy at 
-// http://www.boost.org/LICENSE_1_0.txt)
-//
-// See http://www.boost.org/libs/mpl for documentation.
-
-// $Id$
-// $Date$
-// $Revision$
-
-#define AUX778076_OP_NAME equal_to
-#define AUX778076_OP_TOKEN ==
-#include <boost/mpl/aux_/comparison_op.hpp>
-
-#endif // BOOST_MPL_EQUAL_TO_HPP_INCLUDED
+version https://git-lfs.github.com/spec/v1
+oid sha256:989a43e4ffd1b27c34be6a81c1a0dbae02f5748816d8090ed8f0e226f17c6a2e
+size 528

@@ -1,17 +1,3 @@
-/*!
-@file
-Defines `boost::hana::size`.
-
-@copyright Louis Dionne 2013-2017
-Distributed under the Boost Software License, Version 1.0.
-(See accompanying file LICENSE.md or copy at http://boost.org/LICENSE_1_0.txt)
- */
-
-#ifndef BOOST_HANA_SIZE_HPP
-#define BOOST_HANA_SIZE_HPP
-
-#include <boost/hana/fwd/size.hpp>
-
-#include <boost/hana/length.hpp>
-
-#endif // !BOOST_HANA_SIZE_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:d9a5ff85eb35a7fe3631bb9c4ece8c97e376a8b1c3143e439f2f69f4ea7c0a6f
+size 375

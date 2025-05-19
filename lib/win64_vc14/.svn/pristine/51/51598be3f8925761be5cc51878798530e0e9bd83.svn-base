@@ -1,19 +1,3 @@
-// Boost.Units - A C++ library for zero-overhead dimensional analysis and 
-// unit/quantity manipulation and conversion
-//
-// Copyright (C) 2003-2008 Matthias Christian Schabel
-// Copyright (C) 2007-2008 Steven Watanabe
-//
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-
-#ifndef BOOST_UNIT_SYSTEMS_METRIC_LITER_HPP_INCLUDED
-#define BOOST_UNIT_SYSTEMS_METRIC_LITER_HPP_INCLUDED
-
-#include <boost/units/conversion.hpp>
-#include <boost/units/systems/si/volume.hpp>
-
-BOOST_UNITS_DEFINE_BASE_UNIT_WITH_CONVERSIONS(metric, liter, "liter", "L", 1.0e-3, si::volume, 13);
-
-#endif // BOOST_UNIT_SYSTEMS_METRIC_LITER_HPP_INCLUDED
+version https://git-lfs.github.com/spec/v1
+oid sha256:037083ee7e38fd45d12a46d20b029979187e7d58c122da0c74267b62b8af5402
+size 727

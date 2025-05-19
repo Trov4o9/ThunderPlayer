@@ -1,28 +1,3 @@
-
-// (C) Copyright Tobias Schwinger
-//
-// Use modification and distribution are subject to the boost Software License,
-// Version 1.0. (See http://www.boost.org/LICENSE_1_0.txt).
-
-//------------------------------------------------------------------------------
-
-#ifndef BOOST_FT_FUNCTION_TYPE_HPP_INCLUDED
-#define BOOST_FT_FUNCTION_TYPE_HPP_INCLUDED
-
-#include <boost/function_types/detail/synthesize.hpp>
-#include <boost/function_types/detail/to_sequence.hpp>
-
-namespace boost 
-{ 
-  namespace function_types 
-  {
-    template<typename Types, typename Tag = null_tag> struct function_type
-      : detail::synthesize_func<typename detail::to_sequence<Types>::type, Tag>
-    {
-      BOOST_MPL_AUX_LAMBDA_SUPPORT(2,function_type,(Types,Tag))
-    };
-  }
-}
-
-#endif
- 
+version https://git-lfs.github.com/spec/v1
+oid sha256:40bd267f7cfa34f85e88a058f34f7207f7050f3a8c655b11d0480b36363fe10f
+size 760

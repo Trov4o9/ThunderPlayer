@@ -1,30 +1,3 @@
-//  sign.hpp
-//
-//  (C) Copyright 2011 Vicente J. Botet Escriba
-//  Use, modification and distribution are subject to the Boost Software License,
-//  Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
-//  http://www.boost.org/LICENSE_1_0.txt).
-//
-
-#ifndef BOOST_RATIO_MPL_SIGN_HPP
-#define BOOST_RATIO_MPL_SIGN_HPP
-
-#include <boost/ratio/ratio.hpp>
-#include <boost/ratio/mpl/numeric_cast.hpp>
-#include <boost/ratio/detail/mpl/sign.hpp>
-
-namespace boost { 
-namespace mpl {
-
-template<>
-struct sign_impl< rational_c_tag >
-{
-    template< typename R > struct apply
-        : ratio_sign<R>
-    {
-    };
-};    
-}
-}
-
-#endif  // BOOST_RATIO_MPL_SIGN_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:6e8bd8022df84a2eb0fb744fbdf46bc327a33c36be7f10b7598db5b07459a987
+size 657

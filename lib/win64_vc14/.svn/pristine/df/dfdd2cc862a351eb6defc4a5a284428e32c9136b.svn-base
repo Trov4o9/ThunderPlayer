@@ -1,18 +1,3 @@
-/*-----------------------------------------------------------------------------+    
-Copyright (c) 2008-2009: Joachim Faulhaber
-+------------------------------------------------------------------------------+
-   Distributed under the Boost Software License, Version 1.0.
-      (See accompanying file LICENCE.txt or copy at
-           http://www.boost.org/LICENSE_1_0.txt)
-+-----------------------------------------------------------------------------*/
-#ifndef BOOST_ICL_TYPE_TRAITS_SIZE_HPP_JOFA_080911
-#define BOOST_ICL_TYPE_TRAITS_SIZE_HPP_JOFA_080911
-
-namespace boost{ namespace icl
-{
-    template <class Type> struct size{ typedef std::size_t type; };
-}} // namespace boost icl
-
-#endif
-
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:22edeaa3faa71a726dd86a3f2fa450f110ea1b5f788791abda88a799855eaafe
+size 693

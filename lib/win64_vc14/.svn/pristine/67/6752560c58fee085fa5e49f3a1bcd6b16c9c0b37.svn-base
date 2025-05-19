@@ -1,20 +1,3 @@
-/*
- * Copyright 2017 Andrey Semashev
- *
- * Distributed under the Boost Software License, Version 1.0.
- * See http://www.boost.org/LICENSE_1_0.txt
- *
- * This header is deprecated, use boost/winapi/priority_class.hpp instead.
- */
-
-#ifndef BOOST_DETAIL_WINAPI_PRIORITY_CLASS_HPP_
-#define BOOST_DETAIL_WINAPI_PRIORITY_CLASS_HPP_
-
-#include <boost/winapi/priority_class.hpp>
-#include <boost/detail/winapi/detail/deprecated_namespace.hpp>
-
-#ifdef BOOST_HAS_PRAGMA_ONCE
-#pragma once
-#endif
-
-#endif // BOOST_DETAIL_WINAPI_PRIORITY_CLASS_HPP_
+version https://git-lfs.github.com/spec/v1
+oid sha256:f8d44fb8e536e41278fbda3fd5fc45dee1e61a26a0d6d50e851e0d03afbbcc1e
+size 533

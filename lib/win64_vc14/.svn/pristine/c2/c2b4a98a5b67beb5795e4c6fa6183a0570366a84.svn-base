@@ -1,11 +1,3 @@
-// Copyright 2005 The Trustees of Indiana University.
-
-// Use, modification and distribution is subject to the Boost Software
-// License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-
-//  Authors: Douglas Gregor
-//           Andrew Lumsdaine
-
-// File moved
-#include <boost/property_map/parallel/basic_reduce.hpp>
+version https://git-lfs.github.com/spec/v1
+oid sha256:dff6f0693882595a36399910aaf352b59e72be9ed764bda8b8f4021b29f11dcd
+size 372

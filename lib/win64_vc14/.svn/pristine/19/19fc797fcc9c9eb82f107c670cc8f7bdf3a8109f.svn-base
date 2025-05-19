@@ -1,19 +1,3 @@
-///////////////////////////////////////////////////////////////////////////////
-// weighted_p_square_cumulative_distribution.hpp
-//
-//  Copyright 2012 Eric Niebler. Distributed under the Boost
-//  Software License, Version 1.0. (See accompanying file
-//  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-
-#ifndef BOOST_ACCUMULATORS_STATISTICS_WEIGHTED_P_SQUARE_CUMULATIVE_DISTRIBUTION_HPP_03_19_2012
-#define BOOST_ACCUMULATORS_STATISTICS_WEIGHTED_P_SQUARE_CUMULATIVE_DISTRIBUTION_HPP_03_19_2012
-
-#if defined(_MSC_VER) || defined(__BORLANDC__) || defined(__DMC__)
-#  pragma message ("Warning: This header is deprecated. Please use: boost/accumulators/statistics/weighted_p_square_cumul_dist.hpp")
-#elif defined(__GNUC__) || defined(__HP_aCC) || defined(__SUNPRO_CC) || defined(__IBMCPP__)
-#  warning "This header is deprecated. Please use: boost/accumulators/statistics/weighted_p_square_cumul_dist.hpp"
-#endif
-
-#include <boost/accumulators/statistics/weighted_p_square_cumul_dist.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:4cb9d081f76b12b5cd86b623a4f1bd9d7a3e6fe586106bd34df38b2760cc4a79
+size 1009

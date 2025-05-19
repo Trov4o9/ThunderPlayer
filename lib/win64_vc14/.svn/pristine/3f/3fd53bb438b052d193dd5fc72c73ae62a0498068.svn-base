@@ -1,13 +1,3 @@
-
-//          Copyright Oliver Kowalke 2014.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/config.hpp>
-
-#if defined(BOOST_WINDOWS)
-# include <boost/context/windows/protected_fixedsize_stack.hpp>
-#else
-# include <boost/context/posix/protected_fixedsize_stack.hpp>
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:f3d50c6f474baec4d378c87eb1b52d163490a6601ff2138eeeea0357f82c3826
+size 408

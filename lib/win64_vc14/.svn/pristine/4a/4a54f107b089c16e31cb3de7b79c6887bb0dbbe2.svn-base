@@ -1,24 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2011 Joel de Guzman
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-#if !defined(BOOST_SPIRIT_DEBUG_HANDLER_STATE_APR_21_2010_0733PM)
-#define BOOST_SPIRIT_DEBUG_HANDLER_STATE_APR_21_2010_0733PM
-
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
-namespace boost { namespace spirit { namespace qi
-{
-    enum debug_handler_state
-    {
-        pre_parse
-      , successful_parse
-      , failed_parse
-    };
-}}}
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:60811997d6b1ce49192e7b815476a86244c562eabc7fa1dabfab75e3f5bcf305
+size 700

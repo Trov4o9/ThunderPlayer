@@ -1,15 +1,3 @@
-#ifndef BOOST_SCOPED_ARRAY_HPP_INCLUDED
-#define BOOST_SCOPED_ARRAY_HPP_INCLUDED
-
-//  (C) Copyright Greg Colvin and Beman Dawes 1998, 1999.
-//  Copyright (c) 2001, 2002 Peter Dimov
-//
-//  Distributed under the Boost Software License, Version 1.0. (See
-//  accompanying file LICENSE_1_0.txt or copy at
-//  http://www.boost.org/LICENSE_1_0.txt)
-//
-//  See http://www.boost.org/libs/smart_ptr/ for documentation.
-
-#include <boost/smart_ptr/scoped_array.hpp>
-
-#endif  // #ifndef BOOST_SCOPED_ARRAY_HPP_INCLUDED
+version https://git-lfs.github.com/spec/v1
+oid sha256:83a14db4524f47249dfa614407e2876cc67611472f12ee33cb3f1cefb035b6c5
+size 506

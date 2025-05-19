@@ -1,15 +1,3 @@
-// Copyright (C) 2004-2009 The Trustees of Indiana University.
-
-// Use, modification and distribution is subject to the Boost Software
-// License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-
-//  Authors: Nick Edmonds
-//           Andrew Lumsdaine
-
-#ifndef BOOST_GRAPH_USE_MPI_HPP
-#define BOOST_GRAPH_USE_MPI_HPP
-
-#define BOOST_GRAPH_USE_MPI
-
-#endif // BOOST_GRAPH_USE_MPI_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:18d234e5a55c245dadb2d8195e474d9ee961adf81b4a83d5a3c939f951aef471
+size 437

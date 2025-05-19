@@ -1,21 +1,3 @@
-#ifndef BOOST_THREAD_CONDITION_HPP
-#define BOOST_THREAD_CONDITION_HPP
-//  (C) Copyright 2007 Anthony Williams
-//
-//  Distributed under the Boost Software License, Version 1.0. (See
-//  accompanying file LICENSE_1_0.txt or copy at
-//  http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/thread/detail/config.hpp>
-
-#if defined BOOST_THREAD_PROVIDES_CONDITION
-
-#include <boost/thread/condition_variable.hpp>
-
-namespace boost
-{
-    typedef condition_variable_any condition;
-}
-
-#endif
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:cd0d523f8ee002c6602e1d1de9bfdd6fc600522bbbe78d95fae861ad6531e277
+size 490

@@ -1,18 +1,3 @@
-// Open Shading Language : Copyright (c) 2009-2017 Sony Pictures Imageworks Inc., et al.
-// https://github.com/imageworks/OpenShadingLanguage/blob/master/LICENSE
-// 
-// MaterialX specification (c) 2017 Lucasfilm Ltd. 
-// http://www.materialx.org/
-
-#include "mx_funcs.h"
-
-shader mx_subtract_vector4
-    [[ string help = "Vector4"" subtract in2 from the incoming data" ]]
-  (
-    vector4 in1 = {0,0,0,0},
-    vector4 in2 = {0,0,0,0},
-    output vector4 out = {0,0,0,0}
-  )
-{
-    out = in1 - in2; 
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:31d6e94071b51603c038a6072ce65bf6db7b37f9a9ad752af6ae5bde172609fd
+size 515

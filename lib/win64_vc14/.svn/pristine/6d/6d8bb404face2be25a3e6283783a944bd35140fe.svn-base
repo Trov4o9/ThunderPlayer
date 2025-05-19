@@ -1,12 +1,3 @@
-/*=============================================================================
-  Copyright (c) 2001-2008 Joel de Guzman
-  Copyright (c) 2001-2008 Hartmut Kaiser
-  http://spirit.sourceforge.net/
-
-  Distributed under the Boost Software License, Version 1.0. (See accompanying
-  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#ifndef BOOST_SPIRIT_INCLUDE_CLASSIC_SCANNER
-#define BOOST_SPIRIT_INCLUDE_CLASSIC_SCANNER
-#include <boost/spirit/home/classic/core/scanner/scanner.hpp>
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:7e5c2a6602ab9ae5a686e0da87b77974e50800b92ef6ab6269d731f8cee5065a
+size 586

@@ -1,11 +1,3 @@
-from __future__ import division, print_function
-
-def configuration(parent_package='',top_path=None):
-    from numpy.distutils.misc_util import Configuration
-    config = Configuration('polynomial', parent_package, top_path)
-    config.add_data_dir('tests')
-    return config
-
-if __name__ == '__main__':
-    from numpy.distutils.core import setup
-    setup(configuration=configuration)
+version https://git-lfs.github.com/spec/v1
+oid sha256:3ca21457a261effd2305ba0fa772073e6a7a2d656ce2d6c891dbbf16d988ff95
+size 385

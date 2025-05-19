@@ -1,36 +1,3 @@
-// Boost.Units - A C++ library for zero-overhead dimensional analysis and 
-// unit/quantity manipulation and conversion
-//
-// Copyright (C) 2003-2008 Matthias Christian Schabel
-// Copyright (C) 2008 Steven Watanabe
-//
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-
-#ifndef BOOST_UNITS_CGS_VELOCITY_HPP
-#define BOOST_UNITS_CGS_VELOCITY_HPP
-
-#include <boost/units/systems/cgs/base.hpp>
-#include <boost/units/physical_dimensions/velocity.hpp>
-
-namespace boost {
-
-namespace units { 
-
-namespace cgs {
-
-typedef unit<velocity_dimension,cgs::system>     velocity;
-    
-BOOST_UNITS_STATIC_CONSTANT(centimeter_per_second,velocity);    
-BOOST_UNITS_STATIC_CONSTANT(centimeters_per_second,velocity);   
-BOOST_UNITS_STATIC_CONSTANT(centimetre_per_second,velocity);    
-BOOST_UNITS_STATIC_CONSTANT(centimetres_per_second,velocity);   
-
-} // namespace cgs
-
-} // namespace units
-
-} // namespace boost
-
-#endif // BOOST_UNITS_CGS_VELOCITY_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:8192a19c0950828ed30a3fd79c326e3c1c3fe5e9b04695f92dd712a9c8e37c62
+size 1035

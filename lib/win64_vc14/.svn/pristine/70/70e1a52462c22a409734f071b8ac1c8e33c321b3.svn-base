@@ -1,23 +1,3 @@
-#ifndef BOOST_METAPARSE_UTIL_DIGIT_TO_INT_C_HPP
-#define BOOST_METAPARSE_UTIL_DIGIT_TO_INT_C_HPP
-
-// Copyright Abel Sinkovics (abel@sinkovics.hu)  2013.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/metaparse/v1/util/digit_to_int_c.hpp>
-
-namespace boost
-{
-  namespace metaparse
-  {
-    namespace util
-    {
-      using v1::util::digit_to_int_c;
-    }
-  }
-}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:dc0bc82e1c98f705aadf9e4026d2d904ab2bc955323e40e0cf35ccb3c2223607
+size 504

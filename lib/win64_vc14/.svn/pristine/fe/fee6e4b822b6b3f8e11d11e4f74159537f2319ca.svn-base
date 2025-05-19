@@ -1,12 +1,3 @@
-/*=============================================================================
-  Copyright (c) 2001-2008 Joel de Guzman
-  Copyright (c) 2001-2008 Hartmut Kaiser
-  http://spirit.sourceforge.net/
-
-  Distributed under the Boost Software License, Version 1.0. (See accompanying
-  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#ifndef BOOST_SPIRIT_INCLUDE_CLASSIC_RULE_ALIAS
-#define BOOST_SPIRIT_INCLUDE_CLASSIC_RULE_ALIAS
-#include <boost/spirit/home/classic/dynamic/rule_alias.hpp>
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:f866912db98bb12a4691f955a76fc8449f79a625bc6a2d3b307f9c3d2c9e5fcb
+size 590

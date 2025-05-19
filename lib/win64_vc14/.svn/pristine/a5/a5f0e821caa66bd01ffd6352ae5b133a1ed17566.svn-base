@@ -1,12 +1,3 @@
-/*=============================================================================
-  Copyright (c) 2001-2008 Joel de Guzman
-  Copyright (c) 2001-2008 Hartmut Kaiser
-  http://spirit.sourceforge.net/
-
-  Distributed under the Boost Software License, Version 1.0. (See accompanying
-  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#ifndef BOOST_SPIRIT_INCLUDE_CLASSIC_ITERATOR
-#define BOOST_SPIRIT_INCLUDE_CLASSIC_ITERATOR
-#include <boost/spirit/home/classic/iterator.hpp>
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:cce6e29b7788460c21728bd8f120e9fc3d27b47b83f73f966b6f8eeb734a5c5c
+size 576

@@ -1,21 +1,3 @@
-//===--- BuiltinsNEON.def - NEON Builtin function database ------*- C++ -*-===//
-//
-//                     The LLVM Compiler Infrastructure
-//
-// This file is distributed under the University of Illinois Open Source
-// License. See LICENSE.TXT for details.
-//
-//===----------------------------------------------------------------------===//
-//
-// This file defines the NEON-specific builtin function database.  Users of
-// this file must define the BUILTIN macro to make use of this information.
-//
-//===----------------------------------------------------------------------===//
-
-// The format of this database matches clang/Basic/Builtins.def.
-
-#define GET_NEON_BUILTINS
-#include "clang/Basic/arm_neon.inc"
-#undef GET_NEON_BUILTINS
-
-#undef BUILTIN
+version https://git-lfs.github.com/spec/v1
+oid sha256:3e43ac8eccd7af5d3550b7132370e6e6ffd152fe1032d7deec99c9ceed9557b0
+size 750

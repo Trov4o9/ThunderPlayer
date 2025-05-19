@@ -1,13 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2007 Joel de Guzman
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-#if !defined(FUSION_INCLUDE_INSERT)
-#define FUSION_INCLUDE_INSERT
-
-#include <boost/fusion/support/config.hpp>
-#include <boost/fusion/algorithm/transformation/insert.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:425c1e6f1c9f1bff8be265f6bad6bb9e89d815c81764f129b737a619e10f5a86
+size 538

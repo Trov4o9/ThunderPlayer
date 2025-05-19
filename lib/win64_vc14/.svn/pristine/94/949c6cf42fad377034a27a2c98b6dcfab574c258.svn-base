@@ -1,18 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2010 Joel de Guzman
-    Copyright (c) 2001-2010 Hartmut Kaiser
-    http://spirit.sourceforge.net/
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#ifndef BOOST_SPIRIT_INCLUDE_QI_NO_SKIP
-#define BOOST_SPIRIT_INCLUDE_QI_NO_SKIP
-
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
-#include <boost/spirit/home/qi/directive/no_skip.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:3afd125fba7052e68d2d17b4f228807b74225fe99d688c6ba219288b8eb4351c
+size 623

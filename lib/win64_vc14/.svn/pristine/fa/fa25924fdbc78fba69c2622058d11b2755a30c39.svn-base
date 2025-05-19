@@ -1,30 +1,3 @@
-//  times.hpp
-//
-//  (C) Copyright 2011 Vicente J. Botet Escriba
-//  Use, modification and distribution are subject to the Boost Software License,
-//  Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
-//  http://www.boost.org/LICENSE_1_0.txt).
-//
-
-#ifndef BOOST_RATIO_MPL_TIMES_HPP
-#define BOOST_RATIO_MPL_TIMES_HPP
-
-#include <boost/ratio/ratio.hpp>
-#include <boost/ratio/mpl/numeric_cast.hpp>
-#include <boost/mpl/times.hpp>
-
-namespace boost { 
-namespace mpl {
-
-template<>
-struct times_impl< rational_c_tag,rational_c_tag >
-{
-    template< typename R1, typename R2 > struct apply
-        : ratio_multiply<R1, R2>
-    {
-    };
-};    
-}
-}
-
-#endif  // BOOST_RATIO_MPL_TIMES_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:a19fe371262f4032a9b7f8cb20afb5c61b101699aedc900e05e5f2ca1c3f0c60
+size 688

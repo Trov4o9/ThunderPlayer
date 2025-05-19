@@ -1,20 +1,3 @@
-#ifndef BOOST_METAPARSE_ONE_OF_C_HPP
-#define BOOST_METAPARSE_ONE_OF_C_HPP
-
-// Copyright Abel Sinkovics (abel@sinkovics.hu)  2013.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/metaparse/v1/one_of_c.hpp>
-
-namespace boost
-{
-  namespace metaparse
-  {
-    using v1::one_of_c;
-  }
-}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:b1c773b02586bd2fbd84ce351dc844cbbe931648633daced7ca27eed5e61f1b6
+size 426

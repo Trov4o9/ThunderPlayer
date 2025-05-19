@@ -1,17 +1,3 @@
-#ifndef BOOST_DATE_TIME_ALL_HPP___
-#define BOOST_DATE_TIME_ALL_HPP___
-
-/* Copyright (c) 2006 CrystalClear Software, Inc.
- * Use, modification and distribution is subject to the 
- * Boost Software License, Version 1.0. (See accompanying
- * file LICENSE_1_0.txt or http://www.boost.org/LICENSE_1_0.txt)
- * Author: Jeff Garland
- * $Date$
- */
- 
- //  See www.boost.org/libs/date_time for documentation.
-
-//gregorian and posix time included by indirectly
-#include "boost/date_time/local_time/local_time.hpp"
-
-#endif // BOOST_DATE_TIME_ALL_HPP___
+version https://git-lfs.github.com/spec/v1
+oid sha256:5973bcb349ac07a42d883201b177bb7da778157f11982d4e706b2b6c29f435b8
+size 540

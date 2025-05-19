@@ -1,13 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2007 Joel de Guzman
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-#if !defined(FUSION_INCLUDE_MAKE_FUSED_FUNCTION_OBJECT)
-#define FUSION_INCLUDE_MAKE_FUSED_FUNCTION_OBJECT
-
-#include <boost/fusion/support/config.hpp>
-#include <boost/fusion/functional/generation/make_fused_function_object.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:351a2004287ad6748dc35b093ab6e6b0396370e8f47d983e0eb72c2b67824ee7
+size 595

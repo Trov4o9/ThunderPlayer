@@ -1,19 +1,3 @@
-// Copyright (C) 2013 Vicente J. Botet Escriba
-//
-//  Distributed under the Boost Software License, Version 1.0. (See accompanying
-//  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-
-
-#if defined(BOOST_INTEL)
-
-#pragma pop_macro("atomic_compare_exchange")
-#pragma pop_macro("atomic_compare_exchange_explicit")
-#pragma pop_macro("atomic_exchange")
-#pragma pop_macro("atomic_exchange_explicit")
-#pragma pop_macro("atomic_is_lock_free")
-#pragma pop_macro("atomic_load")
-#pragma pop_macro("atomic_load_explicit")
-#pragma pop_macro("atomic_store")
-#pragma pop_macro("atomic_store_explicit")
-
-#endif // #if defined(BOOST_INTEL)
+version https://git-lfs.github.com/spec/v1
+oid sha256:e9fdd30f4fd0bf049d48e244b6497c4380c5b02ca7c7ec2fb60d97aa42951813
+size 644

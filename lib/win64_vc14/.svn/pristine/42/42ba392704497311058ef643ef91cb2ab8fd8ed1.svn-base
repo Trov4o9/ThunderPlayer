@@ -1,20 +1,3 @@
-#ifndef BOOST_METAPARSE_BUILD_PARSER_HPP
-#define BOOST_METAPARSE_BUILD_PARSER_HPP
-
-// Copyright Abel Sinkovics (abel@sinkovics.hu)  2013.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/metaparse/v1/build_parser.hpp>
-
-namespace boost
-{
-  namespace metaparse
-  {
-    using v1::build_parser;
-  }
-}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:7fb1743d8ddecbc28ed653c9c44dfcbd362ceb6f5e39d1303d523cc92449f9a9
+size 442

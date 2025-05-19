@@ -1,20 +1,3 @@
-#ifndef BOOST_METAPARSE_LOOK_AHEAD_HPP
-#define BOOST_METAPARSE_LOOK_AHEAD_HPP
-
-// Copyright Abel Sinkovics (abel@sinkovics.hu)   2013.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/metaparse/v1/look_ahead.hpp>
-
-namespace boost
-{
-  namespace metaparse
-  {
-    using v1::look_ahead;
-  }
-}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:0d4fd1d5ca0d634d97945e8312cfe80f649d8e80daffec94437be2039d137ef8
+size 435

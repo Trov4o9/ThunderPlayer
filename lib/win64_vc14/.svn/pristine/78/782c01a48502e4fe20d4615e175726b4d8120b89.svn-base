@@ -1,13 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2007 Joel de Guzman
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-#if !defined(FUSION_INCLUDE_CONS_TIE)
-#define FUSION_INCLUDE_CONS_TIE
-
-#include <boost/fusion/support/config.hpp>
-#include <boost/fusion/container/generation/cons_tie.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:28aeb840ba072f7d129f0ecb16aa484328ea8e362ffb6352f41f8ab7a87acd24
+size 540

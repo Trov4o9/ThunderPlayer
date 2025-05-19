@@ -1,23 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2011 Joel de Guzman
-    Copyright (c) 2006 Dan Marsden
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying 
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-#if !defined(FUSION_ZIP_VIEW_ITERATOR_FWD)
-#define FUSION_ZIP_VIEW_ITERATOR_FWD
-
-#include <boost/fusion/support/config.hpp>
-#include <boost/fusion/view/detail/strictest_traversal.hpp>
-
-namespace boost { namespace fusion {
-
-    template<
-        typename IteratorSequence, 
-        typename Traversal = typename detail::strictest_traversal<IteratorSequence>::type>
-    struct zip_view_iterator;
-
-}}
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:4ece62ae69f01216df367312ddca24f14ded1f0970fd51c69b9ff80434564825
+size 802

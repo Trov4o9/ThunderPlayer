@@ -1,27 +1,3 @@
-///////////////////////////////////////////////////////////////////////////////
-// external.hpp
-//
-//  Copyright 2005 Eric Niebler. Distributed under the Boost
-//  Software License, Version 1.0. (See accompanying file
-//  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-
-#ifndef BOOST_ACCUMULATORS_FRAMEWORK_EXTERNAL_HPP_EAN_01_12_2005
-#define BOOST_ACCUMULATORS_FRAMEWORK_EXTERNAL_HPP_EAN_01_12_2005
-
-#include <boost/mpl/apply.hpp>
-#include <boost/accumulators/framework/accumulators/external_accumulator.hpp>
-
-//namespace boost { namespace accumulators
-//{
-//
-/////////////////////////////////////////////////////////////////////////////////
-//// external
-////
-//template<typename Type>
-//struct external
-//{
-//};
-//
-//}} // namespace boost::accumulators
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:bdcaeebe0d1a4f491ba2ecd3b6ec2aba68858f72f97daceba1a71184b668a091
+size 782

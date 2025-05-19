@@ -1,18 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2011 Joel de Guzman
-    Copyright (c) 2001-2011 Hartmut Kaiser
-    http://spirit.sourceforge.net/
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#ifndef BOOST_SPIRIT_INCLUDE_KARMA_LAZY
-#define BOOST_SPIRIT_INCLUDE_KARMA_LAZY
-
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
-#include <boost/spirit/home/karma/auxiliary/lazy.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:506ef2dae8d681a016d8338b9f40422250476b4881451f028c83e3a45a0426ea
+size 623

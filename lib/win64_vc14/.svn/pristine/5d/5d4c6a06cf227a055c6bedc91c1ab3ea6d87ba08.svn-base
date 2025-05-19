@@ -1,17 +1,3 @@
-/*
- * Copyright (c) 2014 Glen Fernandes
- *
- * Distributed under the Boost Software License, Version 1.0. (See
- * accompanying file LICENSE_1_0.txt or copy at
- * http://www.boost.org/LICENSE_1_0.txt)
- */
-
-#ifndef BOOST_CHECKED_DELETE_HPP
-#define BOOST_CHECKED_DELETE_HPP
-
-// The header file at this path is deprecated;
-// use boost/core/checked_delete.hpp instead.
-
-#include <boost/core/checked_delete.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:8c33aaa806a5b166366b487f1ef9d332216a926db4c5f83b68d9449ad5301f6f
+size 414

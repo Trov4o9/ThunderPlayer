@@ -1,18 +1,3 @@
-// Open Shading Language : Copyright (c) 2009-2017 Sony Pictures Imageworks Inc., et al.
-// https://github.com/imageworks/OpenShadingLanguage/blob/master/LICENSE
-// 
-// MaterialX specification (c) 2017 Lucasfilm Ltd. 
-// http://www.materialx.org/
-
-#include "mx_funcs.h"
-
-shader mx_add_float_color
-    [[ string help = "Color"" add in2 to the incoming data" ]]
-  (
-    color in1 = 0,
-    float in2 = 0.0,
-    output color out = 0
-  )
-{
-    out = in1 + in2;
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:0c102cb633773a8da434d531a1765d66ffabf62798e0dff128cf1c2515a29a99
+size 476

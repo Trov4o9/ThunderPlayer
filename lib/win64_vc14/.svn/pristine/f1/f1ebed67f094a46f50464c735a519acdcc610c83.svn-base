@@ -1,12 +1,3 @@
-// Copyright David Abrahams 2002.
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-#ifndef MPL_LAMBDA_DWA2002122_HPP
-# define MPL_LAMBDA_DWA2002122_HPP
-
-// this header should go away soon
-# include <boost/mpl/aux_/lambda_support.hpp>
-# define BOOST_PYTHON_MPL_LAMBDA_SUPPORT BOOST_MPL_AUX_LAMBDA_SUPPORT
-
-#endif // MPL_LAMBDA_DWA2002122_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:8db75f13d4719355a7b6d31cb6314851b7db009df09debac925cf8f5cfba7649
+size 448

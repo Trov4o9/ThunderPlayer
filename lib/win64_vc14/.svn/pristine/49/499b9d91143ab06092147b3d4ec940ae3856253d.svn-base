@@ -1,21 +1,3 @@
-#ifndef BOOST_METAPARSE_DEBUG_PARSING_ERROR_HPP
-#define BOOST_METAPARSE_DEBUG_PARSING_ERROR_HPP
-
-// Copyright Abel Sinkovics (abel@sinkovics.hu)  2013.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/metaparse/v1/debug_parsing_error.hpp>
-
-namespace boost
-{
-  namespace metaparse
-  {
-    using v1::debug_parsing_error;
-  }
-}
-
-#endif
-
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:68323c36b4f4571916afe7e8ac000679ffb05bc85ac9e51433b627e75519fa0e
+size 471

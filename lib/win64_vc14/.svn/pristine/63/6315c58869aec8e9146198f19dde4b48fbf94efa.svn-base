@@ -1,30 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2006 Tobias Schwinger
-    http://spirit.sourceforge.net/
-
-  Distributed under the Boost Software License, Version 1.0. (See accompanying
-  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#if !defined(BOOST_SPIRIT_ESCAPE_CHAR_FWD_HPP)
-#define BOOST_SPIRIT_ESCAPE_CHAR_FWD_HPP
-
-#include <boost/spirit/home/classic/namespace.hpp>
-
-namespace boost { namespace spirit {
-
-BOOST_SPIRIT_CLASSIC_NAMESPACE_BEGIN
-
-    template <unsigned long Flags, typename CharT = char>
-    struct escape_char_parser;
-
-    template <
-        class ParserT, typename ActionT,
-        unsigned long Flags, typename CharT = char>
-    struct escape_char_action;
-
-BOOST_SPIRIT_CLASSIC_NAMESPACE_END
-
-}} // namespace BOOST_SPIRIT_CLASSIC_NS
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:bb1bd9a40ec9620e74c31956030b58f3f1c1dfeb2a7e3a80f51ae049caf69b02
+size 919

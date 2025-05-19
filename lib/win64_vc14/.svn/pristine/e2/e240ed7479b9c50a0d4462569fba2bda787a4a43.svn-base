@@ -1,31 +1,3 @@
-//===- DivRemPairs.h - Hoist/decompose integer division and remainder -----===//
-//
-//                     The LLVM Compiler Infrastructure
-//
-// This file is distributed under the University of Illinois Open Source
-// License. See LICENSE.TXT for details.
-//
-//===----------------------------------------------------------------------===//
-//
-// This pass hoists and/or decomposes integer division and remainder
-// instructions to enable CFG improvements and better codegen.
-//
-//===----------------------------------------------------------------------===//
-
-#ifndef LLVM_TRANSFORMS_SCALAR_DIVREMPAIRS_H
-#define LLVM_TRANSFORMS_SCALAR_DIVREMPAIRS_H
-
-#include "llvm/IR/PassManager.h"
-
-namespace llvm {
-
-/// Hoist/decompose integer division and remainder instructions to enable CFG
-/// improvements and better codegen.
-struct DivRemPairsPass : public PassInfoMixin<DivRemPairsPass> {
-public:
-  PreservedAnalyses run(Function &F, FunctionAnalysisManager &);
-};
-
-}
-#endif // LLVM_TRANSFORMS_SCALAR_DIVREMPAIRS_H
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:7a3df930afcc81b11306329ce0f373bf8b5ea20a3fae64f3309b421e79eaa98d
+size 1011

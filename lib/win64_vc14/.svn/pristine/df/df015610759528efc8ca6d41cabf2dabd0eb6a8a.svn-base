@@ -1,17 +1,3 @@
-// (C) Copyright 2008 CodeRage, LLC (turkanis at coderage dot com)
-// (C) Copyright 2005-2007 Jonathan Turkanis
-// Distributed under the Boost Software License, Version 1.0. (See accompanying
-// file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt.)
-
-// See http://www.boost.org/libs/iostreams for documentation.
-
-#ifndef BOOST_IOSTREAMS_PUT_HPP_INCLUDED
-#define BOOST_IOSTREAMS_PUT_HPP_INCLUDED
-
-#if defined(_MSC_VER)
-# pragma once
-#endif
-
-#include <boost/iostreams/write.hpp>
-
-#endif // #ifndef BOOST_IOSTREAMS_PUT_HPP_INCLUDED
+version https://git-lfs.github.com/spec/v1
+oid sha256:906be5aa42546157a8d6b0f8b3ff77c0ba6afb4bd3479f02b6df7fa4044dd167
+size 546

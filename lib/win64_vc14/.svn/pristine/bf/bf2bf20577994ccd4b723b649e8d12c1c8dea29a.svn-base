@@ -1,14 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2009 Christopher Schmidt
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-
-#ifndef BOOST_FUSION_INCLUDE_DEREF_DATA_HPP
-#define BOOST_FUSION_INCLUDE_DEREF_DATA_HPP
-
-#include <boost/fusion/support/config.hpp>
-#include <boost/fusion/iterator/deref_data.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:3ba0aef1baca497317ad400a068edf62989aa0d5d9f228e7beef1f07484761e6
+size 549

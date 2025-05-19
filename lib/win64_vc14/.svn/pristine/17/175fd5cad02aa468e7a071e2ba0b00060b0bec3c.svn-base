@@ -1,22 +1,3 @@
-//=======================================================================
-// Copyright 2002 Indiana University.
-// Authors: Andrew Lumsdaine, Lie-Quan Lee, Jeremy G. Siek
-//
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-//=======================================================================
-
-#ifdef BOOST_GRAPH_ITERATION_MACROS_HPP
-
-#undef BOOST_GRAPH_ITERATION_MACROS_HPP
-#undef BGL_CAT
-#undef BGL_FIRST
-#undef BGL_LAST
-#undef BGL_FORALL_VERTICES
-#undef BGL_FORALL_EDGES
-#undef BGL_FORALL_ADJACENT
-#undef BGL_FORALL_OUTEDGES
-#undef BGL_FORALL_INEDGES
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:d535d2f2e5bcca77822193475a9deec7e9d73ebc338f3bb30fddd43cd74beeb9
+size 673

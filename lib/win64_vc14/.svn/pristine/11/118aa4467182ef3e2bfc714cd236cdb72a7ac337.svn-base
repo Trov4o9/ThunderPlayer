@@ -1,29 +1,3 @@
-// Open Shading Language : Copyright (c) 2009-2017 Sony Pictures Imageworks Inc., et al.
-// https://github.com/imageworks/OpenShadingLanguage/blob/master/LICENSE
-// 
-// MaterialX specification (c) 2017 Lucasfilm Ltd. 
-// http://www.materialx.org/
-
-#include "mx_funcs.h"
-
-shader mx_noise3d_vector4
-    [[ string help = "3D noise"  ]]
-  (
-    point position = transform ("object", P)
-        [[  string help = "input coordinate position (default: object space P)",
-            int lockgeom = 0 ]],
-
-    vector4 amplitude = {1,1,1,1}
-        [[  string help = "center-to-peak amplitude of the noise" ]],
-
-    float pivot = 0
-        [[  string help = "the center value of the output noise" ]],
-
-    string noisetype = "snoise"
-        [[  string help = "type of noise" ]],
-        
-    output vector4 out = {0,0,0,0},
-  )
-{
-    out = noise (noisetype, position);
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:cfe01d09d3934d92b1fdc6f3d9f5ec40082ad1743706f2de6f11b1554137deef
+size 891

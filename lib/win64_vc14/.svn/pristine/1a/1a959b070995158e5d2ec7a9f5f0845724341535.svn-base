@@ -1,12 +1,3 @@
-/*=============================================================================
-  Copyright (c) 2001-2008 Joel de Guzman
-  Copyright (c) 2001-2008 Hartmut Kaiser
-  http://spirit.sourceforge.net/
-
-  Distributed under the Boost Software License, Version 1.0. (See accompanying
-  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#ifndef BOOST_SPIRIT_INCLUDE_CLASSIC_FIXED_SIZE_QUEUE
-#define BOOST_SPIRIT_INCLUDE_CLASSIC_FIXED_SIZE_QUEUE
-#include <boost/spirit/home/classic/iterator/fixed_size_queue.hpp>
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:078eaacb8d8c554db534822eee7981e9591da2aded7e9b82ce3cca69acc6ec0a
+size 609

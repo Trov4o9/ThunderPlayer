@@ -1,20 +1,3 @@
-#ifndef BOOST_METAPARSE_SOURCE_POSITION_TAG_HPP
-#define BOOST_METAPARSE_SOURCE_POSITION_TAG_HPP
-
-// Copyright Abel Sinkovics (abel@sinkovics.hu)  2013.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/metaparse/v1/source_position_tag.hpp>
-
-namespace boost
-{
-  namespace metaparse
-  {
-    using v1::source_position_tag;
-  }
-}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:b17ebd82ebd7871c75f64b844588df2aeb3af5529fbec55184d5362c95e9fc4f
+size 470

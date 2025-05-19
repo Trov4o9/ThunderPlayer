@@ -1,19 +1,3 @@
-# /* **************************************************************************
-#  *                                                                          *
-#  *     (C) Copyright Paul Mensonides 2002.
-#  *     Distributed under the Boost Software License, Version 1.0. (See
-#  *     accompanying file LICENSE_1_0.txt or copy at
-#  *     http://www.boost.org/LICENSE_1_0.txt)
-#  *                                                                          *
-#  ************************************************************************** */
-#
-# /* See http://www.boost.org for most recent version. */
-#
-# ifndef BOOST_PREPROCESSOR_ITERATION_HPP
-# define BOOST_PREPROCESSOR_ITERATION_HPP
-#
-# include <boost/preprocessor/iteration/iterate.hpp>
-# include <boost/preprocessor/iteration/local.hpp>
-# include <boost/preprocessor/iteration/self.hpp>
-#
-# endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:740388173b56a4724c6cd310ae3712817dacd2a37d3d5c2791f3b8227409616b
+size 852

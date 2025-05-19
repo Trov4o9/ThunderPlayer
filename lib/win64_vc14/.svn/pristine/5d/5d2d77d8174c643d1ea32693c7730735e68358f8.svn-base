@@ -1,19 +1,3 @@
-// Copyright (C) 2013 Vicente J. Botet Escriba
-//
-//  Distributed under the Boost Software License, Version 1.0. (See accompanying
-//  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/config.hpp>
-
-//#if defined BOOST_NO_CXX11_VARIADIC_TEMPLATES
-
-#include <boost/preprocessor/facilities/intercept.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/repetition/repeat_from_to.hpp>
-
-#ifndef BOOST_THREAD_MAX_ARGS
-#define BOOST_THREAD_MAX_ARGS 9
-#endif
-
-//#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:3a13b7b07ffc4fc68ed921e26f26dd822abcc834d91371d349df5f603963f6e7
+size 537

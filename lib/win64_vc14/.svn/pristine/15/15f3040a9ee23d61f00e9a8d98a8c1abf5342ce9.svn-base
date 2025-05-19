@@ -1,28 +1,3 @@
-// Boost.TypeErasure library
-//
-// Copyright 2012 Steven Watanabe
-//
-// Distributed under the Boost Software License Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-//
-// $Id$
-
-#ifndef BOOST_TYPE_ERASURE_IS_EMPTY_HPP_INCLUDED
-#define BOOST_TYPE_ERASURE_IS_EMPTY_HPP_INCLUDED
-
-#include <boost/type_erasure/detail/access.hpp>
-
-namespace boost {
-namespace type_erasure {
-
-/** Returns true for an empty @ref any. */
-template<class T>
-bool is_empty(const T& arg) {
-    return ::boost::type_erasure::detail::access::data(arg).data == 0;
-}
-
-}
-}
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:098ec2613c0df4e5bc68377dbd443924698d32352e6ee156ce4d75885d287f6a
+size 605

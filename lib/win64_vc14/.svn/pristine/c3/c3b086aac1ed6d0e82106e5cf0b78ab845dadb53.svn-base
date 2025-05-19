@@ -1,17 +1,3 @@
-/*!
-@file
-Defines the `BOOST_HANA_ADAPT_ADT` macro.
-
-@copyright Louis Dionne 2013-2017
-Distributed under the Boost Software License, Version 1.0.
-(See accompanying file LICENSE.md or copy at http://boost.org/LICENSE_1_0.txt)
- */
-
-#ifndef BOOST_HANA_ADAPT_ADT_HPP
-#define BOOST_HANA_ADAPT_ADT_HPP
-
-#include <boost/hana/fwd/adapt_adt.hpp>
-
-#include <boost/hana/detail/struct_macros.hpp>
-
-#endif // !BOOST_HANA_ADAPT_ADT_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:7e55d2bbc8cff7c38ff8eb5c54f30c098d62989a9e13f2de3132b2953c295df9
+size 422

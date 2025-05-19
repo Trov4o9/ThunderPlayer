@@ -1,20 +1,3 @@
-#ifndef BOOST_METAPARSE_NEXT_CHAR_HPP
-#define BOOST_METAPARSE_NEXT_CHAR_HPP
-
-//    Copyright Abel Sinkovics (abel@sinkovics.hu) 2013.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/metaparse/v1/next_char.hpp>
-
-namespace boost
-{
-  namespace metaparse
-  {
-    using v1::next_char;
-  }
-}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:623e148e6a1c1cde79e2f5dc94edd8481129fe6e14d5636dcb6191fdf6ef39c1
+size 432

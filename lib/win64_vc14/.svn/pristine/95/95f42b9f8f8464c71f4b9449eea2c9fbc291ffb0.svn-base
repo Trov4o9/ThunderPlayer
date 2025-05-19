@@ -1,19 +1,3 @@
-
-#ifndef BOOST_MPL_MIN_HPP_INCLUDED
-#define BOOST_MPL_MIN_HPP_INCLUDED
-
-// Copyright Aleksey Gurtovoy 2004
-//
-// Distributed under the Boost Software License, Version 1.0. 
-// (See accompanying file LICENSE_1_0.txt or copy at 
-// http://www.boost.org/LICENSE_1_0.txt)
-//
-// See http://www.boost.org/libs/mpl for documentation.
-
-// $Id$
-// $Date$
-// $Revision$
-
-#include <boost/mpl/min_max.hpp>
-
-#endif // BOOST_MPL_MIN_HPP_INCLUDED
+version https://git-lfs.github.com/spec/v1
+oid sha256:bb43bac84231624f42a4e70796526b67d3af45523451dc17e54be899e6dd1dbd
+size 432

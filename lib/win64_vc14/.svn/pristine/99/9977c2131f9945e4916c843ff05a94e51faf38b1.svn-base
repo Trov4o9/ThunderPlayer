@@ -1,17 +1,3 @@
-# /* **************************************************************************
-#  *                                                                          *
-#  *     (C) Copyright Paul Mensonides 2002.
-#  *     Distributed under the Boost Software License, Version 1.0. (See
-#  *     accompanying file LICENSE_1_0.txt or copy at
-#  *     http://www.boost.org/LICENSE_1_0.txt)
-#  *                                                                          *
-#  ************************************************************************** */
-#
-# /* See http://www.boost.org for most recent version. */
-#
-# ifndef BOOST_PREPROCESSOR_IDENTITY_HPP
-# define BOOST_PREPROCESSOR_IDENTITY_HPP
-#
-# include <boost/preprocessor/facilities/identity.hpp>
-#
-# endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:5e60eb53975fba657c6f099c0ceb23670388040680ee2b8b3f41c2bc8b6eb002
+size 751

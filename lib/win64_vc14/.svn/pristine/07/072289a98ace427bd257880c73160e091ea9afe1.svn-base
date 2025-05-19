@@ -1,22 +1,3 @@
-#ifndef BOOST_METAPARSE_V1_CPP11_FWD_STRING_HPP
-#define BOOST_METAPARSE_V1_CPP11_FWD_STRING_HPP
-
-// Copyright Abel Sinkovics (abel@sinkovics.hu)  2013.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-namespace boost
-{
-  namespace metaparse
-  {
-    namespace v1
-    {
-      template <char... Cs>
-      struct string;
-    }
-  }
-}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:26ee42ad8a4a31641f875f8ce057544d31ba44a5c722c0b66ce4f29282a7459f
+size 458

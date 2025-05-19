@@ -1,14 +1,3 @@
-//  ratio.hpp  ---------------------------------------------------------------//
-
-//  Copyright 2010 Vicente J. Botet Escriba
-
-//  Distributed under the Boost Software License, Version 1.0.
-//  See http://www.boost.org/LICENSE_1_0.txt
-
-
-#ifndef BOOST_RATIO_HPP
-#define BOOST_RATIO_HPP
-
-#include <boost/ratio/include.hpp>
-
-#endif  // BOOST_RATIO_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:08de5f3ef57db8387ba676788d2a08a35d5e2f0d67d503d12664cf9a8754c2c0
+size 349

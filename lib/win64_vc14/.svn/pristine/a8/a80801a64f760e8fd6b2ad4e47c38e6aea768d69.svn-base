@@ -1,19 +1,3 @@
-//---------------------------------------------------------------------------//
-// Copyright (c) 2013-2014 Kyle Lutz <kyle.r.lutz@gmail.com>
-//
-// Distributed under the Boost Software License, Version 1.0
-// See accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt
-//
-// See http://boostorg.github.com/compute for more information.
-//---------------------------------------------------------------------------//
-
-#ifndef BOOST_COMPUTE_INTEROP_VTK_HPP
-#define BOOST_COMPUTE_INTEROP_VTK_HPP
-
-#include <boost/compute/interop/vtk/bounds.hpp>
-#include <boost/compute/interop/vtk/data_array.hpp>
-#include <boost/compute/interop/vtk/matrix4x4.hpp>
-#include <boost/compute/interop/vtk/points.hpp>
-
-#endif // BOOST_COMPUTE_INTEROP_VTK_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:6c789cbe7d5e93b4f3cf4a2f65ef4e1ae72ddf367c24c6b17893a2fd3ccc7425
+size 762

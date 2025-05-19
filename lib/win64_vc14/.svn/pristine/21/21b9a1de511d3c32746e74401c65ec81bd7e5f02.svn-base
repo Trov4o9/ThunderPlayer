@@ -1,24 +1,3 @@
-//===--- ToolExecutorPluginRegistry.h - -------------------------*- C++ -*-===//
-//
-//                     The LLVM Compiler Infrastructure
-//
-// This file is distributed under the University of Illinois Open Source
-// License. See LICENSE.TXT for details.
-//
-//===----------------------------------------------------------------------===//
-
-#ifndef LLVM_CLANG_TOOLING_TOOLEXECUTORPLUGINREGISTRY_H
-#define LLVM_CLANG_TOOLING_TOOLEXECUTORPLUGINREGISTRY_H
-
-#include "clang/Tooling/Execution.h"
-#include "llvm/Support/Registry.h"
-
-namespace clang {
-namespace tooling {
-
-typedef llvm::Registry<ToolExecutorPlugin> ToolExecutorPluginRegistry;
-
-} // end namespace tooling
-} // end namespace clang
-
-#endif // LLVM_CLANG_TOOLING_TOOLEXECUTORPLUGINREGISTRY_H
+version https://git-lfs.github.com/spec/v1
+oid sha256:51f7d3089debe37afbf1a8c39a197a78c2397918b4982562b3cf48124170b670
+size 750

@@ -1,10 +1,3 @@
-"""Small modules to cope with python 2 vs 3 incompatibilities inside
-numpy.distutils
-
-"""
-from __future__ import division, absolute_import, print_function
-
-import sys
-
-def get_exception():
-    return sys.exc_info()[1]
+version https://git-lfs.github.com/spec/v1
+oid sha256:c73916f098098064e6c9edf84026132242dfb1706f98fbb8b6f802c1735d894d
+size 218

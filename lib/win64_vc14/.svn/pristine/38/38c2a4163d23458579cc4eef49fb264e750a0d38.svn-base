@@ -1,15 +1,3 @@
-// Copyright David Abrahams 2002.
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-#ifndef LIFE_SUPPORT_DWA200222_HPP
-# define LIFE_SUPPORT_DWA200222_HPP
-# include <boost/python/detail/prefix.hpp>
-
-namespace boost { namespace python { namespace objects { 
-
-BOOST_PYTHON_DECL PyObject* make_nurse_and_patient(PyObject* nurse, PyObject* patient);
-
-}}} // namespace boost::python::object
-
-#endif // LIFE_SUPPORT_DWA200222_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:15ceeb030ed0139c76119ac303b900d6c5e5e39f555e9ccf9d40187cafe26882
+size 530

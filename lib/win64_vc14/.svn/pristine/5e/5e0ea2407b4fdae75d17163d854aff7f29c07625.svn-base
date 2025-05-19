@@ -1,12 +1,3 @@
-/*=============================================================================
-  Copyright (c) 2001-2008 Joel de Guzman
-  Copyright (c) 2001-2008 Hartmut Kaiser
-  http://spirit.sourceforge.net/
-
-  Distributed under the Boost Software License, Version 1.0. (See accompanying
-  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#ifndef BOOST_SPIRIT_INCLUDE_CLASSIC_RANGE_RUN
-#define BOOST_SPIRIT_INCLUDE_CLASSIC_RANGE_RUN
-#include <boost/spirit/home/classic/utility/impl/chset/range_run.hpp>
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:b18141187d1a539b5bc6964bac79dde7fa034a52bd8b0cee563db53a90ce13d0
+size 598

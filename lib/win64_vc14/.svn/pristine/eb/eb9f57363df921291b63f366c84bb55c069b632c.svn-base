@@ -1,16 +1,3 @@
-//////////////////////////////////////////////////////////////////////////////
-//
-// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
-// Software License, Version 1.0. (See accompanying file
-// LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-//
-// See http://www.boost.org/libs/interprocess for documentation.
-//
-//////////////////////////////////////////////////////////////////////////////
-#if defined BOOST_MSVC
-   #pragma warning (pop)
-#endif
-
-#if defined(BOOST_GCC) && (BOOST_GCC >= 40600)
-#pragma GCC diagnostic pop
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:be2c18196ba9b71075cb6e193ab327216191916cc8e4c45c484577d488caff5c
+size 564

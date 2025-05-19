@@ -1,19 +1,3 @@
-# /* **************************************************************************
-#  *                                                                          *
-#  *     (C) Copyright Paul Mensonides 2002.
-#  *     Distributed under the Boost Software License, Version 1.0. (See
-#  *     accompanying file LICENSE_1_0.txt or copy at
-#  *     http://www.boost.org/LICENSE_1_0.txt)
-#  *                                                                          *
-#  ************************************************************************** */
-#
-# /* See http://www.boost.org for most recent version. */
-#
-# ifndef BOOST_PREPROCESSOR_SEQ_PUSH_BACK_HPP
-# define BOOST_PREPROCESSOR_SEQ_PUSH_BACK_HPP
-#
-# /* BOOST_PP_SEQ_PUSH_BACK */
-#
-# define BOOST_PP_SEQ_PUSH_BACK(seq, elem) seq(elem)
-#
-# endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:c10b37174a5811e611604ff7f415d4c79dd857d4372701b8bb387fdeb52ccd80
+size 792

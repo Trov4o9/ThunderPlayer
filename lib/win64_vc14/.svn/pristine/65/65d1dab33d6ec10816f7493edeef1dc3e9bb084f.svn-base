@@ -1,26 +1,3 @@
-// Open Shading Language : Copyright (c) 2009-2017 Sony Pictures Imageworks Inc., et al.
-// https://github.com/imageworks/OpenShadingLanguage/blob/master/LICENSE
-// 
-// MaterialX specification (c) 2017 Lucasfilm Ltd. 
-// http://www.materialx.org/
-
-#include "mx_funcs.h"
-
-
-shader mx_swizzle_color_vector4
-    [[ string help = "Perform an arbitrary permutation of the channels of the input stream" ]]
-  (
-    color in = 0,
-    string channels = "rgb",
-    output vector4 out = {0,0,0,0}
-  )
-{
-    float inF[4];
-
-    inF[0] = in[0];
-    inF[1] = in[1];
-    inF[2] = in[2];
-    
-    out = swizzle_vector4(inF, channels);
-}
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:80a5f336154937c47f3c3b6924b44c6ea799d4e23a6582dff19a29765ce8f9a3
+size 646

@@ -1,6 +1,3 @@
-from __future__ import division, absolute_import, print_function
-
-major = 0
-minor = 4
-micro = 0
-version = '%(major)d.%(minor)d.%(micro)d' % (locals())
+version https://git-lfs.github.com/spec/v1
+oid sha256:4924592af19fbe0fc6a586d75ad23981a4cad0d196f670410b236085a697061f
+size 151

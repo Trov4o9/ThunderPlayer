@@ -1,35 +1,3 @@
-//===-- IndirectCallSiteVisitor.h - indirect call-sites visitor -----------===//
-//
-//                      The LLVM Compiler Infrastructure
-//
-// This file is distributed under the University of Illinois Open Source
-// License. See LICENSE.TXT for details.
-//
-//===----------------------------------------------------------------------===//
-//
-// This file implements defines a visitor class and a helper function that find
-// all indirect call-sites in a function.
-
-#include "llvm/IR/InstVisitor.h"
-#include <vector>
-
-namespace llvm {
-// Visitor class that finds all indirect call sites.
-struct PGOIndirectCallSiteVisitor
-    : public InstVisitor<PGOIndirectCallSiteVisitor> {
-  std::vector<Instruction *> IndirectCallInsts;
-  PGOIndirectCallSiteVisitor() {}
-
-  void visitCallSite(CallSite CS) {
-    if (CS.isIndirectCall())
-      IndirectCallInsts.push_back(CS.getInstruction());
-  }
-};
-
-// Helper function that finds all indirect call sites.
-inline std::vector<Instruction *> findIndirectCallSites(Function &F) {
-  PGOIndirectCallSiteVisitor ICV;
-  ICV.visit(F);
-  return ICV.IndirectCallInsts;
-}
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:cc97daaea54d8d7c6d5613733c415ac8968be021003d8998aa1bca338d933568
+size 1103

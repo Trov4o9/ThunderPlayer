@@ -1,21 +1,3 @@
-
-//          Copyright Oliver Kowalke 2017.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#ifndef BOOST_FIBERS_SPINLOCK_STATUS_H
-#define BOOST_FIBERS_SPINLOCK_STATUS_H
-
-namespace boost {
-namespace fibers {
-namespace detail {
-
-enum class spinlock_status {
-    locked = 0,
-    unlocked
-};
-
-}}}
-
-#endif // BOOST_FIBERS_SPINLOCK_STATUS_H
+version https://git-lfs.github.com/spec/v1
+oid sha256:c906ea7db5383431466ce4fb6b2256638c1dcd363fc2914442cb8bfd731766a8
+size 457

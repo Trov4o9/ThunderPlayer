@@ -1,18 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2011 Joel de Guzman
-    Copyright (c) 2001-2011 Hartmut Kaiser
-    http://spirit.sourceforge.net/
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#ifndef BOOST_SPIRIT_INCLUDE_LEX_LEXERTL_TOKEN
-#define BOOST_SPIRIT_INCLUDE_LEX_LEXERTL_TOKEN
-
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
-#include <boost/spirit/home/lex/lexer/lexertl/token.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:6e16bdcff0cdd59d4e3b582b57afc40dba67ca5c45046dcd0d474030a256dc76
+size 640

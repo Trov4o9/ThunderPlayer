@@ -1,23 +1,3 @@
-#ifndef BOOST_METAPARSE_UTIL_IN_RANGE_HPP
-#define BOOST_METAPARSE_UTIL_IN_RANGE_HPP
-
-// Copyright Abel Sinkovics (abel@sinkovics.hu)  2013.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/metaparse/v1/util/in_range.hpp>
-
-namespace boost
-{
-  namespace metaparse
-  {
-    namespace util
-    {
-      using v1::util::in_range;
-    }
-  }
-}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:7298bc526b4365efff1712d314f83e0d76f10de6670b357d58c9646e65b3c408
+size 480

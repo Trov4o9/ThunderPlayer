@@ -1,25 +1,3 @@
-/*-----------------------------------------------------------------------------+    
-Copyright (c) 2008-2009: Joachim Faulhaber
-+------------------------------------------------------------------------------+
-   Distributed under the Boost Software License, Version 1.0.
-      (See accompanying file LICENCE.txt or copy at
-           http://www.boost.org/LICENSE_1_0.txt)
-+-----------------------------------------------------------------------------*/
-#ifndef BOOST_ICL_TYPE_TRAITS_IS_INTERVAL_JOINER_HPP_JOFA_100901
-#define BOOST_ICL_TYPE_TRAITS_IS_INTERVAL_JOINER_HPP_JOFA_100901
-
-#include <boost/config.hpp>
-
-namespace boost{ namespace icl
-{
-    template <class Type> struct is_interval_joiner
-    { 
-        typedef is_interval_joiner<Type> type;
-        BOOST_STATIC_CONSTANT(bool, value = false); 
-    };
-
-}} // namespace boost icl
-
-#endif
-
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:f710ebae01d5ace74bfbc364e390e79e44813566e41adaabac9027f4b62f128e
+size 849

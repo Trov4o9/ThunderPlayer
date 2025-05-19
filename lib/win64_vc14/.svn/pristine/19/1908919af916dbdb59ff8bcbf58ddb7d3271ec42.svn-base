@@ -1,26 +1,3 @@
-//  (C) Copyright John Maddock 2017.
-
-//  Use, modification and distribution are subject to the
-//  Boost Software License, Version 1.0. (See accompanying file
-//  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-
-#ifndef BOOST_MATH_COMMON_FACTOR_RT_HPP
-#define BOOST_MATH_COMMON_FACTOR_RT_HPP
-
-#include <boost/integer/common_factor_rt.hpp>
-#include <boost/config/header_deprecated.hpp>
-
-BOOST_HEADER_DEPRECATED("<boost/integer/common_factor_rt.hpp>");
-
-namespace boost {
-   namespace math {
-      using boost::integer::gcd;
-      using boost::integer::lcm;
-      using boost::integer::gcd_range;
-      using boost::integer::lcm_range;
-      using boost::integer::gcd_evaluator;
-      using boost::integer::lcm_evaluator;
-   }
-}
-
-#endif  // BOOST_MATH_COMMON_FACTOR_RT_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:2dd6c09e25b90b7903eb02bfebbc6b5bdfd8b3230a0dd578a4450ab4e295ef6a
+size 789

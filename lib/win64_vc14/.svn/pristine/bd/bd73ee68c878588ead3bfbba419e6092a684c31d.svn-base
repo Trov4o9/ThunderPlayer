@@ -1,12 +1,3 @@
-/*=============================================================================
-  Copyright (c) 2001-2008 Joel de Guzman
-  Copyright (c) 2001-2008 Hartmut Kaiser
-  http://spirit.sourceforge.net/
-
-  Distributed under the Boost Software License, Version 1.0. (See accompanying
-  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#ifndef BOOST_SPIRIT_INCLUDE_CLASSIC_GRAMMAR_DEF
-#define BOOST_SPIRIT_INCLUDE_CLASSIC_GRAMMAR_DEF
-#include <boost/spirit/home/classic/utility/grammar_def.hpp>
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:8172add19792e6aab7e25e6925d55844d26c1a0e98c6d5e4a3791acb06f6ff88
+size 593

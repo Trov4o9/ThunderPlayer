@@ -1,31 +1,3 @@
-// Boost.Units - A C++ library for zero-overhead dimensional analysis and 
-// unit/quantity manipulation and conversion
-//
-// Copyright (C) 2003-2008 Matthias Christian Schabel
-// Copyright (C) 2008 Steven Watanabe
-//
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-
-#ifndef BOOST_UNITS_SI_MOMENTUM_HPP
-#define BOOST_UNITS_SI_MOMENTUM_HPP
-
-#include <boost/units/systems/si/base.hpp>
-#include <boost/units/physical_dimensions/momentum.hpp>
-
-namespace boost {
-
-namespace units { 
-
-namespace si {
-
-typedef unit<momentum_dimension,si::system>  momentum;
-
-} // namespace si
-
-} // namespace units
-
-} // namespace boost
-
-#endif // BOOST_UNITS_SI_MOMENTUM_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:c9c3cd34841492d5d4fe1f9616f367e4084847f6a6d1449db977782aa3ce280c
+size 760

@@ -1,14 +1,3 @@
-# .-. .-. .-. . . .-. .-. .-. .-.
-# |(  |-  |.| | | |-  `-.  |  `-.
-# ' ' `-' `-`.`-' `-' `-'  '  `-'
-
-__title__ = 'requests'
-__description__ = 'Python HTTP for Humans.'
-__url__ = 'http://python-requests.org'
-__version__ = '2.19.1'
-__build__ = 0x021901
-__author__ = 'Kenneth Reitz'
-__author_email__ = 'me@kennethreitz.org'
-__license__ = 'Apache 2.0'
-__copyright__ = 'Copyright 2018 Kenneth Reitz'
-__cake__ = u'\u2728 \U0001f370 \u2728'
+version https://git-lfs.github.com/spec/v1
+oid sha256:ac9db180d38b863b291a434f7e05d305cb6aaafb1fdae24c153684d2b955b5b2
+size 436

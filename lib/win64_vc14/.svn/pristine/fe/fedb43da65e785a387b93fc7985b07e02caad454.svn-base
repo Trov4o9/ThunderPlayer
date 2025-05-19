@@ -1,20 +1,3 @@
-/*==============================================================================
-    Copyright (c) 2001-2010 Joel de Guzman
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-#ifndef BOOST_PHOENIX_STATEMENT_HPP
-#define BOOST_PHOENIX_STATEMENT_HPP
-
-#include <boost/phoenix/version.hpp>
-#include <boost/phoenix/statement/do_while.hpp>
-#include <boost/phoenix/statement/for.hpp>
-#include <boost/phoenix/statement/if.hpp>
-#include <boost/phoenix/statement/sequence.hpp>
-#include <boost/phoenix/statement/switch.hpp>
-#include <boost/phoenix/statement/throw.hpp>
-#include <boost/phoenix/statement/try_catch.hpp>
-#include <boost/phoenix/statement/while.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:8c88f82a61a89aeb01ead4bc07cee4458172c17d4a7bc0ae1b77c1e3e73e16fc
+size 845

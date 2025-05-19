@@ -1,13 +1,3 @@
-#!/usr/bin/env python
-from __future__ import division, print_function
-
-def configuration(parent_package='',top_path=None):
-    from numpy.distutils.misc_util import Configuration
-    config = Configuration('ma', parent_package, top_path)
-    config.add_data_dir('tests')
-    return config
-
-if __name__ == "__main__":
-    from numpy.distutils.core import setup
-    config = configuration(top_path='').todict()
-    setup(**config)
+version https://git-lfs.github.com/spec/v1
+oid sha256:ce489e1fc05e8865579775a5b7f59e3fd91c899972019636d030eee121a4e1be
+size 429

@@ -1,26 +1,3 @@
-/*
-Copyright 2014 Glen Joseph Fernandes
-(glenjofe@gmail.com)
-
-Distributed under the Boost Software License, Version 1.0.
-(http://www.boost.org/LICENSE_1_0.txt)
-*/
-#ifndef BOOST_ALIGN_DETAIL_ALIGNMENT_OF_GCC_HPP
-#define BOOST_ALIGN_DETAIL_ALIGNMENT_OF_GCC_HPP
-
-#include <boost/align/detail/integral_constant.hpp>
-#include <cstddef>
-
-namespace boost {
-namespace alignment {
-namespace detail {
-
-template<class T>
-struct alignment_of
-    : integral_constant<std::size_t, __alignof__(T)> { };
-
-} /* detail */
-} /* alignment */
-} /* boost */
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:45bb7d03c11a04f750a1bd190d298a8274b33d7a7bdc4f15213c018cbbbd7edb
+size 544

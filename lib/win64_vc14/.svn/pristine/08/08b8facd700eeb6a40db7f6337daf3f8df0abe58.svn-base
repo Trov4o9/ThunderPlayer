@@ -1,25 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2003 Daniel Nuffer
-    Copyright (c) 2003 Giovanni Bajo
-    http://spirit.sourceforge.net/
-
-  Distributed under the Boost Software License, Version 1.0. (See accompanying
-  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#if !defined(BOOST_SPIRIT_ITERATOR_MAIN_HPP)
-#define BOOST_SPIRIT_ITERATOR_MAIN_HPP
-
-#include <boost/spirit/home/classic/version.hpp>
-
-///////////////////////////////////////////////////////////////////////////////
-//
-//  Master header for Spirit.Iterators
-//
-///////////////////////////////////////////////////////////////////////////////
-
-#include <boost/spirit/home/classic/iterator/file_iterator.hpp>
-#include <boost/spirit/home/classic/iterator/fixed_size_queue.hpp>
-#include <boost/spirit/home/classic/iterator/position_iterator.hpp>
-#include <boost/spirit/home/classic/iterator/multi_pass.hpp>
-
-#endif // !defined(BOOST_SPIRIT_ITERATOR_MAIN_HPP)
+version https://git-lfs.github.com/spec/v1
+oid sha256:bd90d5e2d8df1f7b4bf59fd17b0b8add9c01df03041a8341e38f648af33e7d0d
+size 1079

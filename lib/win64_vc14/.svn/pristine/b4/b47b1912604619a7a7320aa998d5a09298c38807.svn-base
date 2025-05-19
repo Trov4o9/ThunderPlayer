@@ -1,18 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2011 Joel de Guzman
-    Copyright (c) 2001-2011 Hartmut Kaiser
-    http://spirit.sourceforge.net/
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#ifndef BOOST_SPIRIT_INCLUDE_KARMA_DIRECTIVE
-#define BOOST_SPIRIT_INCLUDE_KARMA_DIRECTIVE
-
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
-#include <boost/spirit/home/karma/directive.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:7c41cdba10111f5f2f0132720dbc7af969f1df876e2115d67da2995c494f24d4
+size 628

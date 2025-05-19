@@ -1,20 +1,3 @@
-#ifndef BOOST_METAPARSE_CHANGE_ERROR_MESSAGE_HPP
-#define BOOST_METAPARSE_CHANGE_ERROR_MESSAGE_HPP
-
-//    Copyright Abel Sinkovics (abel@sinkovics.hu) 2013.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/metaparse/v1/change_error_message.hpp>
-
-namespace boost
-{
-  namespace metaparse
-  {
-    using v1::change_error_message;
-  }
-}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:d891560d9bcf8264cbe48c1d9387043779d42a4ad5901e28a758c08047c66785
+size 476

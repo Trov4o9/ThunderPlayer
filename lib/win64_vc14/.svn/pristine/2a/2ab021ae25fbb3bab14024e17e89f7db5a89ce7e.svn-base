@@ -1,32 +1,3 @@
-
-// (C) Copyright Tobias Schwinger
-//
-// Use modification and distribution are subject to the boost Software License,
-// Version 1.0. (See http://www.boost.org/LICENSE_1_0.txt).
-//------------------------------------------------------------------------------
-
-#ifndef BOOST_FT_IS_MEMBER_POINTER_HPP_INCLUDED
-#define BOOST_FT_IS_MEMBER_POINTER_HPP_INCLUDED
-
-#include <boost/mpl/aux_/lambda_support.hpp>
-
-#include <boost/function_types/components.hpp>
-
-namespace boost 
-{ 
-  namespace function_types 
-  {
-    template< typename T, typename Tag = null_tag > 
-    struct is_member_pointer
-      : function_types::represents
-        < function_types::components<T>
-        , function_types::tag<Tag ,detail::member_pointer_tag> 
-        >
-    {
-      BOOST_MPL_AUX_LAMBDA_SUPPORT(2,is_member_pointer,(T,Tag))
-    };
-  } 
-} 
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:445153999822ccd563b990d8c52959d62fe4e655b117ab71d6d57f70d9e34d30
+size 828

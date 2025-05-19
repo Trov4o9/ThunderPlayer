@@ -1,18 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2011 Joel de Guzman
-    Copyright (c) 2001-2011 Hartmut Kaiser
-    http://spirit.sourceforge.net/
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#ifndef BOOST_SPIRIT_INCLUDE_QI_PERMUTATION
-#define BOOST_SPIRIT_INCLUDE_QI_PERMUTATION
-
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
-#include <boost/spirit/home/qi/operator/permutation.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:9e9a46ebf9d1218f9a14342ee97ce9ca956a91d1c71a58dba47006b0efffc3e7
+size 634

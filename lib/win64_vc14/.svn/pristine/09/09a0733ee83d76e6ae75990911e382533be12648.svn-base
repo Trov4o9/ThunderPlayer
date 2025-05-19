@@ -1,17 +1,3 @@
-/*
- * Copyright (c) 2014 Glen Fernandes
- *
- * Distributed under the Boost Software License, Version 1.0. (See
- * accompanying file LICENSE_1_0.txt or copy at
- * http://www.boost.org/LICENSE_1_0.txt)
- */
-
-#ifndef BOOST_SWAP_HPP
-#define BOOST_SWAP_HPP
-
-// The header file at this path is deprecated;
-// use boost/core/swap.hpp instead.
-
-#include <boost/core/swap.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:78f53231db6d94208b9cdc388659d7dec9576f7a55f43957c69c0b2d2090e106
+size 374

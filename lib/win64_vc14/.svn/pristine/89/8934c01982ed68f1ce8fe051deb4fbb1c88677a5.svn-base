@@ -1,33 +1,3 @@
-
-#ifndef BOOST_MPL_SET_AUX_SIZE_IMPL_HPP_INCLUDED
-#define BOOST_MPL_SET_AUX_SIZE_IMPL_HPP_INCLUDED
-
-// Copyright Aleksey Gurtovoy 2003-2004
-//
-// Distributed under the Boost Software License, Version 1.0. 
-// (See accompanying file LICENSE_1_0.txt or copy at 
-// http://www.boost.org/LICENSE_1_0.txt)
-//
-// See http://www.boost.org/libs/mpl for documentation.
-
-// $Id$
-// $Date$
-// $Revision$
-
-#include <boost/mpl/size_fwd.hpp>
-#include <boost/mpl/set/aux_/tag.hpp>
-
-namespace boost { namespace mpl {
-
-template<>
-struct size_impl< aux::set_tag >
-{
-    template< typename Set > struct apply
-        : Set::size
-    {
-    };
-};
-
-}}
-
-#endif // BOOST_MPL_SET_AUX_SIZE_IMPL_HPP_INCLUDED
+version https://git-lfs.github.com/spec/v1
+oid sha256:a64e0306018c7ed3b57feccd46961cca23658642756318579c696f6338f64205
+size 682

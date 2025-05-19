@@ -1,15 +1,3 @@
-#ifndef BOOST_METAPARSE_LIMIT_ONE_CHAR_EXCEPT_SIZE_HPP
-#define BOOST_METAPARSE_LIMIT_ONE_CHAR_EXCEPT_SIZE_HPP
-
-// Copyright Abel Sinkovics (abel@sinkovics.hu)  2013.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#ifndef BOOST_METAPARSE_LIMIT_ONE_CHAR_EXCEPT_SIZE
-#  define BOOST_METAPARSE_LIMIT_ONE_CHAR_EXCEPT_SIZE 10
-#endif
-
-#endif
-
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:fe3fc64a1d133a8d7e61599400f82419dd2b5b33f4aff0e5037f968919a31ac4
+size 459

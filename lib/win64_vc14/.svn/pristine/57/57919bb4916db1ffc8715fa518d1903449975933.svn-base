@@ -1,33 +1,3 @@
-/*-----------------------------------------------------------------------------+    
-Copyright (c) 2010-2010: Joachim Faulhaber
-+------------------------------------------------------------------------------+
-   Distributed under the Boost Software License, Version 1.0.
-      (See accompanying file LICENCE.txt or copy at
-           http://www.boost.org/LICENSE_1_0.txt)
-+-----------------------------------------------------------------------------*/
-#ifndef BOOST_ICL_TYPE_TRAITS_IS_ICL_CONTAINER_HPP_JOFA_100831
-#define BOOST_ICL_TYPE_TRAITS_IS_ICL_CONTAINER_HPP_JOFA_100831
-
-#include <boost/mpl/and.hpp> 
-#include <boost/mpl/or.hpp> 
-#include <boost/mpl/not.hpp> 
-#include <boost/icl/type_traits/is_element_container.hpp> 
-#include <boost/icl/type_traits/is_interval_container.hpp> 
-#include <boost/icl/type_traits/is_set.hpp> 
-
-namespace boost{ namespace icl
-{
-    template <class Type> 
-    struct is_icl_container
-    { 
-        typedef is_icl_container<Type> type;
-        BOOST_STATIC_CONSTANT(bool, value = 
-            (mpl::or_<  is_element_container<Type>
-                     , is_interval_container<Type> >::value));
-    };
-
-}} // namespace boost icl
-
-#endif
-
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:6f5c182ba9af478014264aa59ec1a8d01c84693a234fb2a2358f5038671c7470
+size 1177

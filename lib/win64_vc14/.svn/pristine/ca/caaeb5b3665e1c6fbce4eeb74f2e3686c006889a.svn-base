@@ -1,24 +1,3 @@
-
-#ifndef BOOST_MPL_SIZE_FWD_HPP_INCLUDED
-#define BOOST_MPL_SIZE_FWD_HPP_INCLUDED
-
-// Copyright Aleksey Gurtovoy 2000-2004
-//
-// Distributed under the Boost Software License, Version 1.0. 
-// (See accompanying file LICENSE_1_0.txt or copy at 
-// http://www.boost.org/LICENSE_1_0.txt)
-//
-// See http://www.boost.org/libs/mpl for documentation.
-
-// $Id$
-// $Date$
-// $Revision$
-
-namespace boost { namespace mpl {
-
-template< typename Tag > struct size_impl;
-template< typename Sequence > struct size;
-
-}}
-
-#endif // BOOST_MPL_SIZE_FWD_HPP_INCLUDED
+version https://git-lfs.github.com/spec/v1
+oid sha256:aaecb60cbac1ae0b847278d697cecc439b5b87487ddb955513e5145fcbe6ccab
+size 544

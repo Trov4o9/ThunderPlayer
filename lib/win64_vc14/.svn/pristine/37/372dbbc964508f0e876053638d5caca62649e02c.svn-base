@@ -1,23 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2011 Joel de Guzman
-    Copyright (c) 2005 Eric Niebler
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-#if !defined(BOOST_FUSION_CONS_FWD_HPP_INCLUDED)
-#define BOOST_FUSION_CONS_FWD_HPP_INCLUDED
-
-namespace boost { namespace fusion
-{
-    struct nil_;
-    #ifndef nil
-    typedef nil_ nil;
-    #endif
-
-    template <typename Car, typename Cdr = nil_>
-    struct cons;
-}}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:68d8787c4b916a63d321ca53ab54ca1a7da455a5d748c7393c1f0f890731a606
+size 671

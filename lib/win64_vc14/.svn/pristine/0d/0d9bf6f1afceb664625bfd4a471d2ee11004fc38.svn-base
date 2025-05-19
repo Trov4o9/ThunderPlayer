@@ -1,13 +1,3 @@
-// Copyright David Abrahams 2004. Distributed under the Boost
-// Software License, Version 1.0. (See accompanying
-// file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-#ifndef INDIRECT_TRAITS_DWA2004915_HPP
-# define INDIRECT_TRAITS_DWA2004915_HPP
-
-# include <boost/detail/indirect_traits.hpp>
-
-namespace boost { namespace python {
-namespace indirect_traits = boost::detail::indirect_traits;
-}} // namespace boost::python::detail
-
-#endif // INDIRECT_TRAITS_DWA2004915_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:bd96204a2f9aebccb82c627e2b3a5a0a36be0e11b850850806daf9f35a1ba0b3
+size 490

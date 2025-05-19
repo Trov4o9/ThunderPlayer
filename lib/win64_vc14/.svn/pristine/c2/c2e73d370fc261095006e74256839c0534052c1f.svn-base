@@ -1,23 +1,3 @@
-from __future__ import division, absolute_import, print_function
-
-from distutils.unixccompiler import UnixCCompiler
-
-class PathScaleCCompiler(UnixCCompiler):
-
-    """
-    PathScale compiler compatible with an gcc built Python.
-    """
-
-    compiler_type = 'pathcc'
-    cc_exe = 'pathcc'
-    cxx_exe = 'pathCC'
-
-    def __init__ (self, verbose=0, dry_run=0, force=0):
-        UnixCCompiler.__init__ (self, verbose, dry_run, force)
-        cc_compiler = self.cc_exe
-        cxx_compiler = self.cxx_exe
-        self.set_executables(compiler=cc_compiler,
-                             compiler_so=cc_compiler,
-                             compiler_cxx=cxx_compiler,
-                             linker_exe=cc_compiler,
-                             linker_so=cc_compiler + ' -shared')
+version https://git-lfs.github.com/spec/v1
+oid sha256:163368b8e4cbf2ee202cc6c95bb19d4f4465b03da75d5d7f48404d663f507694
+size 779

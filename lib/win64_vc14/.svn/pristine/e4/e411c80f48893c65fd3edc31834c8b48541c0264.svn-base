@@ -1,13 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2007 Joel de Guzman
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-#if !defined(FUSION_INCLUDE_NEXT)
-#define FUSION_INCLUDE_NEXT
-
-#include <boost/fusion/support/config.hpp>
-#include <boost/fusion/iterator/next.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:d5a85fddbc0a2fa88f1439895285c64da3ea81d41154c373181b4f0d8958c695
+size 516

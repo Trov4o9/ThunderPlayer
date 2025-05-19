@@ -1,11 +1,3 @@
-"""CacheControl import Interface.
-
-Make it easy to import from cachecontrol without long namespaces.
-"""
-__author__ = "Eric Larson"
-__email__ = "eric@ionrock.org"
-__version__ = "0.12.5"
-
-from .wrapper import CacheControl
-from .adapter import CacheControlAdapter
-from .controller import CacheController
+version https://git-lfs.github.com/spec/v1
+oid sha256:e9c44f72156a90091e52d613496f2a09eb634aa268f86c4ffa7e153150dbbe67
+size 302

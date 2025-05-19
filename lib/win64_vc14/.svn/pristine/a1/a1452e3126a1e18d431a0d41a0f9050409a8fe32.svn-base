@@ -1,32 +1,3 @@
-//===- DebugUnknownSubsection.h -----------------------------*- C++ -*-===//
-//
-//                     The LLVM Compiler Infrastructure
-//
-// This file is distributed under the University of Illinois Open Source
-// License. See LICENSE.TXT for details.
-//
-//===----------------------------------------------------------------------===//
-
-#ifndef LLVM_DEBUGINFO_CODEVIEW_MODULEDEBUGUNKNOWNFRAGMENT_H
-#define LLVM_DEBUGINFO_CODEVIEW_MODULEDEBUGUNKNOWNFRAGMENT_H
-
-#include "llvm/DebugInfo/CodeView/DebugSubsection.h"
-#include "llvm/Support/BinaryStreamRef.h"
-
-namespace llvm {
-namespace codeview {
-
-class DebugUnknownSubsectionRef final : public DebugSubsectionRef {
-public:
-  DebugUnknownSubsectionRef(DebugSubsectionKind Kind, BinaryStreamRef Data)
-      : DebugSubsectionRef(Kind), Data(Data) {}
-
-  BinaryStreamRef getData() const { return Data; }
-
-private:
-  BinaryStreamRef Data;
-};
-}
-}
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:071376c6bec69e85080cdae1c24e3dc6ef698df026aa3031df93260d49638279
+size 897

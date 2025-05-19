@@ -1,12 +1,3 @@
-/*=============================================================================
-  Copyright (c) 2001-2008 Joel de Guzman
-  Copyright (c) 2001-2008 Hartmut Kaiser
-  http://spirit.sourceforge.net/
-
-  Distributed under the Boost Software License, Version 1.0. (See accompanying
-  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#ifndef BOOST_SPIRIT_INCLUDE_CLASSIC_REFACTORING
-#define BOOST_SPIRIT_INCLUDE_CLASSIC_REFACTORING
-#include <boost/spirit/home/classic/meta/refactoring.hpp>
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:7fb9469021cfd8c41d9c4a5b09fbdace339f68ee1f57be6698870d83efda812e
+size 590

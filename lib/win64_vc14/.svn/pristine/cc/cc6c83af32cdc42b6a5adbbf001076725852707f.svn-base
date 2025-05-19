@@ -1,15 +1,3 @@
-/*!
-@file
-Includes boost/hana/fwd/integral_constant.hpp.
-
-@copyright Louis Dionne 2013-2017
-Distributed under the Boost Software License, Version 1.0.
-(See accompanying file LICENSE.md or copy at http://boost.org/LICENSE_1_0.txt)
- */
-
-#ifndef BOOST_HANA_FWD_BOOL_HPP
-#define BOOST_HANA_FWD_BOOL_HPP
-
-#include <boost/hana/fwd/integral_constant.hpp>
-
-#endif // !BOOST_HANA_FWD_BOOL_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:d6b7d337495073bfb7f8c11476eff2111ced64ae47c7708dba42a0267d3a4d13
+size 384

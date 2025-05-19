@@ -1,13 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2001-2007 Joel de Guzman
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-#if !defined(FUSION_INCLUDE_REVERSE)
-#define FUSION_INCLUDE_REVERSE
-
-#include <boost/fusion/support/config.hpp>
-#include <boost/fusion/algorithm/transformation/reverse.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:df15ed70a3309f3cc2ba6f7121c2504019af30f5fc1699612bf53bf501be391f
+size 541

@@ -1,14 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2009 Christopher Schmidt
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-
-#ifndef BOOST_FUSION_INCLUDE_VALUE_OF_DATA_HPP
-#define BOOST_FUSION_INCLUDE_VALUE_OF_DATA_HPP
-
-#include <boost/fusion/support/config.hpp>
-#include <boost/fusion/iterator/value_of_data.hpp>
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:a6992c7f968d7a04bf03bd2505951510d447cccf315922a40b222235e6dcea2a
+size 558

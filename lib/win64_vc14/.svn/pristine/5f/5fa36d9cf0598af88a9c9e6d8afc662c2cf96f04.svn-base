@@ -1,20 +1,3 @@
-#ifndef BOOST_METAPARSE_GET_REMAINING_HPP
-#define BOOST_METAPARSE_GET_REMAINING_HPP
-
-//    Copyright Abel Sinkovics (abel@sinkovics.hu) 2013.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/metaparse/v1/get_remaining.hpp>
-
-namespace boost
-{
-  namespace metaparse
-  {
-    using v1::get_remaining;
-  }
-}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:b78ac897d2150d9e20f786f4214fd8a886bfa27df0f8d4db94c0fd71221860b4
+size 448

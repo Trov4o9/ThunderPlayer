@@ -1,18 +1,3 @@
-// Open Shading Language : Copyright (c) 2009-2017 Sony Pictures Imageworks Inc., et al.
-// https://github.com/imageworks/OpenShadingLanguage/blob/master/LICENSE
-// 
-// MaterialX specification (c) 2017 Lucasfilm Ltd. 
-// http://www.materialx.org/
-
-#include "mx_funcs.h"
-
-shader mx_min_float_vector
-    [[ string help = "Vector"" Select the minimum among incoming values." ]]
-  (
-    vector in1 = 0,
-    float in2 = 0.0,
-    output vector out = 0
-  )
-{
-    out = min(in1, in2); 
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:1c8116ca73b8b0d5027cce7026af47c84fcdabcebe8792e51a0abcf545ab7f18
+size 498

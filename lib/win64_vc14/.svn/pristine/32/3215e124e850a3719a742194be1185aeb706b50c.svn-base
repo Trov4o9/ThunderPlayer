@@ -1,19 +1,3 @@
-/*=============================================================================
-    Copyright (c) 2007 Tobias Schwinger
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-
-#if !defined(BOOST_FUSION_REPETITIVE_VIEW_FWD_HPP_INCLUDED)
-#define BOOST_FUSION_REPETITIVE_VIEW_FWD_HPP_INCLUDED
-
-namespace boost { namespace fusion
-{
-    struct repetitive_view_tag;
-
-    template<typename Sequence> struct repetitive_view;
-}}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:95c1d28d6c8b17e733f3e864570e891e50dc031f67f8f3236e5acb46a27812f0
+size 611

@@ -1,19 +1,3 @@
-
-#ifndef BOOST_MPL_END_HPP_INCLUDED
-#define BOOST_MPL_END_HPP_INCLUDED
-
-// Copyright Aleksey Gurtovoy 2004
-//
-// Distributed under the Boost Software License, Version 1.0. 
-// (See accompanying file LICENSE_1_0.txt or copy at 
-// http://www.boost.org/LICENSE_1_0.txt)
-//
-// See http://www.boost.org/libs/mpl for documentation.
-
-// $Id$
-// $Date$
-// $Revision$
-
-#include <boost/mpl/begin_end.hpp>
-
-#endif // BOOST_MPL_END_HPP_INCLUDED
+version https://git-lfs.github.com/spec/v1
+oid sha256:91fed9a32d03ad8235e8152c88c2ec0743f2ebc747d69a875c9b89cf6eb798cd
+size 434

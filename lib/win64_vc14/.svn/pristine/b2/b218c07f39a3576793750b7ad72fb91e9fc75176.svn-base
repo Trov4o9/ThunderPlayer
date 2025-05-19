@@ -1,24 +1,3 @@
-#ifndef BOOST_METAPARSE_ERROR_LITERAL_EXPECTED_HPP
-#define BOOST_METAPARSE_ERROR_LITERAL_EXPECTED_HPP
-
-// Copyright Abel Sinkovics (abel@sinkovics.hu)  2013.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/metaparse/v1/error/literal_expected.hpp>
-
-namespace boost
-{
-  namespace metaparse
-  {
-    namespace error
-    {
-      using v1::error::literal_expected;
-    }
-  }
-}
-
-#endif
-
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:aaae4c1d7c4823c8527cf3a9c7c4bd78bdbd501d37012c5c98af4821fe6fba3a
+size 518

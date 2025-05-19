@@ -1,18 +1,3 @@
-// Open Shading Language : Copyright (c) 2009-2017 Sony Pictures Imageworks Inc., et al.
-// https://github.com/imageworks/OpenShadingLanguage/blob/master/LICENSE
-// 
-// MaterialX specification (c) 2017 Lucasfilm Ltd. 
-// http://www.materialx.org/
-
-#include "mx_funcs.h"
-
-shader mx_multiply_float
-    [[ string help = "Float"" multiply in1 by in2" ]]
-  (
-    float in1 = 0,
-    float in2 = 1,
-    output float out = 0
-  )
-{
-    out = in1 * in2; 
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:ade0733696479be0c8e2a40d45b247448292c9a5529b4af048ded2467af5b028
+size 465

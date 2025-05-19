@@ -1,30 +1,3 @@
-#ifndef BOOST_METAPARSE_V1_CPP11_IMPL_POP_FRONT_HPP
-#define BOOST_METAPARSE_V1_CPP11_IMPL_POP_FRONT_HPP
-
-// Copyright Abel Sinkovics (abel@sinkovics.hu)  2013.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/metaparse/v1/cpp11/fwd/string.hpp>
-
-namespace boost
-{
-  namespace metaparse
-  {
-    namespace v1
-    {
-      namespace impl
-      {
-        template <class S>
-        struct pop_front;
-
-        template <char C, char... Cs>
-        struct pop_front<string<C, Cs...>> : string<Cs...> {};
-      }
-    }
-  }
-}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:f598cc48bda333fb14dc98c01e9e1a1e8a9c5f1331166aecdf987189a32615d7
+size 661

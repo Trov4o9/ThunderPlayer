@@ -1,25 +1,3 @@
-
-#ifndef BOOST_MPL_AUX_TEST_DATA_HPP_INCLUDED
-#define BOOST_MPL_AUX_TEST_DATA_HPP_INCLUDED
-
-// Copyright Aleksey Gurtovoy 2002-2004
-//
-// Distributed under the Boost Software License, Version 1.0. 
-// (See accompanying file LICENSE_1_0.txt or copy at 
-// http://www.boost.org/LICENSE_1_0.txt)
-//
-// See http://www.boost.org/libs/mpl for documentation.
-
-// $Id$
-// $Date$
-// $Revision$
-
-#include <boost/noncopyable.hpp>
-
-enum enum_ {};
-struct UDT {};
-struct incomplete;
-class abstract { public: virtual ~abstract() = 0; };
-using boost::noncopyable;
-
-#endif // BOOST_MPL_AUX_TEST_DATA_HPP_INCLUDED
+version https://git-lfs.github.com/spec/v1
+oid sha256:25112c8e566a345f4154da6bc8eb3040f70ec4ae3f0fbd021435d0571e92eb92
+size 596

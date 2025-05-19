@@ -1,17 +1,3 @@
-# /* **************************************************************************
-#  *                                                                          *
-#  *     (C) Copyright Paul Mensonides 2002.
-#  *     Distributed under the Boost Software License, Version 1.0. (See
-#  *     accompanying file LICENSE_1_0.txt or copy at
-#  *     http://www.boost.org/LICENSE_1_0.txt)
-#  *                                                                          *
-#  ************************************************************************** */
-#
-# /* See http://www.boost.org for most recent version. */
-#
-# ifndef BOOST_PREPROCESSOR_COMMA_HPP
-# define BOOST_PREPROCESSOR_COMMA_HPP
-#
-# include <boost/preprocessor/punctuation/comma.hpp>
-#
-# endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:93aaaeeddf6ce0f0d02753a6e64bfe299ac9fd77e62c72da15e705f995c69c80
+size 743

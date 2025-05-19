@@ -1,28 +1,3 @@
-#!/usr/bin/env python
-from __future__ import division, print_function
-
-
-def configuration(parent_package='',top_path=None):
-    from numpy.distutils.misc_util import Configuration
-    config = Configuration('numpy', parent_package, top_path)
-
-    config.add_subpackage('compat')
-    config.add_subpackage('core')
-    config.add_subpackage('distutils')
-    config.add_subpackage('doc')
-    config.add_subpackage('f2py')
-    config.add_subpackage('fft')
-    config.add_subpackage('lib')
-    config.add_subpackage('linalg')
-    config.add_subpackage('ma')
-    config.add_subpackage('matrixlib')
-    config.add_subpackage('polynomial')
-    config.add_subpackage('random')
-    config.add_subpackage('testing')
-    config.add_data_dir('doc')
-    config.add_data_dir('tests')
-    config.make_config_py() # installs __config__.py
-    return config
-
-if __name__ == '__main__':
-    print('This is the wrong setup.py file to run')
+version https://git-lfs.github.com/spec/v1
+oid sha256:96cca19d15dfa34c9babade75545fc1e7621435988d1b4a273e9a4fa52b7c277
+size 920

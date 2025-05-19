@@ -1,17 +1,3 @@
-// Open Shading Language : Copyright (c) 2009-2017 Sony Pictures Imageworks Inc., et al.
-// https://github.com/imageworks/OpenShadingLanguage/blob/master/LICENSE
-// 
-// MaterialX specification (c) 2017 Lucasfilm Ltd. 
-// http://www.materialx.org/
-
-#include "mx_funcs.h"
-
-shader mx_dot_vector2
-    [[ string help = "Vector2"" no-op " ]]
-  (
-    vector2 in = {0,0},
-    output vector2 out = {0,0}
-  )
-{
-    out = in; 
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:5f891d7420441266354a351509d6f12e919d2256b7ec976e9a03a53c9d390b79
+size 435

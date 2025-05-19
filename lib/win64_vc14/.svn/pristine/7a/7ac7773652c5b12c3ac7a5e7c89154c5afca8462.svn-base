@@ -1,19 +1,3 @@
-// Copyright David Abrahams 2002.
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-#ifndef TO_PYTHON_FUNCTION_TYPE_DWA200236_HPP
-# define TO_PYTHON_FUNCTION_TYPE_DWA200236_HPP
-# include <boost/python/detail/prefix.hpp>
-# include <boost/static_assert.hpp>
-
-namespace boost { namespace python { namespace converter { 
-
-// The type of stored function pointers which actually do conversion
-// by-value. The void* points to the object to be converted, and
-// type-safety is preserved through runtime registration.
-typedef PyObject* (*to_python_function_t)(void const*);
-
-}}} // namespace boost::python::converter
-
-#endif // TO_PYTHON_FUNCTION_TYPE_DWA200236_HPP
+version https://git-lfs.github.com/spec/v1
+oid sha256:cd26f42fd4d70cbf1d7e5349cee1a9e748aef5cd4643a38ead9af86a06e48c10
+size 764

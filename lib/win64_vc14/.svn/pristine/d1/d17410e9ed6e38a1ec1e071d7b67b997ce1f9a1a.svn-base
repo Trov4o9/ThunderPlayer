@@ -1,20 +1,3 @@
-#ifndef BOOST_METAPARSE_RANGE_C_HPP
-#define BOOST_METAPARSE_RANGE_C_HPP
-
-// Copyright Abel Sinkovics (abel@sinkovics.hu)  2014.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
-
-#include <boost/metaparse/v1/range_c.hpp>
-
-namespace boost
-{
-  namespace metaparse
-  {
-    using v1::range_c;
-  }
-}
-
-#endif
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:0bc71d9fbd5facf49fd487f3dde8a013be8030e8bdce862a17a695a7bc181a5a
+size 422

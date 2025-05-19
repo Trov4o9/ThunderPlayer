@@ -1,24 +1,3 @@
-
-#ifndef BOOST_MPL_EMPTY_FWD_HPP_INCLUDED
-#define BOOST_MPL_EMPTY_FWD_HPP_INCLUDED
-
-// Copyright Aleksey Gurtovoy 2000-2004
-//
-// Distributed under the Boost Software License, Version 1.0. 
-// (See accompanying file LICENSE_1_0.txt or copy at 
-// http://www.boost.org/LICENSE_1_0.txt)
-//
-// See http://www.boost.org/libs/mpl for documentation.
-
-// $Id$
-// $Date$
-// $Revision$
-
-namespace boost { namespace mpl {
-
-template< typename Tag > struct empty_impl;
-template< typename Sequence > struct empty;
-
-}}
-
-#endif // BOOST_MPL_EMPTY_FWD_HPP_INCLUDED
+version https://git-lfs.github.com/spec/v1
+oid sha256:aec2468473451a7833a6502ddbd0d53a7b2e34d8b283ca7da6b954e7504a28a6
+size 549

@@ -1,19 +1,3 @@
-/*-----------------------------------------------------------------------------+
-Copyright (c) 2008-2009: Joachim Faulhaber
-+------------------------------------------------------------------------------+
-   Distributed under the Boost Software License, Version 1.0.
-      (See accompanying file LICENCE.txt or copy at
-           http://www.boost.org/LICENSE_1_0.txt)
-+-----------------------------------------------------------------------------*/
-#ifndef BOOST_ICL_TYPE_TRAITS_DIFFERENCE_HPP_JOFA_080911
-#define BOOST_ICL_TYPE_TRAITS_DIFFERENCE_HPP_JOFA_080911
-
-namespace boost{ namespace icl
-{
-    template <class Type> struct difference{ typedef Type type; };
-
-}} // namespace boost icl
-
-#endif
-
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:2b0890fbbd2cab8e6f0ad79f9bb76cdd534f2c5e1deab9b4ffdd67a9fbe5a911
+size 701
