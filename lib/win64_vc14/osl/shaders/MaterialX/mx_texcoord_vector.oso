@@ -1,0 +1,17 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_texcoord_vector.oso
+shader mx_texcoord_vector	%meta{string,help," The 2D texture coordinates"} 
+oparam	vector	out	0 0 0		%read{2147483647,-1} %write{1,1}
+global	float	u	%read{1,1} %write{2147483647,-1}
+global	float	v	%read{1,1} %write{2147483647,-1}
+const	string	$const1	"mk_coord"		%read{0,0} %write{2147483647,-1}
+const	float	$const3	0		%read{1,1} %write{2147483647,-1}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_texcoord_vector.osl:29
+#     out = mk_coord (u, v);
+	functioncall	$const1 2 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_texcoord_vector.osl"} %line{29} %argrw{"r"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_texcoord_vector.osl:18
+#     return vector(u,v,0);
+	vector		out u v $const3 	%line{18} %argrw{"wrrr"}
+	end

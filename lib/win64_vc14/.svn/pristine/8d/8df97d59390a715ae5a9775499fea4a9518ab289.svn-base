@@ -1,0 +1,61 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_image_color4.oso
+shader mx_image_color4	%meta{string,help,"Texture lookup"} 
+param	string	file	""		%meta{string,help,"Texture filename"} %meta{string,widget,"filename"}  %read{5,5} %write{2147483647,-1}
+param	string	layer	""		%meta{string,help,"Subimage in texture file"} %meta{string,widget,"filename"}  %read{5,5} %write{2147483647,-1}
+param	struct color4	default_value			%meta{string,help,"Default value"}  %read{2147483647,-1} %write{2147483647,-1} %struct{"color4"} %structfields{rgb,a} %structfieldtypes{"cf"} %structnfields{2}
+param	color	default_value.rgb	0 0 0		%meta{string,help,"Default value"}  %read{3,3} %write{2147483647,-1} %mystruct{default_value} %mystructfield{0}
+param	float	default_value.a	0		%meta{string,help,"Default value"}  %read{4,4} %write{2147483647,-1} %mystruct{default_value} %mystructfield{1}
+param	struct vector2	texcoord			%meta{string,help,"Vector2 texture coordinates"} %meta{int,lockgeom,0}  %read{2147483647,-1} %write{2147483647,-1} %struct{"vector2"} %structfields{x,y} %structfieldtypes{"ff"} %structnfields{2}
+param	float	texcoord.x	0		%meta{string,help,"Vector2 texture coordinates"} %meta{int,lockgeom,0}  %read{5,5} %write{0,0} %mystruct{texcoord} %mystructfield{0} %derivs %initexpr
+param	float	texcoord.y	0		%meta{string,help,"Vector2 texture coordinates"} %meta{int,lockgeom,0}  %read{5,5} %write{1,1} %mystruct{texcoord} %mystructfield{1} %derivs %initexpr
+param	string	uaddressmode	"periodic"		%meta{string,help,"Tiling mode along the u coordinate"}  %read{2147483647,-1} %write{2147483647,-1}
+param	string	vaddressmode	"periodic"		%meta{string,help,"Tiling mode along the v coordinate"}  %read{2147483647,-1} %write{2147483647,-1}
+param	string	framerange	""		%read{2147483647,-1} %write{2147483647,-1}
+param	int	frameoffset	0		%read{2147483647,-1} %write{2147483647,-1}
+param	string	frameendaction	"black"		%read{2147483647,-1} %write{2147483647,-1}
+oparam	struct color4	out			%meta{string,help,"Output color"}  %read{2147483647,-1} %write{2147483647,-1} %struct{"color4"} %structfields{rgb,a} %structfieldtypes{"cf"} %structnfields{2}
+oparam	color	out.rgb	0 0 0		%meta{string,help,"Output color"}  %read{2147483647,-1} %write{7,7} %mystruct{out} %mystructfield{0}
+oparam	float	out.a	0		%meta{string,help,"Output color"}  %read{2147483647,-1} %write{8,8} %mystruct{out} %mystructfield{1}
+global	float	u	%read{0,0} %write{2147483647,-1} %derivs
+global	float	v	%read{1,1} %write{2147483647,-1} %derivs
+local	color	missingColor	%read{5,5} %write{3,3}
+local	float	missingAlpha	%read{5,5} %write{4,4}
+local	float	alpha	%read{8,8} %write{5,5}
+local	color	rgb	%read{7,7} %write{5,5}
+const	string	$const1	"setup_missing_color_alpha"		%read{2,2} %write{2147483647,-1}
+const	string	$const2	"alpha"		%read{5,5} %write{2147483647,-1}
+const	string	$const3	"subimage"		%read{5,5} %write{2147483647,-1}
+const	string	$const4	"missingcolor"		%read{5,5} %write{2147483647,-1}
+const	string	$const5	"missingalpha"		%read{5,5} %write{2147483647,-1}
+const	string	$const6	"pack"		%read{6,6} %write{2147483647,-1}
+code texcoord.x
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_image_color4.osl:25
+#            int lockgeom = 0 ]],
+	assign		texcoord.x u 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_image_color4.osl"} %line{25} %argrw{"wr"}
+code texcoord.y
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_image_color4.osl:25
+#            int lockgeom = 0 ]],
+	assign		texcoord.y v 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_image_color4.osl"} %line{25} %argrw{"wr"}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_image_color4.osl:45
+#     setup_missing_color_alpha (default_value, missingColor, missingAlpha);
+	functioncall	$const1 5 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_image_color4.osl"} %line{45} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:667
+#     missingColor = color (default_value.rgb);
+	assign		missingColor default_value.rgb 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h"} %line{667} %argrw{"wr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:668
+#     missingAlpha = default_value.a;
+	assign		missingAlpha default_value.a 	%line{668} %argrw{"wr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_image_color4.osl:50
+#                         "missingcolor", missingColor, "missingalpha", missingAlpha);
+	texture		rgb file texcoord.x texcoord.y $const2 alpha $const3 layer $const4 missingColor $const5 missingAlpha 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_image_color4.osl"} %line{50} %argrw{"wrrrrwrrrrrr"} %argderivs{2,3}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_image_color4.osl:52
+#     out = pack (rgb, alpha);
+	functioncall	$const6 9 	%line{52} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:740
+#     return color4 (rgb, alpha);
+	assign		out.rgb rgb 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h"} %line{740} %argrw{"wr"}
+	assign		out.a alpha 	%argrw{"wr"}
+	end

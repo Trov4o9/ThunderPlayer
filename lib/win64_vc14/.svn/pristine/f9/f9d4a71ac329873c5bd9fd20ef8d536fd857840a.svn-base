@@ -1,0 +1,17 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_scale_vector.oso
+shader mx_scale_vector	%meta{string,help,"Vector Scales a vector2 or vector3 value about a center point in 2D or 3D pattern space."} 
+param	vector	in	0 0 0		%read{0,0} %write{2147483647,-1}
+param	vector	amount	1 1 1		%read{1,1} %write{2147483647,-1}
+param	vector	center	0.5 0.5 0.5		%read{0,2} %write{2147483647,-1}
+oparam	vector	out	0 0 0		%read{2147483647,-1} %write{2,2}
+temp	vector	$tmp1	%read{1,1} %write{0,0}
+temp	vector	$tmp2	%read{2,2} %write{1,1}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_scale_vector.osl:18
+#     out = ((in - center) / amount) + center;
+	sub		$tmp1 in center 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_scale_vector.osl"} %line{18} %argrw{"wrr"}
+	div		$tmp2 $tmp1 amount 	%argrw{"wrr"}
+	add		out $tmp2 center 	%argrw{"wrr"}
+	end

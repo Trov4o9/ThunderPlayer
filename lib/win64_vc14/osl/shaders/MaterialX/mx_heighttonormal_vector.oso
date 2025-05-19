@@ -1,0 +1,24 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_heighttonormal_vector.oso
+shader mx_heighttonormal_vector	%meta{string,help," Convert a scalar height map to a normal map of type vector3."} 
+param	float	in	0		%read{1,1} %write{2147483647,-1} %derivs
+param	float	scale	1		%read{2,2} %write{2147483647,-1} %derivs
+oparam	vector	out	0 0 0		%read{2147483647,-1} %write{4,4}
+global	point	P	%read{3,3} %write{2147483647,-1} %derivs
+global	normal	N	%read{0,0} %write{2147483647,-1} %derivs
+local	point	htP	%read{4,4} %write{3,3} %derivs
+temp	normal	$tmp1	%read{1,1} %write{0,0} %derivs
+temp	normal	$tmp2	%read{2,2} %write{1,1} %derivs
+temp	normal	$tmp3	%read{3,3} %write{2,2} %derivs
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_heighttonormal_vector.osl:17
+#     point htP = P + normalize(N) * in * scale;
+	normalize	$tmp1 N 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_heighttonormal_vector.osl"} %line{17} %argrw{"wr"}
+	mul		$tmp2 $tmp1 in 	%argrw{"wrr"}
+	mul		$tmp3 $tmp2 scale 	%argrw{"wrr"}
+	add		htP P $tmp3 	%argrw{"wrr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_heighttonormal_vector.osl:18
+#     out = calculatenormal(htP);
+	calculatenormal	out htP 	%line{18} %argrw{"wr"} %argderivs{1}
+	end

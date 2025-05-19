@@ -1,0 +1,16 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_premult_color.oso
+shader mx_premult_color	%meta{string,help,"Color Multiply the R or RGB channels of the input by the Alpha channel of the input."} 
+param	color	in	0 0 0		%read{1,1} %write{2147483647,-1}
+param	float	alpha	1		%read{1,1} %write{2147483647,-1}
+oparam	color	out	0 0 0		%read{2147483647,-1} %write{1,1}
+const	string	$const1	"premult"		%read{0,0} %write{2147483647,-1}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_premult_color.osl:38
+#     out = premult (in, alpha);
+	functioncall	$const1 2 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_premult_color.osl"} %line{38} %argrw{"r"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_premult_color.osl:15
+#     return in * alpha;
+	mul		out in alpha 	%line{15} %argrw{"wrr"}
+	end

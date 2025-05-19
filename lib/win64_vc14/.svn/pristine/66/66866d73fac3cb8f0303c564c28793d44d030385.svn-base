@@ -1,0 +1,24 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_dotproduct_vector2.oso
+shader mx_dotproduct_vector2	%meta{string,help,"Vector2 Perform a dot product of two 2-4 channel vectors"} 
+param	struct vector2	in1			%read{2147483647,-1} %write{2147483647,-1} %struct{"vector2"} %structfields{x,y} %structfieldtypes{"ff"} %structnfields{2}
+param	float	in1.x	0		%read{1,1} %write{2147483647,-1} %mystruct{in1} %mystructfield{0}
+param	float	in1.y	0		%read{2,2} %write{2147483647,-1} %mystruct{in1} %mystructfield{1}
+param	struct vector2	in2			%read{2147483647,-1} %write{2147483647,-1} %struct{"vector2"} %structfields{x,y} %structfieldtypes{"ff"} %structnfields{2}
+param	float	in2.x	0		%read{1,1} %write{2147483647,-1} %mystruct{in2} %mystructfield{0}
+param	float	in2.y	0		%read{2,2} %write{2147483647,-1} %mystruct{in2} %mystructfield{1}
+oparam	float	out	0		%read{2147483647,-1} %write{3,3}
+const	string	$const1	"dot"		%read{0,0} %write{2147483647,-1}
+temp	float	$tmp1	%read{3,3} %write{1,1}
+temp	float	$tmp2	%read{3,3} %write{2,2}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_dotproduct_vector2.osl:17
+#     out = dot(in1, in2); 
+	functioncall	$const1 4 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_dotproduct_vector2.osl"} %line{17} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector2.h:162
+#     return (a.x * b.x + a.y * b.y);
+	mul		$tmp1 in1.x in2.x 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector2.h"} %line{162} %argrw{"wrr"}
+	mul		$tmp2 in1.y in2.y 	%argrw{"wrr"}
+	add		out $tmp1 $tmp2 	%argrw{"wrr"}
+	end

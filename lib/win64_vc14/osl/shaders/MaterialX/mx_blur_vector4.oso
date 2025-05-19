@@ -1,0 +1,23 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_blur_vector4.oso
+shader mx_blur_vector4	%meta{string,help,"A gaussian-falloff blur."} 
+param	struct vector4	in			%read{2147483647,-1} %write{2147483647,-1} %struct{"vector4"} %structfields{x,y,z,w} %structfieldtypes{"ffff"} %structnfields{4}
+param	float	in.x	0		%read{0,0} %write{2147483647,-1} %mystruct{in} %mystructfield{0}
+param	float	in.y	0		%read{1,1} %write{2147483647,-1} %mystruct{in} %mystructfield{1}
+param	float	in.z	0		%read{2,2} %write{2147483647,-1} %mystruct{in} %mystructfield{2}
+param	float	in.w	0		%read{3,3} %write{2147483647,-1} %mystruct{in} %mystructfield{3}
+param	float	amount	0		%read{2147483647,-1} %write{2147483647,-1}
+oparam	struct vector4	out			%read{2147483647,-1} %write{2147483647,-1} %struct{"vector4"} %structfields{x,y,z,w} %structfieldtypes{"ffff"} %structnfields{4}
+oparam	float	out.x	0		%read{2147483647,-1} %write{0,0} %mystruct{out} %mystructfield{0}
+oparam	float	out.y	0		%read{2147483647,-1} %write{1,1} %mystruct{out} %mystructfield{1}
+oparam	float	out.z	0		%read{2147483647,-1} %write{2,2} %mystruct{out} %mystructfield{2}
+oparam	float	out.w	0		%read{2147483647,-1} %write{3,3} %mystruct{out} %mystructfield{3}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_blur_vector4.osl:18
+#     out = in;
+	assign		out.x in.x 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_blur_vector4.osl"} %line{18} %argrw{"wr"}
+	assign		out.y in.y 	%argrw{"wr"}
+	assign		out.z in.z 	%argrw{"wr"}
+	assign		out.w in.w 	%argrw{"wr"}
+	end

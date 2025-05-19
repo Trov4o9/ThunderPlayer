@@ -1,0 +1,21 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_unpremult_color2.oso
+shader mx_unpremult_color2	%meta{string,help,"Color2 Divide the R or RGB channels of the input by the Alpha channel of the input."} 
+param	struct color2	in			%read{2147483647,-1} %write{2147483647,-1} %struct{"color2"} %structfields{r,a} %structfieldtypes{"ff"} %structnfields{2}
+param	float	in.r	0		%read{1,1} %write{2147483647,-1} %mystruct{in} %mystructfield{0}
+param	float	in.a	0		%read{1,2} %write{2147483647,-1} %mystruct{in} %mystructfield{1}
+param	float	alpha	1		%read{2147483647,-1} %write{2147483647,-1}
+oparam	struct color2	out			%read{2147483647,-1} %write{2147483647,-1} %struct{"color2"} %structfields{r,a} %structfieldtypes{"ff"} %structnfields{2}
+oparam	float	out.r	0		%read{2147483647,-1} %write{1,1} %mystruct{out} %mystructfield{0}
+oparam	float	out.a	0		%read{2147483647,-1} %write{2,2} %mystruct{out} %mystructfield{1}
+const	string	$const1	"unpremult"		%read{0,0} %write{2147483647,-1}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_unpremult_color2.osl:38
+#     out = unpremult (in, alpha);
+	functioncall	$const1 3 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_unpremult_color2.osl"} %line{38} %argrw{"r"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_unpremult_color2.osl:20
+#     return color2 (in.r / in.a, in.a);
+	div		out.r in.r in.a 	%line{20} %argrw{"wrr"}
+	assign		out.a in.a 	%argrw{"wr"}
+	end

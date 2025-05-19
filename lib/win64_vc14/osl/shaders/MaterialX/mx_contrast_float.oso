@@ -1,0 +1,27 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_contrast_float.oso
+shader mx_contrast_float	%meta{string,help,"Float Increase or decrease contrast of a float/color value using a linear slope multiplier."} 
+param	float	in	0		%read{1,1} %write{2147483647,-1}
+param	float	amount	1		%read{2,2} %write{2147483647,-1}
+param	float	pivot	0.5		%read{1,3} %write{2147483647,-1}
+oparam	float	out	0		%read{2147483647,-1} %write{4,4}
+local	float	___512_out	%read{2,4} %write{1,3}
+const	string	$const1	"contrast"		%read{0,0} %write{2147483647,-1}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_contrast_float.osl:18
+#     out = contrast(in, amount, pivot); 
+	functioncall	$const1 5 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_contrast_float.osl"} %line{18} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:175
+#     float out = in - pivot;
+	sub		___512_out in pivot 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h"} %line{175} %argrw{"wrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:176
+#     out *= amount;
+	mul		___512_out ___512_out amount 	%line{176} %argrw{"wrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:177
+#     out += pivot;
+	add		___512_out ___512_out pivot 	%line{177} %argrw{"wrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:178
+#     return out;
+	assign		out ___512_out 	%line{178} %argrw{"wr"}
+	end

@@ -1,0 +1,15 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_dodge_float.oso
+shader mx_dodge_float	%meta{string,help,"Float Take two 1-4 channel inputs and apply the same operator to all channels: B/(1-F)"} 
+param	float	fg	0		%read{0,0} %write{2147483647,-1}
+param	float	bg	0		%read{1,1} %write{2147483647,-1}
+oparam	float	out	0		%read{2147483647,-1} %write{1,1}
+temp	float	$tmp1	%read{1,1} %write{0,0}
+const	float	$const2	1		%read{0,0} %write{2147483647,-1}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_dodge_float.osl:17
+#     out = bg / (1 - fg); 
+	sub		$tmp1 $const2 fg 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_dodge_float.osl"} %line{17} %argrw{"wrr"}
+	div		out bg $tmp1 	%argrw{"wrr"}
+	end

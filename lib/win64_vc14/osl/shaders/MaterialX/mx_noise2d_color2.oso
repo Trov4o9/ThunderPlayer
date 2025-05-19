@@ -1,0 +1,41 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise2d_color2.oso
+shader mx_noise2d_color2	%meta{string,help,"2D noise"} 
+param	struct vector2	texcoord			%meta{string,help,"input coordinate position"} %meta{int,lockgeom,0}  %read{2147483647,-1} %write{2147483647,-1} %struct{"vector2"} %structfields{x,y} %structfieldtypes{"ff"} %structnfields{2}
+param	float	texcoord.x	0		%meta{string,help,"input coordinate position"} %meta{int,lockgeom,0}  %read{3,3} %write{0,0} %mystruct{texcoord} %mystructfield{0} %derivs %initexpr
+param	float	texcoord.y	0		%meta{string,help,"input coordinate position"} %meta{int,lockgeom,0}  %read{3,3} %write{1,1} %mystruct{texcoord} %mystructfield{1} %derivs %initexpr
+param	struct color2	amplitude			%meta{string,help,"center-to-peak amplitude of the noise"}  %read{2147483647,-1} %write{2147483647,-1} %struct{"color2"} %structfields{r,a} %structfieldtypes{"ff"} %structnfields{2}
+param	float	amplitude.r	1		%meta{string,help,"center-to-peak amplitude of the noise"}  %read{2147483647,-1} %write{2147483647,-1} %mystruct{amplitude} %mystructfield{0}
+param	float	amplitude.a	1		%meta{string,help,"center-to-peak amplitude of the noise"}  %read{2147483647,-1} %write{2147483647,-1} %mystruct{amplitude} %mystructfield{1}
+param	float	pivot	0		%meta{string,help,"the center value of the output noise"}  %read{2147483647,-1} %write{2147483647,-1}
+param	string	noisetype	"snoise"		%meta{string,help,"type of noise"}  %read{3,3} %write{2147483647,-1}
+oparam	struct color2	out			%read{2147483647,-1} %write{2147483647,-1} %struct{"color2"} %structfields{r,a} %structfieldtypes{"ff"} %structnfields{2}
+oparam	float	out.r	0		%read{2147483647,-1} %write{4,4} %mystruct{out} %mystructfield{0}
+oparam	float	out.a	0		%read{2147483647,-1} %write{5,5} %mystruct{out} %mystructfield{1}
+global	float	u	%read{0,0} %write{2147483647,-1} %derivs
+global	float	v	%read{1,1} %write{2147483647,-1} %derivs
+local	color	___523_cnoise	%read{4,5} %write{3,3}
+const	string	$const1	"noise"		%read{2,2} %write{2147483647,-1}
+const	int	$const2	0		%read{4,4} %write{2147483647,-1}
+const	int	$const3	1		%read{5,5} %write{2147483647,-1}
+code texcoord.x
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise2d_color2.osl:14
+#             int lockgeom = 0 ]],
+	assign		texcoord.x u 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise2d_color2.osl"} %line{14} %argrw{"wr"}
+code texcoord.y
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise2d_color2.osl:14
+#             int lockgeom = 0 ]],
+	assign		texcoord.y v 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise2d_color2.osl"} %line{14} %argrw{"wr"}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise2d_color2.osl:28
+#     out = noise (noisetype, texcoord.x, texcoord.y);
+	functioncall	$const1 6 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise2d_color2.osl"} %line{28} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:250
+#     color cnoise = (color) noise (noisetype, x, y);
+	noise		___523_cnoise noisetype texcoord.x texcoord.y 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h"} %line{250} %argrw{"wrrr"} %argderivs{2,3}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:251
+#     return color2 (cnoise[0], cnoise[1]);
+	compref		out.r ___523_cnoise $const2 	%line{251} %argrw{"wrr"}
+	compref		out.a ___523_cnoise $const3 	%argrw{"wrr"}
+	end

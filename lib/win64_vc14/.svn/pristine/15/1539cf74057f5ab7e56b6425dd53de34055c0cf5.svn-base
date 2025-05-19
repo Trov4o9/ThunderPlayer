@@ -1,0 +1,36 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_matte_color2.oso
+shader mx_matte_color2	%meta{string,help,"Color2 Take two color2 or two color4 inputs and use the built-in alpha                      channel(s) to control the compositing of the fg and bg inputs: Ff+B(1-f)  (alpha: f+b(1-f))"} 
+param	struct color2	fg			%read{2147483647,-1} %write{2147483647,-1} %struct{"color2"} %structfields{r,a} %structfieldtypes{"ff"} %structnfields{2}
+param	float	fg.r	0		%read{1,1} %write{2147483647,-1} %mystruct{fg} %mystructfield{0}
+param	float	fg.a	0		%read{1,7} %write{2147483647,-1} %mystruct{fg} %mystructfield{1}
+param	struct color2	bg			%read{2147483647,-1} %write{2147483647,-1} %struct{"color2"} %structfields{r,a} %structfieldtypes{"ff"} %structnfields{2}
+param	float	bg.r	0		%read{3,3} %write{2147483647,-1} %mystruct{bg} %mystructfield{0}
+param	float	bg.a	0		%read{6,6} %write{2147483647,-1} %mystruct{bg} %mystructfield{1}
+oparam	struct color2	out			%read{2147483647,-1} %write{2147483647,-1} %struct{"color2"} %structfields{r,a} %structfieldtypes{"ff"} %structnfields{2}
+oparam	float	out.r	0		%read{2147483647,-1} %write{4,4} %mystruct{out} %mystructfield{0}
+oparam	float	out.a	0		%read{2147483647,-1} %write{7,7} %mystruct{out} %mystructfield{1}
+const	string	$const1	"cmatte"		%read{0,0} %write{2147483647,-1}
+temp	float	$tmp1	%read{4,4} %write{1,1}
+temp	float	$tmp2	%read{3,3} %write{2,2}
+const	float	$const3	1		%read{2,5} %write{2147483647,-1}
+temp	float	$tmp3	%read{4,4} %write{3,3}
+temp	float	$tmp4	%read{6,6} %write{5,5}
+temp	float	$tmp5	%read{7,7} %write{6,6}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_matte_color2.osl:31
+# {
+	functioncall	$const1 8 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_matte_color2.osl"} %line{31} %argrw{"r"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_matte_color2.osl:12
+#     return color2((fg.r * fg.a) + bg.r * (1 - fg.a),
+	mul		$tmp1 fg.r fg.a 	%line{12} %argrw{"wrr"}
+	sub		$tmp2 $const3 fg.a 	%argrw{"wrr"}
+	mul		$tmp3 bg.r $tmp2 	%argrw{"wrr"}
+	add		out.r $tmp1 $tmp3 	%argrw{"wrr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_matte_color2.osl:13
+#                    fg.a + bg.a * (1 - fg.a));
+	sub		$tmp4 $const3 fg.a 	%line{13} %argrw{"wrr"}
+	mul		$tmp5 bg.a $tmp4 	%argrw{"wrr"}
+	add		out.a fg.a $tmp5 	%argrw{"wrr"}
+	end

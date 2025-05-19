@@ -1,0 +1,73 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_splitlr_float.oso
+shader mx_splitlr_float	%meta{string,help,"split left/right"} 
+param	float	valuel	0		%meta{string,help,"value on the left"}  %read{21,21} %write{2147483647,-1}
+param	float	valuer	1		%meta{string,help,"value on the right"}  %read{21,21} %write{2147483647,-1}
+param	float	center	0.5		%meta{string,help,"coordinate to split at"}  %read{3,14} %write{2147483647,-1} %derivs
+param	struct vector2	texcoord			%meta{string,help,"input coordinate position"} %meta{int,lockgeom,0}  %read{2147483647,-1} %write{2147483647,-1} %struct{"vector2"} %structfields{x,y} %structfieldtypes{"ff"} %structnfields{2}
+param	float	texcoord.x	0		%meta{string,help,"input coordinate position"} %meta{int,lockgeom,0}  %read{4,18} %write{0,0} %mystruct{texcoord} %mystructfield{0} %derivs %initexpr
+param	float	texcoord.y	0		%meta{string,help,"input coordinate position"} %meta{int,lockgeom,0}  %read{2147483647,-1} %write{1,1} %mystruct{texcoord} %mystructfield{1} %initexpr
+oparam	float	out	0		%read{2147483647,-1} %write{21,21}
+global	float	u	%read{0,0} %write{2147483647,-1} %derivs
+global	float	v	%read{1,1} %write{2147483647,-1}
+local	float	___277_width	%read{9,19} %write{8,8}
+local	float	___277_halfwidth	%read{10,14} %write{9,9}
+local	float	___277_e1	%read{11,18} %write{10,10}
+temp	float	$tmp1	%read{21,21} %write{13,19}
+const	string	$const1	"aastep"		%read{2,5} %write{2147483647,-1}
+temp	float	$tmp2	%read{6,6} %write{3,3}
+temp	float	$tmp3	%read{7,7} %write{4,4}
+temp	float	$tmp4	%read{8,8} %write{6,6}
+temp	float	$tmp5	%read{8,8} %write{7,7}
+const	float	$const2	0.5		%read{9,9} %write{2147483647,-1}
+temp	int	$tmp6	%read{12,12} %write{11,11}
+const	float	$const3	0		%read{13,13} %write{2147483647,-1}
+temp	float	$tmp7	%read{15,15} %write{14,14}
+temp	int	$tmp8	%read{16,16} %write{15,15}
+const	float	$const4	1		%read{17,17} %write{2147483647,-1}
+temp	float	$tmp9	%read{19,19} %write{18,18}
+code texcoord.x
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_splitlr_float.osl:23
+#             int lockgeom = 0 ]],
+	assign		texcoord.x u 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_splitlr_float.osl"} %line{23} %argrw{"wr"}
+code texcoord.y
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_splitlr_float.osl:23
+#             int lockgeom = 0 ]],
+	assign		texcoord.y v 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_splitlr_float.osl"} %line{23} %argrw{"wr"}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_splitlr_float.osl:28
+#     out = mix(valuel, valuer, aastep (center, texcoord.x));
+	functioncall	$const1 21 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_splitlr_float.osl"} %line{28} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h:376
+#     return aastep (edge, s, filterwidth(edge), filterwidth(s));
+	filterwidth	$tmp2 center 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h"} %line{376} %argrw{"wr"} %argderivs{1}
+	filterwidth	$tmp3 texcoord.x 	%argrw{"wr"} %argderivs{1}
+	functioncall	$const1 21 	%argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h:367
+#     float width = fabs(dedge) + fabs(ds);
+	fabs		$tmp4 $tmp2 	%line{367} %argrw{"wr"}
+	fabs		$tmp5 $tmp3 	%argrw{"wr"}
+	add		___277_width $tmp4 $tmp5 	%argrw{"wrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h:368
+#     float halfwidth = 0.5*width;
+	mul		___277_halfwidth $const2 ___277_width 	%line{368} %argrw{"wrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h:369
+#     float e1 = edge-halfwidth;
+	sub		___277_e1 center ___277_halfwidth 	%line{369} %argrw{"wrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h:370
+#     return (s <= e1) ? 0.0 : ((s >= (edge+halfwidth)) ? 1.0 : (s-e1)/width);
+	le		$tmp6 texcoord.x ___277_e1 	%line{370} %argrw{"wrr"}
+	if		$tmp6 14 20 	%argrw{"r"}
+	assign		$tmp1 $const3 	%argrw{"wr"}
+	add		$tmp7 center ___277_halfwidth 	%argrw{"wrr"}
+	ge		$tmp8 texcoord.x $tmp7 	%argrw{"wrr"}
+	if		$tmp8 18 20 	%argrw{"r"}
+	assign		$tmp1 $const4 	%argrw{"wr"}
+	sub		$tmp9 texcoord.x ___277_e1 	%argrw{"wrr"}
+	div		$tmp1 $tmp9 ___277_width 	%argrw{"wrr"}
+	return
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_splitlr_float.osl:28
+#     out = mix(valuel, valuer, aastep (center, texcoord.x));
+	mix		out valuel valuer $tmp1 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_splitlr_float.osl"} %line{28} %argrw{"wrrr"}
+	end

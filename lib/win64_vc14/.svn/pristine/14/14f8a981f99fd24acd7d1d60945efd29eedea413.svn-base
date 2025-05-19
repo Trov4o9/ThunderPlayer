@@ -1,0 +1,27 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_magnitude_vector2.oso
+shader mx_magnitude_vector2	%meta{string,help,"Vector2 Outputs the float magnitude (vector length) of the incoming vector stream."} 
+param	struct vector2	in			%read{2147483647,-1} %write{2147483647,-1} %struct{"vector2"} %structfields{x,y} %structfieldtypes{"ff"} %structnfields{2}
+param	float	in.x	0		%read{2,2} %write{2147483647,-1} %mystruct{in} %mystructfield{0}
+param	float	in.y	0		%read{3,3} %write{2147483647,-1} %mystruct{in} %mystructfield{1}
+oparam	float	out	0		%read{2147483647,-1} %write{5,5}
+const	string	$const1	"length"		%read{0,0} %write{2147483647,-1}
+const	string	$const2	"hypot"		%read{1,1} %write{2147483647,-1}
+temp	float	$tmp1	%read{4,4} %write{2,2}
+temp	float	$tmp2	%read{4,4} %write{3,3}
+temp	float	$tmp3	%read{5,5} %write{4,4}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_magnitude_vector2.osl:16
+#     out = length(in);
+	functioncall	$const1 6 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_magnitude_vector2.osl"} %line{16} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector2.h:167
+#     return hypot (a.x, a.y);
+	functioncall	$const2 6 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector2.h"} %line{167} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h:114
+# float hypot (float a, float b) { return sqrt (a*a + b*b); }
+	mul		$tmp1 in.x in.x 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h"} %line{114} %argrw{"wrr"}
+	mul		$tmp2 in.y in.y 	%argrw{"wrr"}
+	add		$tmp3 $tmp1 $tmp2 	%argrw{"wrr"}
+	sqrt		out $tmp3 	%argrw{"wr"}
+	end

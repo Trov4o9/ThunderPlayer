@@ -1,0 +1,87 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_ramp4_color4.oso
+shader mx_ramp4_color4	%meta{string,help,"bilinear 4-corner ramp source"} 
+param	struct color4	valuetl			%meta{string,help,"value at the top right (s=0,t=0) edge"}  %read{2147483647,-1} %write{2147483647,-1} %struct{"color4"} %structfields{rgb,a} %structfieldtypes{"cf"} %structnfields{2}
+param	color	valuetl.rgb	0 0 0		%meta{string,help,"value at the top right (s=0,t=0) edge"}  %read{9,9} %write{2147483647,-1} %mystruct{valuetl} %mystructfield{0}
+param	float	valuetl.a	0		%meta{string,help,"value at the top right (s=0,t=0) edge"}  %read{10,10} %write{2147483647,-1} %mystruct{valuetl} %mystructfield{1}
+param	struct color4	valuetr			%meta{string,help,"value at the top right (s=1,t=0) edge"}  %read{2147483647,-1} %write{2147483647,-1} %struct{"color4"} %structfields{rgb,a} %structfieldtypes{"cf"} %structnfields{2}
+param	color	valuetr.rgb	1 1 1		%meta{string,help,"value at the top right (s=1,t=0) edge"}  %read{9,9} %write{2147483647,-1} %mystruct{valuetr} %mystructfield{0}
+param	float	valuetr.a	1		%meta{string,help,"value at the top right (s=1,t=0) edge"}  %read{10,10} %write{2147483647,-1} %mystruct{valuetr} %mystructfield{1}
+param	struct color4	valuebl			%meta{string,help,"value at the bottom left (s=0,t=1) edge"}  %read{2147483647,-1} %write{2147483647,-1} %struct{"color4"} %structfields{rgb,a} %structfieldtypes{"cf"} %structnfields{2}
+param	color	valuebl.rgb	0 0 0		%meta{string,help,"value at the bottom left (s=0,t=1) edge"}  %read{12,12} %write{2147483647,-1} %mystruct{valuebl} %mystructfield{0}
+param	float	valuebl.a	0		%meta{string,help,"value at the bottom left (s=0,t=1) edge"}  %read{13,13} %write{2147483647,-1} %mystruct{valuebl} %mystructfield{1}
+param	struct color4	valuebr			%meta{string,help,"value at the bottom right (s=1,t=1) edge"}  %read{2147483647,-1} %write{2147483647,-1} %struct{"color4"} %structfields{rgb,a} %structfieldtypes{"cf"} %structnfields{2}
+param	color	valuebr.rgb	1 1 1		%meta{string,help,"value at the bottom right (s=1,t=1) edge"}  %read{12,12} %write{2147483647,-1} %mystruct{valuebr} %mystructfield{0}
+param	float	valuebr.a	1		%meta{string,help,"value at the bottom right (s=1,t=1) edge"}  %read{13,13} %write{2147483647,-1} %mystruct{valuebr} %mystructfield{1}
+param	struct vector2	texcoord			%meta{string,help,"input coordinate position"} %meta{int,lockgeom,0}  %read{2147483647,-1} %write{2147483647,-1} %struct{"vector2"} %structfields{x,y} %structfieldtypes{"ff"} %structnfields{2}
+param	float	texcoord.x	0		%meta{string,help,"input coordinate position"} %meta{int,lockgeom,0}  %read{3,3} %write{0,0} %mystruct{texcoord} %mystructfield{0} %initexpr
+param	float	texcoord.y	0		%meta{string,help,"input coordinate position"} %meta{int,lockgeom,0}  %read{6,6} %write{1,1} %mystruct{texcoord} %mystructfield{1} %initexpr
+oparam	struct color4	out			%read{2147483647,-1} %write{2147483647,-1} %struct{"color4"} %structfields{rgb,a} %structfieldtypes{"cf"} %structnfields{2}
+oparam	color	out.rgb	0 0 0		%read{2147483647,-1} %write{15,15} %mystruct{out} %mystructfield{0}
+oparam	float	out.a	0		%read{2147483647,-1} %write{16,16} %mystruct{out} %mystructfield{1}
+global	float	u	%read{0,0} %write{2147483647,-1}
+global	float	v	%read{1,1} %write{2147483647,-1}
+local	float	ss	%read{9,13} %write{4,4}
+local	float	tt	%read{15,16} %write{7,7}
+const	float	$const2	0		%read{4,7} %write{2147483647,-1}
+const	float	$const4	1		%read{3,6} %write{2147483647,-1}
+const	string	$const5	"clamp"		%read{2,5} %write{2147483647,-1}
+temp	float	$tmp1	%read{4,4} %write{3,3}
+temp	float	$tmp2	%read{7,7} %write{6,6}
+temp	color	$tmp3.rgb	%read{15,15} %write{9,9}
+temp	float	$tmp3.a	%read{16,16} %write{10,10}
+const	string	$const6	"mix"		%read{8,14} %write{2147483647,-1}
+temp	color	$tmp4.rgb	%read{15,15} %write{12,12}
+temp	float	$tmp4.a	%read{16,16} %write{13,13}
+code texcoord.x
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_ramp4_color4.osl:26
+#             int lockgeom = 0 ]],
+	assign		texcoord.x u 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_ramp4_color4.osl"} %line{26} %argrw{"wr"}
+code texcoord.y
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_ramp4_color4.osl:26
+#             int lockgeom = 0 ]],
+	assign		texcoord.y v 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_ramp4_color4.osl"} %line{26} %argrw{"wr"}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_ramp4_color4.osl:31
+#     float ss = clamp (texcoord.x, 0, 1);
+	functioncall	$const5 5 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_ramp4_color4.osl"} %line{31} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h:145
+# float  clamp (float x, float minval, float maxval) { return max(min(x,maxval),minval); }
+	min		$tmp1 texcoord.x $const4 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h"} %line{145} %argrw{"wrr"}
+	max		ss $tmp1 $const2 	%argrw{"wrr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_ramp4_color4.osl:32
+#     float tt = clamp (texcoord.y, 0, 1);
+	functioncall	$const5 8 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_ramp4_color4.osl"} %line{32} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h:145
+# float  clamp (float x, float minval, float maxval) { return max(min(x,maxval),minval); }
+	min		$tmp2 texcoord.y $const4 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h"} %line{145} %argrw{"wrr"}
+	max		tt $tmp2 $const2 	%argrw{"wrr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_ramp4_color4.osl:33
+#     out = mix ( mix(valuetl, valuetr, ss),
+	functioncall	$const6 11 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_ramp4_color4.osl"} %line{33} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\color4.h:156
+#     return color4(mix(a.rgb, b.rgb, x),
+	mix		$tmp3.rgb valuetl.rgb valuetr.rgb ss 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\color4.h"} %line{156} %argrw{"wrrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\color4.h:157
+#                   mix(a.a, b.a, x));
+	mix		$tmp3.a valuetl.a valuetr.a ss 	%line{157} %argrw{"wrrr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_ramp4_color4.osl:34
+#                 mix(valuebl, valuebr, ss), 
+	functioncall	$const6 14 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_ramp4_color4.osl"} %line{34} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\color4.h:156
+#     return color4(mix(a.rgb, b.rgb, x),
+	mix		$tmp4.rgb valuebl.rgb valuebr.rgb ss 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\color4.h"} %line{156} %argrw{"wrrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\color4.h:157
+#                   mix(a.a, b.a, x));
+	mix		$tmp4.a valuebl.a valuebr.a ss 	%line{157} %argrw{"wrrr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_ramp4_color4.osl:35
+#                 tt);
+	functioncall	$const6 17 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_ramp4_color4.osl"} %line{35} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\color4.h:156
+#     return color4(mix(a.rgb, b.rgb, x),
+	mix		out.rgb $tmp3.rgb $tmp4.rgb tt 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\color4.h"} %line{156} %argrw{"wrrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\color4.h:157
+#                   mix(a.a, b.a, x));
+	mix		out.a $tmp3.a $tmp4.a tt 	%line{157} %argrw{"wrrr"}
+	end

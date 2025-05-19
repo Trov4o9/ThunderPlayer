@@ -1,0 +1,22 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_pack_cc_color4.oso
+shader mx_pack_cc_color4	%meta{string,help,"Pack the channels from two, three or four streams into the same number of channels of a                       single stream of a specified compatible type;"} 
+param	struct color2	in1			%read{2147483647,-1} %write{2147483647,-1} %struct{"color2"} %structfields{r,a} %structfieldtypes{"ff"} %structnfields{2}
+param	float	in1.r	0		%read{0,0} %write{2147483647,-1} %mystruct{in1} %mystructfield{0}
+param	float	in1.a	0		%read{0,0} %write{2147483647,-1} %mystruct{in1} %mystructfield{1}
+param	struct color2	in2			%read{2147483647,-1} %write{2147483647,-1} %struct{"color2"} %structfields{r,a} %structfieldtypes{"ff"} %structnfields{2}
+param	float	in2.r	0		%read{0,0} %write{2147483647,-1} %mystruct{in2} %mystructfield{0}
+param	float	in2.a	0		%read{2,2} %write{2147483647,-1} %mystruct{in2} %mystructfield{1}
+oparam	struct color4	out			%read{2147483647,-1} %write{2147483647,-1} %struct{"color4"} %structfields{rgb,a} %structfieldtypes{"cf"} %structnfields{2}
+oparam	color	out.rgb	0 0 0		%read{1,1} %write{0,1} %mystruct{out} %mystructfield{0}
+oparam	float	out.a	0		%read{2147483647,-1} %write{2,2} %mystruct{out} %mystructfield{1}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_pack_cc_color4.osl:17
+# {
+	color		out.rgb in1.r in1.a in2.r 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_pack_cc_color4.osl"} %line{17} %argrw{"wrrr"}
+	assign		out.rgb out.rgb 	%argrw{"wr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_pack_cc_color4.osl:18
+#     out.rgb = color(in1.r, in1.a, in2.r);
+	assign		out.a in2.a 	%line{18} %argrw{"wr"}
+	end

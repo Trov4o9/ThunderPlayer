@@ -1,0 +1,17 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_normal_vector.oso
+shader mx_normal_vector	%meta{string,help,"The geometric normal associated"} 
+param	string	space	"object"		%read{1,1} %write{2147483647,-1}
+oparam	vector	out	0 0 0		%read{2147483647,-1} %write{1,1}
+global	normal	N	%read{1,1} %write{2147483647,-1}
+const	string	$const1	"transform"		%read{0,0} %write{2147483647,-1}
+const	string	$const2	"common"		%read{1,1} %write{2147483647,-1}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_normal_vector.osl:16
+#     out = transform(space, N);
+	functioncall	$const1 2 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_normal_vector.osl"} %line{16} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h:265
+# normal transform (string to, normal p) { return transform("common",to,p); }
+	transformn	out $const2 space N 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h"} %line{265} %argrw{"wrrr"}
+	end

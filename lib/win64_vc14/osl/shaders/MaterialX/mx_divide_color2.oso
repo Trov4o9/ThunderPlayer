@@ -1,0 +1,23 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_divide_color2.oso
+shader mx_divide_color2	%meta{string,help,"Color2 divide an incoming float/color/vector by in2"} 
+param	struct color2	in1			%read{2147483647,-1} %write{2147483647,-1} %struct{"color2"} %structfields{r,a} %structfieldtypes{"ff"} %structnfields{2}
+param	float	in1.r	0		%read{1,1} %write{2147483647,-1} %mystruct{in1} %mystructfield{0}
+param	float	in1.a	0		%read{2,2} %write{2147483647,-1} %mystruct{in1} %mystructfield{1}
+param	struct color2	in2			%read{2147483647,-1} %write{2147483647,-1} %struct{"color2"} %structfields{r,a} %structfieldtypes{"ff"} %structnfields{2}
+param	float	in2.r	1		%read{1,1} %write{2147483647,-1} %mystruct{in2} %mystructfield{0}
+param	float	in2.a	1		%read{2,2} %write{2147483647,-1} %mystruct{in2} %mystructfield{1}
+oparam	struct color2	out			%read{2147483647,-1} %write{2147483647,-1} %struct{"color2"} %structfields{r,a} %structfieldtypes{"ff"} %structnfields{2}
+oparam	float	out.r	0		%read{2147483647,-1} %write{1,1} %mystruct{out} %mystructfield{0}
+oparam	float	out.a	0		%read{2147483647,-1} %write{2,2} %mystruct{out} %mystructfield{1}
+const	string	$const1	"__operator__div__"		%read{0,0} %write{2147483647,-1}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_divide_color2.osl:19
+# 
+	functioncall	$const1 3 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_divide_color2.osl"} %line{19} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\color2.h:105
+#     return color2(a.r / b.r, a.a / b.a);
+	div		out.r in1.r in2.r 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\color2.h"} %line{105} %argrw{"wrr"}
+	div		out.a in1.a in2.a 	%argrw{"wrr"}
+	end

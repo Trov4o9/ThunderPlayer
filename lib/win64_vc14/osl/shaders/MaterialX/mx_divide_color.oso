@@ -1,0 +1,12 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_divide_color.oso
+shader mx_divide_color	%meta{string,help,"Color divide an incoming float/color/vector by in2"} 
+param	color	in1	0 0 0		%read{0,0} %write{2147483647,-1}
+param	color	in2	1 1 1		%read{0,0} %write{2147483647,-1}
+oparam	color	out	0 0 0		%read{2147483647,-1} %write{0,0}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_divide_color.osl:17
+#     out = in1 / in2;
+	div		out in1 in2 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_divide_color.osl"} %line{17} %argrw{"wrr"}
+	end

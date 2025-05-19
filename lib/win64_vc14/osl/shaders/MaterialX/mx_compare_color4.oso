@@ -1,0 +1,30 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_compare_color4.oso
+shader mx_compare_color4	%meta{string,help,"Test the value of an incoming float selector stream against a specified cutoff value,                       then pass the value of one of two other incoming streams depending on whether the selector stream                       value is greater than the fixed cutoff value."} 
+param	float	intest	0		%read{0,0} %write{2147483647,-1}
+param	struct color4	in1			%read{2147483647,-1} %write{2147483647,-1} %struct{"color4"} %structfields{rgb,a} %structfieldtypes{"cf"} %structnfields{2}
+param	color	in1.rgb	1 1 1		%read{4,4} %write{2147483647,-1} %mystruct{in1} %mystructfield{0}
+param	float	in1.a	1		%read{5,5} %write{2147483647,-1} %mystruct{in1} %mystructfield{1}
+param	struct color4	in2			%read{2147483647,-1} %write{2147483647,-1} %struct{"color4"} %structfields{rgb,a} %structfieldtypes{"cf"} %structnfields{2}
+param	color	in2.rgb	0 0 0		%read{2,2} %write{2147483647,-1} %mystruct{in2} %mystructfield{0}
+param	float	in2.a	0		%read{3,3} %write{2147483647,-1} %mystruct{in2} %mystructfield{1}
+param	float	cutoff	0		%read{0,0} %write{2147483647,-1}
+oparam	struct color4	out			%read{2147483647,-1} %write{2147483647,-1} %struct{"color4"} %structfields{rgb,a} %structfieldtypes{"cf"} %structnfields{2}
+oparam	color	out.rgb	0 0 0		%read{2147483647,-1} %write{2,4} %mystruct{out} %mystructfield{0}
+oparam	float	out.a	0		%read{2147483647,-1} %write{3,5} %mystruct{out} %mystructfield{1}
+temp	int	$tmp1	%read{1,1} %write{0,0}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_compare_color4.osl:19
+#   )
+	gt		$tmp1 intest cutoff 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_compare_color4.osl"} %line{19} %argrw{"wrr"}
+	if		$tmp1 4 6 	%argrw{"r"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_compare_color4.osl:20
+# {
+	assign		out.rgb in2.rgb 	%line{20} %argrw{"wr"}
+	assign		out.a in2.a 	%argrw{"wr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_compare_color4.osl:22
+#         out = in2;
+	assign		out.rgb in1.rgb 	%line{22} %argrw{"wr"}
+	assign		out.a in1.a 	%argrw{"wr"}
+	end

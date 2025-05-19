@@ -1,0 +1,45 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_dodge_color4.oso
+shader mx_dodge_color4	%meta{string,help,"Color4 Take two 1-4 channel inputs and apply the same operator to all channels: B/(1-F)"} 
+param	struct color4	fg			%read{2147483647,-1} %write{2147483647,-1} %struct{"color4"} %structfields{rgb,a} %structfieldtypes{"cf"} %structnfields{2}
+param	color	fg.rgb	0 0 0		%read{5,5} %write{2147483647,-1} %mystruct{fg} %mystructfield{0}
+param	float	fg.a	0		%read{6,6} %write{2147483647,-1} %mystruct{fg} %mystructfield{1}
+param	struct color4	bg			%read{2147483647,-1} %write{2147483647,-1} %struct{"color4"} %structfields{rgb,a} %structfieldtypes{"cf"} %structnfields{2}
+param	color	bg.rgb	0 0 0		%read{8,8} %write{2147483647,-1} %mystruct{bg} %mystructfield{0}
+param	float	bg.a	0		%read{9,9} %write{2147483647,-1} %mystruct{bg} %mystructfield{1}
+oparam	struct color4	out			%read{2147483647,-1} %write{2147483647,-1} %struct{"color4"} %structfields{rgb,a} %structfieldtypes{"cf"} %structnfields{2}
+oparam	color	out.rgb	0 0 0		%read{2147483647,-1} %write{8,8} %mystruct{out} %mystructfield{0}
+oparam	float	out.a	0		%read{2147483647,-1} %write{9,9} %mystruct{out} %mystructfield{1}
+temp	color	$tmp1.rgb	%read{8,8} %write{5,5}
+temp	float	$tmp1.a	%read{9,9} %write{6,6}
+const	int	$const1	1		%read{1,3} %write{2147483647,-1}
+const	string	$const2	"__operator__sub__"		%read{0,4} %write{2147483647,-1}
+temp	color	$tmp2.rgb	%read{5,5} %write{2,2}
+temp	float	$tmp2.a	%read{6,6} %write{3,3}
+temp	float	$tmp3	%read{2,2} %write{1,1}
+const	string	$const3	"__operator__div__"		%read{7,7} %write{2147483647,-1}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_dodge_color4.osl:19
+# 
+	functioncall	$const2 7 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_dodge_color4.osl"} %line{19} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\color4.h:68
+#     return color4(color(a), a) - b;
+	assign		$tmp3 $const1 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\color4.h"} %line{68} %argrw{"wr"}
+	assign		$tmp2.rgb $tmp3 	%argrw{"wr"}
+	assign		$tmp2.a $const1 	%argrw{"wr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_dodge_color4.osl:19
+# 
+	functioncall	$const2 7 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_dodge_color4.osl"} %line{19} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\color4.h:53
+#     return color4(a.rgb - b.rgb, a.a - b.a);
+	sub		$tmp1.rgb $tmp2.rgb fg.rgb 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\color4.h"} %line{53} %argrw{"wrr"}
+	sub		$tmp1.a $tmp2.a fg.a 	%argrw{"wrr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_dodge_color4.osl:19
+# 
+	functioncall	$const3 10 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_dodge_color4.osl"} %line{19} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\color4.h:103
+#     return color4(a.rgb / b.rgb, a.a / b.a);
+	div		out.rgb bg.rgb $tmp1.rgb 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\color4.h"} %line{103} %argrw{"wrr"}
+	div		out.a bg.a $tmp1.a 	%argrw{"wrr"}
+	end

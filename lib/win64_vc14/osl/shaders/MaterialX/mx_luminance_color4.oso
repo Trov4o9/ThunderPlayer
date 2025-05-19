@@ -1,0 +1,23 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_luminance_color4.oso
+shader mx_luminance_color4	%meta{string,help,"Output a grayscale image containing the luminance of the incoming RGB color in all color channels."} 
+param	struct color4	in			%read{2147483647,-1} %write{2147483647,-1} %struct{"color4"} %structfields{rgb,a} %structfieldtypes{"cf"} %structnfields{2}
+param	color	in.rgb	0 0 0		%read{1,1} %write{2147483647,-1} %mystruct{in} %mystructfield{0}
+param	float	in.a	0		%read{3,3} %write{2147483647,-1} %mystruct{in} %mystructfield{1}
+param	color	lumacoeffs	0.27228701 0.6740818 0.053689498		%read{1,1} %write{2147483647,-1}
+oparam	struct color4	out			%read{2147483647,-1} %write{2147483647,-1} %struct{"color4"} %structfields{rgb,a} %structfieldtypes{"cf"} %structnfields{2}
+oparam	color	out.rgb	0 0 0		%read{2147483647,-1} %write{2,2} %mystruct{out} %mystructfield{0}
+oparam	float	out.a	0		%read{2147483647,-1} %write{3,3} %mystruct{out} %mystructfield{1}
+const	string	$const1	"cluminance"		%read{0,0} %write{2147483647,-1}
+temp	float	$tmp1	%read{2,2} %write{1,1}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_luminance_color4.osl:34
+#     out = cluminance (in, lumacoeffs);
+	functioncall	$const1 4 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_luminance_color4.osl"} %line{34} %argrw{"r"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_luminance_color4.osl:21
+#     return color4 (dot(in.rgb, lumacoeffs), in.a);
+	dot		$tmp1 in.rgb lumacoeffs 	%line{21} %argrw{"wrr"}
+	assign		out.rgb $tmp1 	%argrw{"wr"}
+	assign		out.a in.a 	%argrw{"wr"}
+	end

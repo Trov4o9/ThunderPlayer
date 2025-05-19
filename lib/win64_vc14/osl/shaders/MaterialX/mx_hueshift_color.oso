@@ -1,0 +1,42 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_hueshift_color.oso
+shader mx_hueshift_color	%meta{string,help,"Shift the hue of a color; the alpha channel will be unchanged if present."} 
+param	color	in	0 0 0		%read{1,1} %write{2147483647,-1}
+param	float	amount	0		%read{3,3} %write{2147483647,-1}
+oparam	color	out	0 0 0		%read{2147483647,-1} %write{9,9}
+local	color	___591_hsv3	%read{2,8} %write{1,7}
+local	color	___591_out	%read{9,9} %write{8,8}
+const	string	$const1	"hueshift"		%read{0,0} %write{2147483647,-1}
+const	string	$const2	"rgb"		%read{1,8} %write{2147483647,-1}
+const	string	$const3	"hsv"		%read{1,8} %write{2147483647,-1}
+const	int	$const4	0		%read{2,7} %write{2147483647,-1}
+temp	float	$tmp1	%read{3,3} %write{2,2}
+temp	float	$tmp2	%read{4,4} %write{3,3}
+temp	float	$tmp3	%read{7,7} %write{6,6}
+temp	float	$tmp4	%read{6,6} %write{5,5}
+const	float	$const5	1		%read{6,6} %write{2147483647,-1}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_hueshift_color.osl:37
+#     out = hueshift(in, amount);
+	functioncall	$const1 10 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_hueshift_color.osl"} %line{37} %argrw{"r"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_hueshift_color.osl:15
+#     color hsv3 = transformc("rgb","hsv", in);
+	transformc	___591_hsv3 $const2 $const3 in 	%line{15} %argrw{"wrrr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_hueshift_color.osl:16
+#     hsv3[0] += amount;
+	compref		$tmp1 ___591_hsv3 $const4 	%line{16} %argrw{"wrr"}
+	add		$tmp2 $tmp1 amount 	%argrw{"wrr"}
+	compassign	___591_hsv3 $const4 $tmp2 	%argrw{"wrr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_hueshift_color.osl:17
+#     hsv3[0] = fmod(hsv3[0], 1.0);
+	compref		$tmp4 ___591_hsv3 $const4 	%line{17} %argrw{"wrr"}
+	fmod		$tmp3 $tmp4 $const5 	%argrw{"wrr"}
+	compassign	___591_hsv3 $const4 $tmp3 	%argrw{"wrr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_hueshift_color.osl:18
+#     color out = transformc("hsv","rgb", hsv3);
+	transformc	___591_out $const3 $const2 ___591_hsv3 	%line{18} %argrw{"wrrr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_hueshift_color.osl:19
+#     return out;
+	assign		out ___591_out 	%line{19} %argrw{"wr"}
+	end

@@ -1,0 +1,17 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_bitangent_vector.oso
+shader mx_bitangent_vector	%meta{string,help,"The geometric bitangent vector in a specific coordinate space."} 
+param	string	space	"object"		%read{1,1} %write{2147483647,-1}
+oparam	vector	out	0 0 0		%read{2147483647,-1} %write{1,1}
+global	vector	dPdv	%read{1,1} %write{2147483647,-1}
+const	string	$const1	"transform"		%read{0,0} %write{2147483647,-1}
+const	string	$const2	"common"		%read{1,1} %write{2147483647,-1}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_bitangent_vector.osl:16
+#     out = transform(space, dPdv);
+	functioncall	$const1 2 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_bitangent_vector.osl"} %line{16} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h:266
+# vector transform (string to, vector p) { return transform("common",to,p); }
+	transformv	out $const2 space dPdv 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h"} %line{266} %argrw{"wrrr"}
+	end

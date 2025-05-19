@@ -1,0 +1,52 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_hueshift_color4.oso
+shader mx_hueshift_color4	%meta{string,help,"Shift the hue of a color; the alpha channel will be unchanged if present."} 
+param	struct color4	in			%read{2147483647,-1} %write{2147483647,-1} %struct{"color4"} %structfields{rgb,a} %structfieldtypes{"cf"} %structnfields{2}
+param	color	in.rgb	0 0 0		%read{2,2} %write{2147483647,-1} %mystruct{in} %mystructfield{0}
+param	float	in.a	0		%read{11,11} %write{2147483647,-1} %mystruct{in} %mystructfield{1}
+param	float	amount	0		%read{4,4} %write{2147483647,-1}
+oparam	struct color4	out			%read{2147483647,-1} %write{2147483647,-1} %struct{"color4"} %structfields{rgb,a} %structfieldtypes{"cf"} %structnfields{2}
+oparam	color	out.rgb	0 0 0		%read{2147483647,-1} %write{10,10} %mystruct{out} %mystructfield{0}
+oparam	float	out.a	0		%read{2147483647,-1} %write{11,11} %mystruct{out} %mystructfield{1}
+local	color	___591_hsv3	%read{3,9} %write{2,8}
+local	color	___591_out	%read{10,10} %write{9,9}
+const	string	$const1	"hueshift"		%read{0,1} %write{2147483647,-1}
+const	string	$const2	"rgb"		%read{2,9} %write{2147483647,-1}
+const	string	$const3	"hsv"		%read{2,9} %write{2147483647,-1}
+const	int	$const4	0		%read{3,8} %write{2147483647,-1}
+temp	float	$tmp1	%read{4,4} %write{3,3}
+temp	float	$tmp2	%read{5,5} %write{4,4}
+temp	float	$tmp3	%read{8,8} %write{7,7}
+temp	float	$tmp4	%read{7,7} %write{6,6}
+const	float	$const5	1		%read{7,7} %write{2147483647,-1}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_hueshift_color4.osl:37
+#     out = hueshift(in, amount);
+	functioncall	$const1 12 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_hueshift_color4.osl"} %line{37} %argrw{"r"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_hueshift_color4.osl:24
+#     return color4 (hueshift(in.rgb, amount), in.a);
+	functioncall	$const1 11 	%line{24} %argrw{"r"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_hueshift_color4.osl:15
+#     color hsv3 = transformc("rgb","hsv", in);
+	transformc	___591_hsv3 $const2 $const3 in.rgb 	%line{15} %argrw{"wrrr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_hueshift_color4.osl:16
+#     hsv3[0] += amount;
+	compref		$tmp1 ___591_hsv3 $const4 	%line{16} %argrw{"wrr"}
+	add		$tmp2 $tmp1 amount 	%argrw{"wrr"}
+	compassign	___591_hsv3 $const4 $tmp2 	%argrw{"wrr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_hueshift_color4.osl:17
+#     hsv3[0] = fmod(hsv3[0], 1.0);
+	compref		$tmp4 ___591_hsv3 $const4 	%line{17} %argrw{"wrr"}
+	fmod		$tmp3 $tmp4 $const5 	%argrw{"wrr"}
+	compassign	___591_hsv3 $const4 $tmp3 	%argrw{"wrr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_hueshift_color4.osl:18
+#     color out = transformc("hsv","rgb", hsv3);
+	transformc	___591_out $const3 $const2 ___591_hsv3 	%line{18} %argrw{"wrrr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_hueshift_color4.osl:19
+#     return out;
+	assign		out.rgb ___591_out 	%line{19} %argrw{"wr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_hueshift_color4.osl:24
+#     return color4 (hueshift(in.rgb, amount), in.a);
+	assign		out.a in.a 	%line{24} %argrw{"wr"}
+	end

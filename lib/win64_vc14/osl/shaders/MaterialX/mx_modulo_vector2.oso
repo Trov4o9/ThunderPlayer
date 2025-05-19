@@ -1,0 +1,25 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_modulo_vector2.oso
+shader mx_modulo_vector2	%meta{string,help,"Vector2 The remaining fraction after dividing the incoming                      float/color/vector by the constant amount and subtracting the integer portion.                     The modula amount cannot be 0."} 
+param	struct vector2	in1			%read{2147483647,-1} %write{2147483647,-1} %struct{"vector2"} %structfields{x,y} %structfieldtypes{"ff"} %structnfields{2}
+param	float	in1.x	0		%read{1,1} %write{2147483647,-1} %mystruct{in1} %mystructfield{0}
+param	float	in1.y	0		%read{2,2} %write{2147483647,-1} %mystruct{in1} %mystructfield{1}
+param	struct vector2	in2			%read{2147483647,-1} %write{2147483647,-1} %struct{"vector2"} %structfields{x,y} %structfieldtypes{"ff"} %structnfields{2}
+param	float	in2.x	1		%read{1,1} %write{2147483647,-1} %mystruct{in2} %mystructfield{0}
+param	float	in2.y	1		%read{2,2} %write{2147483647,-1} %mystruct{in2} %mystructfield{1}
+oparam	struct vector2	out			%read{2147483647,-1} %write{2147483647,-1} %struct{"vector2"} %structfields{x,y} %structfieldtypes{"ff"} %structnfields{2}
+oparam	float	out.x	0		%read{2147483647,-1} %write{1,1} %mystruct{out} %mystructfield{0}
+oparam	float	out.y	0		%read{2147483647,-1} %write{2,2} %mystruct{out} %mystructfield{1}
+const	string	$const1	"fmod"		%read{0,0} %write{2147483647,-1}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_modulo_vector2.osl:17
+#   )
+	functioncall	$const1 3 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_modulo_vector2.osl"} %line{17} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector2.h:222
+#     return vector2 (fmod(a.x, b.x),
+	fmod		out.x in1.x in2.x 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector2.h"} %line{222} %argrw{"wrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector2.h:223
+#                     fmod(a.y, b.y));
+	fmod		out.y in1.y in2.y 	%line{223} %argrw{"wrr"}
+	end

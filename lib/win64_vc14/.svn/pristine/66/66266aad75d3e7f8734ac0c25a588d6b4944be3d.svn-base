@@ -1,0 +1,22 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_compare_color.oso
+shader mx_compare_color	%meta{string,help,"Test the value of an incoming float selector stream against a specified cutoff value,                       then pass the value of one of two other incoming streams depending on whether the selector stream                       value is greater than the fixed cutoff value."} 
+param	float	intest	0		%read{0,0} %write{2147483647,-1}
+param	color	in1	1 1 1		%read{3,3} %write{2147483647,-1}
+param	color	in2	0 0 0		%read{2,2} %write{2147483647,-1}
+param	float	cutoff	0		%read{0,0} %write{2147483647,-1}
+oparam	color	out	0 0 0		%read{2147483647,-1} %write{2,3}
+temp	int	$tmp1	%read{1,1} %write{0,0}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_compare_color.osl:19
+#   )
+	gt		$tmp1 intest cutoff 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_compare_color.osl"} %line{19} %argrw{"wrr"}
+	if		$tmp1 3 4 	%argrw{"r"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_compare_color.osl:20
+# {
+	assign		out in2 	%line{20} %argrw{"wr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_compare_color.osl:22
+#         out = in2;
+	assign		out in1 	%line{22} %argrw{"wr"}
+	end

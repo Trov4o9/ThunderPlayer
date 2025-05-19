@@ -1,0 +1,22 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_cellnoise3d_float.oso
+shader mx_cellnoise3d_float	%meta{string,help,"3D cell noise in one channel"} 
+param	point	position	0 0 0		%meta{string,help,"input coordinate position (default: object space P)"} %meta{int,lockgeom,0}  %read{2,2} %write{1,1} %initexpr
+oparam	float	out	0		%read{2147483647,-1} %write{2,2}
+global	point	P	%read{1,1} %write{2147483647,-1}
+const	string	$const1	"object"		%read{1,1} %write{2147483647,-1}
+const	string	$const2	"transform"		%read{0,0} %write{2147483647,-1}
+const	string	$const3	"common"		%read{1,1} %write{2147483647,-1}
+code position
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_cellnoise3d_float.osl:12
+#     point position = transform ("object", P)
+	functioncall	$const2 2 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_cellnoise3d_float.osl"} %line{12} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h:267
+# point  transform (string to, point p)  { return transform("common",to,p); }
+	transform	position $const3 $const1 P 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h"} %line{267} %argrw{"wrrr"}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_cellnoise3d_float.osl:19
+#     out = cellnoise (position);
+	cellnoise	out position 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_cellnoise3d_float.osl"} %line{19} %argrw{"wr"}
+	end

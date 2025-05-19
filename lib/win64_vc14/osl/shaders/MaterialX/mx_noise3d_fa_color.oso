@@ -1,0 +1,31 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise3d_fa_color.oso
+shader mx_noise3d_fa_color	%meta{string,help,"3D noise"} 
+param	point	position	0 0 0		%meta{string,help,"input coordinate position (default: object space P)"} %meta{int,lockgeom,0}  %read{2,2} %write{1,1} %derivs %initexpr
+param	float	amplitude	1		%meta{string,help,"center-to-peak amplitude of the noise"}  %read{3,3} %write{2147483647,-1}
+param	float	pivot	0		%meta{string,help,"the center value of the output noise"}  %read{4,4} %write{2147483647,-1}
+param	string	noisetype	"snoise"		%meta{string,help,"type of noise"}  %read{2,2} %write{2147483647,-1}
+oparam	color	out	0 0 0		%read{2147483647,-1} %write{4,4}
+global	point	P	%read{1,1} %write{2147483647,-1} %derivs
+local	color	n	%read{3,3} %write{2,2}
+const	string	$const1	"object"		%read{1,1} %write{2147483647,-1}
+const	string	$const2	"transform"		%read{0,0} %write{2147483647,-1}
+const	string	$const3	"common"		%read{1,1} %write{2147483647,-1}
+temp	color	$tmp1	%read{4,4} %write{3,3}
+code position
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise3d_fa_color.osl:12
+#     point position = transform("object", P)
+	functioncall	$const2 2 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise3d_fa_color.osl"} %line{12} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h:267
+# point  transform (string to, point p)  { return transform("common",to,p); }
+	transform	position $const3 $const1 P 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h"} %line{267} %argrw{"wrrr"}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise3d_fa_color.osl:28
+#     color n = noise (noisetype, position);
+	noise		n noisetype position 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise3d_fa_color.osl"} %line{28} %argrw{"wrr"} %argderivs{2}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise3d_fa_color.osl:29
+#     out = pivot + n * amplitude;
+	mul		$tmp1 n amplitude 	%line{29} %argrw{"wrr"}
+	add		out pivot $tmp1 	%argrw{"wrr"}
+	end

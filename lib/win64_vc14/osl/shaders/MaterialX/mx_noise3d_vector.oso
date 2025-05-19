@@ -1,0 +1,25 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise3d_vector.oso
+shader mx_noise3d_vector	%meta{string,help,"3D noise"} 
+param	point	position	0 0 0		%meta{string,help,"input coordinate position (default: object space P)"} %meta{int,lockgeom,0}  %read{2,2} %write{1,1} %derivs %initexpr
+param	vector	amplitude	1 1 1		%meta{string,help,"center-to-peak amplitude of the noise"}  %read{2147483647,-1} %write{2147483647,-1}
+param	float	pivot	0		%meta{string,help,"the center value of the output noise"}  %read{2147483647,-1} %write{2147483647,-1}
+param	string	noisetype	"snoise"		%meta{string,help,"type of noise"}  %read{2,2} %write{2147483647,-1}
+oparam	vector	out	0 0 0		%read{2147483647,-1} %write{2,2}
+global	point	P	%read{1,1} %write{2147483647,-1} %derivs
+const	string	$const1	"object"		%read{1,1} %write{2147483647,-1}
+const	string	$const2	"transform"		%read{0,0} %write{2147483647,-1}
+const	string	$const3	"common"		%read{1,1} %write{2147483647,-1}
+code position
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise3d_vector.osl:12
+#     point position = transform ("object", P)
+	functioncall	$const2 2 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise3d_vector.osl"} %line{12} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h:267
+# point  transform (string to, point p)  { return transform("common",to,p); }
+	transform	position $const3 $const1 P 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h"} %line{267} %argrw{"wrrr"}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise3d_vector.osl:28
+#     out = noise (noisetype, position);
+	noise		out noisetype position 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise3d_vector.osl"} %line{28} %argrw{"wrr"} %argderivs{2}
+	end

@@ -1,0 +1,64 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_image_color2.oso
+shader mx_image_color2	%meta{string,help,"Texture lookup"} 
+param	string	file	""		%meta{string,help,"Texture filename"} %meta{string,widget,"filename"}  %read{5,5} %write{2147483647,-1}
+param	string	layer	""		%meta{string,help,"Subimage in texture file"} %meta{string,widget,"filename"}  %read{5,5} %write{2147483647,-1}
+param	struct color2	default_value			%meta{string,help,"Default value"}  %read{2147483647,-1} %write{2147483647,-1} %struct{"color2"} %structfields{r,a} %structfieldtypes{"ff"} %structnfields{2}
+param	float	default_value.r	0		%meta{string,help,"Default value"}  %read{3,3} %write{2147483647,-1} %mystruct{default_value} %mystructfield{0}
+param	float	default_value.a	0		%meta{string,help,"Default value"}  %read{3,3} %write{2147483647,-1} %mystruct{default_value} %mystructfield{1}
+param	struct vector2	texcoord			%meta{string,help,"Vector2 texture coordinates"} %meta{int,lockgeom,0}  %read{2147483647,-1} %write{2147483647,-1} %struct{"vector2"} %structfields{x,y} %structfieldtypes{"ff"} %structnfields{2}
+param	float	texcoord.x	0		%meta{string,help,"Vector2 texture coordinates"} %meta{int,lockgeom,0}  %read{5,5} %write{0,0} %mystruct{texcoord} %mystructfield{0} %derivs %initexpr
+param	float	texcoord.y	0		%meta{string,help,"Vector2 texture coordinates"} %meta{int,lockgeom,0}  %read{5,5} %write{1,1} %mystruct{texcoord} %mystructfield{1} %derivs %initexpr
+param	string	uaddressmode	"periodic"		%meta{string,help,"Tiling mode along the u coordinate"}  %read{2147483647,-1} %write{2147483647,-1}
+param	string	vaddressmode	"periodic"		%meta{string,help,"Tiling mode along the v coordinate"}  %read{2147483647,-1} %write{2147483647,-1}
+param	string	framerange	""		%read{2147483647,-1} %write{2147483647,-1}
+param	int	frameoffset	0		%read{2147483647,-1} %write{2147483647,-1}
+param	string	frameendaction	"black"		%read{2147483647,-1} %write{2147483647,-1}
+oparam	struct color2	out			%meta{string,help,"Output color"}  %read{2147483647,-1} %write{2147483647,-1} %struct{"color2"} %structfields{r,a} %structfieldtypes{"ff"} %structnfields{2}
+oparam	float	out.r	0		%meta{string,help,"Output color"}  %read{2147483647,-1} %write{7,7} %mystruct{out} %mystructfield{0}
+oparam	float	out.a	0		%meta{string,help,"Output color"}  %read{2147483647,-1} %write{8,8} %mystruct{out} %mystructfield{1}
+global	float	u	%read{0,0} %write{2147483647,-1} %derivs
+global	float	v	%read{1,1} %write{2147483647,-1} %derivs
+local	color	missingColor	%read{5,5} %write{3,3}
+local	float	missingAlpha	%read{5,5} %write{4,4}
+local	float	alpha	%read{2147483647,-1} %write{5,5}
+local	color	rgb	%read{7,8} %write{5,5}
+const	string	$const1	"setup_missing_color_alpha"		%read{2,2} %write{2147483647,-1}
+const	int	$const2	0		%read{7,7} %write{2147483647,-1}
+const	float	$const3	0		%read{3,3} %write{2147483647,-1}
+const	int	$const4	1		%read{4,8} %write{2147483647,-1}
+const	string	$const5	"alpha"		%read{5,5} %write{2147483647,-1}
+const	string	$const6	"subimage"		%read{5,5} %write{2147483647,-1}
+const	string	$const7	"missingcolor"		%read{5,5} %write{2147483647,-1}
+const	string	$const8	"missingalpha"		%read{5,5} %write{2147483647,-1}
+const	string	$const9	"pack"		%read{6,6} %write{2147483647,-1}
+code texcoord.x
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_image_color2.osl:25
+#            int lockgeom = 0 ]],
+	assign		texcoord.x u 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_image_color2.osl"} %line{25} %argrw{"wr"}
+code texcoord.y
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_image_color2.osl:25
+#            int lockgeom = 0 ]],
+	assign		texcoord.y v 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_image_color2.osl"} %line{25} %argrw{"wr"}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_image_color2.osl:45
+#     setup_missing_color_alpha (default_value, missingColor, missingAlpha);
+	functioncall	$const1 5 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_image_color2.osl"} %line{45} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:646
+#     missingColor = color (default_value.r, default_value.a, 0);
+	color		missingColor default_value.r default_value.a $const3 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h"} %line{646} %argrw{"wrrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:647
+#     missingAlpha = 1;
+	assign		missingAlpha $const4 	%line{647} %argrw{"wr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_image_color2.osl:50
+#                         "missingcolor", missingColor, "missingalpha", missingAlpha);
+	texture		rgb file texcoord.x texcoord.y $const5 alpha $const6 layer $const7 missingColor $const8 missingAlpha 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_image_color2.osl"} %line{50} %argrw{"wrrrrwrrrrrr"} %argderivs{2,3}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_image_color2.osl:52
+#     out = pack (rgb, alpha);
+	functioncall	$const9 9 	%line{52} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:730
+#     return color2 (rgb[0], rgb[1]);
+	compref		out.r rgb $const2 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h"} %line{730} %argrw{"wrr"}
+	compref		out.a rgb $const4 	%argrw{"wrr"}
+	end

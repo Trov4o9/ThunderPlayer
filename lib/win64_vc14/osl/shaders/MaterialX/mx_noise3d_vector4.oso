@@ -1,0 +1,54 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise3d_vector4.oso
+shader mx_noise3d_vector4	%meta{string,help,"3D noise"} 
+param	point	position	0 0 0		%meta{string,help,"input coordinate position (default: object space P)"} %meta{int,lockgeom,0}  %read{3,4} %write{1,1} %derivs %initexpr
+param	struct vector4	amplitude			%meta{string,help,"center-to-peak amplitude of the noise"}  %read{2147483647,-1} %write{2147483647,-1} %struct{"vector4"} %structfields{x,y,z,w} %structfieldtypes{"ffff"} %structnfields{4}
+param	float	amplitude.x	1		%meta{string,help,"center-to-peak amplitude of the noise"}  %read{2147483647,-1} %write{2147483647,-1} %mystruct{amplitude} %mystructfield{0}
+param	float	amplitude.y	1		%meta{string,help,"center-to-peak amplitude of the noise"}  %read{2147483647,-1} %write{2147483647,-1} %mystruct{amplitude} %mystructfield{1}
+param	float	amplitude.z	1		%meta{string,help,"center-to-peak amplitude of the noise"}  %read{2147483647,-1} %write{2147483647,-1} %mystruct{amplitude} %mystructfield{2}
+param	float	amplitude.w	1		%meta{string,help,"center-to-peak amplitude of the noise"}  %read{2147483647,-1} %write{2147483647,-1} %mystruct{amplitude} %mystructfield{3}
+param	float	pivot	0		%meta{string,help,"the center value of the output noise"}  %read{2147483647,-1} %write{2147483647,-1}
+param	string	noisetype	"snoise"		%meta{string,help,"type of noise"}  %read{3,5} %write{2147483647,-1}
+oparam	struct vector4	out			%read{2147483647,-1} %write{2147483647,-1} %struct{"vector4"} %structfields{x,y,z,w} %structfieldtypes{"ffff"} %structnfields{4}
+oparam	float	out.x	0		%read{2147483647,-1} %write{6,6} %mystruct{out} %mystructfield{0}
+oparam	float	out.y	0		%read{2147483647,-1} %write{7,7} %mystruct{out} %mystructfield{1}
+oparam	float	out.z	0		%read{2147483647,-1} %write{8,8} %mystruct{out} %mystructfield{2}
+oparam	float	out.w	0		%read{2147483647,-1} %write{9,9} %mystruct{out} %mystructfield{3}
+global	point	P	%read{1,1} %write{2147483647,-1} %derivs
+local	color	___530_cnoise	%read{6,8} %write{3,3}
+local	float	___530_fnoise	%read{9,9} %write{5,5}
+const	string	$const1	"object"		%read{1,1} %write{2147483647,-1}
+const	string	$const2	"transform"		%read{0,0} %write{2147483647,-1}
+const	string	$const3	"common"		%read{1,1} %write{2147483647,-1}
+const	string	$const4	"noise"		%read{2,2} %write{2147483647,-1}
+const	vector	$const5	19 73 29		%read{4,4} %write{2147483647,-1}
+temp	point	$tmp2	%read{5,5} %write{4,4} %derivs
+const	int	$const6	0		%read{6,6} %write{2147483647,-1}
+const	int	$const7	1		%read{7,7} %write{2147483647,-1}
+const	int	$const8	2		%read{8,8} %write{2147483647,-1}
+code position
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise3d_vector4.osl:12
+#     point position = transform ("object", P)
+	functioncall	$const2 2 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise3d_vector4.osl"} %line{12} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h:267
+# point  transform (string to, point p)  { return transform("common",to,p); }
+	transform	position $const3 $const1 P 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h"} %line{267} %argrw{"wrrr"}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise3d_vector4.osl:28
+#     out = noise (noisetype, position);
+	functioncall	$const4 10 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise3d_vector4.osl"} %line{28} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:296
+#     color cnoise = (color) noise (noisetype, position);
+	noise		___530_cnoise noisetype position 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h"} %line{296} %argrw{"wrr"} %argderivs{2}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:297
+#     float fnoise = (float) noise (noisetype, position+vector(19,73,29));
+	add		$tmp2 position $const5 	%line{297} %argrw{"wrr"}
+	noise		___530_fnoise noisetype $tmp2 	%argrw{"wrr"} %argderivs{2}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:298
+#     return vector4 (cnoise[0], cnoise[1], cnoise[2], fnoise);
+	compref		out.x ___530_cnoise $const6 	%line{298} %argrw{"wrr"}
+	compref		out.y ___530_cnoise $const7 	%argrw{"wrr"}
+	compref		out.z ___530_cnoise $const8 	%argrw{"wrr"}
+	assign		out.w ___530_fnoise 	%argrw{"wr"}
+	end

@@ -1,0 +1,14 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_geomattrvalue_color4.oso
+shader mx_geomattrvalue_color4	%meta{string,help,"The value assigned to the current geometry through the specified geomattr name"} 
+param	string	attrname	""		%read{0,0} %write{2147483647,-1}
+oparam	struct color4	out			%read{2147483647,-1} %write{0,0} %struct{"color4"} %structfields{rgb,a} %structfieldtypes{"cf"} %structnfields{2}
+oparam	color	out.rgb	0 0 0		%read{2147483647,-1} %write{2147483647,-1} %mystruct{out} %mystructfield{0}
+oparam	float	out.a	0		%read{2147483647,-1} %write{2147483647,-1} %mystruct{out} %mystructfield{1}
+temp	int	$tmp1	%read{2147483647,-1} %write{0,0}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_geomattrvalue_color4.osl:16
+#     getattribute(attrname, out);
+	getattribute	$tmp1 attrname out 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_geomattrvalue_color4.osl"} %line{16} %argrw{"wrw"}
+	end

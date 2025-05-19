@@ -1,0 +1,14 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_geomcolor_color2.oso
+shader mx_geomcolor_color2	%meta{string,help,"The color associated with the current geometry "} 
+oparam	struct color2	out			%read{2147483647,-1} %write{0,0} %struct{"color2"} %structfields{r,a} %structfieldtypes{"ff"} %structnfields{2}
+oparam	float	out.r	0		%read{2147483647,-1} %write{2147483647,-1} %mystruct{out} %mystructfield{0}
+oparam	float	out.a	0		%read{2147483647,-1} %write{2147483647,-1} %mystruct{out} %mystructfield{1}
+temp	int	$tmp1	%read{2147483647,-1} %write{0,0}
+const	string	$const1	"color"		%read{0,0} %write{2147483647,-1}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_geomcolor_color2.osl:15
+#     getattribute("color", out);
+	getattribute	$tmp1 $const1 out 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_geomcolor_color2.osl"} %line{15} %argrw{"wrw"}
+	end

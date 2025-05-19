@@ -1,0 +1,54 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_clamp_float_vector4.oso
+shader mx_clamp_float_vector4	%meta{string,help,"Vector4 Clamp incoming value to a specified range of values."} 
+param	struct vector4	in			%read{2147483647,-1} %write{2147483647,-1} %struct{"vector4"} %structfields{x,y,z,w} %structfieldtypes{"ffff"} %structnfields{4}
+param	float	in.x	0		%read{2,2} %write{2147483647,-1} %mystruct{in} %mystructfield{0}
+param	float	in.y	0		%read{5,5} %write{2147483647,-1} %mystruct{in} %mystructfield{1}
+param	float	in.z	0		%read{8,8} %write{2147483647,-1} %mystruct{in} %mystructfield{2}
+param	float	in.w	0		%read{11,11} %write{2147483647,-1} %mystruct{in} %mystructfield{3}
+param	float	low	0		%read{3,12} %write{2147483647,-1}
+param	float	high	1		%read{2,11} %write{2147483647,-1}
+oparam	struct vector4	out			%read{2147483647,-1} %write{2147483647,-1} %struct{"vector4"} %structfields{x,y,z,w} %structfieldtypes{"ffff"} %structnfields{4}
+oparam	float	out.x	0		%read{2147483647,-1} %write{3,3} %mystruct{out} %mystructfield{0}
+oparam	float	out.y	0		%read{2147483647,-1} %write{6,6} %mystruct{out} %mystructfield{1}
+oparam	float	out.z	0		%read{2147483647,-1} %write{9,9} %mystruct{out} %mystructfield{2}
+oparam	float	out.w	0		%read{2147483647,-1} %write{12,12} %mystruct{out} %mystructfield{3}
+const	string	$const1	"clamp"		%read{0,10} %write{2147483647,-1}
+temp	float	$tmp1	%read{3,3} %write{2,2}
+temp	float	$tmp2	%read{6,6} %write{5,5}
+temp	float	$tmp3	%read{9,9} %write{8,8}
+temp	float	$tmp4	%read{12,12} %write{11,11}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_clamp_float_vector4.osl:18
+#     out = clamp(in, low, high);
+	functioncall	$const1 13 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_clamp_float_vector4.osl"} %line{18} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector4.h:212
+#     return vector4 (clamp(in.x, low, high),
+	functioncall	$const1 4 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector4.h"} %line{212} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h:145
+# float  clamp (float x, float minval, float maxval) { return max(min(x,maxval),minval); }
+	min		$tmp1 in.x high 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h"} %line{145} %argrw{"wrr"}
+	max		out.x $tmp1 low 	%argrw{"wrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector4.h:213
+#                     clamp(in.y, low, high),
+	functioncall	$const1 7 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector4.h"} %line{213} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h:145
+# float  clamp (float x, float minval, float maxval) { return max(min(x,maxval),minval); }
+	min		$tmp2 in.y high 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h"} %line{145} %argrw{"wrr"}
+	max		out.y $tmp2 low 	%argrw{"wrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector4.h:214
+#                     clamp(in.z, low, high),
+	functioncall	$const1 10 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector4.h"} %line{214} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h:145
+# float  clamp (float x, float minval, float maxval) { return max(min(x,maxval),minval); }
+	min		$tmp3 in.z high 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h"} %line{145} %argrw{"wrr"}
+	max		out.z $tmp3 low 	%argrw{"wrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector4.h:215
+#                     clamp(in.w, low, high));
+	functioncall	$const1 13 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector4.h"} %line{215} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h:145
+# float  clamp (float x, float minval, float maxval) { return max(min(x,maxval),minval); }
+	min		$tmp4 in.w high 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h"} %line{145} %argrw{"wrr"}
+	max		out.w $tmp4 low 	%argrw{"wrr"}
+	end

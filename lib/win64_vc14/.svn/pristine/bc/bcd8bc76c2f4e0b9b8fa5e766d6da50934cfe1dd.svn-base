@@ -1,0 +1,12 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_min_float.oso
+shader mx_min_float	%meta{string,help,"Float Select the minimum among incoming values."} 
+param	float	in1	0		%read{0,0} %write{2147483647,-1}
+param	float	in2	0		%read{0,0} %write{2147483647,-1}
+oparam	float	out	0		%read{2147483647,-1} %write{0,0}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_min_float.osl:17
+#     out = min(in1, in2); 
+	min		out in1 in2 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_min_float.osl"} %line{17} %argrw{"wrr"}
+	end

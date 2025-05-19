@@ -1,0 +1,33 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_magnitude_vector4.oso
+shader mx_magnitude_vector4	%meta{string,help,"Vector4 Outputs the float magnitude (vector length) of the incoming vector stream."} 
+param	struct vector4	in			%read{2147483647,-1} %write{2147483647,-1} %struct{"vector4"} %structfields{x,y,z,w} %structfieldtypes{"ffff"} %structnfields{4}
+param	float	in.x	0		%read{1,1} %write{2147483647,-1} %mystruct{in} %mystructfield{0}
+param	float	in.y	0		%read{2,2} %write{2147483647,-1} %mystruct{in} %mystructfield{1}
+param	float	in.z	0		%read{4,4} %write{2147483647,-1} %mystruct{in} %mystructfield{2}
+param	float	in.w	0		%read{6,6} %write{2147483647,-1} %mystruct{in} %mystructfield{3}
+oparam	float	out	0		%read{2147483647,-1} %write{8,8}
+const	string	$const1	"length"		%read{0,0} %write{2147483647,-1}
+temp	float	$tmp1	%read{3,3} %write{1,1}
+temp	float	$tmp2	%read{3,3} %write{2,2}
+temp	float	$tmp3	%read{5,5} %write{3,3}
+temp	float	$tmp4	%read{5,5} %write{4,4}
+temp	float	$tmp5	%read{7,7} %write{5,5}
+temp	float	$tmp6	%read{7,7} %write{6,6}
+temp	float	$tmp7	%read{8,8} %write{7,7}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_magnitude_vector4.osl:16
+#     out = length(in);
+	functioncall	$const1 9 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_magnitude_vector4.osl"} %line{16} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector4.h:183
+#     return sqrt (a.x*a.x + a.y*a.y + a.z*a.z + a.w*a.w);
+	mul		$tmp1 in.x in.x 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector4.h"} %line{183} %argrw{"wrr"}
+	mul		$tmp2 in.y in.y 	%argrw{"wrr"}
+	add		$tmp3 $tmp1 $tmp2 	%argrw{"wrr"}
+	mul		$tmp4 in.z in.z 	%argrw{"wrr"}
+	add		$tmp5 $tmp3 $tmp4 	%argrw{"wrr"}
+	mul		$tmp6 in.w in.w 	%argrw{"wrr"}
+	add		$tmp7 $tmp5 $tmp6 	%argrw{"wrr"}
+	sqrt		out $tmp7 	%argrw{"wr"}
+	end

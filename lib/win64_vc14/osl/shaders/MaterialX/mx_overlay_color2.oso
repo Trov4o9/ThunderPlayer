@@ -1,0 +1,60 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_overlay_color2.oso
+shader mx_overlay_color2	%meta{string,help,"Color2 overlay composite operator"} 
+param	struct color2	fg			%read{2147483647,-1} %write{2147483647,-1} %struct{"color2"} %structfields{r,a} %structfieldtypes{"ff"} %structnfields{2}
+param	float	fg.r	0		%read{2,6} %write{2147483647,-1} %mystruct{fg} %mystructfield{0}
+param	float	fg.a	0		%read{12,16} %write{2147483647,-1} %mystruct{fg} %mystructfield{1}
+param	struct color2	bg			%read{2147483647,-1} %write{2147483647,-1} %struct{"color2"} %structfields{r,a} %structfieldtypes{"ff"} %structnfields{2}
+param	float	bg.r	0		%read{5,7} %write{2147483647,-1} %mystruct{bg} %mystructfield{0}
+param	float	bg.a	0		%read{15,17} %write{2147483647,-1} %mystruct{bg} %mystructfield{1}
+oparam	struct color2	out			%read{2147483647,-1} %write{2147483647,-1} %struct{"color2"} %structfields{r,a} %structfieldtypes{"ff"} %structnfields{2}
+oparam	float	out.r	0		%read{2147483647,-1} %write{5,9} %mystruct{out} %mystructfield{0}
+oparam	float	out.a	0		%read{2147483647,-1} %write{15,19} %mystruct{out} %mystructfield{1}
+const	string	$const1	"overlay"		%read{0,11} %write{2147483647,-1}
+const	float	$const2	0.5		%read{2,12} %write{2147483647,-1}
+temp	int	$tmp1	%read{3,3} %write{2,2}
+temp	float	$tmp2	%read{5,5} %write{4,4}
+const	float	$const4	2		%read{4,14} %write{2147483647,-1}
+temp	float	$tmp3	%read{8,8} %write{6,6}
+const	float	$const6	1		%read{6,19} %write{2147483647,-1}
+temp	float	$tmp4	%read{8,8} %write{7,7}
+temp	float	$tmp5	%read{9,9} %write{8,8}
+temp	int	$tmp6	%read{13,13} %write{12,12}
+temp	float	$tmp7	%read{15,15} %write{14,14}
+temp	float	$tmp8	%read{18,18} %write{16,16}
+temp	float	$tmp9	%read{18,18} %write{17,17}
+temp	float	$tmp10	%read{19,19} %write{18,18}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_overlay_color2.osl:44
+#     out = overlay(fg, bg); 
+	functioncall	$const1 21 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_overlay_color2.osl"} %line{44} %argrw{"r"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_overlay_color2.osl:24
+#     return color2(overlay(fg.r, bg.r),
+	functioncall	$const1 11 	%line{24} %argrw{"r"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_overlay_color2.osl:12
+#     return (fg < 0.5) ? (2 * fg * bg) : (1 - (1 - fg) * (1 - bg));
+	lt		$tmp1 fg.r $const2 	%line{12} %argrw{"wrr"}
+	if		$tmp1 6 10 	%argrw{"r"}
+	mul		$tmp2 $const4 fg.r 	%argrw{"wrr"}
+	mul		out.r $tmp2 bg.r 	%argrw{"wrr"}
+	sub		$tmp3 $const6 fg.r 	%argrw{"wrr"}
+	sub		$tmp4 $const6 bg.r 	%argrw{"wrr"}
+	mul		$tmp5 $tmp3 $tmp4 	%argrw{"wrr"}
+	sub		out.r $const6 $tmp5 	%argrw{"wrr"}
+	return
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_overlay_color2.osl:25
+#                   overlay(fg.a, bg.a));
+	functioncall	$const1 21 	%line{25} %argrw{"r"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_overlay_color2.osl:12
+#     return (fg < 0.5) ? (2 * fg * bg) : (1 - (1 - fg) * (1 - bg));
+	lt		$tmp6 fg.a $const2 	%line{12} %argrw{"wrr"}
+	if		$tmp6 16 20 	%argrw{"r"}
+	mul		$tmp7 $const4 fg.a 	%argrw{"wrr"}
+	mul		out.a $tmp7 bg.a 	%argrw{"wrr"}
+	sub		$tmp8 $const6 fg.a 	%argrw{"wrr"}
+	sub		$tmp9 $const6 bg.a 	%argrw{"wrr"}
+	mul		$tmp10 $tmp8 $tmp9 	%argrw{"wrr"}
+	sub		out.a $const6 $tmp10 	%argrw{"wrr"}
+	return
+	end

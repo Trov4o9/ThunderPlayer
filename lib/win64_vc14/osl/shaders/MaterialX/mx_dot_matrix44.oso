@@ -1,0 +1,11 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_dot_matrix44.oso
+shader mx_dot_matrix44	%meta{string,help,"Matrix44 no-op "} 
+param	matrix	in	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0		%read{0,0} %write{2147483647,-1}
+oparam	matrix	out	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0		%read{2147483647,-1} %write{0,0}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_dot_matrix44.osl:16
+#     out = in; 
+	assign		out in 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_dot_matrix44.osl"} %line{16} %argrw{"wr"}
+	end

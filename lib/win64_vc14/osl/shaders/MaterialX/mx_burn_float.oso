@@ -1,0 +1,17 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_burn_float.oso
+shader mx_burn_float	%meta{string,help,"Float Take two 1-4 channel inputs and apply the same operator to all channels: 1-(1-B)/F"} 
+param	float	fg	0		%read{1,1} %write{2147483647,-1}
+param	float	bg	0		%read{0,0} %write{2147483647,-1}
+oparam	float	out	0		%read{2147483647,-1} %write{2,2}
+temp	float	$tmp1	%read{1,1} %write{0,0}
+const	float	$const2	1		%read{0,2} %write{2147483647,-1}
+temp	float	$tmp2	%read{2,2} %write{1,1}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_burn_float.osl:17
+#     out = 1 - ((1 - bg) / fg); 
+	sub		$tmp1 $const2 bg 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_burn_float.osl"} %line{17} %argrw{"wrr"}
+	div		$tmp2 $tmp1 fg 	%argrw{"wrr"}
+	sub		out $const2 $tmp2 	%argrw{"wrr"}
+	end

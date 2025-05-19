@@ -1,0 +1,32 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_absval_vector4.oso
+shader mx_absval_vector4	%meta{string,help,"The per-channel absolute value of the incoming float/color/vector."} 
+param	struct vector4	in			%read{2147483647,-1} %write{2147483647,-1} %struct{"vector4"} %structfields{x,y,z,w} %structfieldtypes{"ffff"} %structnfields{4}
+param	float	in.x	0		%read{1,1} %write{2147483647,-1} %mystruct{in} %mystructfield{0}
+param	float	in.y	0		%read{2,2} %write{2147483647,-1} %mystruct{in} %mystructfield{1}
+param	float	in.z	0		%read{3,3} %write{2147483647,-1} %mystruct{in} %mystructfield{2}
+param	float	in.w	0		%read{4,4} %write{2147483647,-1} %mystruct{in} %mystructfield{3}
+oparam	struct vector4	out			%read{2147483647,-1} %write{2147483647,-1} %struct{"vector4"} %structfields{x,y,z,w} %structfieldtypes{"ffff"} %structnfields{4}
+oparam	float	out.x	0		%read{2147483647,-1} %write{1,1} %mystruct{out} %mystructfield{0}
+oparam	float	out.y	0		%read{2147483647,-1} %write{2,2} %mystruct{out} %mystructfield{1}
+oparam	float	out.z	0		%read{2147483647,-1} %write{3,3} %mystruct{out} %mystructfield{2}
+oparam	float	out.w	0		%read{2147483647,-1} %write{4,4} %mystruct{out} %mystructfield{3}
+const	string	$const1	"abs"		%read{0,0} %write{2147483647,-1}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_absval_vector4.osl:16
+#     out = abs(in);
+	functioncall	$const1 5 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_absval_vector4.osl"} %line{16} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector4.h:149
+#     return vector4 (abs(in.x),
+	abs		out.x in.x 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector4.h"} %line{149} %argrw{"wr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector4.h:150
+#                     abs(in.y),
+	abs		out.y in.y 	%line{150} %argrw{"wr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector4.h:151
+#                     abs(in.z),
+	abs		out.z in.z 	%line{151} %argrw{"wr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector4.h:152
+#                     abs(in.w));
+	abs		out.w in.w 	%line{152} %argrw{"wr"}
+	end

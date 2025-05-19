@@ -1,0 +1,12 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_max_vector.oso
+shader mx_max_vector	%meta{string,help,"Vector  Select the maximum among incoming values."} 
+param	vector	in1	0 0 0		%read{0,0} %write{2147483647,-1}
+param	vector	in2	0 0 0		%read{0,0} %write{2147483647,-1}
+oparam	vector	out	0 0 0		%read{2147483647,-1} %write{0,0}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_max_vector.osl:17
+#     out = max(in1, in2); 
+	max		out in1 in2 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_max_vector.osl"} %line{17} %argrw{"wrr"}
+	end

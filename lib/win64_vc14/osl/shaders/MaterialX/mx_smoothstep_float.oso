@@ -1,0 +1,13 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_smoothstep_float.oso
+shader mx_smoothstep_float	%meta{string,help,"outputs a smooth (hermite-interpolated) remapping of input values from low-high to output 0-1."} 
+param	float	in	0		%meta{string,help,"input"}  %read{0,0} %write{2147483647,-1}
+param	float	low	0		%meta{string,help,"input value of this or lower will return 0"}  %read{0,0} %write{2147483647,-1}
+param	float	high	1		%meta{string,help," an input value of this or higher will result in an output value of 1"}  %read{0,0} %write{2147483647,-1}
+oparam	float	out	0		%read{2147483647,-1} %write{0,0}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_smoothstep_float.osl:21
+#     out = smoothstep(low, high, in);
+	smoothstep	out low high in 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_smoothstep_float.osl"} %line{21} %argrw{"wrrr"}
+	end

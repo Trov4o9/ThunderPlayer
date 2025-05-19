@@ -1,0 +1,93 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_switch_color2.oso
+shader mx_switch_color2	%meta{string,help,"Pass on the value of one of five input streams, according to the value of a selector parameter."} 
+param	struct color2	in1			%read{2147483647,-1} %write{2147483647,-1} %struct{"color2"} %structfields{r,a} %structfieldtypes{"ff"} %structnfields{2}
+param	float	in1.r	0		%read{7,7} %write{2147483647,-1} %mystruct{in1} %mystructfield{0}
+param	float	in1.a	0		%read{8,8} %write{2147483647,-1} %mystruct{in1} %mystructfield{1}
+param	struct color2	in2			%read{2147483647,-1} %write{2147483647,-1} %struct{"color2"} %structfields{r,a} %structfieldtypes{"ff"} %structnfields{2}
+param	float	in2.r	0		%read{11,11} %write{2147483647,-1} %mystruct{in2} %mystructfield{0}
+param	float	in2.a	0		%read{12,12} %write{2147483647,-1} %mystruct{in2} %mystructfield{1}
+param	struct color2	in3			%read{2147483647,-1} %write{2147483647,-1} %struct{"color2"} %structfields{r,a} %structfieldtypes{"ff"} %structnfields{2}
+param	float	in3.r	0		%read{15,15} %write{2147483647,-1} %mystruct{in3} %mystructfield{0}
+param	float	in3.a	0		%read{16,16} %write{2147483647,-1} %mystruct{in3} %mystructfield{1}
+param	struct color2	in4			%read{2147483647,-1} %write{2147483647,-1} %struct{"color2"} %structfields{r,a} %structfieldtypes{"ff"} %structnfields{2}
+param	float	in4.r	0		%read{19,19} %write{2147483647,-1} %mystruct{in4} %mystructfield{0}
+param	float	in4.a	0		%read{20,20} %write{2147483647,-1} %mystruct{in4} %mystructfield{1}
+param	struct color2	in5			%read{2147483647,-1} %write{2147483647,-1} %struct{"color2"} %structfields{r,a} %structfieldtypes{"ff"} %structnfields{2}
+param	float	in5.r	0		%read{23,23} %write{2147483647,-1} %mystruct{in5} %mystructfield{0}
+param	float	in5.a	0		%read{24,24} %write{2147483647,-1} %mystruct{in5} %mystructfield{1}
+param	float	which	1		%read{0,0} %write{2147483647,-1}
+oparam	struct color2	out			%read{2147483647,-1} %write{2147483647,-1} %struct{"color2"} %structfields{r,a} %structfieldtypes{"ff"} %structnfields{2}
+oparam	float	out.r	0		%read{2147483647,-1} %write{7,23} %mystruct{out} %mystructfield{0}
+oparam	float	out.a	0		%read{2147483647,-1} %write{8,24} %mystruct{out} %mystructfield{1}
+local	int	selection	%read{5,21} %write{4,4}
+temp	float	$tmp1	%read{4,4} %write{3,3}
+temp	float	$tmp2	%read{2,2} %write{0,0}
+const	int	$const1	1		%read{5,5} %write{2147483647,-1}
+const	float	$const2	1		%read{3,3} %write{2147483647,-1}
+const	int	$const3	5		%read{21,21} %write{2147483647,-1}
+const	float	$const4	5		%read{2,2} %write{2147483647,-1}
+const	string	$const5	"clamp"		%read{1,1} %write{2147483647,-1}
+temp	float	$tmp3	%read{3,3} %write{2,2}
+temp	int	$tmp4	%read{6,6} %write{5,5}
+const	int	$const6	2		%read{9,9} %write{2147483647,-1}
+temp	int	$tmp5	%read{10,10} %write{9,9}
+const	int	$const7	3		%read{13,13} %write{2147483647,-1}
+temp	int	$tmp6	%read{14,14} %write{13,13}
+const	int	$const8	4		%read{17,17} %write{2147483647,-1}
+temp	int	$tmp7	%read{18,18} %write{17,17}
+temp	int	$tmp8	%read{22,22} %write{21,21}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_switch_color2.osl:21
+#     int selection = int(clamp(floor(which), 1, 5));
+	floor		$tmp2 which 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_switch_color2.osl"} %line{21} %argrw{"wr"}
+	functioncall	$const5 4 	%argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h:145
+# float  clamp (float x, float minval, float maxval) { return max(min(x,maxval),minval); }
+	min		$tmp3 $tmp2 $const4 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h"} %line{145} %argrw{"wrr"}
+	max		$tmp1 $tmp3 $const2 	%argrw{"wrr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_switch_color2.osl:21
+#     int selection = int(clamp(floor(which), 1, 5));
+	assign		selection $tmp1 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_switch_color2.osl"} %line{21} %argrw{"wr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_switch_color2.osl:23
+#     if (selection == 1){
+	eq		$tmp4 selection $const1 	%line{23} %argrw{"wrr"}
+	if		$tmp4 9 25 	%argrw{"r"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_switch_color2.osl:24
+#         out = in1;
+	assign		out.r in1.r 	%line{24} %argrw{"wr"}
+	assign		out.a in1.a 	%argrw{"wr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_switch_color2.osl:25
+#     } else if (selection == 2){
+	eq		$tmp5 selection $const6 	%line{25} %argrw{"wrr"}
+	if		$tmp5 13 25 	%argrw{"r"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_switch_color2.osl:26
+#         out = in2;
+	assign		out.r in2.r 	%line{26} %argrw{"wr"}
+	assign		out.a in2.a 	%argrw{"wr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_switch_color2.osl:27
+#     } else if (selection == 3){
+	eq		$tmp6 selection $const7 	%line{27} %argrw{"wrr"}
+	if		$tmp6 17 25 	%argrw{"r"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_switch_color2.osl:28
+#         out = in3;
+	assign		out.r in3.r 	%line{28} %argrw{"wr"}
+	assign		out.a in3.a 	%argrw{"wr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_switch_color2.osl:29
+#     } else if (selection == 4){
+	eq		$tmp7 selection $const8 	%line{29} %argrw{"wrr"}
+	if		$tmp7 21 25 	%argrw{"r"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_switch_color2.osl:30
+#         out = in4;
+	assign		out.r in4.r 	%line{30} %argrw{"wr"}
+	assign		out.a in4.a 	%argrw{"wr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_switch_color2.osl:31
+#     } else if (selection == 5){
+	eq		$tmp8 selection $const3 	%line{31} %argrw{"wrr"}
+	if		$tmp8 25 25 	%argrw{"r"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_switch_color2.osl:32
+#         out = in5;
+	assign		out.r in5.r 	%line{32} %argrw{"wr"}
+	assign		out.a in5.a 	%argrw{"wr"}
+	end

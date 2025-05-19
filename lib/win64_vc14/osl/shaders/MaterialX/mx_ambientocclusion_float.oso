@@ -1,0 +1,13 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_ambientocclusion_float.oso
+shader mx_ambientocclusion_float	%meta{string,help,"Computes the ambient occlusion (0-1 float) at the current surface point."} 
+param	float	coneangle	90		%read{2147483647,-1} %write{2147483647,-1}
+param	float	maxdistance	1000000		%read{2147483647,-1} %write{2147483647,-1}
+oparam	float	out	0		%read{2147483647,-1} %write{0,0}
+const	int	$const1	0		%read{0,0} %write{2147483647,-1}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_ambientocclusion_float.osl:18
+#     out = 0;
+	assign		out $const1 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_ambientocclusion_float.osl"} %line{18} %argrw{"wr"}
+	end

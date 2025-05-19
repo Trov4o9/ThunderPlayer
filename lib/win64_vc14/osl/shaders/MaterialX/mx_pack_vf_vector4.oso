@@ -1,0 +1,31 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_pack_vf_vector4.oso
+shader mx_pack_vf_vector4	%meta{string,help,"Pack the channels from two, three or four streams into the same number of channels of a                       single stream of a specified compatible type;"} 
+param	vector	in1	0 0 0		%read{0,4} %write{2147483647,-1}
+param	float	in2	0		%read{6,6} %write{2147483647,-1}
+oparam	struct vector4	out			%read{2147483647,-1} %write{2147483647,-1} %struct{"vector4"} %structfields{x,y,z,w} %structfieldtypes{"ffff"} %structnfields{4}
+oparam	float	out.x	0		%read{1,1} %write{0,1} %mystruct{out} %mystructfield{0}
+oparam	float	out.y	0		%read{3,3} %write{2,3} %mystruct{out} %mystructfield{1}
+oparam	float	out.z	0		%read{5,5} %write{4,5} %mystruct{out} %mystructfield{2}
+oparam	float	out.w	0		%read{2147483647,-1} %write{6,6} %mystruct{out} %mystructfield{3}
+const	int	$const1	0		%read{0,0} %write{2147483647,-1}
+const	int	$const2	1		%read{2,2} %write{2147483647,-1}
+const	int	$const3	2		%read{4,4} %write{2147483647,-1}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_pack_vf_vector4.osl:17
+# {
+	compref		out.x in1 $const1 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_pack_vf_vector4.osl"} %line{17} %argrw{"wrr"}
+	assign		out.x out.x 	%argrw{"wr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_pack_vf_vector4.osl:18
+#     out.x = in1[0];
+	compref		out.y in1 $const2 	%line{18} %argrw{"wrr"}
+	assign		out.y out.y 	%argrw{"wr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_pack_vf_vector4.osl:19
+#     out.y = in1[1];
+	compref		out.z in1 $const3 	%line{19} %argrw{"wrr"}
+	assign		out.z out.z 	%argrw{"wr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_pack_vf_vector4.osl:20
+#     out.z = in1[2];
+	assign		out.w in2 	%line{20} %argrw{"wr"}
+	end

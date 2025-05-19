@@ -1,0 +1,91 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_contrast_vector4.oso
+shader mx_contrast_vector4	%meta{string,help,"Vector4 Increase or decrease contrast of a float/color value using a linear slope multiplier."} 
+param	struct vector4	in			%read{2147483647,-1} %write{2147483647,-1} %struct{"vector4"} %structfields{x,y,z,w} %structfieldtypes{"ffff"} %structnfields{4}
+param	float	in.x	0		%read{2,2} %write{2147483647,-1} %mystruct{in} %mystructfield{0}
+param	float	in.y	0		%read{7,7} %write{2147483647,-1} %mystruct{in} %mystructfield{1}
+param	float	in.z	0		%read{12,12} %write{2147483647,-1} %mystruct{in} %mystructfield{2}
+param	float	in.w	0		%read{17,17} %write{2147483647,-1} %mystruct{in} %mystructfield{3}
+param	struct vector4	amount			%read{2147483647,-1} %write{2147483647,-1} %struct{"vector4"} %structfields{x,y,z,w} %structfieldtypes{"ffff"} %structnfields{4}
+param	float	amount.x	1		%read{3,3} %write{2147483647,-1} %mystruct{amount} %mystructfield{0}
+param	float	amount.y	1		%read{8,8} %write{2147483647,-1} %mystruct{amount} %mystructfield{1}
+param	float	amount.z	1		%read{13,13} %write{2147483647,-1} %mystruct{amount} %mystructfield{2}
+param	float	amount.w	1		%read{18,18} %write{2147483647,-1} %mystruct{amount} %mystructfield{3}
+param	struct vector4	pivot			%read{2147483647,-1} %write{2147483647,-1} %struct{"vector4"} %structfields{x,y,z,w} %structfieldtypes{"ffff"} %structnfields{4}
+param	float	pivot.x	0.5		%read{2,4} %write{2147483647,-1} %mystruct{pivot} %mystructfield{0}
+param	float	pivot.y	0.5		%read{7,9} %write{2147483647,-1} %mystruct{pivot} %mystructfield{1}
+param	float	pivot.z	0.5		%read{12,14} %write{2147483647,-1} %mystruct{pivot} %mystructfield{2}
+param	float	pivot.w	0.5		%read{17,19} %write{2147483647,-1} %mystruct{pivot} %mystructfield{3}
+oparam	struct vector4	out			%read{2147483647,-1} %write{2147483647,-1} %struct{"vector4"} %structfields{x,y,z,w} %structfieldtypes{"ffff"} %structnfields{4}
+oparam	float	out.x	0		%read{2147483647,-1} %write{5,5} %mystruct{out} %mystructfield{0}
+oparam	float	out.y	0		%read{2147483647,-1} %write{10,10} %mystruct{out} %mystructfield{1}
+oparam	float	out.z	0		%read{2147483647,-1} %write{15,15} %mystruct{out} %mystructfield{2}
+oparam	float	out.w	0		%read{2147483647,-1} %write{20,20} %mystruct{out} %mystructfield{3}
+local	float	___512_out	%read{3,20} %write{2,19}
+const	string	$const1	"contrast"		%read{0,16} %write{2147483647,-1}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_contrast_vector4.osl:18
+#     out = contrast(in, amount, pivot); 
+	functioncall	$const1 21 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_contrast_vector4.osl"} %line{18} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:232
+#     return vector4 (contrast(in.x, amount.x, pivot.x),
+	functioncall	$const1 6 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h"} %line{232} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:175
+#     float out = in - pivot;
+	sub		___512_out in.x pivot.x 	%line{175} %argrw{"wrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:176
+#     out *= amount;
+	mul		___512_out ___512_out amount.x 	%line{176} %argrw{"wrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:177
+#     out += pivot;
+	add		___512_out ___512_out pivot.x 	%line{177} %argrw{"wrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:178
+#     return out;
+	assign		out.x ___512_out 	%line{178} %argrw{"wr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:233
+#                     contrast(in.y, amount.y, pivot.y),
+	functioncall	$const1 11 	%line{233} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:175
+#     float out = in - pivot;
+	sub		___512_out in.y pivot.y 	%line{175} %argrw{"wrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:176
+#     out *= amount;
+	mul		___512_out ___512_out amount.y 	%line{176} %argrw{"wrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:177
+#     out += pivot;
+	add		___512_out ___512_out pivot.y 	%line{177} %argrw{"wrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:178
+#     return out;
+	assign		out.y ___512_out 	%line{178} %argrw{"wr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:234
+#                     contrast(in.z, amount.z, pivot.z),
+	functioncall	$const1 16 	%line{234} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:175
+#     float out = in - pivot;
+	sub		___512_out in.z pivot.z 	%line{175} %argrw{"wrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:176
+#     out *= amount;
+	mul		___512_out ___512_out amount.z 	%line{176} %argrw{"wrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:177
+#     out += pivot;
+	add		___512_out ___512_out pivot.z 	%line{177} %argrw{"wrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:178
+#     return out;
+	assign		out.z ___512_out 	%line{178} %argrw{"wr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:235
+#                     contrast(in.w, amount.w, pivot.w));
+	functioncall	$const1 21 	%line{235} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:175
+#     float out = in - pivot;
+	sub		___512_out in.w pivot.w 	%line{175} %argrw{"wrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:176
+#     out *= amount;
+	mul		___512_out ___512_out amount.w 	%line{176} %argrw{"wrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:177
+#     out += pivot;
+	add		___512_out ___512_out pivot.w 	%line{177} %argrw{"wrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:178
+#     return out;
+	assign		out.w ___512_out 	%line{178} %argrw{"wr"}
+	end

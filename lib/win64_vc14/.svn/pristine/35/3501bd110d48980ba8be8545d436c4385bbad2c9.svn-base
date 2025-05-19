@@ -1,0 +1,30 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_add_float_color2.oso
+shader mx_add_float_color2	%meta{string,help,"Color2 add in2 to the incoming data"} 
+param	struct color2	in1			%read{2147483647,-1} %write{2147483647,-1} %struct{"color2"} %structfields{r,a} %structfieldtypes{"ff"} %structnfields{2}
+param	float	in1.r	0		%read{4,4} %write{2147483647,-1} %mystruct{in1} %mystructfield{0}
+param	float	in1.a	0		%read{2147483647,-1} %write{2147483647,-1} %mystruct{in1} %mystructfield{1}
+param	float	in2	0		%read{1,2} %write{2147483647,-1}
+oparam	struct color2	out			%read{2147483647,-1} %write{2147483647,-1} %struct{"color2"} %structfields{r,a} %structfieldtypes{"ff"} %structnfields{2}
+oparam	float	out.r	0		%read{2147483647,-1} %write{4,4} %mystruct{out} %mystructfield{0}
+oparam	float	out.a	0		%read{2147483647,-1} %write{5,5} %mystruct{out} %mystructfield{1}
+const	string	$const1	"__operator__add__"		%read{0,3} %write{2147483647,-1}
+temp	float	$tmp1.r	%read{2147483647,-1} %write{1,1}
+temp	float	$tmp1.a	%read{5,5} %write{2,2}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_add_float_color2.osl:19
+# 
+	functioncall	$const1 6 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_add_float_color2.osl"} %line{19} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\color2.h:40
+#     return a + color2(b, b);
+	assign		$tmp1.r in2 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\color2.h"} %line{40} %argrw{"wr"}
+	assign		$tmp1.a in2 	%argrw{"wr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_add_float_color2.osl:19
+# 
+	functioncall	$const1 6 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_add_float_color2.osl"} %line{19} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\color2.h:30
+#     return color2(a.r + a.r, b.a + b.a);
+	add		out.r in1.r in1.r 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\color2.h"} %line{30} %argrw{"wrr"}
+	add		out.a $tmp1.a $tmp1.a 	%argrw{"wrr"}
+	end

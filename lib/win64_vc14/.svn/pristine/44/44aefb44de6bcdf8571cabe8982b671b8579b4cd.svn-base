@@ -1,0 +1,62 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_ramplr_vector4.oso
+shader mx_ramplr_vector4	%meta{string,help,"linear value ramp source, left to right"} 
+param	struct vector4	valuel			%meta{string,help,"value at the left (s=0) edge"}  %read{2147483647,-1} %write{2147483647,-1} %struct{"vector4"} %structfields{x,y,z,w} %structfieldtypes{"ffff"} %structnfields{4}
+param	float	valuel.x	0		%meta{string,help,"value at the left (s=0) edge"}  %read{6,6} %write{2147483647,-1} %mystruct{valuel} %mystructfield{0}
+param	float	valuel.y	0		%meta{string,help,"value at the left (s=0) edge"}  %read{7,7} %write{2147483647,-1} %mystruct{valuel} %mystructfield{1}
+param	float	valuel.z	0		%meta{string,help,"value at the left (s=0) edge"}  %read{8,8} %write{2147483647,-1} %mystruct{valuel} %mystructfield{2}
+param	float	valuel.w	0		%meta{string,help,"value at the left (s=0) edge"}  %read{9,9} %write{2147483647,-1} %mystruct{valuel} %mystructfield{3}
+param	struct vector4	valuer			%meta{string,help,"value at the right (s=1) edge"}  %read{2147483647,-1} %write{2147483647,-1} %struct{"vector4"} %structfields{x,y,z,w} %structfieldtypes{"ffff"} %structnfields{4}
+param	float	valuer.x	1		%meta{string,help,"value at the right (s=1) edge"}  %read{6,6} %write{2147483647,-1} %mystruct{valuer} %mystructfield{0}
+param	float	valuer.y	1		%meta{string,help,"value at the right (s=1) edge"}  %read{7,7} %write{2147483647,-1} %mystruct{valuer} %mystructfield{1}
+param	float	valuer.z	1		%meta{string,help,"value at the right (s=1) edge"}  %read{8,8} %write{2147483647,-1} %mystruct{valuer} %mystructfield{2}
+param	float	valuer.w	1		%meta{string,help,"value at the right (s=1) edge"}  %read{9,9} %write{2147483647,-1} %mystruct{valuer} %mystructfield{3}
+param	struct vector2	texcoord			%meta{string,help,"input coordinate position"} %meta{int,lockgeom,0}  %read{2147483647,-1} %write{2147483647,-1} %struct{"vector2"} %structfields{x,y} %structfieldtypes{"ff"} %structnfields{2}
+param	float	texcoord.x	0		%meta{string,help,"input coordinate position"} %meta{int,lockgeom,0}  %read{3,3} %write{0,0} %mystruct{texcoord} %mystructfield{0} %initexpr
+param	float	texcoord.y	0		%meta{string,help,"input coordinate position"} %meta{int,lockgeom,0}  %read{2147483647,-1} %write{1,1} %mystruct{texcoord} %mystructfield{1} %initexpr
+oparam	struct vector4	out			%read{2147483647,-1} %write{2147483647,-1} %struct{"vector4"} %structfields{x,y,z,w} %structfieldtypes{"ffff"} %structnfields{4}
+oparam	float	out.x	0		%read{2147483647,-1} %write{6,6} %mystruct{out} %mystructfield{0}
+oparam	float	out.y	0		%read{2147483647,-1} %write{7,7} %mystruct{out} %mystructfield{1}
+oparam	float	out.z	0		%read{2147483647,-1} %write{8,8} %mystruct{out} %mystructfield{2}
+oparam	float	out.w	0		%read{2147483647,-1} %write{9,9} %mystruct{out} %mystructfield{3}
+global	float	u	%read{0,0} %write{2147483647,-1}
+global	float	v	%read{1,1} %write{2147483647,-1}
+temp	float	$tmp1	%read{6,9} %write{4,4}
+const	float	$const2	0		%read{4,4} %write{2147483647,-1}
+const	float	$const4	1		%read{3,3} %write{2147483647,-1}
+const	string	$const5	"clamp"		%read{2,2} %write{2147483647,-1}
+temp	float	$tmp2	%read{4,4} %write{3,3}
+const	string	$const6	"mix"		%read{5,5} %write{2147483647,-1}
+code texcoord.x
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_ramplr_vector4.osl:20
+#             int lockgeom = 0 ]],
+	assign		texcoord.x u 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_ramplr_vector4.osl"} %line{20} %argrw{"wr"}
+code texcoord.y
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_ramplr_vector4.osl:20
+#             int lockgeom = 0 ]],
+	assign		texcoord.y v 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_ramplr_vector4.osl"} %line{20} %argrw{"wr"}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_ramplr_vector4.osl:25
+#     out = mix (valuel, valuer, clamp(texcoord.x, 0, 1) );
+	functioncall	$const5 5 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_ramplr_vector4.osl"} %line{25} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h:145
+# float  clamp (float x, float minval, float maxval) { return max(min(x,maxval),minval); }
+	min		$tmp2 texcoord.x $const4 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h"} %line{145} %argrw{"wrr"}
+	max		$tmp1 $tmp2 $const2 	%argrw{"wrr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_ramplr_vector4.osl:25
+#     out = mix (valuel, valuer, clamp(texcoord.x, 0, 1) );
+	functioncall	$const6 10 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_ramplr_vector4.osl"} %line{25} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector4.h:165
+#     return vector4 (mix( value1.x, value2.x, x),
+	mix		out.x valuel.x valuer.x $tmp1 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector4.h"} %line{165} %argrw{"wrrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector4.h:166
+#                     mix( value1.y, value2.y, x),
+	mix		out.y valuel.y valuer.y $tmp1 	%line{166} %argrw{"wrrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector4.h:167
+#                     mix( value1.z, value2.z, x),
+	mix		out.z valuel.z valuer.z $tmp1 	%line{167} %argrw{"wrrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector4.h:168
+#                     mix( value1.w, value2.w, x));
+	mix		out.w valuel.w valuer.w $tmp1 	%line{168} %argrw{"wrrr"}
+	end

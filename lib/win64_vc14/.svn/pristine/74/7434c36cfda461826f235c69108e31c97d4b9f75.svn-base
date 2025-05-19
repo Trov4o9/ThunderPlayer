@@ -1,0 +1,29 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_pack_vv_vector4.oso
+shader mx_pack_vv_vector4	%meta{string,help,"Pack the channels from two, three or four streams into the same number of channels of a                       single stream of a specified compatible type;"} 
+param	struct vector2	in1			%read{2147483647,-1} %write{2147483647,-1} %struct{"vector2"} %structfields{x,y} %structfieldtypes{"ff"} %structnfields{2}
+param	float	in1.x	0		%read{0,0} %write{2147483647,-1} %mystruct{in1} %mystructfield{0}
+param	float	in1.y	0		%read{1,1} %write{2147483647,-1} %mystruct{in1} %mystructfield{1}
+param	struct vector2	in2			%read{2147483647,-1} %write{2147483647,-1} %struct{"vector2"} %structfields{x,y} %structfieldtypes{"ff"} %structnfields{2}
+param	float	in2.x	0		%read{2,2} %write{2147483647,-1} %mystruct{in2} %mystructfield{0}
+param	float	in2.y	0		%read{3,3} %write{2147483647,-1} %mystruct{in2} %mystructfield{1}
+oparam	struct vector4	out			%read{2147483647,-1} %write{2147483647,-1} %struct{"vector4"} %structfields{x,y,z,w} %structfieldtypes{"ffff"} %structnfields{4}
+oparam	float	out.x	0		%read{2147483647,-1} %write{0,0} %mystruct{out} %mystructfield{0}
+oparam	float	out.y	0		%read{2147483647,-1} %write{1,1} %mystruct{out} %mystructfield{1}
+oparam	float	out.z	0		%read{2147483647,-1} %write{2,2} %mystruct{out} %mystructfield{2}
+oparam	float	out.w	0		%read{2147483647,-1} %write{3,3} %mystruct{out} %mystructfield{3}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_pack_vv_vector4.osl:17
+# {
+	assign		out.x in1.x 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_pack_vv_vector4.osl"} %line{17} %argrw{"wr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_pack_vv_vector4.osl:18
+#     out.x = in1.x;
+	assign		out.y in1.y 	%line{18} %argrw{"wr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_pack_vv_vector4.osl:19
+#     out.y = in1.y;
+	assign		out.z in2.x 	%line{19} %argrw{"wr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_pack_vv_vector4.osl:20
+#     out.z = in2.x;
+	assign		out.w in2.y 	%line{20} %argrw{"wr"}
+	end

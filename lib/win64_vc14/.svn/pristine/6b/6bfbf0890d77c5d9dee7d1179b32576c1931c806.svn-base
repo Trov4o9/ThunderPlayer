@@ -1,0 +1,25 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_min_float_color4.oso
+shader mx_min_float_color4	%meta{string,help,"Color4 Select the minimum among incoming values."} 
+param	struct color4	in1			%read{2147483647,-1} %write{2147483647,-1} %struct{"color4"} %structfields{rgb,a} %structfieldtypes{"cf"} %structnfields{2}
+param	color	in1.rgb	0 0 0		%read{2,2} %write{2147483647,-1} %mystruct{in1} %mystructfield{0}
+param	float	in1.a	0		%read{3,3} %write{2147483647,-1} %mystruct{in1} %mystructfield{1}
+param	float	in2	0		%read{1,3} %write{2147483647,-1}
+oparam	struct color4	out			%read{2147483647,-1} %write{2147483647,-1} %struct{"color4"} %structfields{rgb,a} %structfieldtypes{"cf"} %structnfields{2}
+oparam	color	out.rgb	0 0 0		%read{2147483647,-1} %write{2,2} %mystruct{out} %mystructfield{0}
+oparam	float	out.a	0		%read{2147483647,-1} %write{3,3} %mystruct{out} %mystructfield{1}
+const	string	$const1	"min"		%read{0,0} %write{2147483647,-1}
+temp	color	$tmp1	%read{2,2} %write{1,1}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_min_float_color4.osl:17
+#     out = min(in1, in2); 
+	functioncall	$const1 4 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_min_float_color4.osl"} %line{17} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\color4.h:207
+#     return color4(min(a.rgb, b),
+	assign		$tmp1 in2 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\color4.h"} %line{207} %argrw{"wr"}
+	min		out.rgb in1.rgb $tmp1 	%argrw{"wrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\color4.h:208
+#                   min(a.a, b));
+	min		out.a in1.a in2 	%line{208} %argrw{"wrr"}
+	end

@@ -1,0 +1,28 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_smoothstep_vector2.oso
+shader mx_smoothstep_vector2	%meta{string,help,"outputs a smooth (hermite-interpolated) remapping of input values from low-high to output 0-1."} 
+param	struct vector2	in			%meta{string,help,"input"}  %read{2147483647,-1} %write{2147483647,-1} %struct{"vector2"} %structfields{x,y} %structfieldtypes{"ff"} %structnfields{2}
+param	float	in.x	0		%meta{string,help,"input"}  %read{1,1} %write{2147483647,-1} %mystruct{in} %mystructfield{0}
+param	float	in.y	0		%meta{string,help,"input"}  %read{2,2} %write{2147483647,-1} %mystruct{in} %mystructfield{1}
+param	struct vector2	low			%meta{string,help,"input value of this or lower will return 0"}  %read{2147483647,-1} %write{2147483647,-1} %struct{"vector2"} %structfields{x,y} %structfieldtypes{"ff"} %structnfields{2}
+param	float	low.x	0		%meta{string,help,"input value of this or lower will return 0"}  %read{1,1} %write{2147483647,-1} %mystruct{low} %mystructfield{0}
+param	float	low.y	0		%meta{string,help,"input value of this or lower will return 0"}  %read{2,2} %write{2147483647,-1} %mystruct{low} %mystructfield{1}
+param	struct vector2	high			%meta{string,help," an input value of this or higher will result in an output value of 1"}  %read{2147483647,-1} %write{2147483647,-1} %struct{"vector2"} %structfields{x,y} %structfieldtypes{"ff"} %structnfields{2}
+param	float	high.x	1		%meta{string,help," an input value of this or higher will result in an output value of 1"}  %read{1,1} %write{2147483647,-1} %mystruct{high} %mystructfield{0}
+param	float	high.y	1		%meta{string,help," an input value of this or higher will result in an output value of 1"}  %read{2,2} %write{2147483647,-1} %mystruct{high} %mystructfield{1}
+oparam	struct vector2	out			%read{2147483647,-1} %write{2147483647,-1} %struct{"vector2"} %structfields{x,y} %structfieldtypes{"ff"} %structnfields{2}
+oparam	float	out.x	0		%read{2147483647,-1} %write{1,1} %mystruct{out} %mystructfield{0}
+oparam	float	out.y	0		%read{2147483647,-1} %write{2,2} %mystruct{out} %mystructfield{1}
+const	string	$const1	"smoothstep"		%read{0,0} %write{2147483647,-1}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_smoothstep_vector2.osl:21
+#     out = smoothstep(low, high, in);
+	functioncall	$const1 3 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_smoothstep_vector2.osl"} %line{21} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector2.h:172
+#     return vector2 (smoothstep(low.x, high.x, in.x),
+	smoothstep	out.x low.x high.x in.x 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector2.h"} %line{172} %argrw{"wrrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector2.h:173
+#                     smoothstep(low.y, high.y, in.y));
+	smoothstep	out.y low.y high.y in.y 	%line{173} %argrw{"wrrr"}
+	end

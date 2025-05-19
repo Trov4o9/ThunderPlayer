@@ -1,0 +1,73 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_fractal3d_fa_color.oso
+shader mx_fractal3d_fa_color	%meta{string,help,"3D fractal noise"} 
+param	point	position	0 0 0		%meta{string,help,"input coordinate position (default: object space P)"} %meta{int,lockgeom,0}  %read{5,5} %write{1,1} %derivs %initexpr
+param	float	amplitude	1		%meta{string,help,"center-to-peak amplitude of the noise"}  %read{16,16} %write{2147483647,-1}
+param	int	octaves	3		%meta{string,help,"number of summed octaves"}  %read{8,8} %write{2147483647,-1}
+param	float	lacunarity	2		%meta{string,help,"exponential scale between successive octaves"}  %read{13,13} %write{2147483647,-1} %derivs
+param	float	diminish	0.5		%meta{string,help,"rate at which amplitude is diminished per octave"}  %read{12,12} %write{2147483647,-1}
+param	string	noisetype	"snoise"		%meta{string,help,"type of noise"}  %read{9,9} %write{2147483647,-1}
+oparam	color	out	0 0 0		%read{2147483647,-1} %write{16,16}
+global	point	P	%read{1,1} %write{2147483647,-1} %derivs
+local	color	___542_out	%read{8,15} %write{3,14}
+local	float	___542_amp	%read{8,14} %write{4,14}
+local	point	___542_p	%read{8,14} %write{5,14} %derivs
+local	int	___543_i	%read{8,14} %write{7,14}
+local	color	f	%read{16,16} %write{15,15}
+const	string	$const1	"object"		%read{1,1} %write{2147483647,-1}
+const	string	$const2	"transform"		%read{0,0} %write{2147483647,-1}
+const	string	$const3	"common"		%read{1,1} %write{2147483647,-1}
+const	string	$const4	"fBm"		%read{2,2} %write{2147483647,-1}
+const	int	$const5	0		%read{3,7} %write{2147483647,-1}
+const	float	$const6	1		%read{4,4} %write{2147483647,-1}
+temp	int	$tmp1	%read{6,14} %write{7,14}
+temp	color	$tmp2	%read{8,14} %write{8,14}
+temp	color	$tmp3	%read{8,14} %write{8,14}
+const	int	$const7	1		%read{14,14} %write{2147483647,-1}
+code position
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_fractal3d_fa_color.osl:12
+#     point position = transform ("object", P)
+	functioncall	$const2 2 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_fractal3d_fa_color.osl"} %line{12} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h:267
+# point  transform (string to, point p)  { return transform("common",to,p); }
+	transform	position $const3 $const1 P 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h"} %line{267} %argrw{"wrrr"}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_fractal3d_fa_color.osl:34
+#     color f = fBm(position, octaves, lacunarity, diminish, noisetype);
+	functioncall	$const4 16 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_fractal3d_fa_color.osl"} %line{34} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:378
+#     color out = 0;
+	assign		___542_out $const5 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h"} %line{378} %argrw{"wr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:379
+#     float amp = 1.0;
+	assign		___542_amp $const6 	%line{379} %argrw{"wr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:380
+#     point p = position;
+	assign		___542_p position 	%line{380} %argrw{"wr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:382
+#     for (int i = 0;  i < octaves;  i += 1) {
+	for		$tmp1 8 9 14 15 	%line{382} %argrw{"r"}
+	assign		___543_i $const5 	%argrw{"wr"}
+	lt		$tmp1 ___543_i octaves 	%argrw{"wrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:383
+#         out += amp * (color)noise(noisetype, p);
+	noise		$tmp2 noisetype ___542_p 	%line{383} %argrw{"wrr"} %argderivs{2}
+	mul		$tmp3 ___542_amp $tmp2 	%argrw{"wrr"}
+	add		___542_out ___542_out $tmp3 	%argrw{"wrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:384
+#         amp *= diminish;
+	mul		___542_amp ___542_amp diminish 	%line{384} %argrw{"wrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:385
+#         p *= lacunarity;
+	mul		___542_p ___542_p lacunarity 	%line{385} %argrw{"wrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:382
+#     for (int i = 0;  i < octaves;  i += 1) {
+	add		___543_i ___543_i $const7 	%line{382} %argrw{"wrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:387
+#     return out;
+	assign		f ___542_out 	%line{387} %argrw{"wr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_fractal3d_fa_color.osl:35
+#     out = f * amplitude;
+	mul		out f amplitude 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_fractal3d_fa_color.osl"} %line{35} %argrw{"wrr"}
+	end

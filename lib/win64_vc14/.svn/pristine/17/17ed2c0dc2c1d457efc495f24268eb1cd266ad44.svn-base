@@ -1,0 +1,23 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_saturate_color.oso
+shader mx_saturate_color	%meta{string,help,"Adjust the saturation of a color; the alpha channel will be unchanged if present."} 
+param	color	in	0 0 0		%read{1,3} %write{2147483647,-1}
+param	float	amount	1		%read{3,3} %write{2147483647,-1}
+param	color	lumacoeffs	0.27228701 0.6740818 0.053689498		%read{1,1} %write{2147483647,-1}
+oparam	color	out	0 0 0		%read{2147483647,-1} %write{3,3}
+temp	color	$tmp1	%read{3,3} %write{2,2}
+const	string	$const1	"saturate"		%read{0,0} %write{2147483647,-1}
+temp	float	$tmp2	%read{2,2} %write{1,1}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_saturate_color.osl:34
+#     out = mix (saturate (in, lumacoeffs), in, amount);
+	functioncall	$const1 3 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_saturate_color.osl"} %line{34} %argrw{"r"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_saturate_color.osl:15
+#     return dot (in, lumacoeffs);
+	dot		$tmp2 in lumacoeffs 	%line{15} %argrw{"wrr"}
+	assign		$tmp1 $tmp2 	%argrw{"wr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_saturate_color.osl:34
+#     out = mix (saturate (in, lumacoeffs), in, amount);
+	mix		out $tmp1 in amount 	%line{34} %argrw{"wrrr"}
+	end

@@ -1,0 +1,28 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_smoothstep_color2.oso
+shader mx_smoothstep_color2	%meta{string,help,"outputs a smooth (hermite-interpolated) remapping of input values from low-high to output 0-1."} 
+param	struct color2	in			%meta{string,help,"input"}  %read{2147483647,-1} %write{2147483647,-1} %struct{"color2"} %structfields{r,a} %structfieldtypes{"ff"} %structnfields{2}
+param	float	in.r	0		%meta{string,help,"input"}  %read{1,1} %write{2147483647,-1} %mystruct{in} %mystructfield{0}
+param	float	in.a	0		%meta{string,help,"input"}  %read{2,2} %write{2147483647,-1} %mystruct{in} %mystructfield{1}
+param	struct color2	low			%meta{string,help,"input value of this or lower will return 0"}  %read{2147483647,-1} %write{2147483647,-1} %struct{"color2"} %structfields{r,a} %structfieldtypes{"ff"} %structnfields{2}
+param	float	low.r	0		%meta{string,help,"input value of this or lower will return 0"}  %read{1,1} %write{2147483647,-1} %mystruct{low} %mystructfield{0}
+param	float	low.a	0		%meta{string,help,"input value of this or lower will return 0"}  %read{2,2} %write{2147483647,-1} %mystruct{low} %mystructfield{1}
+param	struct color2	high			%meta{string,help," an input value of this or higher will result in an output value of 1"}  %read{2147483647,-1} %write{2147483647,-1} %struct{"color2"} %structfields{r,a} %structfieldtypes{"ff"} %structnfields{2}
+param	float	high.r	1		%meta{string,help," an input value of this or higher will result in an output value of 1"}  %read{1,1} %write{2147483647,-1} %mystruct{high} %mystructfield{0}
+param	float	high.a	1		%meta{string,help," an input value of this or higher will result in an output value of 1"}  %read{2,2} %write{2147483647,-1} %mystruct{high} %mystructfield{1}
+oparam	struct color2	out			%read{2147483647,-1} %write{2147483647,-1} %struct{"color2"} %structfields{r,a} %structfieldtypes{"ff"} %structnfields{2}
+oparam	float	out.r	0		%read{2147483647,-1} %write{1,1} %mystruct{out} %mystructfield{0}
+oparam	float	out.a	0		%read{2147483647,-1} %write{2,2} %mystruct{out} %mystructfield{1}
+const	string	$const1	"smoothstep"		%read{0,0} %write{2147483647,-1}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_smoothstep_color2.osl:21
+#     out = smoothstep(low, high, in);
+	functioncall	$const1 3 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_smoothstep_color2.osl"} %line{21} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\color2.h:164
+#     return color2(smoothstep(edge0.r, edge1.r, c.r),
+	smoothstep	out.r low.r high.r in.r 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\color2.h"} %line{164} %argrw{"wrrr"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\color2.h:165
+#                   smoothstep(edge0.a, edge1.a, c.a));
+	smoothstep	out.a low.a high.a in.a 	%line{165} %argrw{"wrrr"}
+	end

@@ -1,0 +1,18 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_luminance_color.oso
+shader mx_luminance_color	%meta{string,help,"Output a grayscale image containing the luminance of the incoming RGB color in all color channels."} 
+param	color	in	0 0 0		%read{1,1} %write{2147483647,-1}
+param	color	lumacoeffs	0.27228701 0.6740818 0.053689498		%read{1,1} %write{2147483647,-1}
+oparam	color	out	0 0 0		%read{2147483647,-1} %write{2,2}
+const	string	$const1	"cluminance"		%read{0,0} %write{2147483647,-1}
+temp	float	$tmp1	%read{2,2} %write{1,1}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_luminance_color.osl:34
+#     out = cluminance (in, lumacoeffs);
+	functioncall	$const1 3 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_luminance_color.osl"} %line{34} %argrw{"r"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_luminance_color.osl:16
+#     return dot(in, lumacoeffs);
+	dot		$tmp1 in lumacoeffs 	%line{16} %argrw{"wrr"}
+	assign		out $tmp1 	%argrw{"wr"}
+	end

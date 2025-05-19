@@ -1,0 +1,19 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_clamp_vector.oso
+shader mx_clamp_vector	%meta{string,help,"Vector Clamp incoming value to a specified range of values."} 
+param	vector	in	0 0 0		%read{1,1} %write{2147483647,-1}
+param	vector	low	0 0 0		%read{2,2} %write{2147483647,-1}
+param	vector	high	1 1 1		%read{1,1} %write{2147483647,-1}
+oparam	vector	out	0 0 0		%read{2147483647,-1} %write{2,2}
+const	string	$const1	"clamp"		%read{0,0} %write{2147483647,-1}
+temp	vector	$tmp1	%read{2,2} %write{1,1}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_clamp_vector.osl:18
+#     out = clamp(in, low, high);
+	functioncall	$const1 3 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_clamp_vector.osl"} %line{18} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h:142
+# vector clamp (vector x, vector minval, vector maxval) { return max(min(x,maxval),minval); }
+	min		$tmp1 in high 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h"} %line{142} %argrw{"wrr"}
+	max		out $tmp1 low 	%argrw{"wrr"}
+	end

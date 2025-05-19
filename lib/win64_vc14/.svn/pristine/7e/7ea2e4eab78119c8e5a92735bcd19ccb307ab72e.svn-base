@@ -1,0 +1,12 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_blur_float.oso
+shader mx_blur_float	%meta{string,help,"A gaussian-falloff blur."} 
+param	float	in	0		%read{0,0} %write{2147483647,-1}
+param	float	amount	0		%read{2147483647,-1} %write{2147483647,-1}
+oparam	float	out	0		%read{2147483647,-1} %write{0,0}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_blur_float.osl:18
+#     out = in;
+	assign		out in 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_blur_float.osl"} %line{18} %argrw{"wr"}
+	end

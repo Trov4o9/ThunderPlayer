@@ -1,0 +1,104 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -q -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders/MaterialX -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -IE:/db4/build/S/VS1464R/build/osl/src/external_osl/src/shaders -o E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise3d_fa_vector4.oso
+shader mx_noise3d_fa_vector4	%meta{string,help,"3D noise"} 
+param	point	position	0 0 0		%meta{string,help,"input coordinate position (default: object space P)"} %meta{int,lockgeom,0}  %read{3,4} %write{1,1} %derivs %initexpr
+param	float	amplitude	1		%meta{string,help,"center-to-peak amplitude of the noise"}  %read{11,14} %write{2147483647,-1}
+param	float	pivot	0		%meta{string,help,"the center value of the output noise"}  %read{21,24} %write{2147483647,-1}
+param	string	noisetype	"snoise"		%meta{string,help,"type of noise"}  %read{3,5} %write{2147483647,-1}
+oparam	struct vector4	out			%read{2147483647,-1} %write{2147483647,-1} %struct{"vector4"} %structfields{x,y,z,w} %structfieldtypes{"ffff"} %structnfields{4}
+oparam	float	out.x	0		%read{2147483647,-1} %write{26,26} %mystruct{out} %mystructfield{0}
+oparam	float	out.y	0		%read{2147483647,-1} %write{27,27} %mystruct{out} %mystructfield{1}
+oparam	float	out.z	0		%read{2147483647,-1} %write{28,28} %mystruct{out} %mystructfield{2}
+oparam	float	out.w	0		%read{2147483647,-1} %write{29,29} %mystruct{out} %mystructfield{3}
+global	point	P	%read{1,1} %write{2147483647,-1} %derivs
+local	color	___530_cnoise	%read{6,8} %write{3,3}
+local	float	___530_fnoise	%read{9,9} %write{5,5}
+local	float	n.x	%read{16,16} %write{6,6} %mystruct{n} %mystructfield{0}
+local	float	n.y	%read{17,17} %write{7,7} %mystruct{n} %mystructfield{1}
+local	float	n.z	%read{18,18} %write{8,8} %mystruct{n} %mystructfield{2}
+local	float	n.w	%read{19,19} %write{9,9} %mystruct{n} %mystructfield{3}
+const	string	$const1	"object"		%read{1,1} %write{2147483647,-1}
+const	string	$const2	"transform"		%read{0,0} %write{2147483647,-1}
+const	string	$const3	"common"		%read{1,1} %write{2147483647,-1}
+const	string	$const4	"noise"		%read{2,2} %write{2147483647,-1}
+const	vector	$const5	19 73 29		%read{4,4} %write{2147483647,-1}
+temp	point	$tmp2	%read{5,5} %write{4,4} %derivs
+const	int	$const6	0		%read{6,6} %write{2147483647,-1}
+const	int	$const7	1		%read{7,7} %write{2147483647,-1}
+const	int	$const8	2		%read{8,8} %write{2147483647,-1}
+temp	float	$tmp3.x	%read{26,26} %write{16,16}
+temp	float	$tmp3.y	%read{27,27} %write{17,17}
+temp	float	$tmp3.z	%read{28,28} %write{18,18}
+temp	float	$tmp3.w	%read{29,29} %write{19,19}
+const	string	$const9	"__operator__mul__"		%read{10,15} %write{2147483647,-1}
+temp	float	$tmp4.x	%read{16,16} %write{11,11}
+temp	float	$tmp4.y	%read{17,17} %write{12,12}
+temp	float	$tmp4.z	%read{18,18} %write{13,13}
+temp	float	$tmp4.w	%read{19,19} %write{14,14}
+const	string	$const10	"__operator__add__"		%read{20,25} %write{2147483647,-1}
+temp	float	$tmp5.x	%read{26,26} %write{21,21}
+temp	float	$tmp5.y	%read{27,27} %write{22,22}
+temp	float	$tmp5.z	%read{28,28} %write{23,23}
+temp	float	$tmp5.w	%read{29,29} %write{24,24}
+code position
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise3d_fa_vector4.osl:12
+#     point position = transform("object", P)
+	functioncall	$const2 2 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise3d_fa_vector4.osl"} %line{12} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h:267
+# point  transform (string to, point p)  { return transform("common",to,p); }
+	transform	position $const3 $const1 P 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\stdosl.h"} %line{267} %argrw{"wrrr"}
+code ___main___
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise3d_fa_vector4.osl:28
+#     vector4 n = noise (noisetype, position);
+	functioncall	$const4 10 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise3d_fa_vector4.osl"} %line{28} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:296
+#     color cnoise = (color) noise (noisetype, position);
+	noise		___530_cnoise noisetype position 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h"} %line{296} %argrw{"wrr"} %argderivs{2}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:297
+#     float fnoise = (float) noise (noisetype, position+vector(19,73,29));
+	add		$tmp2 position $const5 	%line{297} %argrw{"wrr"}
+	noise		___530_fnoise noisetype $tmp2 	%argrw{"wrr"} %argderivs{2}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\MaterialX\mx_funcs.h:298
+#     return vector4 (cnoise[0], cnoise[1], cnoise[2], fnoise);
+	compref		n.x ___530_cnoise $const6 	%line{298} %argrw{"wrr"}
+	compref		n.y ___530_cnoise $const7 	%argrw{"wrr"}
+	compref		n.z ___530_cnoise $const8 	%argrw{"wrr"}
+	assign		n.w ___530_fnoise 	%argrw{"wr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise3d_fa_vector4.osl:31
+# 
+	functioncall	$const9 20 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise3d_fa_vector4.osl"} %line{31} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector4.h:90
+#     return a * vector4(b, b, b, b);
+	assign		$tmp4.x amplitude 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector4.h"} %line{90} %argrw{"wr"}
+	assign		$tmp4.y amplitude 	%argrw{"wr"}
+	assign		$tmp4.z amplitude 	%argrw{"wr"}
+	assign		$tmp4.w amplitude 	%argrw{"wr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise3d_fa_vector4.osl:31
+# 
+	functioncall	$const9 20 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise3d_fa_vector4.osl"} %line{31} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector4.h:80
+#     return vector4(a.x * b.x, a.y * b.y, a.z * b.z, a.w * b.w);
+	mul		$tmp3.x n.x $tmp4.x 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector4.h"} %line{80} %argrw{"wrr"}
+	mul		$tmp3.y n.y $tmp4.y 	%argrw{"wrr"}
+	mul		$tmp3.z n.z $tmp4.z 	%argrw{"wrr"}
+	mul		$tmp3.w n.w $tmp4.w 	%argrw{"wrr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise3d_fa_vector4.osl:31
+# 
+	functioncall	$const10 30 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise3d_fa_vector4.osl"} %line{31} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector4.h:50
+#     return vector4(a, a, a, a) + b;
+	assign		$tmp5.x pivot 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector4.h"} %line{50} %argrw{"wr"}
+	assign		$tmp5.y pivot 	%argrw{"wr"}
+	assign		$tmp5.z pivot 	%argrw{"wr"}
+	assign		$tmp5.w pivot 	%argrw{"wr"}
+# E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise3d_fa_vector4.osl:31
+# 
+	functioncall	$const10 30 	%filename{"E:/db4/build/S/VS1464R/build/osl/src/external_osl-build/src/shaders/MaterialX/mx_noise3d_fa_vector4.osl"} %line{31} %argrw{"r"}
+# E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector4.h:30
+#     return vector4(a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w);
+	add		out.x $tmp5.x $tmp3.x 	%filename{"E:\db4\build\S\VS1464R\build\osl\src\external_osl\src\shaders\vector4.h"} %line{30} %argrw{"wrr"}
+	add		out.y $tmp5.y $tmp3.y 	%argrw{"wrr"}
+	add		out.z $tmp5.z $tmp3.z 	%argrw{"wrr"}
+	add		out.w $tmp5.w $tmp3.w 	%argrw{"wrr"}
+	end
