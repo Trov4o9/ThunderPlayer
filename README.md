@@ -24,7 +24,7 @@ Para tornar isso possível sem interferir no pipeline legacy principal, foi adot
 
 - Uma **janela OpenGL moderna invisível** é criada paralelamente à janela principal do jogo.
 - Essa janela utiliza **OpenGL Core Profile**, permitindo a compilação e despacho de shaders `.comp` com `glDispatchCompute(...)`.
-- Os dados processados no `.comp` podem ser armazenados em **texturas (via `imageStore`)** ou **SSBOs**, que futuramente serão lidos pelos shaders `.frag` e `.vert`.
+- Os dados processados no `.comp` podem ser armazenados em **texturas (via `imageStore`)** que futuramente serão lidos pelos shaders `.frag` e `.vert`.
 
 Essa abordagem mantém a compatibilidade com o sistema legacy do UPBGE, enquanto habilita recursos modernos para desenvolvedores avançados.
 
@@ -35,7 +35,7 @@ Essa abordagem mantém a compatibilidade com o sistema legacy do UPBGE, enquanto
 - ✅ Integração de um novo tipo de shader `.comp` via `setSource(...)`.
 - ✅ Compilação e execução de shaders de computação.
 - ✅ Uso de uma segunda janela invisível com contexto moderno para os `.comp`.
-- ⏳ A comunicação entre `.comp` e `.frag` ainda **não está finalizada**.
+- ✅ A comunicação entre `.comp` e `.frag` ainda **Funcional Com Bugs, perda da textura ao add uma cena overlay**.
 - 🔧 Otimizações de desempenho ainda serão feitas para reduzir o tempo de carregamento e melhorar o gerenciamento de recursos.
 
 ---
