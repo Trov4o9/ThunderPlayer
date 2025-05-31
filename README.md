@@ -42,7 +42,8 @@ Essa abordagem mantém a compatibilidade com o sistema legacy do UPBGE, enquanto
 - ✅ Integração de um novo tipo de shader `.comp` via `setSource(...)`.
 - ✅ Compilação e execução de shaders de computação.
 - ✅ Uso de uma segunda janela invisível com contexto moderno para os `.comp`.
-- ✅ A comunicação entre `.comp` e `.frag` **Funcional Com Bugs, perda da textura ao add uma cena overlay**.
+- ✅ A comunicação entre `.comp` e `.frag` 🚧🚧🚧 **Funcional Com Bugs, perda da textura ao add uma cena overlay**.
+- 🔧 Correção de bug de perda de textura do `.comp`.
 - 🔧 Otimizações de desempenho ainda serão feitas para reduzir o tempo de carregamento e melhorar o gerenciamento de recursos.
 - ⏳ Centralizar todo render .glsl em um único arquivo, e permitir sua edição e recompilação no editor de texto do blender/UPBGE.
 - ⏳ Atualizar a UI Visualmente.
