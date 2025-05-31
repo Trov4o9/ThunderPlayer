@@ -15,6 +15,11 @@ Adicionar suporte real ao uso de **Compute Shaders (`.comp`)** dentro da engine 
 - Geração procedural de texturas.
 - Execução de algoritmos pesados (ex: Voronoi, simulações, física paralela).
 - Comunicação com os shaders tradicionais (`.vert` e `.frag`) por meio de texturas.
+
+---
+
+## 🎯 Outros Objetivos
+
 - Centralizar todo render .glsl em um único arquivo, e permitir sua edição e recompilação no editor de texto do blender/UPBGE.
 - Atualizar a UI Visualmente.
 
