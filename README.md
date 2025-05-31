@@ -14,7 +14,9 @@ Adicionar suporte real ao uso de **Compute Shaders (`.comp`)** dentro da engine 
 - Pré-processamento de dados diretamente na GPU.
 - Geração procedural de texturas.
 - Execução de algoritmos pesados (ex: Voronoi, simulações, física paralela).
-- Comunicação com os shaders tradicionais (`.vert` e `.frag`) por meio de buffers e texturas.
+- Comunicação com os shaders tradicionais (`.vert` e `.frag`) por meio de texturas.
+- Centralizar todo render .glsl em um único arquivo, e permitir sua edição e recompilação no editor de texto do blender/UPBGE.
+- Atualizar a UI Visualmente.
 
 ---
 
@@ -37,6 +39,8 @@ Essa abordagem mantém a compatibilidade com o sistema legacy do UPBGE, enquanto
 - ✅ Uso de uma segunda janela invisível com contexto moderno para os `.comp`.
 - ✅ A comunicação entre `.comp` e `.frag` ainda **Funcional Com Bugs, perda da textura ao add uma cena overlay**.
 - 🔧 Otimizações de desempenho ainda serão feitas para reduzir o tempo de carregamento e melhorar o gerenciamento de recursos.
+- ⏳ Centralizar todo render .glsl em um único arquivo, e permitir sua edição e recompilação no editor de texto do blender/UPBGE.
+- ⏳ Atualizar a UI Visualmente.
 
 ---
 
