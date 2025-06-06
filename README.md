@@ -87,4 +87,5 @@ Existe também a intenção de, no futuro, criar uma engine própria chamada **T
 ## 👨‍💻 Sobre
 
 Este projeto está sendo desenvolvido por **ThunderBlue Studios**, com foco em explorar o máximo potencial do UPBGE e do Blender Game Engine, trazendo ideias modernas para engines clássicas.
-"""
+Créditos:
+Auxílio de [Discordapp.com/users/601845944358797312] nos arquivos .glsl ❤️.
