@@ -18,7 +18,7 @@ Adicionar suporte real ao uso de **Compute Shaders (`.comp`)** dentro da engine 
 - Centralização de todos os `.glsl` da engine em um único arquivo editável.
 - Disponibilizar a edição do shader `.glsl` do material diretamente no editor de texto, com auxílio de um botão.
 - Otimização e reestruturação geral dos arquivos `.glsl` para melhor desempenho e legibilidade.
-- Modificação no sistema de raycast para retornar exatamente o **vértice atingido** ou o **mais próximo possível** (🔄 *em desenvolvimento*).
+- Modificação no sistema de raycast para retornar exatamente o **vértice atingido** ou o **mais próximo possível** ✅.
 - Correção de bugs existentes e otimizações gerais de performance.
 
 ---
@@ -43,7 +43,7 @@ Essa abordagem mantém a compatibilidade com o sistema legacy do UPBGE, enquanto
 - ✅ Uso de uma segunda janela invisível com contexto moderno para os `.comp`.
 - ✅ Shader `.glsl` do material agora pode ser editado diretamente no editor de texto do UPBGE, com botão dedicado.
 - ⏳ Centralização progressiva dos arquivos `.glsl` para facilitar manutenção e modificação.
-- 🔄 Sistema de raycast está sendo refeito para retornar o vértice mais próximo do impacto.
+- ✅ Sistema de raycast está sendo refeito para retornar o vértice mais próximo do impacto.(Agora retorna posição do vertice mais próximo, a orientação do vertice, e seu index.)
 - 🔧 Otimizações de desempenho e refatorações em andamento para reduzir o tempo de carregamento e melhorar o gerenciamento de recursos.
 
 ---
@@ -57,7 +57,7 @@ Até o final de 2025, esperamos lançar uma versão **estável** do ThunderPlaye
 - ✅ Edição direta de shaders no editor com interface amigável.
 - 📹 Suporte a **vídeo playback** dentro do jogo.
 - 🧵 Controle de **antisserrilhamento (anti-aliasing)** via script Python.
-- 🔄 Raycast refinado para precisão máxima em interações com a malha.
+- ✅ Raycast refinado para precisão máxima em interações com a malha.
 - ⚡ Otimizações gerais, reestruturação dos shaders e melhorias de estabilidade.
 
 ---
