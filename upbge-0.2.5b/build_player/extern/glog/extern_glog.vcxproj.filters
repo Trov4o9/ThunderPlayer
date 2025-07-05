@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\glog\src\logging.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\glog\src\raw_logging.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\glog\src\utilities.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\glog\src\vlog_is_on.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\glog\src\windows\port.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\glog\src\utilities.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\glog\src\config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\glog\src\config_freebsd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\glog\src\config_haiku.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\glog\src\config_hurd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\glog\src\config_linux.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\glog\src\config_mac.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\glog\src\base\commandlineflags.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\glog\src\base\googleinit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\glog\src\base\mutex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\glog\src\stacktrace.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\glog\src\stacktrace_generic-inl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\glog\src\stacktrace_libunwind-inl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\glog\src\stacktrace_powerpc-inl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\glog\src\stacktrace_x86_64-inl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\glog\src\stacktrace_x86-inl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\glog\src\windows\glog\raw_logging.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\glog\src\windows\glog\vlog_is_on.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\glog\src\windows\glog\logging.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\glog\src\windows\glog\log_severity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\glog\src\windows\port.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\glog\src\windows\config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\glog\CMakeLists.txt">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{F26A8962-7912-35F3-8F46-3AFC8A675E9E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{F1FC64B4-9CC5-353F-BE8D-3DBCF109456F}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\attribute.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\background.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\bake.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\buffers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\constant_fold.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\coverage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\denoising.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\film.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\graph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\integrator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\light.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\merge.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\mesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\mesh_displace.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\mesh_subdivision.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\mesh_volume.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\nodes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\object.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\osl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\particles.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\curves.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\session.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\sobol.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\stats.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\svm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\tables.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\tile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\attribute.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\bake.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\background.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\buffers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\constant_fold.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\coverage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\denoising.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\film.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\graph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\integrator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\merge.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\nodes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\object.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\osl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\particles.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\curves.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\session.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\sobol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\stats.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\svm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\tables.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\tile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\render\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{F26A8962-7912-35F3-8F46-3AFC8A675E9E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{F1FC64B4-9CC5-353F-BE8D-3DBCF109456F}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

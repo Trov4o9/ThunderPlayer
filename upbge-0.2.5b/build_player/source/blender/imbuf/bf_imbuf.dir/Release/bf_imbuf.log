@@ -1,0 +1,32 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/imbuf/CMakeLists.txt
+  allocimbuf.c
+  anim_movie.c
+  bmp.c
+  cache.c
+  colormanagement.c
+  divers.c
+  filetype.c
+  filter.c
+  imageprocess.c
+  indexer.c
+  iris.c
+  jpeg.c
+  metadata.c
+  module.c
+  moviecache.c
+  png.c
+  readimage.c
+  rectop.c
+  rotate.c
+  scaling.c
+  stereoimbuf.c
+  targa.c
+  thumbs.c
+  thumbs_blend.c
+  thumbs_font.c
+  util.c
+  writeimage.c
+  tiff.c
+  jp2.c
+  radiance_hdr.c
+  bf_imbuf.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_imbuf.lib

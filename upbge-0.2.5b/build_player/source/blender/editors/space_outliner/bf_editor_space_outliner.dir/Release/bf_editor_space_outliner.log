@@ -1,0 +1,9 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/editors/space_outliner/CMakeLists.txt
+  outliner_draw.c
+  outliner_edit.c
+  outliner_ops.c
+  outliner_select.c
+  outliner_tools.c
+  outliner_tree.c
+  space_outliner.c
+  bf_editor_space_outliner.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_editor_space_outliner.lib

@@ -1,0 +1,1328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_CPUDevice.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_ChunkOrder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_ChunkOrderHotspot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_CompositorContext.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_Converter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_Debug.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_Device.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_ExecutionGroup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_ExecutionSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_MemoryBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_MemoryProxy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_Node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_NodeConverter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_NodeGraph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_NodeOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_NodeOperationBuilder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_OpenCLDevice.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_SingleThreadedOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_SocketReader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_WorkPackage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_WorkScheduler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_compositor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_QualityStepHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_SocketProxyNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_BokehImageNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ColorNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ImageNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_MaskNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_MovieClipNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_OutputFileNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_RenderLayersNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_SwitchNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_SwitchViewNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_TextureNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_TimeNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ValueNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_CompositorNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_SplitViewerNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ViewLevelsNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ViewerNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_CalculateMeanOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_CalculateStandardDeviationOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_FlipNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_RotateNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ScaleNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_TranslateNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_DisplaceNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_MapUVNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ChannelMatteNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ChromaMatteNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ColorMatteNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_DifferenceMatteNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_DistanceMatteNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_LensDistortionNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_LuminanceMatteNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_GlareNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_SunBeamsNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_SunBeamsOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_CryptomatteNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_CryptomatteOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_CornerPinNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_PlaneTrackDeformNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_CropNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_CropOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_DefocusNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_MovieDistortionNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_Stabilize2dNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_TransformNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_AlphaOverNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_BrightnessNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ColorBalanceNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ColorCorrectionNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ColorCurveNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ColorRampNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ColorToBWNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ConvertAlphaNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_GammaNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_HueSaturationValueCorrectNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_HueSaturationValueNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_InvertNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_MixNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_SetAlphaNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_TonemapNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_VectorCurveNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ZCombineNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_TonemapOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_CombineColorNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_IDMaskNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_SeparateColorNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_MapRangeNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_MapValueNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_MathNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_NormalNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_NormalizeNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_NormalizeOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_PixelateNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_PixelateOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_BilateralBlurNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_BilateralBlurOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_VectorBlurNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_VectorBlurOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_BlurNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_BokehBlurNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_DespeckleNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_DilateErodeNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_DirectionalBlurNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_FilterNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_InpaintNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_BlurBaseOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_BokehBlurOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_DirectionalBlurOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_FastGaussianBlurOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_GammaCorrectOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_GaussianAlphaXBlurOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_GaussianAlphaYBlurOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_GaussianBokehBlurOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_GaussianXBlurOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_GaussianYBlurOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_MovieClipAttributeOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_MovieDistortionOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_VariableSizeBokehBlurOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_BoxMaskNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ColorSpillNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_DoubleEdgeMaskNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_EllipseMaskNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_DoubleEdgeMaskOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_KeyingScreenNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_KeyingScreenOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_TrackPositionNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_TrackPositionOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_KeyingNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_KeyingBlurOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_KeyingClipOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_KeyingDespillOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_KeyingOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ColorSpillOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_RenderLayersProg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_BokehImageOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ImageOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_MultilayerImageOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_TextureOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_SocketProxyOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_CompositorOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ConvertDepthToRadiusOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_OutputFileMultiViewOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_OutputFileOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_PreviewOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_SplitOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ViewerOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ZCombineOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ChangeHSVOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ChannelMatteOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ChromaMatteOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ColorCurveOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ColorMatteOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ColorRampOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_CurveBaseOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_DifferenceMatteOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_DistanceRGBMatteOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_DistanceYCCMatteOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_HueSaturationValueCorrectOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_LuminanceMatteOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_VectorCurveOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_BrightnessOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ColorCorrectionOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_GammaOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_MixOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ReadBufferOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_SetColorOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_SetValueOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_SetVectorOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_WriteBufferOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_MathBaseOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_AlphaOverKeyOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_AlphaOverMixedOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_AlphaOverPremultiplyOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ColorBalanceASCCDLOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ColorBalanceLGGOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_InvertOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_MapRangeOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_MapValueOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_SetAlphaOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_DisplaceOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_DisplaceSimpleOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_FlipOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_MapUVOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_PlaneCornerPinOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_PlaneDistortCommonOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_PlaneTrackOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ProjectorLensDistortionOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_RotateOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ScaleOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ScreenLensDistortionOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_TranslateOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_WrapOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ConvolutionEdgeFilterOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ConvolutionFilterOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_DespeckleOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_DilateErodeOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_GlareBaseOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_GlareFogGlowOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_GlareGhostOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_GlareSimpleStarOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_GlareStreaksOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_GlareThresholdOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_InpaintOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_SetSamplerOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ConvertOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_IDMaskOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_DotproductOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_BoxMaskOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_EllipseMaskOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ConvertColorProfileOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_MovieClipOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_AntiAliasOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_MaskOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\COM_compositor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\COM_defines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_CPUDevice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_ChunkOrder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_ChunkOrderHotspot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_CompositorContext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_Converter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_Debug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_Device.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_ExecutionGroup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_ExecutionSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_MemoryBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_MemoryProxy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_Node.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_NodeConverter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_NodeGraph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_NodeOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_NodeOperationBuilder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_OpenCLDevice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_SingleThreadedOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_SocketReader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_WorkPackage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\intern\COM_WorkScheduler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_QualityStepHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_SocketProxyNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_BokehImageNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ColorNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ImageNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_MaskNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_MovieClipNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_OutputFileNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_RenderLayersNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_SwitchNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_SwitchViewNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_TextureNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_TimeNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ValueNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_CompositorNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_SplitViewerNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ViewLevelsNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ViewerNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_CalculateMeanOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_CalculateStandardDeviationOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_FlipNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_RotateNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ScaleNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_TranslateNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_DisplaceNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_MapUVNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ChannelMatteNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ChromaMatteNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ColorMatteNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_DifferenceMatteNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_DistanceMatteNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_LensDistortionNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_LuminanceMatteNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_GlareNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_SunBeamsNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_SunBeamsOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_CryptomatteNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_CryptomatteOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_CornerPinNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_PlaneTrackDeformNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_CropNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_CropOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_DefocusNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_MovieDistortionNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_Stabilize2dNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_TransformNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_AlphaOverNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_BrightnessNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ColorBalanceNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ColorCorrectionNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ColorCurveNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ColorRampNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ColorToBWNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ConvertAlphaNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_GammaNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_HueSaturationValueCorrectNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_HueSaturationValueNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_InvertNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_MixNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_SetAlphaNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_TonemapNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_VectorCurveNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ZCombineNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_TonemapOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_CombineColorNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_IDMaskNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_SeparateColorNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_MapRangeNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_MapValueNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_MathNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_NormalNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_NormalizeNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_NormalizeOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_PixelateNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_PixelateOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_BilateralBlurNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_BilateralBlurOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_VectorBlurNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_VectorBlurOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_BlurNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_BokehBlurNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_DespeckleNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_DilateErodeNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_DirectionalBlurNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_FilterNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_InpaintNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_BlurBaseOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_BokehBlurOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_DirectionalBlurOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_FastGaussianBlurOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_GammaCorrectOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_GaussianAlphaXBlurOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_GaussianAlphaYBlurOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_GaussianBokehBlurOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_GaussianXBlurOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_GaussianYBlurOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_MovieClipAttributeOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_MovieDistortionOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_VariableSizeBokehBlurOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_BoxMaskNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_ColorSpillNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_DoubleEdgeMaskNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_EllipseMaskNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_DoubleEdgeMaskOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_KeyingScreenNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_KeyingScreenOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_TrackPositionNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_TrackPositionOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\nodes\COM_KeyingNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_KeyingBlurOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_KeyingClipOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_KeyingDespillOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_KeyingOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ColorSpillOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_RenderLayersProg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_BokehImageOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ImageOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_MultilayerImageOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_TextureOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_SocketProxyOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_CompositorOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ConvertDepthToRadiusOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_OutputFileMultiViewOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_OutputFileOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_PreviewOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_SplitOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ViewerOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ZCombineOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ChangeHSVOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ChannelMatteOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ChromaMatteOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ColorCurveOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ColorMatteOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ColorRampOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_CurveBaseOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_DifferenceMatteOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_DistanceRGBMatteOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_DistanceYCCMatteOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_HueSaturationValueCorrectOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_LuminanceMatteOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_VectorCurveOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_BrightnessOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ColorCorrectionOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_GammaOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_MixOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ReadBufferOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_SetColorOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_SetValueOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_SetVectorOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_WriteBufferOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_MathBaseOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_AlphaOverKeyOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_AlphaOverMixedOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_AlphaOverPremultiplyOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ColorBalanceASCCDLOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ColorBalanceLGGOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_InvertOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_MapRangeOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_MapValueOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_SetAlphaOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_DisplaceOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_DisplaceSimpleOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_FlipOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_MapUVOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_PlaneCornerPinOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_PlaneDistortCommonOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_PlaneTrackOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ProjectorLensDistortionOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_RotateOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ScaleOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ScreenLensDistortionOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_TranslateOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_WrapOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ConvolutionEdgeFilterOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ConvolutionFilterOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_DespeckleOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_DilateErodeOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_GlareBaseOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_GlareFogGlowOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_GlareGhostOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_GlareSimpleStarOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_GlareStreaksOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_GlareThresholdOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_InpaintOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_SetSamplerOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ConvertOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_IDMaskOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_DotproductOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_BoxMaskOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_EllipseMaskOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_ConvertColorProfileOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_MovieClipOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_AntiAliasOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\operations\COM_MaskOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\source\blender\compositor\operations\COM_OpenCLKernels.cl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\0752515fad240ff67746b41b27015410\COM_OpenCLKernels.cl.h.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\compositor\CMakeLists.txt">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{620296C5-487F-343C-8084-F37B2E36E0A9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{F26A8962-7912-35F3-8F46-3AFC8A675E9E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{F1FC64B4-9CC5-353F-BE8D-3DBCF109456F}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

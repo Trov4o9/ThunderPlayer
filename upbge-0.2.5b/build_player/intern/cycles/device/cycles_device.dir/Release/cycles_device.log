@@ -1,0 +1,14 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/intern/cycles/device/CMakeLists.txt
+  device.cpp
+  device_cpu.cpp
+  device_cuda.cpp
+  device_denoising.cpp
+  device_memory.cpp
+  device_multi.cpp
+  device_opencl.cpp
+  device_split_kernel.cpp
+  device_task.cpp
+  opencl_split.cpp
+  opencl_util.cpp
+  memory_manager.cpp
+  cycles_device.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\cycles_device.lib

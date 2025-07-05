@@ -1,0 +1,365 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_absorption_volume.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_add_closure.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_ambient_occlusion.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_anisotropic_bsdf.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_attribute.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_background.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_bevel.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_blackbody.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_brick_texture.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_brightness.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_bump.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_camera.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_checker_texture.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_combine_hsv.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_combine_rgb.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_combine_xyz.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_convert_from_color.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_convert_from_float.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_convert_from_int.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_convert_from_normal.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_convert_from_point.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_convert_from_vector.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_diffuse_bsdf.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_displacement.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_emission.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_environment_texture.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_fresnel.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_gamma.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_geometry.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_glass_bsdf.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_glossy_bsdf.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_gradient_texture.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_hair_bsdf.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_hair_info.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_holdout.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_hsv.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_ies_light.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_image_texture.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_invert.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_layer_weight.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_light_falloff.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_light_path.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_magic_texture.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_mapping.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_math.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_mix.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_mix_closure.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_musgrave_texture.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_noise_texture.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_normal.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_normal_map.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_object_info.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_output_displacement.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_output_surface.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_output_volume.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_particle_info.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_principled_bsdf.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_principled_hair_bsdf.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_principled_volume.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_refraction_bsdf.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_rgb_curves.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_rgb_ramp.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_rgb_to_bw.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_scatter_volume.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_separate_hsv.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_separate_rgb.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_separate_xyz.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_set_normal.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_sky_texture.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_subsurface_scattering.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_tangent.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_texture_coordinate.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_toon_bsdf.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_translucent_bsdf.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_transparent_bsdf.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_uv_map.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_value.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_vector_curves.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_vector_displacement.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_vector_math.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_vector_transform.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_velvet_bsdf.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_voronoi_texture.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_voxel_texture.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_wave_texture.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_wavelength.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\f93589d5f6c6c7714ab55da21d4854eb\node_wireframe.oso.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\CMakeFiles\03cac1c7cd0b96fd3237416bdfc74b7e\cycles_osl_shaders.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_add_closure.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_ambient_occlusion.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_anisotropic_bsdf.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_attribute.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_background.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_bevel.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_brick_texture.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_brightness.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_bump.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_camera.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_checker_texture.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_combine_rgb.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_combine_hsv.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_combine_xyz.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_convert_from_color.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_convert_from_float.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_convert_from_int.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_convert_from_normal.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_convert_from_point.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_convert_from_vector.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_diffuse_bsdf.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_displacement.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_vector_displacement.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_emission.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_environment_texture.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_fresnel.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_gamma.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_geometry.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_glass_bsdf.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_glossy_bsdf.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_gradient_texture.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_hair_info.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_scatter_volume.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_absorption_volume.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_principled_volume.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_holdout.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_hsv.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_ies_light.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_image_texture.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_invert.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_layer_weight.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_light_falloff.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_light_path.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_magic_texture.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_mapping.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_math.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_mix.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_mix_closure.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_musgrave_texture.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_noise_texture.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_normal.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_normal_map.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_object_info.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_output_displacement.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_output_surface.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_output_volume.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_particle_info.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_refraction_bsdf.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_rgb_curves.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_rgb_ramp.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_separate_rgb.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_separate_hsv.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_separate_xyz.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_set_normal.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_sky_texture.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_subsurface_scattering.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_tangent.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_texture_coordinate.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_toon_bsdf.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_translucent_bsdf.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_transparent_bsdf.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_value.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_vector_curves.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_vector_math.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_vector_transform.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_velvet_bsdf.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_voronoi_texture.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_voxel_texture.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_wavelength.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_blackbody.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_wave_texture.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_wireframe.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_hair_bsdf.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_principled_hair_bsdf.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_uv_map.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_principled_bsdf.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\cycles\kernel\shaders\node_rgb_to_bw.osl" />
+    <None Include="C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\intern\cycles\kernel\shaders\CMakeFiles\cycles_osl_shaders" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{620296C5-487F-343C-8084-F37B2E36E0A9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

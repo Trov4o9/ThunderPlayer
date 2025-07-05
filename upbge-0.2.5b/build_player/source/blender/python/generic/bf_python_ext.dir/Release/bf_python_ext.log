@@ -1,0 +1,9 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/python/generic/CMakeLists.txt
+  bgl.c
+  blf_py_api.c
+  bpy_internal_import.c
+  bpy_threads.c
+  idprop_py_api.c
+  imbuf_py_api.c
+  py_capi_utils.c
+  bf_python_ext.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_python_ext.lib

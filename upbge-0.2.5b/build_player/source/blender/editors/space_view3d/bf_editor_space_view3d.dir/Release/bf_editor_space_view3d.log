@@ -1,0 +1,25 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/editors/space_view3d/CMakeLists.txt
+  drawanimviz.c
+  drawarmature.c
+  drawmesh.c
+  drawobject.c
+  drawsimdebug.c
+  drawvolume.c
+  space_view3d.c
+  view3d_buttons.c
+  view3d_camera_control.c
+  view3d_draw.c
+  view3d_edit.c
+  view3d_fly.c
+  view3d_header.c
+  view3d_iterators.c
+  view3d_ops.c
+  view3d_project.c
+  view3d_ruler.c
+  view3d_select.c
+  view3d_snap.c
+  view3d_toolbar.c
+  view3d_utils.c
+  view3d_view.c
+  view3d_walk.c
+  bf_editor_space_view3d.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_editor_space_view3d.lib

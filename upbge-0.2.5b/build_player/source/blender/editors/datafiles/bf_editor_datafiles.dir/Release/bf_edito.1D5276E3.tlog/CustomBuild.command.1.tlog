@@ -1,0 +1,818 @@
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\0B5DAF53F8F337957B473410DBD26B70\BFONT.PFB.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/bfont.pfb" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/bfont.pfb.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\0B5DAF53F8F337957B473410DBD26B70\BFONT.TTF.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/bfont.ttf" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/bfont.ttf.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\0B5DAF53F8F337957B473410DBD26B70\BMONOFONT.TTF.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/bmonofont.ttf" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/bmonofont.ttf.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\0B5DAF53F8F337957B473410DBD26B70\PREVIEW.BLEND.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/preview.blend" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/preview.blend.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\0B5DAF53F8F337957B473410DBD26B70\PREVIEW_CYCLES.BLEND.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/preview_cycles.blend" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/preview_cycles.blend.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\0B5DAF53F8F337957B473410DBD26B70\SPLASH.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/splash.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/splash.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\0B5DAF53F8F337957B473410DBD26B70\SPLASH_2X.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/splash_2x.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/splash_2x.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\0B5DAF53F8F337957B473410DBD26B70\BLENDER_ICONS16.PNG.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc_icon.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/blender_icons16" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/blender_icons16.png"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/blender_icons16.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/blender_icons16.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\0B5DAF53F8F337957B473410DBD26B70\BLENDER_ICONS32.PNG.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc_icon.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/blender_icons32" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/blender_icons32.png"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/blender_icons32.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/blender_icons32.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\0B5DAF53F8F337957B473410DBD26B70\PRVICONS.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/prvicons.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/prvicons.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\ADD.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/add.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/add.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\BLOB.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/blob.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/blob.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\BLUR.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/blur.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/blur.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\CLAY.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/clay.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/clay.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\CLAYSTRIPS.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/claystrips.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/claystrips.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\CLONE.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/clone.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/clone.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\CREASE.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/crease.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/crease.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\DARKEN.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/darken.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/darken.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\DRAW.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/draw.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/draw.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\FILL.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/fill.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/fill.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\FLATTEN.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/flatten.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/flatten.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\GRAB.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/grab.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/grab.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\INFLATE.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/inflate.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/inflate.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\LAYER.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/layer.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/layer.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\LIGHTEN.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/lighten.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/lighten.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\MASK.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/mask.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/mask.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\MIX.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/mix.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/mix.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\MULTIPLY.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/multiply.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/multiply.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\NUDGE.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/nudge.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/nudge.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\PINCH.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/pinch.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/pinch.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\SCRAPE.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/scrape.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/scrape.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\SMEAR.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/smear.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/smear.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\SMOOTH.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/smooth.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/smooth.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\SNAKE_HOOK.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/snake_hook.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/snake_hook.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\SOFTEN.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/soften.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/soften.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\SUBTRACT.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/subtract.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/subtract.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\TEXDRAW.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/texdraw.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/texdraw.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\TEXFILL.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/texfill.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/texfill.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\TEXMASK.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/texmask.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/texmask.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\THUMB.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/thumb.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/thumb.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\TWIST.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/twist.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/twist.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\DBD6AE0B8FDAF7351196B6D36E036780\VERTEXDRAW.PNG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/brushicons/vertexdraw.png" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/brushicons/vertexdraw.png.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\2A9095792FC5A77C8CF3B7F6A8138261\MC01.JPG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/matcaps/mc01.jpg" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps/mc01.jpg.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\2A9095792FC5A77C8CF3B7F6A8138261\MC02.JPG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/matcaps/mc02.jpg" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps/mc02.jpg.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\2A9095792FC5A77C8CF3B7F6A8138261\MC03.JPG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/matcaps/mc03.jpg" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps/mc03.jpg.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\2A9095792FC5A77C8CF3B7F6A8138261\MC04.JPG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/matcaps/mc04.jpg" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps/mc04.jpg.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\2A9095792FC5A77C8CF3B7F6A8138261\MC05.JPG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/matcaps/mc05.jpg" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps/mc05.jpg.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\2A9095792FC5A77C8CF3B7F6A8138261\MC06.JPG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/matcaps/mc06.jpg" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps/mc06.jpg.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\2A9095792FC5A77C8CF3B7F6A8138261\MC07.JPG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/matcaps/mc07.jpg" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps/mc07.jpg.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\2A9095792FC5A77C8CF3B7F6A8138261\MC08.JPG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/matcaps/mc08.jpg" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps/mc08.jpg.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\2A9095792FC5A77C8CF3B7F6A8138261\MC09.JPG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/matcaps/mc09.jpg" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps/mc09.jpg.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\2A9095792FC5A77C8CF3B7F6A8138261\MC10.JPG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/matcaps/mc10.jpg" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps/mc10.jpg.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\2A9095792FC5A77C8CF3B7F6A8138261\MC11.JPG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/matcaps/mc11.jpg" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps/mc11.jpg.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\2A9095792FC5A77C8CF3B7F6A8138261\MC12.JPG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/matcaps/mc12.jpg" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps/mc12.jpg.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\2A9095792FC5A77C8CF3B7F6A8138261\MC13.JPG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/matcaps/mc13.jpg" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps/mc13.jpg.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\2A9095792FC5A77C8CF3B7F6A8138261\MC14.JPG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/matcaps/mc14.jpg" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps/mc14.jpg.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\2A9095792FC5A77C8CF3B7F6A8138261\MC15.JPG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/matcaps/mc15.jpg" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps/mc15.jpg.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\2A9095792FC5A77C8CF3B7F6A8138261\MC16.JPG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/matcaps/mc16.jpg" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps/mc16.jpg.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\2A9095792FC5A77C8CF3B7F6A8138261\MC17.JPG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/matcaps/mc17.jpg" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps/mc17.jpg.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\2A9095792FC5A77C8CF3B7F6A8138261\MC18.JPG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/matcaps/mc18.jpg" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps/mc18.jpg.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\2A9095792FC5A77C8CF3B7F6A8138261\MC19.JPG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/matcaps/mc19.jpg" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps/mc19.jpg.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\2A9095792FC5A77C8CF3B7F6A8138261\MC20.JPG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/matcaps/mc20.jpg" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps/mc20.jpg.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\2A9095792FC5A77C8CF3B7F6A8138261\MC21.JPG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/matcaps/mc21.jpg" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps/mc21.jpg.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\2A9095792FC5A77C8CF3B7F6A8138261\MC22.JPG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/matcaps/mc22.jpg" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps/mc22.jpg.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\2A9095792FC5A77C8CF3B7F6A8138261\MC23.JPG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/matcaps/mc23.jpg" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps/mc23.jpg.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\2A9095792FC5A77C8CF3B7F6A8138261\MC24.JPG.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/matcaps/mc24.jpg" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/matcaps/mc24.jpg.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\0B5DAF53F8F337957B473410DBD26B70\STARTUP.BLEND.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/release/datafiles/startup.blend" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/release/datafiles/startup.blend.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\SOURCE\BLENDER\EDITORS\DATAFILES\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b" "-BC:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player" --check-stamp-file "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/editors/datafiles/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

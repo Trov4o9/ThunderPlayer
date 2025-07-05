@@ -1,0 +1,13 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/editors/physics/CMakeLists.txt
+  dynamicpaint_ops.c
+  particle_boids.c
+  particle_edit.c
+  particle_edit_undo.c
+  particle_object.c
+  physics_fluid.c
+  physics_ops.c
+  physics_pointcache.c
+  rigidbody_constraint.c
+  rigidbody_object.c
+  rigidbody_world.c
+  bf_editor_physics.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_editor_physics.lib

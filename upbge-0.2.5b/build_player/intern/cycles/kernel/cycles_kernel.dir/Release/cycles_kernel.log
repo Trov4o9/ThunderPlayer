@@ -1,0 +1,20 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/intern/cycles/kernel/CMakeLists.txt
+  kernel.cpp
+  kernel_sse2.cpp
+  kernel_sse3.cpp
+  kernel_sse41.cpp
+  kernel_split.cpp
+  kernel_split_sse2.cpp
+  kernel_split_sse3.cpp
+  kernel_split_sse41.cpp
+  filter.cpp
+  filter_sse2.cpp
+  filter_sse3.cpp
+  filter_sse41.cpp
+  kernel_avx.cpp
+  kernel_split_avx.cpp
+  filter_avx.cpp
+  kernel_avx2.cpp
+  kernel_split_avx2.cpp
+  filter_avx2.cpp
+  cycles_kernel.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\cycles_kernel.lib

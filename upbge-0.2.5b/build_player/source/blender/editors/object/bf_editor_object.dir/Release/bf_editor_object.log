@@ -1,0 +1,21 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/editors/object/CMakeLists.txt
+  object_add.c
+  object_bake.c
+  object_bake_api.c
+  object_constraint.c
+  object_data_transfer.c
+  object_edit.c
+  object_group.c
+  object_hook.c
+  object_lod.c
+  object_modes.c
+  object_modifier.c
+  object_ops.c
+  object_random.c
+  object_relations.c
+  object_select.c
+  object_shapekey.c
+  object_transform.c
+  object_vgroup.c
+  object_warp.c
+  bf_editor_object.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_editor_object.lib

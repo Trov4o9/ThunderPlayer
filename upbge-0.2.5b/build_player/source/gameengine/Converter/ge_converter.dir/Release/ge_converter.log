@@ -1,0 +1,23 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/gameengine/Converter/CMakeLists.txt
+  BL_ActionActuator.cpp
+  BL_ActionData.cpp
+  BL_ArmatureActuator.cpp
+  BL_ArmatureChannel.cpp
+  BL_ArmatureConstraint.cpp
+  BL_ArmatureObject.cpp
+  BL_BlenderDataConversion.cpp
+  BL_Converter.cpp
+  BL_MeshDeformer.cpp
+  BL_ModifierDeformer.cpp
+  BL_Resource.cpp
+  BL_ShapeDeformer.cpp
+  BL_SkinDeformer.cpp
+  BL_ScalarInterpolator.cpp
+  BL_SceneConverter.cpp
+  BL_ConvertActuators.cpp
+  BL_ConvertControllers.cpp
+  BL_ConvertObjectInfo.cpp
+  BL_ConvertProperties.cpp
+  BL_ConvertSensors.cpp
+  BL_IpoConvert.cpp
+  ge_converter.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\ge_converter.lib

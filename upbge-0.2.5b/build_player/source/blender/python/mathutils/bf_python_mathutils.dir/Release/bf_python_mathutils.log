@@ -1,0 +1,13 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/python/mathutils/CMakeLists.txt
+  mathutils.c
+  mathutils_Color.c
+  mathutils_Euler.c
+  mathutils_Matrix.c
+  mathutils_Quaternion.c
+  mathutils_Vector.c
+  mathutils_bvhtree.c
+  mathutils_geometry.c
+  mathutils_interpolate.c
+  mathutils_kdtree.c
+  mathutils_noise.c
+  bf_python_mathutils.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_python_mathutils.lib

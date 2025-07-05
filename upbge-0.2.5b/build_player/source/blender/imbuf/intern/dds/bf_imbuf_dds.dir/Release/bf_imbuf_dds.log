@@ -1,0 +1,9 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/imbuf/intern/dds/CMakeLists.txt
+  BlockDXT.cpp
+  ColorBlock.cpp
+  DirectDrawSurface.cpp
+  FlipDXT.cpp
+  Image.cpp
+  Stream.cpp
+  dds_api.cpp
+  bf_imbuf_dds.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_imbuf_dds.lib

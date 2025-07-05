@@ -1,0 +1,23 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/editors/armature/CMakeLists.txt
+  armature_add.c
+  armature_edit.c
+  armature_naming.c
+  armature_ops.c
+  armature_relations.c
+  armature_select.c
+  armature_skinning.c
+  armature_utils.c
+  editarmature_generate.c
+  editarmature_retarget.c
+  editarmature_sketch.c
+  editarmature_undo.c
+  meshlaplacian.c
+  pose_edit.c
+  pose_group.c
+  pose_lib.c
+  pose_select.c
+  pose_slide.c
+  pose_transform.c
+  pose_utils.c
+  reeb.c
+  bf_editor_armature.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_editor_armature.lib

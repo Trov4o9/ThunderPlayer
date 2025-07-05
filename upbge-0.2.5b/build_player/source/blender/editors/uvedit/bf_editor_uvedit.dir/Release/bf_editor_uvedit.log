@@ -1,0 +1,8 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/editors/uvedit/CMakeLists.txt
+  uvedit_buttons.c
+  uvedit_draw.c
+  uvedit_ops.c
+  uvedit_parametrizer.c
+  uvedit_smart_stitch.c
+  uvedit_unwrap_ops.c
+  bf_editor_uvedit.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_editor_uvedit.lib

@@ -1,0 +1,7 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/imbuf/intern/cineon/CMakeLists.txt
+  cineon_dpx.c
+  cineonlib.c
+  dpxlib.c
+  logImageCore.c
+  logmemfile.c
+  bf_imbuf_cineon.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_imbuf_cineon.lib

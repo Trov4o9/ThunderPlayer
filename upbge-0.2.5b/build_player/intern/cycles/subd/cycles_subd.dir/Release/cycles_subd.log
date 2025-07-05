@@ -1,0 +1,6 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/intern/cycles/subd/CMakeLists.txt
+  subd_dice.cpp
+  subd_patch.cpp
+  subd_split.cpp
+  subd_patch_table.cpp
+  cycles_subd.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\cycles_subd.lib

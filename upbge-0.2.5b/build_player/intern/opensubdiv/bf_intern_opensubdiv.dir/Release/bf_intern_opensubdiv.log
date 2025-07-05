@@ -1,0 +1,15 @@
+﻿  Generating gpu_shader_opensubdiv_vertex.glsl.c
+  Generating gpu_shader_opensubdiv_geometry.glsl.c
+  Generating gpu_shader_opensubdiv_fragment.glsl.c
+  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/intern/opensubdiv/CMakeLists.txt
+  opensubdiv_capi.cc
+  opensubdiv_converter.cc
+  opensubdiv_device_context_cuda.cc
+  opensubdiv_device_context_opencl.cc
+  opensubdiv_evaluator_capi.cc
+  opensubdiv_gpu_capi.cc
+  opensubdiv_utils_capi.cc
+  gpu_shader_opensubdiv_vertex.glsl.c
+  gpu_shader_opensubdiv_geometry.glsl.c
+  gpu_shader_opensubdiv_fragment.glsl.c
+  bf_intern_opensubdiv.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_intern_opensubdiv.lib

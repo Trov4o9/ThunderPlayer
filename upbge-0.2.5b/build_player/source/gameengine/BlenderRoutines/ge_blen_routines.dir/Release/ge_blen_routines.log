@@ -1,0 +1,5 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/gameengine/BlenderRoutines/CMakeLists.txt
+  BL_KetsjiEmbedStart.cpp
+  KX_BlenderCanvas.cpp
+  set NOMINMAX as preprocessor macro, undefining min/max
+  ge_blen_routines.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\ge_blen_routines.lib

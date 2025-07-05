@@ -1,0 +1,10 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/intern/smoke/CMakeLists.txt
+  EIGENVALUE_HELPER.cpp
+  FLUID_3D.cpp
+  FLUID_3D_SOLVERS.cpp
+  FLUID_3D_STATIC.cpp
+  LU_HELPER.cpp
+  SPHERE.cpp
+  WTURBULENCE.cpp
+  smoke_API.cpp
+  bf_intern_smoke.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_intern_smoke.lib

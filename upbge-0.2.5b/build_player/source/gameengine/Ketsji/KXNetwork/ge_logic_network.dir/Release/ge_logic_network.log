@@ -1,0 +1,6 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/gameengine/Ketsji/KXNetwork/CMakeLists.txt
+  KX_NetworkMessageManager.cpp
+  KX_NetworkMessageScene.cpp
+  KX_NetworkMessageActuator.cpp
+  KX_NetworkMessageSensor.cpp
+  ge_logic_network.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\ge_logic_network.lib

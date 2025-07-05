@@ -1,0 +1,37 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/python/intern/CMakeLists.txt
+  bpy.c
+  bpy_app.c
+  bpy_app_alembic.c
+  bpy_app_build_options.c
+  bpy_app_ffmpeg.c
+  bpy_app_handlers.c
+  bpy_app_ocio.c
+  bpy_app_oiio.c
+  bpy_app_opensubdiv.c
+  bpy_app_openvdb.c
+  bpy_app_sdl.c
+  bpy_app_translations.c
+  bpy_capi_utils.c
+  bpy_driver.c
+  bpy_interface.c
+  bpy_interface_atexit.c
+  bpy_intern_string.c
+  bpy_library_load.c
+  bpy_library_write.c
+  bpy_operator.c
+  bpy_operator_wrap.c
+  bpy_path.c
+  bpy_props.c
+  bpy_rna.c
+  bpy_rna_anim.c
+  bpy_rna_array.c
+  bpy_rna_callback.c
+  bpy_rna_driver.c
+  bpy_rna_id_collection.c
+  bpy_traceback.c
+  bpy_utils_previews.c
+  bpy_utils_units.c
+  gpu.c
+  gpu_offscreen.c
+  stubs.c
+  bf_python.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_python.lib

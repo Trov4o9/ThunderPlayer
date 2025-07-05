@@ -1,0 +1,9 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/editors/screen/CMakeLists.txt
+  area.c
+  glutil.c
+  screen_context.c
+  screen_draw.c
+  screen_edit.c
+  screen_ops.c
+  screendump.c
+  bf_editor_screen.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_editor_screen.lib

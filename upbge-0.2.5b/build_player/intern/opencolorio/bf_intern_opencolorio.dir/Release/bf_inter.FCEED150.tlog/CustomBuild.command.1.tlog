@@ -1,0 +1,22 @@
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\780C0DC5EDEDEDFAD3FFA0A00B684714\GPU_SHADER_DISPLAY_TRANSFORM.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/intern/opencolorio"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/intern/opencolorio/gpu_shader_display_transform.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/intern/opencolorio/gpu_shader_display_transform.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\INTERN\OPENCOLORIO\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b" "-BC:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player" --check-stamp-file "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/intern/opencolorio/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

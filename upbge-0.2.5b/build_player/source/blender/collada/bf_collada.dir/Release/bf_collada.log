@@ -1,0 +1,29 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/collada/CMakeLists.txt
+  AnimationExporter.cpp
+  AnimationImporter.cpp
+  ArmatureExporter.cpp
+  ArmatureImporter.cpp
+  CameraExporter.cpp
+  ControllerExporter.cpp
+  DocumentExporter.cpp
+  DocumentImporter.cpp
+  EffectExporter.cpp
+  ErrorHandler.cpp
+  ExportSettings.cpp
+  ExtraHandler.cpp
+  ExtraTags.cpp
+  GeometryExporter.cpp
+  ImageExporter.cpp
+  ImportSettings.cpp
+  InstanceWriter.cpp
+  LightExporter.cpp
+  MaterialExporter.cpp
+  MeshImporter.cpp
+  SceneExporter.cpp
+  SkinInfo.cpp
+  TransformReader.cpp
+  TransformWriter.cpp
+  collada.cpp
+  collada_internal.cpp
+  collada_utils.cpp
+  bf_collada.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_collada.lib

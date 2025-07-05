@@ -1,0 +1,10 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/blenfont/CMakeLists.txt
+  blf.c
+  blf_dir.c
+  blf_font.c
+  blf_font_i18n.c
+  blf_glyph.c
+  blf_thumbs.c
+  blf_util.c
+  blf_font_win32_compat.c
+  bf_blenfont.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_blenfont.lib

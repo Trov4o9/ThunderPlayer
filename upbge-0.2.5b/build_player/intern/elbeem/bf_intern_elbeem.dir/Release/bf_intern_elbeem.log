@@ -1,0 +1,30 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/intern/elbeem/CMakeLists.txt
+  attributes.cpp
+  controlparticles.cpp
+  elbeem.cpp
+  elbeem_control.cpp
+  isosurface.cpp
+  mvmcoords.cpp
+  ntl_blenderdumper.cpp
+  ntl_bsptree.cpp
+  ntl_geometrymodel.cpp
+  ntl_geometryobject.cpp
+  ntl_lighting.cpp
+  ntl_ray.cpp
+  ntl_world.cpp
+  parametrizer.cpp
+  particletracer.cpp
+  simulation_object.cpp
+  solver_adap.cpp
+  solver_control.cpp
+  solver_init.cpp
+  solver_interface.cpp
+C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\elbeem\intern\ntl_geometrymodel.cpp(167,2): warning C4311: 'conversão de tipo': truncamento de ponteiro de 'float *' para 'long'
+C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\elbeem\intern\ntl_geometrymodel.cpp(167,2): warning C4302: 'conversão de tipo': truncamento de 'float *' para 'long'
+  solver_main.cpp
+  solver_util.cpp
+  utilities.cpp
+C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\elbeem\intern\solver_class.h(949): warning C4723: possível divisão por 0
+C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\elbeem\intern\solver_class.h(949): warning C4723: possível divisão por 0
+C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\elbeem\intern\solver_class.h(949): warning C4723: possível divisão por 0
+  bf_intern_elbeem.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_intern_elbeem.lib

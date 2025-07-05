@@ -1,0 +1,7 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/physics/CMakeLists.txt
+  BPH_mass_spring.cpp
+  hair_volume.cpp
+  implicit_eigen.cpp
+  implicit_blender.c
+C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\physics\intern\implicit_blender.c(588,15): warning C4189: 'i': variável local é inicializada mas não referenciada
+  bf_physics.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_physics.lib

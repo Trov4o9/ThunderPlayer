@@ -1,0 +1,10 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/editors/curve/CMakeLists.txt
+  curve_ops.c
+  editcurve.c
+  editcurve_add.c
+  editcurve_paint.c
+  editcurve_select.c
+  editcurve_undo.c
+  editfont.c
+  editfont_undo.c
+  bf_editor_curve.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_editor_curve.lib

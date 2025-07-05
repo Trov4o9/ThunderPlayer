@@ -1,0 +1,418 @@
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_2D_BOX_VERT.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_2d_box_vert.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_2d_box_vert.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_GEOMETRY.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_geometry.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_geometry.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_FLAT_COLOR_FRAG.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_flat_color_frag.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_flat_color_frag.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_FLAT_COLOR_VERT.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_flat_color_vert.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_flat_color_vert.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_FRUSTUM_LINE_VERT.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_frustum_line_vert.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_frustum_line_vert.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_FRUSTUM_SOLID_VERT.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_frustum_solid_vert.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_frustum_solid_vert.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_FRUSTUM_SOLID_FRAG.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_frustum_solid_frag.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_frustum_solid_frag.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_FIRE_FRAG.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_fire_frag.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_fire_frag.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_SMOKE_FRAG.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_smoke_frag.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_smoke_frag.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_SMOKE_VERT.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_smoke_vert.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_smoke_vert.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_MATERIAL.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_material.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_material.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_SEP_GAUSSIAN_BLUR_FRAG.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_sep_gaussian_blur_frag.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_sep_gaussian_blur_frag.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_SEP_GAUSSIAN_BLUR_VERT.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_sep_gaussian_blur_vert.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_sep_gaussian_blur_vert.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_BASIC_FRAG.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_basic_frag.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_basic_frag.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_BLACK_FRAG.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_black_frag.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_black_frag.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_BLACK_VERT.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_black_vert.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_black_vert.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_BASIC_VERT.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_basic_vert.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_basic_vert.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_BASIC_GEOM.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_basic_geom.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_basic_geom.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_FRAME_BUFFER_FRAG.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_frame_buffer_frag.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_frame_buffer_frag.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_FRAME_BUFFER_VERT.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_frame_buffer_vert.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_frame_buffer_vert.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_VERTEX.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_vertex.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_vertex.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_VERTEX_WORLD.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_vertex_world.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_vertex_world.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_VSM_STORE_FRAG.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_vsm_store_frag.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_vsm_store_frag.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_VSM_STORE_VERT.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_vsm_store_vert.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_vsm_store_vert.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_FX_VERT.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_fx_vert.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_fx_vert.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_FX_SSAO_FRAG.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_fx_ssao_frag.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_fx_ssao_frag.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_FX_DOF_FRAG.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_fx_dof_frag.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_fx_dof_frag.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_FX_DOF_VERT.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_fx_dof_vert.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_fx_dof_vert.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_FX_DOF_HQ_FRAG.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_fx_dof_hq_frag.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_fx_dof_hq_frag.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_FX_DOF_HQ_VERT.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_fx_dof_hq_vert.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_fx_dof_hq_vert.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_FX_DOF_HQ_GEO.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_fx_dof_hq_geo.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_fx_dof_hq_geo.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_FX_DEPTH_RESOLVE.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_fx_depth_resolve.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_fx_depth_resolve.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_FX_LIB.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_fx_lib.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_fx_lib.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\E391C57E148DE71A3534BF0AAF660DCD\GPU_SHADER_LIB.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/shaders/gpu_shader_lib.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/shaders/gpu_shader_lib.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\SOURCE\BLENDER\GPU\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b" "-BC:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player" --check-stamp-file "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/blender/gpu/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

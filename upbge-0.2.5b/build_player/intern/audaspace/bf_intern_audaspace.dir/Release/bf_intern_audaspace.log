@@ -1,0 +1,85 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/intern/audaspace/CMakeLists.txt
+  AUD_AccumulatorFactory.cpp
+  AUD_BandpassCalculator.cpp
+  AUD_BaseIIRFilterReader.cpp
+  AUD_ButterworthCalculator.cpp
+  AUD_ButterworthFactory.cpp
+  AUD_CallbackIIRFilterReader.cpp
+  AUD_DelayFactory.cpp
+  AUD_DelayReader.cpp
+  AUD_DoubleFactory.cpp
+  AUD_DoubleReader.cpp
+  AUD_DynamicIIRFilterFactory.cpp
+  AUD_DynamicIIRFilterReader.cpp
+  AUD_EffectFactory.cpp
+  AUD_EffectReader.cpp
+  AUD_EnvelopeFactory.cpp
+  AUD_FaderFactory.cpp
+  AUD_FaderReader.cpp
+  AUD_HighpassCalculator.cpp
+  AUD_HighpassFactory.cpp
+  AUD_IIRFilterFactory.cpp
+  AUD_IIRFilterReader.cpp
+  AUD_LimiterFactory.cpp
+  AUD_LimiterReader.cpp
+  AUD_LoopFactory.cpp
+  AUD_LoopReader.cpp
+  AUD_LowpassCalculator.cpp
+  AUD_LowpassFactory.cpp
+  AUD_PingPongFactory.cpp
+  AUD_PitchFactory.cpp
+  AUD_PitchReader.cpp
+  AUD_RectifyFactory.cpp
+  AUD_ReverseFactory.cpp
+  AUD_ReverseReader.cpp
+  AUD_SquareFactory.cpp
+  AUD_SumFactory.cpp
+  AUD_SuperposeFactory.cpp
+  AUD_SuperposeReader.cpp
+  AUD_VolumeFactory.cpp
+  AUD_AnimateableProperty.cpp
+  AUD_Buffer.cpp
+  AUD_BufferReader.cpp
+  AUD_C-API.cpp
+  AUD_ChannelMapperFactory.cpp
+  AUD_ChannelMapperReader.cpp
+  AUD_ConverterFactory.cpp
+  AUD_ConverterFunctions.cpp
+  AUD_ConverterReader.cpp
+  AUD_FileFactory.cpp
+  AUD_FileWriter.cpp
+  AUD_JOSResampleFactory.cpp
+  AUD_JOSResampleReader.cpp
+  AUD_LinearResampleFactory.cpp
+C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\audaspace\intern\AUD_Buffer.cpp(47,21): warning C4311: 'conversão de tipo': truncamento de ponteiro de 'data_t *const ' para 'long'
+  AUD_LinearResampleReader.cpp
+C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\audaspace\intern\AUD_Buffer.cpp(47,21): warning C4302: 'conversão de tipo': truncamento de 'data_t *const ' para 'long'
+C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\audaspace\intern\AUD_Buffer.cpp(61,10): warning C4311: 'conversão de tipo': truncamento de ponteiro de 'data_t *' para 'long'
+C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\audaspace\intern\AUD_Buffer.cpp(61,10): warning C4302: 'conversão de tipo': truncamento de 'data_t *' para 'long'
+C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\audaspace\intern\AUD_Buffer.cpp(61,29): warning C4311: 'conversão de tipo': truncamento de ponteiro de 'data_t *' para 'long'
+C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\audaspace\intern\AUD_Buffer.cpp(61,29): warning C4302: 'conversão de tipo': truncamento de 'data_t *' para 'long'
+  AUD_Mixer.cpp
+  AUD_MixerFactory.cpp
+  AUD_NULLDevice.cpp
+  AUD_ReadDevice.cpp
+  AUD_ResampleReader.cpp
+  AUD_Sequencer.cpp
+  AUD_SequencerEntry.cpp
+  AUD_SequencerFactory.cpp
+  AUD_SequencerHandle.cpp
+  AUD_SequencerReader.cpp
+  AUD_Set.cpp
+  AUD_SilenceFactory.cpp
+  AUD_SilenceReader.cpp
+  AUD_SinusFactory.cpp
+  AUD_SinusReader.cpp
+  AUD_SoftwareDevice.cpp
+  AUD_StreamBufferFactory.cpp
+  AUD_FFMPEGFactory.cpp
+  AUD_FFMPEGReader.cpp
+C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\audaspace\intern\AUD_C-API.cpp(227,117): warning C4312: 'conversão de tipo': conversão de 'long' para 'void *' de tamanho maior
+  AUD_FFMPEGWriter.cpp
+  AUD_SDLDevice.cpp
+  AUD_OpenALDevice.cpp
+  AUD_PyAPI.cpp
+  bf_intern_audaspace.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_intern_audaspace.lib

@@ -1,0 +1,7 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/editors/space_script/CMakeLists.txt
+  script_edit.c
+  script_ops.c
+  space_script.c
+C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\editors\space_script\space_script.c(183,19): warning C4090: 'função': qualificadores 'const' diferentes
+C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\editors\space_script\space_script.c(241,40): warning C4028: parâmetro formal 1 diferente da declaração
+  bf_editor_space_script.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_editor_space_script.lib

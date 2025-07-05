@@ -1,0 +1,10 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/editors/space_file/CMakeLists.txt
+  file_draw.c
+  file_ops.c
+  file_panels.c
+  file_utils.c
+  filelist.c
+  filesel.c
+  fsmenu.c
+  space_file.c
+  bf_editor_space_file.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_editor_space_file.lib

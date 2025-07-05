@@ -1,0 +1,8 @@
+﻿  Generating gpu_shader_display_transform.glsl.c
+  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/intern/opencolorio/CMakeLists.txt
+  ocio_capi.cc
+  fallback_impl.cc
+  ocio_impl.cc
+  ocio_impl_glsl.cc
+  gpu_shader_display_transform.glsl.c
+  bf_intern_opencolorio.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_intern_opencolorio.lib

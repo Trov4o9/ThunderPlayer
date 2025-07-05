@@ -1,0 +1,1 @@
+ThunderPlayer é uma versão modificada do BlenderPlayer, originalmente desenvolvido pelo Blender Foundation. Este software é licenciado sob a GPLv2+.

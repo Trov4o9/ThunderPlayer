@@ -1,0 +1,6 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/intern/numaapi/CMakeLists.txt
+  numaapi.c
+  numaapi_linux.c
+  numaapi_stub.c
+  numaapi_win32.c
+  bf_intern_numaapi.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_intern_numaapi.lib

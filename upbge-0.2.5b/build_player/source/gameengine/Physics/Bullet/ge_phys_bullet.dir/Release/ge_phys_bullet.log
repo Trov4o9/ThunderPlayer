@@ -1,0 +1,7 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/gameengine/Physics/Bullet/CMakeLists.txt
+  CcdConstraint.cpp
+  CcdPhysicsEnvironment.cpp
+  CcdPhysicsController.cpp
+  CcdGraphicController.cpp
+C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/extern/bullet2/src\BulletDynamics/ConstraintSolver/btContactConstraint.h(25,28): warning C4359: 'btContactConstraint': o especificador de alinhamento é menor que o alinhamento real (128) e será ignorado. (compilando arquivo de origem C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\gameengine\Physics\Bullet\CcdPhysicsEnvironment.cpp)
+  ge_phys_bullet.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\ge_phys_bullet.lib

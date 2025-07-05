@@ -1,0 +1,154 @@
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\CFB95B9A12C6F6C1104F6366BF672E60\RAS_BLUR2DFILTER.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/gameengine/Rasterizer/RAS_OpenGLFilters"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/gameengine/Rasterizer/RAS_OpenGLFilters/RAS_Blur2DFilter.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/gameengine/Rasterizer/RAS_OpenGLFilters/RAS_Blur2DFilter.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\CFB95B9A12C6F6C1104F6366BF672E60\RAS_DILATION2DFILTER.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/gameengine/Rasterizer/RAS_OpenGLFilters"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/gameengine/Rasterizer/RAS_OpenGLFilters/RAS_Dilation2DFilter.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/gameengine/Rasterizer/RAS_OpenGLFilters/RAS_Dilation2DFilter.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\CFB95B9A12C6F6C1104F6366BF672E60\RAS_EROSION2DFILTER.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/gameengine/Rasterizer/RAS_OpenGLFilters"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/gameengine/Rasterizer/RAS_OpenGLFilters/RAS_Erosion2DFilter.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/gameengine/Rasterizer/RAS_OpenGLFilters/RAS_Erosion2DFilter.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\CFB95B9A12C6F6C1104F6366BF672E60\RAS_FXAA2DFILTER.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/gameengine/Rasterizer/RAS_OpenGLFilters"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/gameengine/Rasterizer/RAS_OpenGLFilters/RAS_Fxaa2DFilter.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/gameengine/Rasterizer/RAS_OpenGLFilters/RAS_Fxaa2DFilter.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\CFB95B9A12C6F6C1104F6366BF672E60\RAS_GRAYSCALE2DFILTER.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/gameengine/Rasterizer/RAS_OpenGLFilters"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/gameengine/Rasterizer/RAS_OpenGLFilters/RAS_GrayScale2DFilter.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/gameengine/Rasterizer/RAS_OpenGLFilters/RAS_GrayScale2DFilter.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\CFB95B9A12C6F6C1104F6366BF672E60\RAS_INVERT2DFILTER.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/gameengine/Rasterizer/RAS_OpenGLFilters"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/gameengine/Rasterizer/RAS_OpenGLFilters/RAS_Invert2DFilter.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/gameengine/Rasterizer/RAS_OpenGLFilters/RAS_Invert2DFilter.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\CFB95B9A12C6F6C1104F6366BF672E60\RAS_LAPLACIAN2DFILTER.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/gameengine/Rasterizer/RAS_OpenGLFilters"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/gameengine/Rasterizer/RAS_OpenGLFilters/RAS_Laplacian2DFilter.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/gameengine/Rasterizer/RAS_OpenGLFilters/RAS_Laplacian2DFilter.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\CFB95B9A12C6F6C1104F6366BF672E60\RAS_PREWITT2DFILTER.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/gameengine/Rasterizer/RAS_OpenGLFilters"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/gameengine/Rasterizer/RAS_OpenGLFilters/RAS_Prewitt2DFilter.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/gameengine/Rasterizer/RAS_OpenGLFilters/RAS_Prewitt2DFilter.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\CFB95B9A12C6F6C1104F6366BF672E60\RAS_SEPIA2DFILTER.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/gameengine/Rasterizer/RAS_OpenGLFilters"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/gameengine/Rasterizer/RAS_OpenGLFilters/RAS_Sepia2DFilter.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/gameengine/Rasterizer/RAS_OpenGLFilters/RAS_Sepia2DFilter.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\CFB95B9A12C6F6C1104F6366BF672E60\RAS_SHARPEN2DFILTER.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/gameengine/Rasterizer/RAS_OpenGLFilters"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/gameengine/Rasterizer/RAS_OpenGLFilters/RAS_Sharpen2DFilter.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/gameengine/Rasterizer/RAS_OpenGLFilters/RAS_Sharpen2DFilter.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\CFB95B9A12C6F6C1104F6366BF672E60\RAS_SOBEL2DFILTER.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/gameengine/Rasterizer/RAS_OpenGLFilters"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/gameengine/Rasterizer/RAS_OpenGLFilters/RAS_Sobel2DFilter.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/gameengine/Rasterizer/RAS_OpenGLFilters/RAS_Sobel2DFilter.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\BUILD_PLAYER\CMAKEFILES\CFB95B9A12C6F6C1104F6366BF672E60\RAS_VERTEXSHADER2DFILTER.GLSL.C.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/gameengine/Rasterizer/RAS_OpenGLFilters"
+if %errorlevel% neq 0 goto :cmEnd
+..\..\..\bin\Release\datatoc.exe "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/gameengine/Rasterizer/RAS_OpenGLFilters/RAS_VertexShader2DFilter.glsl" "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/gameengine/Rasterizer/RAS_OpenGLFilters/RAS_VertexShader2DFilter.glsl.c"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LUCAS\DESKTOP\MUNDO ABERTO - GAME DEV\THUNDERPLAYER\THUNDERPLAYER\THUNDERPLAYER\UPBGE-0.2.5B\SOURCE\GAMEENGINE\RASTERIZER\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b" "-BC:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player" --check-stamp-file "C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_player/source/gameengine/Rasterizer/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

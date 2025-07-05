@@ -1,0 +1,6 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/extern/curve_fit_nd/CMakeLists.txt
+  curve_fit_cubic.c
+  curve_fit_cubic_refit.c
+  curve_fit_corners_detect.c
+  generic_heap.c
+  extern_curve_fit_nd.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\extern_curve_fit_nd.lib

@@ -1,0 +1,5 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/ikplugin/CMakeLists.txt
+  ikplugin_api.c
+  iksolver_plugin.c
+  itasc_plugin.cpp
+  bf_ikplugin.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_ikplugin.lib

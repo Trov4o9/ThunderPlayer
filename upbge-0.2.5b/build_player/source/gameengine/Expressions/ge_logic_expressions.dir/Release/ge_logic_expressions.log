@@ -1,0 +1,20 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/gameengine/Expressions/CMakeLists.txt
+  BaseListValue.cpp
+  BaseListWrapper.cpp
+  BoolValue.cpp
+  ConstExpr.cpp
+  EmptyValue.cpp
+  ErrorValue.cpp
+  Expression.cpp
+  FloatValue.cpp
+  IdentifierExpr.cpp
+  IfExpr.cpp
+  InputParser.cpp
+  IntValue.cpp
+  Operator1Expr.cpp
+  Operator2Expr.cpp
+  PyObjectPlus.cpp
+  StringValue.cpp
+  Value.cpp
+  PythonCallBack.cpp
+  ge_logic_expressions.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\ge_logic_expressions.lib

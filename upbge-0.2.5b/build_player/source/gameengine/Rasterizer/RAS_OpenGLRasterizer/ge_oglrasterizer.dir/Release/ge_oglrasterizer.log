@@ -1,0 +1,9 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/gameengine/Rasterizer/RAS_OpenGLRasterizer/CMakeLists.txt
+  RAS_OpenGLDebugDraw.cpp
+  RAS_OpenGLLight.cpp
+  RAS_OpenGLQuery.cpp
+  RAS_OpenGLSync.cpp
+  RAS_OpenGLRasterizer.cpp
+  RAS_StorageVao.cpp
+  RAS_StorageVbo.cpp
+  ge_oglrasterizer.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\ge_oglrasterizer.lib

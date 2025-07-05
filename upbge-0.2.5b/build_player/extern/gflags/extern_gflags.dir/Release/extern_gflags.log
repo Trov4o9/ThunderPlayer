@@ -1,0 +1,9 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/extern/gflags/CMakeLists.txt
+  gflags.cc
+  gflags_completions.cc
+  gflags_reporting.cc
+  windows_port.cc
+C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\gflags\src\util.h(255,7): warning C4189: 'tmppath_len': variável local é inicializada mas não referenciada (compilando arquivo de origem C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\gflags\src\gflags.cc)
+C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\gflags\src\util.h(255,7): warning C4189: 'tmppath_len': variável local é inicializada mas não referenciada (compilando arquivo de origem C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\gflags\src\gflags_reporting.cc)
+C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\gflags\src\util.h(255,7): warning C4189: 'tmppath_len': variável local é inicializada mas não referenciada (compilando arquivo de origem C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\gflags\src\gflags_completions.cc)
+  extern_gflags.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\extern_gflags.lib

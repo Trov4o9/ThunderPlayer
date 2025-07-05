@@ -1,0 +1,7 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/gameengine/Device/CMakeLists.txt
+  DEV_EventConsumer.cpp
+  DEV_InputDevice.cpp
+  DEV_Joystick.cpp
+  DEV_JoystickEvents.cpp
+  DEV_JoystickVibration.cpp
+  ge_device.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\ge_device.lib

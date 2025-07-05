@@ -1,0 +1,15 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/intern/cycles/blender/CMakeLists.txt
+  blender_camera.cpp
+  blender_device.cpp
+  blender_mesh.cpp
+  blender_object.cpp
+  blender_object_cull.cpp
+  blender_particles.cpp
+  blender_curves.cpp
+  blender_logging.cpp
+  blender_python.cpp
+  blender_session.cpp
+  blender_shader.cpp
+  blender_sync.cpp
+  blender_texture.cpp
+  bf_intern_cycles.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_intern_cycles.lib

@@ -1,0 +1,13 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/intern/cycles/bvh/CMakeLists.txt
+  bvh.cpp
+  bvh2.cpp
+  bvh4.cpp
+  bvh8.cpp
+  bvh_binning.cpp
+  bvh_build.cpp
+  bvh_embree.cpp
+  bvh_node.cpp
+  bvh_sort.cpp
+  bvh_split.cpp
+  bvh_unaligned.cpp
+  cycles_bvh.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\cycles_bvh.lib

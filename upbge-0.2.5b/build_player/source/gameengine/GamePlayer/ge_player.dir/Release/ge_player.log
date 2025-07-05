@@ -1,0 +1,5 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/gameengine/GamePlayer/CMakeLists.txt
+  GPG_Canvas.cpp
+  GPG_Ghost.cpp
+C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\gameengine\GamePlayer\GPG_Ghost.cpp(181,43): warning C4312: 'conversão de tipo': conversão de 'int' para 'HWND' de tamanho maior
+  ge_player.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\ge_player.lib

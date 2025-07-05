@@ -1,0 +1,7 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/intern/dualcon/CMakeLists.txt
+  manifold_table.cpp
+  marching_cubes_table.cpp
+  octree.cpp
+  Projections.cpp
+  dualcon_c_api.cpp
+  bf_intern_dualcon.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_intern_dualcon.lib

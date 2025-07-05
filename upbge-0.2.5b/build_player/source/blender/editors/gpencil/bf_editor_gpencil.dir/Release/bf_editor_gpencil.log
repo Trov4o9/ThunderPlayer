@@ -1,0 +1,14 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/editors/gpencil/CMakeLists.txt
+  drawgpencil.c
+  editaction_gpencil.c
+  gpencil_brush.c
+  gpencil_convert.c
+  gpencil_data.c
+  gpencil_edit.c
+  gpencil_interpolate.c
+  gpencil_ops.c
+  gpencil_paint.c
+  gpencil_select.c
+  gpencil_undo.c
+  gpencil_utils.c
+  bf_editor_gpencil.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_editor_gpencil.lib

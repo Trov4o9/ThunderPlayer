@@ -1,0 +1,10 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/editors/mask/CMakeLists.txt
+  mask_add.c
+  mask_draw.c
+  mask_edit.c
+  mask_editaction.c
+  mask_ops.c
+  mask_relationships.c
+  mask_select.c
+  mask_shapekey.c
+  bf_editor_mask.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_editor_mask.lib

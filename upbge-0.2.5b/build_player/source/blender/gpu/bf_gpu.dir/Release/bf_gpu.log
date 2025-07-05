@@ -1,0 +1,87 @@
+﻿  Generating shaders/gpu_shader_2d_box_vert.glsl.c
+  Generating shaders/gpu_shader_geometry.glsl.c
+  Generating shaders/gpu_shader_flat_color_frag.glsl.c
+  Generating shaders/gpu_shader_flat_color_vert.glsl.c
+  Generating shaders/gpu_shader_frustum_line_vert.glsl.c
+  Generating shaders/gpu_shader_frustum_solid_vert.glsl.c
+  Generating shaders/gpu_shader_frustum_solid_frag.glsl.c
+  Generating shaders/gpu_shader_fire_frag.glsl.c
+  Generating shaders/gpu_shader_smoke_frag.glsl.c
+  Generating shaders/gpu_shader_smoke_vert.glsl.c
+  Generating shaders/gpu_shader_material.glsl.c
+  Generating shaders/gpu_shader_sep_gaussian_blur_frag.glsl.c
+  Generating shaders/gpu_shader_sep_gaussian_blur_vert.glsl.c
+  Generating shaders/gpu_shader_basic_frag.glsl.c
+  Generating shaders/gpu_shader_black_frag.glsl.c
+  Generating shaders/gpu_shader_black_vert.glsl.c
+  Generating shaders/gpu_shader_basic_vert.glsl.c
+  Generating shaders/gpu_shader_basic_geom.glsl.c
+  Generating shaders/gpu_shader_frame_buffer_frag.glsl.c
+  Generating shaders/gpu_shader_frame_buffer_vert.glsl.c
+  Generating shaders/gpu_shader_vertex.glsl.c
+  Generating shaders/gpu_shader_vertex_world.glsl.c
+  Generating shaders/gpu_shader_vsm_store_frag.glsl.c
+  Generating shaders/gpu_shader_vsm_store_vert.glsl.c
+  Generating shaders/gpu_shader_fx_vert.glsl.c
+  Generating shaders/gpu_shader_fx_ssao_frag.glsl.c
+  Generating shaders/gpu_shader_fx_dof_frag.glsl.c
+  Generating shaders/gpu_shader_fx_dof_vert.glsl.c
+  Generating shaders/gpu_shader_fx_dof_hq_frag.glsl.c
+  Generating shaders/gpu_shader_fx_dof_hq_vert.glsl.c
+  Generating shaders/gpu_shader_fx_dof_hq_geo.glsl.c
+  Generating shaders/gpu_shader_fx_depth_resolve.glsl.c
+  Generating shaders/gpu_shader_fx_lib.glsl.c
+  Generating shaders/gpu_shader_lib.glsl.c
+  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/gpu/CMakeLists.txt
+  gpu_basic_shader.c
+  gpu_buffers.c
+  gpu_codegen.c
+  gpu_compositing.c
+  gpu_debug.c
+  gpu_draw.c
+  gpu_extensions.c
+  gpu_framebuffer.c
+  gpu_init_exit.c
+  gpu_material.c
+  gpu_select.c
+  gpu_select_pick.c
+  gpu_select_sample_query.c
+  gpu_shader.c
+  gpu_texture.c
+  gpu_vertex_array.c
+  gpu_shader_2d_box_vert.glsl.c
+  gpu_shader_geometry.glsl.c
+  gpu_shader_flat_color_frag.glsl.c
+  gpu_shader_flat_color_vert.glsl.c
+  gpu_shader_frustum_line_vert.glsl.c
+  gpu_shader_frustum_solid_vert.glsl.c
+  gpu_shader_frustum_solid_frag.glsl.c
+  gpu_shader_fire_frag.glsl.c
+  gpu_shader_smoke_frag.glsl.c
+  gpu_shader_smoke_vert.glsl.c
+  gpu_shader_material.glsl.c
+  gpu_shader_sep_gaussian_blur_frag.glsl.c
+  gpu_shader_sep_gaussian_blur_vert.glsl.c
+  gpu_shader_basic_frag.glsl.c
+  gpu_shader_black_frag.glsl.c
+  gpu_shader_black_vert.glsl.c
+  gpu_shader_basic_vert.glsl.c
+  gpu_shader_basic_geom.glsl.c
+  gpu_shader_frame_buffer_frag.glsl.c
+  gpu_shader_frame_buffer_vert.glsl.c
+  gpu_shader_vertex.glsl.c
+  gpu_shader_vertex_world.glsl.c
+  gpu_shader_vsm_store_frag.glsl.c
+  gpu_shader_vsm_store_vert.glsl.c
+  gpu_shader_fx_vert.glsl.c
+  gpu_shader_fx_ssao_frag.glsl.c
+  gpu_shader_fx_dof_frag.glsl.c
+  gpu_shader_fx_dof_vert.glsl.c
+  gpu_shader_fx_dof_hq_frag.glsl.c
+  gpu_shader_fx_dof_hq_vert.glsl.c
+  gpu_shader_fx_dof_hq_geo.glsl.c
+C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\blender\gpu\intern\gpu_shader.c(1008): warning C4716: 'GPU_shader_create_compute_ex': deve retornar um valor
+  gpu_shader_fx_depth_resolve.glsl.c
+  gpu_shader_fx_lib.glsl.c
+  gpu_shader_lib.glsl.c
+  bf_gpu.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_gpu.lib

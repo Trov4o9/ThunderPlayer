@@ -1,0 +1,8 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/makesdna/intern/CMakeLists.txt
+  BLI_ghash.c
+  BLI_ghash_utils.c
+  BLI_mempool.c
+  endian_switch.c
+  hash_mm2a.c
+  listbase.c
+  bf_dna_blenlib.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_dna_blenlib.lib

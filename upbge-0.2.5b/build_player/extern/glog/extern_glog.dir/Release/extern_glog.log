@@ -1,0 +1,8 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/extern/glog/CMakeLists.txt
+  logging.cc
+  raw_logging.cc
+  utilities.cc
+  vlog_is_on.cc
+  port.cc
+C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\extern\glog\src\logging.cc(2028): warning C4722: 'google::LogMessageFatal::~LogMessageFatal': destruidor nunca retorna, possível perda de memória
+  extern_glog.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\extern_glog.lib

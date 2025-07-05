@@ -1,0 +1,9 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/gameengine/SceneGraph/CMakeLists.txt
+  SG_BBox.cpp
+  SG_Controller.cpp
+  SG_CullingNode.cpp
+  SG_Familly.cpp
+  SG_Frustum.cpp
+  SG_Interpolator.cpp
+  SG_Node.cpp
+  ge_scenegraph.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\ge_scenegraph.lib

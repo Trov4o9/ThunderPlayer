@@ -1,0 +1,20 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/intern/cycles/util/CMakeLists.txt
+  util_aligned_malloc.cpp
+  util_debug.cpp
+  util_ies.cpp
+  util_logging.cpp
+  util_math_cdf.cpp
+  util_md5.cpp
+  util_murmurhash.cpp
+  util_path.cpp
+  util_profiling.cpp
+  util_string.cpp
+  util_simd.cpp
+  util_system.cpp
+  util_task.cpp
+  util_thread.cpp
+  util_time.cpp
+  util_transform.cpp
+  util_guarded_allocator.cpp
+  util_sky_model.cpp
+  cycles_util.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\cycles_util.lib

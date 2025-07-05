@@ -1,0 +1,14 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/blenloader/CMakeLists.txt
+  blend_validate.c
+  readblenentry.c
+  readfile.c
+  runtime.c
+  undofile.c
+  versioning_250.c
+  versioning_260.c
+  versioning_270.c
+  versioning_upbge.c
+  versioning_defaults.c
+  versioning_legacy.c
+  writefile.c
+  bf_blenloader.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_blenloader.lib

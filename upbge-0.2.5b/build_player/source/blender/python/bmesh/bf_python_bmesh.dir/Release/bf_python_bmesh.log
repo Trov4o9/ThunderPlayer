@@ -1,0 +1,11 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/python/bmesh/CMakeLists.txt
+  bmesh_py_api.c
+  bmesh_py_geometry.c
+  bmesh_py_ops.c
+  bmesh_py_ops_call.c
+  bmesh_py_types.c
+  bmesh_py_types_customdata.c
+  bmesh_py_types_meshdata.c
+  bmesh_py_types_select.c
+  bmesh_py_utils.c
+  bf_python_bmesh.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_python_bmesh.lib

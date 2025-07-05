@@ -1,0 +1,9 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/editors/space_graph/CMakeLists.txt
+  graph_buttons.c
+  graph_draw.c
+  graph_edit.c
+  graph_ops.c
+  graph_select.c
+  graph_utils.c
+  space_graph.c
+  bf_editor_space_graph.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_editor_space_graph.lib

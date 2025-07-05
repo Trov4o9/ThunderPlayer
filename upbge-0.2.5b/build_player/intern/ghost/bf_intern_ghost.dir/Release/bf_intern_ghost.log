@@ -1,0 +1,30 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/intern/ghost/CMakeLists.txt
+  GHOST_Buttons.cpp
+  GHOST_C-api.cpp
+  GHOST_CallbackEventConsumer.cpp
+  GHOST_Context.cpp
+  GHOST_ContextNone.cpp
+  GHOST_DisplayManager.cpp
+  GHOST_EventManager.cpp
+  GHOST_ISystem.cpp
+  GHOST_ISystemPaths.cpp
+  GHOST_ModifierKeys.cpp
+  GHOST_Path-api.cpp
+  GHOST_Rect.cpp
+  GHOST_System.cpp
+  GHOST_TimerManager.cpp
+  GHOST_Window.cpp
+  GHOST_WindowManager.cpp
+  GHOST_NDOFManager.cpp
+  GHOST_DisplayManagerWin32.cpp
+  GHOST_DropTargetWin32.cpp
+  GHOST_SystemWin32.cpp
+  GHOST_WindowWin32.cpp
+  GHOST_ContextWGL.cpp
+  GHOST_ImeWin32.cpp
+  GHOST_NDOFManagerWin32.cpp
+  GHOST_SystemPathsWin32.cpp
+C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\ghost\intern\GHOST_SystemWin32.cpp(1333,12): warning C4189: 'newXAxisDPI': variável local é inicializada mas não referenciada
+C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\ghost\intern\GHOST_SystemWin32.cpp(1332,12): warning C4189: 'newYAxisDPI': variável local é inicializada mas não referenciada
+C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\intern\ghost\intern\GHOST_ImeWin32.cpp(37,7): warning C5038: membro de dados 'GHOST_ImeWin32::input_language_id_' será inicializado após membro de dados 'GHOST_ImeWin32::is_composing_'
+  bf_intern_ghost.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_intern_ghost.lib

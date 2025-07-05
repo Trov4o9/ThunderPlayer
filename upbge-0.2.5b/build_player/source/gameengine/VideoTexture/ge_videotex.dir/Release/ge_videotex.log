@@ -1,0 +1,21 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/gameengine/VideoTexture/CMakeLists.txt
+  Exception.cpp
+  FilterBase.cpp
+  FilterBlueScreen.cpp
+  FilterColor.cpp
+  FilterNormal.cpp
+  FilterSource.cpp
+  ImageBase.cpp
+  ImageBuff.cpp
+  ImageMix.cpp
+  ImageRender.cpp
+  ImageViewport.cpp
+  PyTypeList.cpp
+  Texture.cpp
+  DeckLink.cpp
+  VideoBase.cpp
+  VideoFFmpeg.cpp
+  VideoDeckLink.cpp
+  blendVideoTex.cpp
+  set NOMINMAX as preprocessor macro, undefining min/max
+  ge_videotex.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\ge_videotex.lib

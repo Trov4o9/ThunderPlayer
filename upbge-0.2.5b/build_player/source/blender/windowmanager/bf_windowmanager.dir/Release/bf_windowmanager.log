@@ -1,0 +1,25 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/windowmanager/CMakeLists.txt
+  wm.c
+  wm_cursors.c
+  wm_dragdrop.c
+  wm_draw.c
+  wm_event_system.c
+  wm_files.c
+  wm_files_link.c
+  wm_gesture.c
+  wm_gesture_ops.c
+  wm_init_exit.c
+  wm_jobs.c
+  wm_keymap.c
+  wm_keymap_utils.c
+  wm_menu_type.c
+  wm_operator_props.c
+  wm_operator_type.c
+  wm_operators.c
+  wm_playanim.c
+  wm_stereo.c
+  wm_subwindow.c
+  wm_tooltip.c
+  wm_uilist_type.c
+  wm_window.c
+  bf_windowmanager.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_windowmanager.lib

@@ -1,0 +1,9 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/editors/space_nla/CMakeLists.txt
+  nla_buttons.c
+  nla_channels.c
+  nla_draw.c
+  nla_edit.c
+  nla_ops.c
+  nla_select.c
+  space_nla.c
+  bf_editor_space_nla.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_editor_space_nla.lib

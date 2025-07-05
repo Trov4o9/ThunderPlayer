@@ -1,0 +1,8 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/editors/space_info/CMakeLists.txt
+  info_draw.c
+  info_ops.c
+  info_report.c
+  info_stats.c
+  space_info.c
+  textview.c
+  bf_editor_space_info.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_editor_space_info.lib

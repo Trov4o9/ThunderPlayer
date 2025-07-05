@@ -1,0 +1,61 @@
+﻿  Generating RAS_OpenGLFilters/RAS_Blur2DFilter.glsl.c
+  Generating RAS_OpenGLFilters/RAS_Dilation2DFilter.glsl.c
+  Generating RAS_OpenGLFilters/RAS_Erosion2DFilter.glsl.c
+  Generating RAS_OpenGLFilters/RAS_Fxaa2DFilter.glsl.c
+  Generating RAS_OpenGLFilters/RAS_GrayScale2DFilter.glsl.c
+  Generating RAS_OpenGLFilters/RAS_Invert2DFilter.glsl.c
+  Generating RAS_OpenGLFilters/RAS_Laplacian2DFilter.glsl.c
+  Generating RAS_OpenGLFilters/RAS_Prewitt2DFilter.glsl.c
+  Generating RAS_OpenGLFilters/RAS_Sepia2DFilter.glsl.c
+  Generating RAS_OpenGLFilters/RAS_Sharpen2DFilter.glsl.c
+  Generating RAS_OpenGLFilters/RAS_Sobel2DFilter.glsl.c
+  Generating RAS_OpenGLFilters/RAS_VertexShader2DFilter.glsl.c
+  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/gameengine/Rasterizer/CMakeLists.txt
+  RAS_2DFilter.cpp
+  RAS_2DFilterData.cpp
+  RAS_2DFilterManager.cpp
+  RAS_2DFilterOffScreen.cpp
+  RAS_AttributeArray.cpp
+  RAS_AttributeArrayStorage.cpp
+  RAS_BatchDisplayArray.cpp
+  RAS_BatchGroup.cpp
+  RAS_BoundingBox.cpp
+  RAS_BoundingBoxManager.cpp
+  RAS_BucketManager.cpp
+  RAS_DebugDraw.cpp
+  RAS_Deformer.cpp
+  RAS_DisplayArray.cpp
+  RAS_DisplayArrayBucket.cpp
+  RAS_DisplayArrayStorage.cpp
+  RAS_FramingManager.cpp
+  RAS_ICanvas.cpp
+  RAS_InstancingBuffer.cpp
+  RAS_IMaterial.cpp
+  RAS_Rasterizer.cpp
+  RAS_MaterialBucket.cpp
+  RAS_MeshMaterial.cpp
+  RAS_Mesh.cpp
+  RAS_MeshSlot.cpp
+  RAS_MeshUser.cpp
+  RAS_OffScreen.cpp
+  RAS_Query.cpp
+  RAS_Shader.cpp
+  RAS_Texture.cpp
+  RAS_TextureRenderer.cpp
+  RAS_TextUser.cpp
+  RAS_VertexInfo.cpp
+C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\gameengine\Rasterizer\RAS_Shader.cpp(602,21): warning C4477: 'fprintf': a cadeia de formato '%s' requer um argumento do tipo 'char *', mas um argumento variadic 1 tem o tipo 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\source\gameengine\Rasterizer\RAS_Shader.cpp(615,17): warning C4477: 'fprintf': a cadeia de formato '%s' requer um argumento do tipo 'char *', mas um argumento variadic 1 tem o tipo 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+  RAS_Blur2DFilter.glsl.c
+  RAS_Dilation2DFilter.glsl.c
+  RAS_Erosion2DFilter.glsl.c
+  RAS_Fxaa2DFilter.glsl.c
+  RAS_GrayScale2DFilter.glsl.c
+  RAS_Invert2DFilter.glsl.c
+  RAS_Laplacian2DFilter.glsl.c
+  RAS_Prewitt2DFilter.glsl.c
+  RAS_Sepia2DFilter.glsl.c
+  RAS_Sharpen2DFilter.glsl.c
+  RAS_Sobel2DFilter.glsl.c
+  RAS_VertexShader2DFilter.glsl.c
+  ge_rasterizer.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\ge_rasterizer.lib

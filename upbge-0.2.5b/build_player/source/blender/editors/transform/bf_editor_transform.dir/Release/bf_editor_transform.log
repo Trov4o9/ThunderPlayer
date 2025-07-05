@@ -1,0 +1,12 @@
+﻿  Building Custom Rule C:/Users/lucas/Desktop/Mundo Aberto - Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/source/blender/editors/transform/CMakeLists.txt
+  transform.c
+  transform_constraints.c
+  transform_conversions.c
+  transform_generics.c
+  transform_input.c
+  transform_manipulator.c
+  transform_ops.c
+  transform_orientations.c
+  transform_snap.c
+  transform_snap_object.c
+  bf_editor_transform.vcxproj -> C:\Users\lucas\Desktop\Mundo Aberto - Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_player\lib\Release\bf_editor_transform.lib
