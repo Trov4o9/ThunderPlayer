@@ -86,7 +86,7 @@ protected:
 	struct btDbvtBroadphase *m_cullingTree;
 
 	/// solver iterations
-	int m_numIterations;
+	//int m_numIterations;
 
 	/// timestep subdivisions
 	int m_numTimeSubSteps;
