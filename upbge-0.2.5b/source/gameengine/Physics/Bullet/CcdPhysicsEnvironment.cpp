@@ -394,7 +394,7 @@ CcdPhysicsEnvironment::CcdPhysicsEnvironment(PHY_SolverType solverType, bool use
 	:m_debugDrawer(nullptr),
 	m_cullingCache(nullptr),
 	m_cullingTree(nullptr),
-	m_numIterations(10),
+	//m_numIterations(10),
 	m_numTimeSubSteps(1),
 	m_ccdMode(0),
 	m_solverType(PHY_SOLVER_NONE),
@@ -932,7 +932,7 @@ void CcdPhysicsEnvironment::SetDebugMode(int debugMode)
 
 void CcdPhysicsEnvironment::SetNumIterations(int numIter)
 {
-	m_numIterations = numIter;
+	m_dynamicsWorld->getSolverInfo().m_numIterations = numIter;
 }
 void CcdPhysicsEnvironment::SetDeactivationTime(float dTime)
 {
