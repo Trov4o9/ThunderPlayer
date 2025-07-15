@@ -934,6 +934,10 @@ void CcdPhysicsEnvironment::SetNumIterations(int numIter)
 {
 	m_dynamicsWorld->getSolverInfo().m_numIterations = numIter;
 }
+void CcdPhysicsEnvironment::SetLinearSlop(float slop)
+{
+	m_dynamicsWorld->getSolverInfo().m_linearSlop = slop;
+}
 void CcdPhysicsEnvironment::SetDeactivationTime(float dTime)
 {
 	m_deactivationTime = dTime;
