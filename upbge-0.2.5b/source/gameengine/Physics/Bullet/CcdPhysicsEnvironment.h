@@ -115,6 +115,7 @@ public:
 	virtual void SetDebugDrawer(btIDebugDraw *debugDrawer);
 
 	virtual void SetNumIterations(int numIter);
+	virtual void SetLinearSlop(float slop);
 	virtual void SetNumTimeSubSteps(int numTimeSubSteps)
 	{
 		m_numTimeSubSteps = numTimeSubSteps;
