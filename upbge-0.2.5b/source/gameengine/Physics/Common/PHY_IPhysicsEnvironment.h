@@ -125,6 +125,10 @@ public:
 	virtual void SetNumIterations(int numIter)
 	{
 	}
+	/// setLinearSlop // Defines the penetration depth for object collisions.
+	virtual void SetLinearSlop(float slop)
+	{
+	}
 	/// setNumTimeSubSteps set the number of divisions of the timestep. Tradeoff quality versus performance.
 	virtual void SetNumTimeSubSteps(int numTimeSubSteps)
 	{
