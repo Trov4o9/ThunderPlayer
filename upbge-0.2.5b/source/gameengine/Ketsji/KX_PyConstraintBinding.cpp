@@ -70,6 +70,10 @@ PyDoc_STRVAR(gPySetNumIterations__doc__,
              "setNumIterations(int numiter)\n"
              "This sets the number of iterations for an iterative constraint solver"
              );
+PyDoc_STRVAR(gPySetLinearSlop__doc__,
+             "setLinearSlop(float numiter)\n"
+             "Defines the penetration depth for object collisions. A value of 1 equals to 1 world unit penetration depth (overlapping)."
+             );
 PyDoc_STRVAR(gPySetNumTimeSubSteps__doc__,
              "setNumTimeSubSteps(int numsubstep)\n"
              "This sets the number of substeps for each physics proceed. Tradeoff quality for performance."
@@ -212,6 +216,23 @@ static PyObject *gPySetNumIterations(PyObject *self,
 	if (PyArg_ParseTuple(args, "i", &iter)) {
 		if (KX_GetPhysicsEnvironment()) {
 			KX_GetPhysicsEnvironment()->SetNumIterations(iter);
+		}
+	}
+	else {
+		return nullptr;
+	}
+	Py_RETURN_NONE;
+}
+
+
+static PyObject *gPySetLinearSlop(PyObject *self,
+                                  PyObject *args,
+                                  PyObject *kwds)
+{
+	float slop;
+	if (PyArg_ParseTuple(args, "f", &slop)) {
+		if (KX_GetPhysicsEnvironment()) {
+			KX_GetPhysicsEnvironment()->SetLinearSlop(slop);
 		}
 	}
 	else {
@@ -615,6 +636,9 @@ static struct PyMethodDef physicsconstraints_methods[] = {
 	/// settings that influence quality of the rigidbody dynamics
 	{"setNumIterations", (PyCFunction)gPySetNumIterations,
 	 METH_VARARGS, (const char *)gPySetNumIterations__doc__},
+
+	{"setLinearSlop", (PyCFunction)gPySetLinearSlop,
+	 METH_VARARGS, (const char *)gPySetLinearSlop__doc__},
 
 	{"setNumTimeSubSteps", (PyCFunction)gPySetNumTimeSubSteps,
 	 METH_VARARGS, (const char *)gPySetNumTimeSubSteps__doc__},
