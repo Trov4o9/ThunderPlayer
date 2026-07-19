@@ -57,6 +57,7 @@
 #include "GPU_material.h"
 #include "GPU_shader.h"
 #include "GPU_texture.h"
+#include "GPU_viewport_lighting.h"
 
 #include "gpu_codegen.h"
 
@@ -738,6 +739,9 @@ void GPU_material_bind(
 		}
 
 		GPU_pass_update_uniforms(material->pass);
+
+		/* Bind viewport lighting UBO (binding point 1) */
+		GPU_viewport_lighting_bind();
 
 		material->bound = 1;
 	}

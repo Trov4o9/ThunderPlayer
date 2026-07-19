@@ -95,6 +95,7 @@
 #include "GPU_compositing.h"
 #include "GPU_extensions.h"
 #include "GPU_select.h"
+#include "GPU_viewport_lighting.h"
 
 #include "view3d_intern.h"  /* own include */
 
@@ -3085,6 +3086,10 @@ void ED_view3d_mats_rv3d_restore(struct RegionView3D *rv3d, struct RV3DMatrixSto
 
 void ED_view3d_draw_offscreen_init(Main *bmain, Scene *scene, View3D *v3d)
 {
+	/* Update viewport lighting UBO if using new system */
+	GPU_viewport_lighting_init();
+	GPU_viewport_lighting_update(scene, NULL);
+	
 	/* shadow buffers, before we setup matrices */
 	if (draw_glsl_material(scene, NULL, v3d, v3d->drawtype))
 		gpu_update_lamps_shadows_world(bmain, scene, v3d);

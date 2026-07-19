@@ -56,6 +56,7 @@ set(SRC
 	intern/gpu_framebuffer.c
 	intern/gpu_init_exit.c
 	intern/gpu_material.c
+	intern/gpu_viewport_lighting.c
 	intern/gpu_select.c
 	intern/gpu_select_pick.c
 	intern/gpu_select_sample_query.c
@@ -81,6 +82,7 @@ set(SRC
 	intern/gpu_codegen.h
 	intern/gpu_private.h
 	intern/gpu_select_private.h
+	intern/GPU_viewport_lighting.h
 )
 
 data_to_c_simple(shaders/gpu_shader_2d_box_vert.glsl SRC)
@@ -94,6 +96,7 @@ data_to_c_simple(shaders/gpu_shader_fire_frag.glsl SRC)
 data_to_c_simple(shaders/gpu_shader_smoke_frag.glsl SRC)
 data_to_c_simple(shaders/gpu_shader_smoke_vert.glsl SRC)
 data_to_c_simple(shaders/gpu_shader_material.glsl SRC)
+data_to_c_simple(shaders/gpu_shader_ubo_lighting.glsl SRC)
 data_to_c_simple(shaders/gpu_shader_sep_gaussian_blur_frag.glsl SRC)
 data_to_c_simple(shaders/gpu_shader_sep_gaussian_blur_vert.glsl SRC)
 data_to_c_simple(shaders/gpu_shader_basic_frag.glsl SRC)

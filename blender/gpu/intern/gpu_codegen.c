@@ -105,6 +105,7 @@ void GPU_parse_custom_shader(
 
 
 extern char datatoc_gpu_shader_material_glsl[];
+extern char datatoc_gpu_shader_ubo_lighting_glsl[];
 extern const char *gpu_shader_atmospheric_scattering_glsl;
 extern char datatoc_gpu_shader_vertex_glsl[];
 extern char datatoc_gpu_shader_vertex_world_glsl[];
@@ -1411,31 +1412,39 @@ void GPU_code_generate_glsl_lib(void)
 
     ds = BLI_dynstr_new();
 
-    
-    const char *filename = "gpu_shader_material.glsl";
-
-    FILE *f = fopen(filename, "r");
-    if (f != NULL) {
-       
-        char line[4096]; 
-
-        while (fgets(line, sizeof(line), f)) {
-            
-            size_t len = strlen(line);
-            while (len > 0 && (line[len - 1] == '\n' || line[len - 1] == '\r')) {
-                line[len - 1] = '\0';
-                len--;
-            }
-
-            
-            BLI_dynstr_append(ds, line);
-            BLI_dynstr_append(ds, "\n"); 
-        }
-        fclose(f);
+    /* ==== NEW UBO LIGHTING SYSTEM ==== */
+    if (USE_UBO_LIGHTING_SYSTEM) {
+        /* Use the new UBO-based lighting shader instead of old lamp functions */
+        BLI_dynstr_append(ds, datatoc_gpu_shader_ubo_lighting_glsl);
+        printf("[GPU_codegen] Using UBO lighting system shader\n");
     }
     else {
-        
-        BLI_dynstr_append(ds, datatoc_gpu_shader_material_glsl);
+        /* Use old lighting system (default) */
+        const char *filename = "gpu_shader_material.glsl";
+
+        FILE *f = fopen(filename, "r");
+        if (f != NULL) {
+           
+            char line[4096]; 
+
+            while (fgets(line, sizeof(line), f)) {
+                
+                size_t len = strlen(line);
+                while (len > 0 && (line[len - 1] == '\n' || line[len - 1] == '\r')) {
+                    line[len - 1] = '\0';
+                    len--;
+                }
+
+                
+                BLI_dynstr_append(ds, line);
+                BLI_dynstr_append(ds, "\n"); 
+            }
+            fclose(f);
+        }
+        else {
+            
+            BLI_dynstr_append(ds, datatoc_gpu_shader_material_glsl);
+        }
     }
 
     /* Append custom scattering shader */

@@ -47,7 +47,11 @@ RAS_MeshUser::RAS_MeshUser(void *clientobj, RAS_BoundingBox *boundingBox, RAS_De
 	m_clientObject(clientobj),
 	m_activationCacheValid(false),
 	m_batchGroup(nullptr),
-	m_deformer(deformer)
+	m_deformer(deformer),
+	m_persistentSlot(-1),
+	m_transformDirty(true),
+	m_colorDirty(true),
+	m_lastUpdateFrame(0)
 {
 	BLI_assert(m_boundingBox);
 	m_boundingBox->AddUser();

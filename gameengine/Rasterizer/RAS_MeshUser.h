@@ -80,6 +80,15 @@ private:
 	/// Deformer of this mesh user modifying the display array of the mesh slots.
 	std::unique_ptr<RAS_Deformer> m_deformer;
 
+	/// Persistent SSBO slot index (-1 if not allocated)
+	int m_persistentSlot;
+	/// Transform dirty flag
+	bool m_transformDirty;
+	/// Color dirty flag
+	bool m_colorDirty;
+	/// Last update frame
+	unsigned long long m_lastUpdateFrame;
+
 public:
 	RAS_MeshUser(void *clientobj, RAS_BoundingBox *boundingBox, RAS_Deformer *deformer);
 	virtual ~RAS_MeshUser();
