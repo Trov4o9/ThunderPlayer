@@ -75,11 +75,13 @@ set(SRC
 	GPU_glew.h
 	GPU_init_exit.h
 	GPU_material.h
+	GPU_viewport_lighting.h
 	GPU_select.h
 	GPU_shader.h
 	GPU_texture.h
 	GPU_vertex_array.h
 	intern/gpu_codegen.h
+	intern/gpu_lighting_config.h
 	intern/gpu_private.h
 	intern/gpu_select_private.h
 	intern/GPU_viewport_lighting.h

@@ -93,7 +93,7 @@ void GPU_viewport_lighting_update(struct Scene *scene, struct SceneRenderLayer *
 		}
 		
 		Object *ob = base->object;
-		if (ob->type != OBJ_LAMP) {
+		if (ob->type != OB_LAMP) {
 			continue;
 		}
 		

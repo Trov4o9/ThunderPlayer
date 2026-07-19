@@ -244,18 +244,18 @@ typedef enum GPUDynamicType {
 /* Global Light UBO System */
 #define MAX_SCENE_LIGHTS 32
 
+/* Per-light data - must match GLSL layout exactly (std140) */
 typedef struct GPUSceneLightData {
-	float type;          /* 0=spot, 1=sun, 2=point */
-	float pad[3];
-	float diffuse[4];    /* RGB * energy + alpha */
-	float position[4];   /* XYZ + radius² */
-	float spotDir[4];    /* direção normalizada */
-	float params[4];     /* .x=1/dist, .y=cos(spotsize/2), .z=blend, .w=distance */
+	float type_mode[4];      /* .x = type (0=spot, 1=sun, 2=point), .y = mode, .z/.w = unused */
+	float color_energy[4];   /* .rgb = color * energy, .a = unused */
+	float position[4];       /* .xyz = world position, .w = unused */
+	float spotDirection[4];  /* .xyz = spotlight direction, .w = spotSize */
+	float attenuation[4];    /* .x = distance, .y = lin_attenuation, .z = quad_attenuation, .w = spotBlend */
 } GPUSceneLightData;
 
+/* Complete UBO block - must match GLSL layout exactly (std140) */
 typedef struct GPUSceneLightBlock {
-	float sceneLightCount;      /* Número de luzes ativas */
-	float pad1, pad2, pad3;
+	float sceneLightInfo[4];  /* .x = light count, .y/.z/.w = unused */
 	GPUSceneLightData lights[MAX_SCENE_LIGHTS];
 } GPUSceneLightBlock;
 

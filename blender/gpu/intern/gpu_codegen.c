@@ -103,6 +103,7 @@ void GPU_parse_custom_shader(
 #include <windows.h>
 #endif
 
+#include "gpu_lighting_config.h"
 
 extern char datatoc_gpu_shader_material_glsl[];
 extern char datatoc_gpu_shader_ubo_lighting_glsl[];
@@ -112,15 +113,6 @@ extern char datatoc_gpu_shader_vertex_world_glsl[];
 extern char datatoc_gpu_shader_geometry_glsl[];
 
 static char *glsl_material_library = NULL;
-
-/* ============================================================================
- * NEW UBO-BASED LIGHTING SYSTEM FLAG
- * ============================================================================
- * Set to 1 to enable the new UBO lighting system (removes old lamp functions)
- * Set to 0 to use the old lighting system (default/legacy behavior)
- */
-static const int USE_UBO_LIGHTING_SYSTEM = 0;  /* Change to 1 to enable */
-
 
 /* type definitions and constants */
 

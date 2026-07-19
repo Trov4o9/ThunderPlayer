@@ -57,9 +57,11 @@
 #include "GPU_material.h"
 #include "GPU_shader.h"
 #include "GPU_texture.h"
+
 #include "GPU_viewport_lighting.h"
 
 #include "gpu_codegen.h"
+#include "gpu_lighting_config.h"
 
 #define UPBGE_ATMOSPHERIC_SCATTERING 0
 
@@ -2306,8 +2308,6 @@ void GPU_shaderesult_set(GPUShadeInput *shi, GPUShadeResult *shr)
 	 * - Using deferred rendering
 	 * - Using new UBO lighting system
 	 */
-	extern const int USE_UBO_LIGHTING_SYSTEM;
-	
 	if ((mat->scene->gm.flag & GAME_GLSL_NO_LIGHTS) || 
 		(ma->mode & MA_SHLESS) || 
 		g_useDeferred_GG ||

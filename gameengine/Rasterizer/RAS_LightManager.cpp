@@ -75,7 +75,10 @@ void RAS_LightManager::UpdateLights(KX_Scene *scene, int currentFrame)
 	// Obter lista de luzes da cena
 	EXP_ListValue<KX_LightObject> *lights = scene->GetLightList();
 	if (!lights) {
-		m_lightBlockCPU.sceneLightCount = 0.0f;
+		m_lightBlockCPU.sceneLightInfo[0] = 0.0f;
+		m_lightBlockCPU.sceneLightInfo[1] = 0.0f;
+		m_lightBlockCPU.sceneLightInfo[2] = 0.0f;
+		m_lightBlockCPU.sceneLightInfo[3] = 0.0f;
 		glBindBuffer(GL_UNIFORM_BUFFER, m_lightUBO);
 		glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(GPUSceneLightBlock), &m_lightBlockCPU);
 		glBindBuffer(GL_UNIFORM_BUFFER, 0);
@@ -115,14 +118,16 @@ void RAS_LightManager::UpdateLights(KX_Scene *scene, int currentFrame)
 		GPUSceneLightData &light = m_lightBlockCPU.lights[u];
 		
 		// Tipo: 0=spot, 1=sun, 2=point
-		light.type = (float)ld->m_type;
-		light.pad[0] = light.pad[1] = light.pad[2] = 0.0f;
+		light.type_mode[0] = (float)ld->m_type;
+		light.type_mode[1] = 0.0f;
+		light.type_mode[2] = 0.0f;
+		light.type_mode[3] = 0.0f;
 		
-		// Cor difusa * energia
-		light.diffuse[0] = color.x * energy;
-		light.diffuse[1] = color.y * energy;
-		light.diffuse[2] = color.z * energy;
-		light.diffuse[3] = 0.0f;
+		// Cor * energia
+		light.color_energy[0] = color.x * energy;
+		light.color_energy[1] = color.y * energy;
+		light.color_energy[2] = color.z * energy;
+		light.color_energy[3] = 1.0f;
 		
 		// Posição
 		light.position[0] = vpos.x;
@@ -131,21 +136,24 @@ void RAS_LightManager::UpdateLights(KX_Scene *scene, int currentFrame)
 		light.position[3] = 0.0f;
 		
 		// Direção do spotlight
-		light.spotDir[0] = spotDir.x;
-		light.spotDir[1] = spotDir.y;
-		light.spotDir[2] = spotDir.z;
-		light.spotDir[3] = 0.0f;
+		light.spotDirection[0] = spotDir.x;
+		light.spotDirection[1] = spotDir.y;
+		light.spotDirection[2] = spotDir.z;
+		light.spotDirection[3] = ld->m_spotsize;  // Spot size em radianos
 		
-		// Parâmetros
-		light.params[0] = dist > 0.0f ? 1.0f / dist : 0.0f;  // 1/distance para atenuação
-		light.params[1] = std::cos(ld->m_spotsize * 0.5f);   // cos(spotsize/2)
-		light.params[2] = ld->m_spotblend / 5.0f;            // blend factor
-		light.params[3] = dist > 0.0f ? dist * dist : 0.0f;  // distance²
+		// Atenuação
+		light.attenuation[0] = dist;  // distance
+		light.attenuation[1] = ld->m_att1;  // linear attenuation
+		light.attenuation[2] = ld->m_att2;  // quadratic attenuation
+		light.attenuation[3] = ld->m_spotblend;  // spot blend
 		
 		++uploadCount;
 	}
 	
-	m_lightBlockCPU.sceneLightCount = (float)uploadCount;
+	m_lightBlockCPU.sceneLightInfo[0] = (float)uploadCount;
+	m_lightBlockCPU.sceneLightInfo[1] = 0.0f;
+	m_lightBlockCPU.sceneLightInfo[2] = 0.0f;
+	m_lightBlockCPU.sceneLightInfo[3] = 0.0f;
 	
 	// Upload para GPU
 	glBindBuffer(GL_UNIFORM_BUFFER, m_lightUBO);
