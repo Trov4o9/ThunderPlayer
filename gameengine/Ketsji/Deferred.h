@@ -1,0 +1,1 @@
+extern bool g_useDeferred_G;
