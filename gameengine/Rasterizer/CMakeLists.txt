@@ -77,6 +77,7 @@ set(SRC
 	RAS_ICanvas.cpp
 	RAS_InstancingBuffer.cpp
 	RAS_IMaterial.cpp
+	RAS_LightManager.cpp
 	RAS_Rasterizer.cpp
 	RAS_MaterialBucket.cpp
 	RAS_MeshMaterial.cpp
@@ -111,6 +112,7 @@ set(SRC
 	RAS_FramingManager.h
 	RAS_ICanvas.h
 	RAS_IMaterial.h
+	RAS_LightManager.h
 	RAS_Rasterizer.h
 	RAS_ILightObject.h
 	RAS_InstancingBuffer.h

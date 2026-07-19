@@ -2296,9 +2296,18 @@ void GPU_shaderesult_set(GPUShadeInput *shi, GPUShadeResult *shr)
 
 	do_material_tex(shi);
 
+	/* Skip traditional lighting if:
+	 * - GAME_GLSL_NO_LIGHTS flag is set
+	 * - Material is shadeless (MA_SHLESS)
+	 * - Using deferred rendering
+	 * - Using new UBO lighting system
+	 */
+	extern const int USE_UBO_LIGHTING_SYSTEM;
+	
 	if ((mat->scene->gm.flag & GAME_GLSL_NO_LIGHTS) || 
 		(ma->mode & MA_SHLESS) || 
-		g_useDeferred_GG)
+		g_useDeferred_GG ||
+		USE_UBO_LIGHTING_SYSTEM)
 	{
 		GPU_link(mat, "set_rgb", shi->rgb, &shr->diff);
 		GPU_link(mat, "set_rgb_zero", &shr->spec);

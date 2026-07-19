@@ -82,6 +82,7 @@
 
 #include "RAS_Rasterizer.h"
 #include "RAS_ICanvas.h"
+#include "RAS_LightManager.h"
 #include "RAS_2DFilterData.h"
 #include "KX_2DFilterManager.h"
 #include "RAS_BoundingBoxManager.h"
@@ -631,6 +632,8 @@ KX_GameObject *KX_Scene::AddNodeReplicaObject(SG_Node *node, KX_GameObject *game
 		case SCA_IObject::OBJ_LIGHT:
 		{
 			m_lightlist->Add(CM_AddRef(static_cast<KX_LightObject *>(newobj)));
+			// Mark light UBO as dirty when adding a new light
+			RAS_LightManager::GetInstance()->MarkDirty();
 			break;
 		}
 		case SCA_IObject::OBJ_TEXT:
@@ -997,6 +1000,11 @@ KX_GameObject *KX_Scene::AddReplicaObject(KX_GameObject *originalobj,
 
 void KX_Scene::RemoveObject(KX_GameObject *gameobj)
 {
+	// Mark light UBO as dirty if removing a light
+	if (gameobj->GetGameObjectType() == SCA_IObject::OBJ_LIGHT) {
+		RAS_LightManager::GetInstance()->MarkDirty();
+	}
+	
 	// Disconnect child from parent.
 	SG_Node *node = gameobj->GetNode();
 

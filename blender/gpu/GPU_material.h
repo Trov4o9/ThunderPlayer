@@ -241,6 +241,24 @@ typedef enum GPUDynamicType {
 	GPU_DYNAMIC_TIME                 = 1  | GPU_DYNAMIC_GROUP_TIME
 } GPUDynamicType;
 
+/* Global Light UBO System */
+#define MAX_SCENE_LIGHTS 32
+
+typedef struct GPUSceneLightData {
+	float type;          /* 0=spot, 1=sun, 2=point */
+	float pad[3];
+	float diffuse[4];    /* RGB * energy + alpha */
+	float position[4];   /* XYZ + radius² */
+	float spotDir[4];    /* direção normalizada */
+	float params[4];     /* .x=1/dist, .y=cos(spotsize/2), .z=blend, .w=distance */
+} GPUSceneLightData;
+
+typedef struct GPUSceneLightBlock {
+	float sceneLightCount;      /* Número de luzes ativas */
+	float pad1, pad2, pad3;
+	GPUSceneLightData lights[MAX_SCENE_LIGHTS];
+} GPUSceneLightBlock;
+
 GPUNodeLink *GPU_attribute(CustomDataType type, const char *name);
 GPUNodeLink *GPU_uniform(float *num);
 GPUNodeLink *GPU_dynamic_uniform(void *num, GPUDynamicType dynamictype, void *data);

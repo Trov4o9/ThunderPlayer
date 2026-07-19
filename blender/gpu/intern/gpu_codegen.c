@@ -112,6 +112,14 @@ extern char datatoc_gpu_shader_geometry_glsl[];
 
 static char *glsl_material_library = NULL;
 
+/* ============================================================================
+ * NEW UBO-BASED LIGHTING SYSTEM FLAG
+ * ============================================================================
+ * Set to 1 to enable the new UBO lighting system (removes old lamp functions)
+ * Set to 0 to use the old lighting system (default/legacy behavior)
+ */
+static const int USE_UBO_LIGHTING_SYSTEM = 0;  /* Change to 1 to enable */
+
 
 /* type definitions and constants */
 
@@ -2009,6 +2017,12 @@ GPUNodeLink *GPU_dynamic_uniform(void *num, GPUDynamicType dynamictype, void *da
 
 GPUNodeLink *GPU_select_uniform(float *num, GPUDynamicType dynamictype, void *data, Material *material)
 {
+	/* Skip lamp uniforms if using new UBO lighting system */
+	if (USE_UBO_LIGHTING_SYSTEM && GPU_DYNAMIC_GROUP_FROM_TYPE(dynamictype) == GPU_DYNAMIC_GROUP_LAMP) {
+		/* Return a dummy uniform to avoid breaking the node graph */
+		return GPU_uniform(num);
+	}
+	
 	bool dynamic = false;
 	if (GPU_DYNAMIC_GROUP_FROM_TYPE(dynamictype) == GPU_DYNAMIC_GROUP_MAT) {
 		dynamic = !(material->constflag & MA_CONSTANT_MATERIAL);

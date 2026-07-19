@@ -53,6 +53,7 @@
 #include "RAS_BucketManager.h"
 #include "RAS_Rasterizer.h"
 #include "RAS_ICanvas.h"
+#include "RAS_LightManager.h"
 #include "RAS_OffScreen.h"
 #include "RAS_Query.h"
 #include "RAS_ILightObject.h"
@@ -793,6 +794,14 @@ KX_KetsjiEngine::RenderData KX_KetsjiEngine::GetRenderData()
 void KX_KetsjiEngine::Render()
 {
 	IncrementFrameCounter();
+	
+	// Update global light UBO for all scenes
+	RAS_LightManager *lightMgr = RAS_LightManager::GetInstance();
+	for (KX_Scene *scene : m_scenes) {
+		lightMgr->UpdateLights(scene, GetCurrentFrame());
+	}
+	lightMgr->BindUBO();
+	
 	m_logger.StartLog(tc_rasterizer);
 
 	BeginFrame();

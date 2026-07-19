@@ -430,7 +430,7 @@ static const char *s_vert =
 "in vec3 instTilt;\n"
 "in float instBlen;\n"
 "\n"
-"layout(std140) uniform GrassLightBlock {\n"
+"layout(std140, binding=2) uniform GrassLightBlock {\n"
 "    vec4  timerCamLight;\n"
 "    vec4  windParams;\n"
 "    uvec2 hTexNoise;\n"
@@ -587,7 +587,7 @@ static const char *s_vert =
 "in vec3 instTilt;\n"
 "in float instBlen;\n"
 "\n"
-"layout(std140) uniform GrassLightBlock {\n"
+"layout(std140, binding=2) uniform GrassLightBlock {\n"
 "    vec4  timerCamLight;\n"
 "    vec4  windParams;\n"
 "    uvec2 hTexNoise;\n"
@@ -725,7 +725,7 @@ static const char *s_frag =
 "in vec2  v_Coord;\n"
 "in vec3  v_Light;\n"
 "\n"
-"layout(std140) uniform GrassLightBlock {\n"
+"layout(std140, binding=2) uniform GrassLightBlock {\n"
 "    vec4  timerCamLight;\n"
 "    vec4  windParams;\n"
 "    uvec2 hTexNoise;\n"
@@ -2401,15 +2401,15 @@ void KX_GrassSystem::EnsureGPUResources()
 
     const GLuint prog = (GLuint)GPU_shader_program(m_prog);
 
-    // Vincula o UBO "GrassLightBlock" ao binding point 0
+    // Vincula o UBO "GrassLightBlock" ao binding point 2 (era 0, mudado para evitar conflito com SceneLightBlock)
     const GLuint blockIndex = glGetUniformBlockIndex(prog, "GrassLightBlock");
     if (blockIndex != GL_INVALID_INDEX)
-        glUniformBlockBinding(prog, blockIndex, 0);
+        glUniformBlockBinding(prog, blockIndex, 2);
 
     // Cria o UBO persistente — contém timer, camPos, luzes, escalares de vento e handles bindless
     glCreateBuffers(1, &m_lightUBO);
     glNamedBufferData(m_lightUBO, sizeof(GrassLightBlock), nullptr, GL_DYNAMIC_DRAW);
-    glBindBufferBase(GL_UNIFORM_BUFFER, 0, m_lightUBO);
+    glBindBufferBase(GL_UNIFORM_BUFFER, 2, m_lightUBO);
 
     // Todos os escalares e handles de textura foram movidos para o UBO.
     // Nenhum glProgramUniform de sampler/scalar necessário aqui.
@@ -3478,3 +3478,4 @@ void KX_GrassSystem::Draw(RAS_Rasterizer *rasty)
 }
 
 #endif // WITH_PYTHON
+

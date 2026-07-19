@@ -707,7 +707,7 @@ bool KX_GameObject::HasShadowCasterMaterial() const
 	RAS_BatchGroup *currentBg = m_meshUser ? m_meshUser->GetBatchGroup() : nullptr;
 	
 	printf("[HasShadowCasterMaterial] Object '%s': currentBg=%p, cachedBg=%p, dirty=%d\n",
-	       GetName().c_str(), (void*)currentBg, (void*)m_shadowCacheBatchGroup, m_shadowCacheDirty);
+	       m_name.c_str(), (void*)currentBg, (void*)m_shadowCacheBatchGroup, m_shadowCacheDirty);
 	
 	if (currentBg != m_shadowCacheBatchGroup) {
 		printf("[HasShadowCasterMaterial]   Batch group changed, invalidating cache\n");
@@ -9973,4 +9973,7 @@ PyObject *KX_GameObject::PyDisableGrass(PyObject * /*args*/)
         return nullptr;
     }
 
-    scene->Ge
+    scene->GetOrCreateGrassSystem()->UnregisterTerrain(this);
+    Py_RETURN_NONE;
+}
+#endif // WITH_PYTHON
