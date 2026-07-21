@@ -41,6 +41,8 @@
 #include "RAS_BatchGroup.h"
 #include "RAS_Rasterizer.h"
 #include "RAS_InstancingBuffer.h"
+#include "RAS_PersistentInstanceManager.h"
+#include "RAS_RenderingFlags.h"
 #include "RAS_BucketManager.h"
 #include "KX_Globals.h"
 #include "KX_KetsjiEngine.h"
@@ -508,6 +510,120 @@ void RAS_DisplayArrayBucket::RunInstancingNode(const RAS_DisplayArrayNodeTuple& 
 	if (nummeshslots == 0) {
 		return;
 	}
+	
+	// ═══════════════════════════════════════════════════════════
+	// PERSISTENT SSBO PATH (NEW SYSTEM)
+	// ═══════════════════════════════════════════════════════════
+	if (USE_PERSISTENT_SSBO_RENDERING) {
+		RAS_PersistentInstanceManager *persistentMgr = RAS_PersistentInstanceManager::GetInstance();
+		if (!persistentMgr || !persistentMgr->IsInitialized()) {
+			return;
+		}
+		
+		RAS_IMaterial *material = materialData->m_material;
+		const short matPassIndex = material->GetPassIndex();
+		
+		// Update instances data in SSBO
+		for (unsigned int i = 0; i < nummeshslots; ++i) {
+			RAS_MeshSlot *slot = m_activeMeshSlots[i];
+			RAS_MeshUser *meshUser = slot->m_meshUser;
+			if (!meshUser) continue;
+			
+			// Allocate slot if needed
+			int slotIndex = meshUser->GetPersistentSlot();
+			if (slotIndex == -1) {
+				slotIndex = persistentMgr->AllocateInstanceSlot((int)(uintptr_t)meshUser);
+				meshUser->SetPersistentSlot(slotIndex);
+				meshUser->MarkTransformDirty();
+				meshUser->MarkColorDirty();
+			}
+			
+			// Update only if dirty or first time
+			bool needsUpdate = meshUser->IsTransformDirty() || meshUser->IsColorDirty() ||
+			                  meshUser->GetLastUpdateFrame() != persistentMgr->GetFrameCounter();
+			
+			if (needsUpdate) {
+				const mt::mat4& modelMatrix = meshUser->GetMatrix();
+				
+				// For normal matrix, use the 3x3 rotation part only (no translation)
+				mt::mat4 normalMatrix = modelMatrix;
+				normalMatrix[3] = 0.0f;
+				normalMatrix[7] = 0.0f;
+				normalMatrix[11] = 0.0f;
+				normalMatrix[12] = 0.0f;
+				normalMatrix[13] = 0.0f;
+				normalMatrix[14] = 0.0f;
+				normalMatrix[15] = 1.0f;
+				
+				const mt::vec4& color = meshUser->GetColor();
+				
+				persistentMgr->UpdateInstance(
+					slotIndex,
+					modelMatrix,
+					normalMatrix,
+					color,
+					meshUser->GetLayer(),
+					meshUser->GetPassIndex(),
+					matPassIndex
+				);
+				
+				meshUser->MarkClean();
+				meshUser->SetLastUpdateFrame(persistentMgr->GetFrameCounter());
+			}
+		}
+		
+		// Find or create command for this DisplayArray + Material
+		int displayArrayID = (int)(uintptr_t)m_displayArray;
+		int materialID = (int)(uintptr_t)material;
+		int commandIndex = persistentMgr->FindOrCreateCommand(displayArrayID, materialID);
+		
+		// Collect instance slots
+		std::vector<int> instanceSlots;
+		instanceSlots.reserve(nummeshslots);
+		for (unsigned int i = 0; i < nummeshslots; ++i) {
+			RAS_MeshSlot *slot = m_activeMeshSlots[i];
+			int slotIndex = slot->m_meshUser->GetPersistentSlot();
+			if (slotIndex >= 0) {
+				instanceSlots.push_back(slotIndex);
+			}
+		}
+		
+		// Update command (only if changed)
+		persistentMgr->UpdateCommand(
+			commandIndex,
+			m_displayArray->GetPrimitiveIndexCount(),
+			0,  // firstIndex
+			0,  // baseVertex
+			instanceSlots
+		);
+		
+		// Bind VAO/primitives
+		RAS_AttributeArrayStorage *attribStorage = m_nodeData.m_attribStorage;
+		attribStorage->BindPrimitives();
+		
+		// Bind persistent resources (SSBO + Indirect Buffer)
+		persistentMgr->BindResources();
+		
+		// Activate material/shader - for SSBO we use simple Activate without instancing buffer
+		material->Activate(rasty);
+		
+		// Set alpha blend and front face
+		rasty->SetAlphaBlend(material->GetAlphaBlend());
+		rasty->SetFrontFace(true);
+		
+		// Execute indirect draw - ONE DRAW CALL!
+		persistentMgr->ExecuteIndirectDraw(commandIndex);
+		
+		// Unbind
+		persistentMgr->UnbindResources();
+		attribStorage->UnbindPrimitives();
+		
+		return;
+	}
+	
+	// ═══════════════════════════════════════════════════════════
+	// LEGACY INSTANCING PATH (OLD SYSTEM)
+	// ═══════════════════════════════════════════════════════════
     /*
 	static thread_local size_t s_totalInstancingSegments = 0;
 	std::unordered_set<RAS_BatchGroup*> instGroups;

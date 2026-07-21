@@ -99,7 +99,6 @@
 #include "KX_BatchGroup.h"
 #include "KX_CollisionContactPoints.h"
 #include "GPU_material.h"
-#include "GPU_shader.h"
 #include "BL_BlenderShader.h"
 #include "BLI_noise.h"
 #include "BKE_object.h"
@@ -706,40 +705,30 @@ bool KX_GameObject::HasShadowCasterMaterial() const
 	// Detect mid-frame batch group changes (e.g. dynamic batching merge/split).
 	RAS_BatchGroup *currentBg = m_meshUser ? m_meshUser->GetBatchGroup() : nullptr;
 	
-	printf("[HasShadowCasterMaterial] Object '%s': currentBg=%p, cachedBg=%p, dirty=%d\n",
-	       m_name.c_str(), (void*)currentBg, (void*)m_shadowCacheBatchGroup, m_shadowCacheDirty);
-	
 	if (currentBg != m_shadowCacheBatchGroup) {
-		printf("[HasShadowCasterMaterial]   Batch group changed, invalidating cache\n");
 		m_shadowCacheDirty = true;
 		m_shadowCacheBatchGroup = currentBg;
 	}
 
 	// Return cached result if still valid.
 	if (!m_shadowCacheDirty) {
-		printf("[HasShadowCasterMaterial]   Returning cached value: %d\n", m_hasShadowCasterMaterial);
 		return m_hasShadowCasterMaterial;
 	}
 
-	printf("[HasShadowCasterMaterial]   Cache dirty, recalculating...\n");
 	m_shadowCacheDirty = false;
 
 	if (currentBg) {
 		m_hasShadowCasterMaterial = currentBg->CastsShadows();
-		printf("[HasShadowCasterMaterial]   Using batch group result: %d\n", m_hasShadowCasterMaterial);
 		return m_hasShadowCasterMaterial;
 	}
 
 	if (m_meshes.empty()) {
-		printf("[HasShadowCasterMaterial]   No meshes, returning false\n");
 		m_hasShadowCasterMaterial = false;
 		return false;
 	}
 	
-	printf("[HasShadowCasterMaterial]   Checking %d meshes...\n", (int)m_meshes.size());
 	for (KX_Mesh* mesh : m_meshes) {
 		const std::vector<RAS_MeshMaterial*>& mats = mesh->GetMeshMaterialList();
-		printf("[HasShadowCasterMaterial]     Mesh has %d materials\n", (int)mats.size());
 		
 		for (RAS_MeshMaterial* mmat : mats) {
 			if (!mmat) continue;
@@ -747,18 +736,14 @@ bool KX_GameObject::HasShadowCasterMaterial() const
 			if (!bucket) continue;
 			RAS_IMaterial* mat = bucket->GetMaterial();
 			if (mat) {
-				bool castsShadows = mat->CastsShadows();
-				printf("[HasShadowCasterMaterial]       Material casts shadows: %d\n", castsShadows);
-				if (castsShadows) {
+				if (mat->CastsShadows()) {
 					m_hasShadowCasterMaterial = true;
-					printf("[HasShadowCasterMaterial]   RESULT: TRUE\n");
 					return true;
 				}
 			}
 		}
 	}
 	m_hasShadowCasterMaterial = false;
-	printf("[HasShadowCasterMaterial]   RESULT: FALSE\n");
 	return false;
 }
 

@@ -1738,53 +1738,28 @@ void KX_Scene::UpdateParents()
 void KX_Scene::RenderBuckets(const std::vector<KX_GameObject *>& objects, RAS_Rasterizer::DrawType drawingMode, const mt::mat3x4& cameratransform,
                              RAS_Rasterizer *rasty, RAS_OffScreen *offScreen)
 {
-	printf("[RenderBuckets] Called with %d objects, mode=%d (SHADOW=%d)\n", 
-	       (int)objects.size(), drawingMode, RAS_Rasterizer::RAS_SHADOW);
-	
 	if (objects.empty()) {
-		printf("[RenderBuckets] WARNING: Empty objects list!\n");
 		return;
 	}
 
 	if (drawingMode == RAS_Rasterizer::RAS_SHADOW) {
-		printf("[RenderBuckets] SHADOW MODE - Special handling active\n");
-		
-		int processedObjects = 0;
-		int skippedObjects = 0;
-		int groupProcessed = 0;
-		
 		if (objects.size() == 1) {
-			printf("[RenderBuckets] Single object optimization path\n");
 			KX_GameObject *gameobj = objects.front();
 			RAS_MeshUser *meshUser = gameobj->GetMeshUser();
 			RAS_BatchGroup *group = meshUser ? meshUser->GetBatchGroup() : nullptr;
 			
-			printf("[RenderBuckets]   Object: '%s', meshUser=%p, group=%p\n",
-			       gameobj->GetName().c_str(), (void*)meshUser, (void*)group);
-			
 			if (group) {
-				bool castsShadows = group->CastsShadows();
-				printf("[RenderBuckets]   Group casts shadows: %d\n", castsShadows);
-				if (castsShadows) {
+				if (group->CastsShadows()) {
 					group->ActivateShadowForGroup();
-					processedObjects++;
 				}
 			}
 			else {
-				bool hasShadowMat = gameobj->HasShadowCasterMaterial();
-				printf("[RenderBuckets]   HasShadowCasterMaterial: %d\n", hasShadowMat);
-				if (hasShadowMat) {
+				if (gameobj->HasShadowCasterMaterial()) {
 					gameobj->UpdateShadowBuckets();
-					processedObjects++;
-				}
-				else {
-					printf("[RenderBuckets]   SKIPPED - no shadow caster material\n");
-					skippedObjects++;
 				}
 			}
 		}
 		else {
-			printf("[RenderBuckets] Multiple objects path\n");
 			m_shadowVisitedGroups.clear();
 			if (m_shadowVisitedGroups.bucket_count() < objects.size()) {
 				m_shadowVisitedGroups.reserve(objects.size());
@@ -1794,39 +1769,20 @@ void KX_Scene::RenderBuckets(const std::vector<KX_GameObject *>& objects, RAS_Ra
 				RAS_MeshUser *meshUser = gameobj->GetMeshUser();
 				RAS_BatchGroup *group = meshUser ? meshUser->GetBatchGroup() : nullptr;
 				
-				printf("[RenderBuckets]   Processing '%s': meshUser=%p, group=%p\n",
-				       gameobj->GetName().c_str(), (void*)meshUser, (void*)group);
-				
 				if (group) {
 					if (m_shadowVisitedGroups.insert(group).second) {
-						bool castsShadows = group->CastsShadows();
-						printf("[RenderBuckets]     Group casts shadows: %d\n", castsShadows);
-						if (castsShadows) {
+						if (group->CastsShadows()) {
 							group->ActivateShadowForGroup();
-							groupProcessed++;
 						}
-					}
-					else {
-						printf("[RenderBuckets]     Group already visited\n");
 					}
 				}
 				else {
-					bool hasShadowMat = gameobj->HasShadowCasterMaterial();
-					printf("[RenderBuckets]     HasShadowCasterMaterial: %d\n", hasShadowMat);
-					if (hasShadowMat) {
+					if (gameobj->HasShadowCasterMaterial()) {
 						gameobj->UpdateShadowBuckets();
-						processedObjects++;
-					}
-					else {
-						printf("[RenderBuckets]     SKIPPED - no shadow caster material\n");
-						skippedObjects++;
 					}
 				}
 			}
 		}
-		
-		printf("[RenderBuckets] Shadow stats: processed=%d, skipped=%d, groups=%d\n",
-		       processedObjects, skippedObjects, groupProcessed);
 	}
 	else {
 		for (KX_GameObject *gameobj : objects) {
@@ -1834,9 +1790,7 @@ void KX_Scene::RenderBuckets(const std::vector<KX_GameObject *>& objects, RAS_Ra
 		}
 	}
 
-	printf("[RenderBuckets] Calling m_bucketmanager->Renderbuckets()...\n");
 	m_bucketmanager->Renderbuckets(drawingMode, cameratransform, rasty, offScreen);
-	printf("[RenderBuckets] Bucketmanager render complete\n");
 	KX_BlenderMaterial::EndFrame(rasty);
 }
 

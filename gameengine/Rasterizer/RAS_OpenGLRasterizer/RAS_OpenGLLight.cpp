@@ -235,8 +235,6 @@ int RAS_OpenGLLight::GetShadowLayer()
 
 void RAS_OpenGLLight::BindShadowBuffer(RAS_ICanvas *canvas, KX_Camera *cam, mt::mat3x4& camtrans)
 {
-	printf("[BindShadowBuffer] Binding shadow buffer for light\n");
-	
 	GPULamp *lamp;
 	float viewmat[4][4], winmat[4][4];
 	int winsize;
@@ -245,37 +243,15 @@ void RAS_OpenGLLight::BindShadowBuffer(RAS_ICanvas *canvas, KX_Camera *cam, mt::
 	lamp = GetGPULamp();
 	GPU_lamp_shadow_buffer_bind(lamp, viewmat, &winsize, winmat);
 
-	// Verificar estado do OpenGL após bind
-	GLint currentFBO;
-	glGetIntegerv(GL_FRAMEBUFFER_BINDING, &currentFBO);
-	printf("[BindShadowBuffer]   Current FBO: %d\n", currentFBO);
-	
-	// Verificar completude do FBO
-	GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-	printf("[BindShadowBuffer]   FBO status: 0x%X (COMPLETE=0x%X)\n", 
-	       status, GL_FRAMEBUFFER_COMPLETE);
-	
-	if (status != GL_FRAMEBUFFER_COMPLETE) {
-		printf("[BindShadowBuffer]   ERROR: FBO is not complete!\n");
-	}
-
 	if (GPU_lamp_shadow_buffer_type(lamp) == LA_SHADMAP_VARIANCE) {
-		printf("[BindShadowBuffer]   Shadow mode: VARIANCE\n");
 		m_rasterizer->SetShadowMode(RAS_Rasterizer::RAS_SHADOW_VARIANCE);
 	}
 	else {
-		printf("[BindShadowBuffer]   Shadow mode: SIMPLE\n");
 		m_rasterizer->SetShadowMode(RAS_Rasterizer::RAS_SHADOW_SIMPLE);
 	}
 
 	/* GPU_lamp_shadow_buffer_bind() changes the viewport, so update the canvas */
 	canvas->UpdateViewPort(0, 0, winsize, winsize);
-
-	// Verificar viewport
-	GLint viewport[4];
-	glGetIntegerv(GL_VIEWPORT, viewport);
-	printf("[BindShadowBuffer]   Viewport: x=%d, y=%d, w=%d, h=%d\n",
-	       viewport[0], viewport[1], viewport[2], viewport[3]);
 
 	/* setup camera transformation */
 	mt::mat4 modelviewmat((float *)viewmat);
@@ -293,15 +269,6 @@ void RAS_OpenGLLight::BindShadowBuffer(RAS_ICanvas *canvas, KX_Camera *cam, mt::
 	/* setup rasterizer transformations */
 	m_rasterizer->SetProjectionMatrix(projectionmat);
 	m_rasterizer->SetViewMatrix(modelviewmat);
-	
-	// Verificar erros OpenGL
-	GLenum error = glGetError();
-	if (error != GL_NO_ERROR) {
-		printf("[BindShadowBuffer]   OpenGL Error: 0x%X\n", error);
-	}
-	else {
-		printf("[BindShadowBuffer]   No OpenGL errors\n");
-	}
 }
 
 void RAS_OpenGLLight::UnbindShadowBuffer()

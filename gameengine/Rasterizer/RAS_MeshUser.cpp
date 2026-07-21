@@ -198,6 +198,7 @@ void RAS_MeshUser::SetColor(const mt::vec4& color)
 	if (m_color == color)
 		return;
 	m_color = color;
+	m_colorDirty = true;
 }
 
 void RAS_MeshUser::SetMatrix(const mt::mat4& matrix)
@@ -211,6 +212,7 @@ void RAS_MeshUser::SetMatrix(const mt::mat4& matrix)
 	}
 	m_matrix = matrix;
 	++m_transformVersion;
+	m_transformDirty = true;
 }
 
 void RAS_MeshUser::SetBatchGroup(RAS_BatchGroup *batchGroup)
@@ -239,39 +241,24 @@ void RAS_MeshUser::ActivateMeshSlots()
 
 void RAS_MeshUser::ActivateShadowMeshSlots()
 {
-	printf("[ActivateShadowMeshSlots] Called, batchGroup=%p, cacheValid=%d\n",
-	       (void*)m_batchGroup, m_activationCacheValid);
-	
 	if (m_batchGroup) {
 		const std::vector<int>& indices = m_batchGroup->GetShadowSlotsIndices();
-		printf("[ActivateShadowMeshSlots]   Using batch group, shadow slot count: %d\n", (int)indices.size());
 		
 		if (indices.empty()) {
-			printf("[ActivateShadowMeshSlots]   WARNING: No shadow slots in batch group!\n");
 			return;
 		}
 		
 		for (int idx : indices) {
-			printf("[ActivateShadowMeshSlots]     Activating slot %d\n", idx);
 			m_meshSlots[idx].m_displayArrayBucket->ActivateMesh(&m_meshSlots[idx]);
 		}
 		return;
 	}
 
 	if (!m_activationCacheValid) {
-		printf("[ActivateShadowMeshSlots]   Cache invalid, rebuilding...\n");
 		BuildActivationCache();
 	}
 
-	printf("[ActivateShadowMeshSlots]   Cached shadow slots: %d (total slots: %d)\n",
-	       (int)m_cachedShadowSlotIndices.size(), (int)m_meshSlots.size());
-	
-	if (m_cachedShadowSlotIndices.empty()) {
-		printf("[ActivateShadowMeshSlots]   WARNING: No cached shadow slots!\n");
-	}
-
 	for (int idx : m_cachedShadowSlotIndices) {
-		printf("[ActivateShadowMeshSlots]     Activating cached slot %d\n", idx);
 		RAS_MeshSlot& ms = m_meshSlots[idx];
 		ms.m_displayArrayBucket->ActivateMesh(&ms);
 	}
@@ -295,8 +282,6 @@ void RAS_MeshUser::ActivateMeshSlotsNoOnlyShadow()
 
 void RAS_MeshUser::BuildActivationCache()
 {
-	printf("[BuildActivationCache] Building cache for %d slots\n", (int)m_meshSlots.size());
-	
 	m_cachedShadowSlotIndices.clear();
 	m_cachedNoOnlyShadowSlotIndices.clear();
 
@@ -310,26 +295,17 @@ void RAS_MeshUser::BuildActivationCache()
 		RAS_IMaterial *mat = bucket ? bucket->GetMaterial() : nullptr;
 		
 		if (mat) {
-			bool castsShadows = mat->CastsShadows();
-			bool onlyShadow = mat->OnlyShadow();
-			printf("[BuildActivationCache]   Slot %d: castsShadows=%d, onlyShadow=%d\n",
-			       (int)i, castsShadows, onlyShadow);
-			
-			if (castsShadows) {
+			if (mat->CastsShadows()) {
 				m_cachedShadowSlotIndices.push_back(static_cast<int>(i));
 			}
-			if (!onlyShadow) {
+			if (!mat->OnlyShadow()) {
 				m_cachedNoOnlyShadowSlotIndices.push_back(static_cast<int>(i));
 			}
 		}
 		else {
-			printf("[BuildActivationCache]   Slot %d: no material!\n", (int)i);
 			m_cachedNoOnlyShadowSlotIndices.push_back(static_cast<int>(i));
 		}
 	}
-	
-	printf("[BuildActivationCache] Cache built: shadowSlots=%d, noOnlyShadowSlots=%d\n",
-	       (int)m_cachedShadowSlotIndices.size(), (int)m_cachedNoOnlyShadowSlotIndices.size());
 
 	m_activationCacheValid = true;
 }

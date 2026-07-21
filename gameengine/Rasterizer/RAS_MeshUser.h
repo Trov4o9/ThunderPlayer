@@ -119,6 +119,20 @@ public:
 	void ActivateMeshSlots();
 	void ActivateShadowMeshSlots();
 	void ActivateMeshSlotsNoOnlyShadow();
+	
+	// Persistent slot management
+	int GetPersistentSlot() const { return m_persistentSlot; }
+	void SetPersistentSlot(int slot) { m_persistentSlot = slot; }
+	
+	// Dirty tracking
+	bool IsTransformDirty() const { return m_transformDirty; }
+	bool IsColorDirty() const { return m_colorDirty; }
+	void MarkTransformDirty() { m_transformDirty = true; }
+	void MarkColorDirty() { m_colorDirty = true; }
+	void MarkClean() { m_transformDirty = false; m_colorDirty = false; }
+	
+	unsigned long long GetLastUpdateFrame() const { return m_lastUpdateFrame; }
+	void SetLastUpdateFrame(unsigned long long frame) { m_lastUpdateFrame = frame; }
 
 private:
 	void BuildActivationCache();

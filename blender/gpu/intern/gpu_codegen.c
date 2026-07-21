@@ -99,6 +99,8 @@ void GPU_parse_custom_shader(
 }
 #include <stdarg.h>
 
+#include "../../../gameengine/Rasterizer/RAS_RenderingFlags.h"
+
 #ifdef WIN32
 #include <windows.h>
 #endif
@@ -742,6 +744,24 @@ static int codegen_print_uniforms_functions(DynStr *ds, ListBase *nodes, bool us
 	}
 
 	BLI_dynstr_append(ds, "\n");
+	
+	/* Add SSBO declarations for persistent instancing system */
+	if (USE_PERSISTENT_SSBO_RENDERING) {
+		BLI_dynstr_append(ds,
+			"#define USE_PERSISTENT_SSBO 1\n"
+			"\n"
+			"struct InstanceData {\n"
+			"    mat4 modelMatrix;\n"
+			"    mat4 normalMatrix;\n"
+			"    vec4 color;\n"
+			"    uvec4 info;\n"
+			"};\n"
+			"\n"
+			"layout(std430, binding=3) readonly buffer InstanceDataBlock {\n"
+			"    InstanceData instances[];\n"
+			"};\n"
+			"\n");
+	}
 
 	return builtins;
 }

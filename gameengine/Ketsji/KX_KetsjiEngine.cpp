@@ -69,6 +69,7 @@
 #include "GPU_glew.h"
 
 #include "RAS_MeshUser.h"
+#include "RAS_PersistentInstanceManager.h"
 
 #include "GPU_draw.h"
 #include "GPU_extensions.h"
@@ -223,6 +224,9 @@ KX_KetsjiEngine::KX_KetsjiEngine()
  */
 KX_KetsjiEngine::~KX_KetsjiEngine()
 {
+	// Cleanup Persistent Instance Manager
+	RAS_PersistentInstanceManager::Cleanup();
+	
 #ifdef WITH_PYTHON
 	Py_CLEAR(m_pyprofiledict);
 #endif
@@ -250,6 +254,9 @@ void KX_KetsjiEngine::SetRasterizer(RAS_Rasterizer *rasterizer)
 {
 	BLI_assert(rasterizer);
 	m_rasterizer = rasterizer;
+	
+	// Initialize Persistent Instance Manager
+	RAS_PersistentInstanceManager::Initialize();
 }
 
 void KX_KetsjiEngine::SetNetworkMessageManager(KX_NetworkMessageManager *manager)
@@ -386,8 +393,8 @@ void KX_KetsjiEngine::BeginFrame()
 
 	// Reset per-frame caches.
 	m_cameraVisibilityCache.clear();
-	m_lastViewport[0] = m_lastViewport[1] = m_lastViewport[2] = m_lastViewport[3] = -1;
-	m_lastScissor[0] = m_lastScissor[1] = m_lastScissor[2] = m_lastScissor[3] = -1;
+	//m_lastViewport[0] = m_lastViewport[1] = m_lastViewport[2] = m_lastViewport[3] = -1;
+	//m_lastScissor[0] = m_lastScissor[1] = m_lastScissor[2] = m_lastScissor[3] = -1;
 
 	m_logger.StartLog(tc_rasterizer);
 
@@ -795,6 +802,12 @@ void KX_KetsjiEngine::Render()
 {
 	IncrementFrameCounter();
 	
+	// Begin frame for persistent instance manager
+	RAS_PersistentInstanceManager *persistentMgr = RAS_PersistentInstanceManager::GetInstance();
+	if (persistentMgr && persistentMgr->IsInitialized()) {
+		persistentMgr->BeginFrame();
+	}
+	
 	// Update global light UBO for all scenes
 	RAS_LightManager *lightMgr = RAS_LightManager::GetInstance();
 	for (KX_Scene *scene : m_scenes) {
@@ -905,6 +918,14 @@ void KX_KetsjiEngine::Render()
 	}
 
 	EndFrame();
+	
+	// End frame for persistent instance manager
+	{
+		RAS_PersistentInstanceManager *persistentMgr = RAS_PersistentInstanceManager::GetInstance();
+		if (persistentMgr && persistentMgr->IsInitialized()) {
+			persistentMgr->EndFrame();
+		}
+	}
 
 #if RAS_ENABLE_CPU_PROFILE
 	RAS_CpuProfile_EndFrameAndPrint();
@@ -976,16 +997,10 @@ void KX_KetsjiEngine::UpdateAnimations(KX_Scene *scene)
 
 void KX_KetsjiEngine::RenderShadowBuffers(KX_Scene *scene)
 {
-	printf("=== SHADOW PASS START ===\n");
-	
 	EXP_ListValue<KX_LightObject> *lightlist = scene->GetLightList();
-	printf("[SHADOW] Total lights in scene: %d\n", lightlist->GetCount());
-	
 	m_rasterizer->SetAuxilaryClientInfo(scene);
 
 	if (m_rasterizer->GetDrawingMode() != RAS_Rasterizer::RAS_TEXTURED) {
-		printf("[SHADOW] Drawing mode is not TEXTURED, skipping shadows\n");
-		printf("=== SHADOW PASS END ===\n\n");
 		return;
 	}
 
@@ -999,25 +1014,17 @@ void KX_KetsjiEngine::RenderShadowBuffers(KX_Scene *scene)
 
 	// Start Optimization: Avoid allocating shadow camera if no lights cast shadows
 	bool hasShadowUpdates = false;
-	int shadowLightCount = 0;
 	for (int i=0; i<lightlist->GetCount(); ++i) {
 		KX_LightObject *light = lightlist->GetValue(i);
 		RAS_ILightObject *raslight = light->GetLightData();
 		if (light->GetVisible() && raslight->HasShadowBuffer()) {
-			shadowLightCount++;
-			printf("[SHADOW] Light %d: visible=%d, hasShadowBuffer=%d, needsUpdate=%d\n",
-			       shadowLightCount, light->GetVisible(), 
-			       raslight->HasShadowBuffer(), raslight->NeedShadowUpdate());
 			if (raslight->NeedShadowUpdate()) {
 				hasShadowUpdates = true;
 			}
 		}
 	}
-	printf("[SHADOW] Total lights with shadow buffers: %d\n", shadowLightCount);
 
 	if (!hasShadowUpdates) {
-		printf("[SHADOW] No shadow updates needed\n");
-		printf("=== SHADOW PASS END ===\n\n");
 		return;
 	}
 	// End Optimization
@@ -1030,15 +1037,11 @@ void KX_KetsjiEngine::RenderShadowBuffers(KX_Scene *scene)
 	ankerl::unordered_dense::map<std::uintptr_t, std::vector<KX_GameObject *>> visibilityCache;
 	visibilityCache.reserve(lightlist->GetCount());
 
-	int lightIdx = 0;
 	for (KX_LightObject *light : lightlist) {
 		light->Update();
 		RAS_ILightObject *raslight = light->GetLightData();
 
 		if (light->GetVisible() && raslight->HasShadowBuffer() && raslight->NeedShadowUpdate()) {
-			lightIdx++;
-			printf("[SHADOW] Processing light %d\n", lightIdx);
-
 			mt::mat3x4 camtrans;
 
 			raslight->BindShadowBuffer(m_canvas, shadowCam, camtrans);
@@ -1059,51 +1062,30 @@ void KX_KetsjiEngine::RenderShadowBuffers(KX_Scene *scene)
 
 			auto cacheIt = visibilityCache.find(frustumKey);
 			if (cacheIt == visibilityCache.end()) {
-				printf("[SHADOW] Calculating visible meshes for shadow cam (cache miss)...\n");
 				std::vector<KX_GameObject *> visible = scene->CalculateVisibleMeshes(frustum, raslight->GetShadowLayer(), false);
-				printf("[SHADOW] CalculateVisibleMeshes returned %d objects\n", visible.size());
 				
 				std::vector<KX_GameObject *> shadowObjects;
 				shadowObjects.reserve(visible.size());
-				int objIdx = 0;
-				int filteredCount = 0;
 				for (KX_GameObject *gameobj : visible) {
-					printf("[SHADOW]   Object %d: '%s' - checking HasShadowCasterMaterial...\n", 
-					       objIdx++, gameobj->GetName().c_str());
 					if (gameobj->HasShadowCasterMaterial()) {
 						shadowObjects.push_back(gameobj);
-						filteredCount++;
 					}
 				}
-				printf("[SHADOW] After filtering: %d/%d objects have shadow caster materials\n", 
-				       filteredCount, visible.size());
 				cacheIt = visibilityCache.emplace(frustumKey, std::move(shadowObjects)).first;
-			}
-			else {
-				printf("[SHADOW] Using cached visibility (cache hit)\n");
 			}
 			
 			const std::vector<KX_GameObject *> &objects = cacheIt->second;
-			printf("[SHADOW] Rendering %d shadow caster objects for this light\n", objects.size());
-			
-			for (int i = 0; i < objects.size(); ++i) {
-				printf("[SHADOW]   Shadow object %d: '%s'\n", i, objects[i]->GetName().c_str());
-			}
 
 			m_logger.StartLog(tc_rasterizer);
-			printf("[SHADOW] Calling Clear...\n");
 			m_rasterizer->Clear(RAS_Rasterizer::RAS_DEPTH_BUFFER_BIT | RAS_Rasterizer::RAS_COLOR_BUFFER_BIT);
 
-			printf("[SHADOW] Calling RenderBuckets with RAS_SHADOW mode...\n");
 			scene->RenderBuckets(objects, RAS_Rasterizer::RAS_SHADOW, camtrans, m_rasterizer, nullptr);
-			printf("[SHADOW] RenderBuckets completed\n");
 
 			raslight->UnbindShadowBuffer();
 		}
 	}
 
 	shadowCam->Release();
-	printf("=== SHADOW PASS END ===\n\n");
 }
 bool g_useDeferred_GGG = false;
 static GLuint lightProgram = 0;

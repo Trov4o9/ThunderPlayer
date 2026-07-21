@@ -242,40 +242,37 @@ void RAS_Rasterizer::Init()
 
 void RAS_Rasterizer::BeginFrame(double time)
 {
-    m_time = time;
-    m_frameCount++;
+	m_time = time;
 
-    if (m_state.polyOffset[0] != -1.0f || m_state.polyOffset[1] != -1.0f) {
-        m_state.polyOffset[0] = -1.0f;
-        m_state.polyOffset[1] = -1.0f;
-    }
+	m_state.polyOffset[0] = -1.0f;
+	m_state.polyOffset[1] = -1.0f;
 
-    ResetRasterizerState();
-    
-    // Reset culling state para forçar materiais a reaplicarem sua flag
-    // Isso garante que o primeiro material do frame sempre execute SetCullFace
-    m_state.cullFace = false;
+	SetCullFace(true);
+	Enable(RAS_DEPTH_TEST);
 
-    if (m_state.depthTest != 1)
-        Enable(RAS_DEPTH_TEST);
+	Disable(RAS_BLEND);
+	Disable(RAS_ALPHA_TEST);
 
-    ResetBlendState();
-    SetDepthFunc(RAS_LEQUAL);
+	GPU_set_material_alpha_blend(GPU_BLEND_SOLID);
 
-    m_impl->BeginFrame();
+	SetFrontFace(true);
 
-    if (m_state.multisample != 1)
-        Enable(RAS_MULTISAMPLE);
-    if (m_state.scissor != 1)
-        Enable(RAS_SCISSOR_TEST);
+	m_impl->BeginFrame();
 
-    m_clientobject = nullptr;
-    m_lastlightlayer = -1;
-    m_lastauxinfo = nullptr;
-    m_lastMeshUserState.material = nullptr; // Invalidate mesh user state cache
-    m_lastlighting = true;
+	if (m_state.multisample != 1)
+		Enable(RAS_MULTISAMPLE);
+	if (m_state.scissor != 1)
+		Enable(RAS_SCISSOR_TEST);
 
-    DisableLights();
+	SetDepthFunc(RAS_LEQUAL);
+
+	// Render Tools
+	m_clientobject = nullptr;
+	m_lastlightlayer = -1;
+	m_lastauxinfo = nullptr;
+	m_lastlighting = true; 
+
+	DisableLights();
 }
 
 bool RAS_Rasterizer::NeedsMeshUserUpdate(void *material, const mt::mat4& matrix, const mt::vec4& color,
@@ -930,9 +927,9 @@ bool RAS_Rasterizer::GetCameraOrtho()
 
 void RAS_Rasterizer::SetCullFace(bool enable)
 {
-	if (enable == m_state.cullFace) {
-		return;
-	}
+	//if (enable == m_state.cullFace) {
+	//	return;
+	//}
 	m_state.cullFace = enable;
 
 	if (enable) {

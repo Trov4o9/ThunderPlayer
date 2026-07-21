@@ -84,6 +84,8 @@ set(SRC
 	RAS_Mesh.cpp
 	RAS_MeshSlot.cpp
 	RAS_MeshUser.cpp
+	RAS_PersistentInstanceManager.cpp
+	RAS_RenderingFlags.cpp
 	RAS_OffScreen.cpp
 	RAS_Query.cpp
 	RAS_Shader.cpp
@@ -122,6 +124,8 @@ set(SRC
 	RAS_Mesh.h
 	RAS_MeshSlot.h
 	RAS_MeshUser.h
+	RAS_PersistentInstanceManager.h
+	RAS_RenderingFlags.h
 	RAS_OffScreen.h
 	RAS_Query.h
 	RAS_Rect.h
