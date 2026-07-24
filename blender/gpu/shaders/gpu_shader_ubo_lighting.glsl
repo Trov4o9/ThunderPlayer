@@ -80,7 +80,6 @@ void calcLight(
 	vec3 N = normalize(norm);
 	vec3 V = normalize(view);
 
-	/* NdotV is shared across all lights for this fragment. */
 	float NdotV = max(dot(N, V), 0.0);
 	if (NdotV <= 0.0) {
 		result += acc;
