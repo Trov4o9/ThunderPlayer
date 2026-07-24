@@ -3886,6 +3886,10 @@ static void view3d_main_region_draw_objects(const bContext *C, Scene *scene, Vie
 	if (draw_glsl_material(scene, NULL, v3d, v3d->drawtype))
 		gpu_update_lamps_shadows_world(bmain, scene, v3d);
 
+	/* Update viewport UBO lighting so UBO-flagged materials see current lights */
+	GPU_viewport_lighting_init();
+	GPU_viewport_lighting_update(scene, NULL);
+
 	/* reset default OpenGL lights if needed (i.e. after preferences have been altered) */
 	if (rv3d->rflag & RV3D_GPULIGHT_UPDATE) {
 		rv3d->rflag &= ~RV3D_GPULIGHT_UPDATE;

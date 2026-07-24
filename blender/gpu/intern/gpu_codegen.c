@@ -587,13 +587,17 @@ static void codegen_set_unique_ids(ListBase *nodes)
 
 /* Structure to track material property IDs for custom shader injection */
 typedef struct MaterialPropertyIDs {
-	int albedo_id;      /* cons ID for diffuse RGB (albedo) */
-	int specrgb_id;     /* cons ID for specular RGB */
-	int alpha_id;       /* cons ID for alpha */
-	int emit_id;        /* cons ID for emit value */
-	int roughness_id;   /* cons ID for roughness */
-	int metallic_id;    /* cons ID for metallic */
-	int spec_id;        /* cons ID for specular intensity */
+	int albedo_id;           /* cons ID for diffuse RGB (albedo) */
+	int specrgb_id;          /* cons ID for specular RGB */
+	int alpha_id;            /* cons ID for alpha */
+	int emit_id;             /* cons ID for emit value */
+	int roughness_id;        /* cons ID for roughness (roughness_bsdf) */
+	int metallic_id;         /* cons ID for metallic (metallic_bsdf) */
+	int spec_id;             /* cons ID for specular intensity */
+	int ubo_speccolor_id;    /* cons ID for UBO specular F0 colour (vec3) */
+	int ubo_specstrength_id; /* cons ID for UBO specular strength (float) */
+	int ubo_scattercolor_id; /* cons ID for UBO scatter tint colour (vec3) */
+	int ubo_scatterfac_id;   /* cons ID for UBO scatter factor (float) */
 } MaterialPropertyIDs;
 
 static int codegen_print_uniforms_functions(DynStr *ds, ListBase *nodes, bool use_custom_fragment, MaterialPropertyIDs *mat_ids)
@@ -612,6 +616,10 @@ static int codegen_print_uniforms_functions(DynStr *ds, ListBase *nodes, bool us
 		mat_ids->roughness_id = -1;
 		mat_ids->metallic_id = -1;
 		mat_ids->spec_id = -1;
+		mat_ids->ubo_speccolor_id = -1;
+		mat_ids->ubo_specstrength_id = -1;
+		mat_ids->ubo_scattercolor_id = -1;
+		mat_ids->ubo_scatterfac_id = -1;
 	}
 
 	/* print uniforms */
@@ -656,59 +664,63 @@ static int codegen_print_uniforms_functions(DynStr *ds, ListBase *nodes, bool us
 					/* only create uniforms for dynamic vectors */
 					BLI_dynstr_appendf(ds, "uniform %s unf%d;\n",
 						GPU_DATATYPE_STR[input->type], input->id);
-					
+	
 					/* Track dynamic material property IDs for custom shader system */
-					if (use_custom_fragment && mat_ids) {
-						if (input->dynamictype == GPU_DYNAMIC_MAT_DIFFRGB) {
+					if (mat_ids) {
+						if (input->dynamictype == GPU_DYNAMIC_MAT_DIFFRGB)
 							mat_ids->albedo_id = input->id;
-						}
-						else if (input->dynamictype == GPU_DYNAMIC_MAT_SPECRGB) {
+						else if (input->dynamictype == GPU_DYNAMIC_MAT_SPECRGB)
 							mat_ids->specrgb_id = input->id;
-						}
-						else if (input->dynamictype == GPU_DYNAMIC_MAT_ALPHA) {
+						else if (input->dynamictype == GPU_DYNAMIC_MAT_ALPHA)
 							mat_ids->alpha_id = input->id;
-						}
-						else if (input->dynamictype == GPU_DYNAMIC_MAT_EMIT) {
+						else if (input->dynamictype == GPU_DYNAMIC_MAT_EMIT)
 							mat_ids->emit_id = input->id;
-						}
-						else if (input->dynamictype == GPU_DYNAMIC_MAT_ROUGHNESS) {
+						else if (input->dynamictype == GPU_DYNAMIC_MAT_ROUGHNESS)
 							mat_ids->roughness_id = input->id;
-						}
-						else if (input->dynamictype == GPU_DYNAMIC_MAT_METALLIC) {
+						else if (input->dynamictype == GPU_DYNAMIC_MAT_METALLIC)
 							mat_ids->metallic_id = input->id;
-						}
-						else if (input->dynamictype == GPU_DYNAMIC_MAT_SPEC) {
+						else if (input->dynamictype == GPU_DYNAMIC_MAT_SPEC)
 							mat_ids->spec_id = input->id;
-						}
+						else if (input->dynamictype == GPU_DYNAMIC_MAT_UBO_SPECCOLOR)
+							mat_ids->ubo_speccolor_id = input->id;
+						else if (input->dynamictype == GPU_DYNAMIC_MAT_UBO_SPECSTRENGTH)
+							mat_ids->ubo_specstrength_id = input->id;
+						else if (input->dynamictype == GPU_DYNAMIC_MAT_UBO_SCATTERCOLOR)
+							mat_ids->ubo_scattercolor_id = input->id;
+						else if (input->dynamictype == GPU_DYNAMIC_MAT_UBO_SCATTERFAC)
+							mat_ids->ubo_scatterfac_id = input->id;
 					}
 				}
 				else {
 					/* Track material property IDs for CONST values too (not just dynamic uniforms) */
-					if (use_custom_fragment && mat_ids) {
-						if (input->dynamictype == GPU_DYNAMIC_MAT_DIFFRGB) {
+					if (mat_ids) {
+						if (input->dynamictype == GPU_DYNAMIC_MAT_DIFFRGB)
 							mat_ids->albedo_id = input->id;
-						}
-						else if (input->dynamictype == GPU_DYNAMIC_MAT_SPECRGB) {
+						else if (input->dynamictype == GPU_DYNAMIC_MAT_SPECRGB)
 							mat_ids->specrgb_id = input->id;
-						}
-						else if (input->dynamictype == GPU_DYNAMIC_MAT_ALPHA) {
+						else if (input->dynamictype == GPU_DYNAMIC_MAT_ALPHA)
 							mat_ids->alpha_id = input->id;
-						}
-						else if (input->dynamictype == GPU_DYNAMIC_MAT_EMIT) {
+						else if (input->dynamictype == GPU_DYNAMIC_MAT_EMIT)
 							mat_ids->emit_id = input->id;
-						}
-						else if (input->dynamictype == GPU_DYNAMIC_MAT_ROUGHNESS) {
+						else if (input->dynamictype == GPU_DYNAMIC_MAT_ROUGHNESS)
 							mat_ids->roughness_id = input->id;
-						}
-						else if (input->dynamictype == GPU_DYNAMIC_MAT_METALLIC) {
+						else if (input->dynamictype == GPU_DYNAMIC_MAT_METALLIC)
 							mat_ids->metallic_id = input->id;
-						}
-						else if (input->dynamictype == GPU_DYNAMIC_MAT_SPEC) {
+						else if (input->dynamictype == GPU_DYNAMIC_MAT_SPEC)
 							mat_ids->spec_id = input->id;
-						}
+						else if (input->dynamictype == GPU_DYNAMIC_MAT_UBO_SPECCOLOR)
+							mat_ids->ubo_speccolor_id = input->id;
+						else if (input->dynamictype == GPU_DYNAMIC_MAT_UBO_SPECSTRENGTH)
+							mat_ids->ubo_specstrength_id = input->id;
+						else if (input->dynamictype == GPU_DYNAMIC_MAT_UBO_SCATTERCOLOR)
+							mat_ids->ubo_scattercolor_id = input->id;
+						else if (input->dynamictype == GPU_DYNAMIC_MAT_UBO_SCATTERFAC)
+							mat_ids->ubo_scatterfac_id = input->id;
 					}
-					
-					/* If custom fragment shader exists, use variables instead of const */
+	
+					/* Use mutable variables when UBO lighting or custom shader is active
+					 * so that ALBEDO/ROUGHNESS/etc. can be written back into the cons
+					 * variables after calcLight() runs. Otherwise use const for compiler folding. */
 					if (use_custom_fragment) {
 						BLI_dynstr_appendf(ds, "%s cons%d = ",
 							GPU_DATATYPE_STR[input->type], input->id);
@@ -801,6 +813,23 @@ static void codegen_call_functions(DynStr *ds, ListBase *nodes, GPUNodeLink *fin
 	GPUOutput *output;
 
 	for (node = nodes->first; node; node = node->next) {
+		if (strcmp(node->name, "ubo_lighting_apply") == 0) {
+			output = node->outputs.first;
+			input = node->inputs.first;
+			/* The diff input may be vec3 (set_rgb_zero path) or vec4 (shade_mul_emit_value
+			 * path when emit > 0).  Always extract .rgb so the assignment to the vec3
+			 * output tmp is type-safe regardless of the upstream node's output type. */
+			if (input->link->output->type == GPU_VEC4) {
+				BLI_dynstr_appendf(ds, "\ttmp%d = tmp%d.rgb + ubo_result;\n",
+				                   output->id, input->link->output->id);
+			}
+			else {
+				BLI_dynstr_appendf(ds, "\ttmp%d = tmp%d + ubo_result;\n",
+				                   output->id, input->link->output->id);
+			}
+			continue;
+		}
+
 		BLI_dynstr_appendf(ds, "\t%s(", node->name);
 
 		for (input = node->inputs.first; input; input = input->next) {
@@ -857,7 +886,7 @@ static void codegen_call_functions(DynStr *ds, ListBase *nodes, GPUNodeLink *fin
 	}
 }
 bool g_useDeferred_GGG = false;
-static char *code_generate_fragment(ListBase *nodes, GPUNodeLink *outputs[8], const char *custom_shader)
+static char *code_generate_fragment(ListBase *nodes, GPUNodeLink *outputs[8], const char *custom_shader, const bool use_ubo_lighting)
 {
     DynStr *ds = BLI_dynstr_new();
     char *code;
@@ -871,7 +900,7 @@ static char *code_generate_fragment(ListBase *nodes, GPUNodeLink *outputs[8], co
 #endif
 
     codegen_set_unique_ids(nodes);
-    builtins = codegen_print_uniforms_functions(ds, nodes, has_custom_fragment, &mat_ids);
+    builtins = codegen_print_uniforms_functions(ds, nodes, (has_custom_fragment || use_ubo_lighting), &mat_ids);
 
     BLI_dynstr_append(ds, "uniform vec3 u_MatColor;\n");
     BLI_dynstr_append(ds, "uniform float u_MatAlpha;\n");
@@ -928,7 +957,7 @@ static char *code_generate_fragment(ListBase *nodes, GPUNodeLink *outputs[8], co
     }
     
     /* Declare additional uniforms needed by custom fragment code that weren't already declared */
-    if (custom_fragment_code) {
+    if (custom_fragment_code || use_ubo_lighting) {
         /* Only declare TIME if not already declared by builtins */
         if (!(builtins & GPU_TIME)) {
             const char *time_builtin = GPU_builtin_name(GPU_TIME);
@@ -994,7 +1023,10 @@ static char *code_generate_fragment(ListBase *nodes, GPUNodeLink *outputs[8], co
 		BLI_dynstr_appendf(ds, "\tgl_FragData[4] = vec4(vec3(u_MatEmission), 1.0);\n");
     }
     else {
-        if (custom_fragment_code) {
+        if (use_ubo_lighting) {
+            BLI_dynstr_append(ds, "\tvec3 ubo_result = vec3(0.0);\n");
+        }
+        if (custom_fragment_code || use_ubo_lighting) {
             /* Initialize PBR variables from tracked material property cons IDs */
             BLI_dynstr_append(ds, "\t// Initialize PBR variables from material properties\n");
             
@@ -1005,11 +1037,22 @@ static char *code_generate_fragment(ListBase *nodes, GPUNodeLink *outputs[8], co
                 BLI_dynstr_append(ds, "\tvec3 ALBEDO = vec3(0.8);\n");
             }
             
-            /* SPECULAR_RGB - from specular color */
-            if (mat_ids.specrgb_id >= 0) {
+            /* SPECULAR_RGB — when UBO lighting is active, prefer the dedicated
+             * ubo_spec_color field (F0 colour set in the UBO Lighting panel).
+             * Fall back to the standard material specular colour, then to 0.04. */
+            if (use_ubo_lighting && mat_ids.ubo_speccolor_id >= 0) {
+                BLI_dynstr_appendf(ds, "\tvec3 SPECULAR_RGB = cons%d;\n", mat_ids.ubo_speccolor_id);
+            } else if (mat_ids.specrgb_id >= 0) {
                 BLI_dynstr_appendf(ds, "\tvec3 SPECULAR_RGB = cons%d;\n", mat_ids.specrgb_id);
             } else {
-                BLI_dynstr_append(ds, "\tvec3 SPECULAR_RGB = vec3(1.0);\n");
+                BLI_dynstr_append(ds, "\tvec3 SPECULAR_RGB = vec3(0.04);\n");
+            }
+
+            /* SPECULAR_STRENGTH — UBO specular multiplier (only exists when UBO active) */
+            if (use_ubo_lighting && mat_ids.ubo_specstrength_id >= 0) {
+                BLI_dynstr_appendf(ds, "\tfloat SPECULAR_STRENGTH = cons%d;\n", mat_ids.ubo_specstrength_id);
+            } else {
+                BLI_dynstr_append(ds, "\tfloat SPECULAR_STRENGTH = 1.0;\n");
             }
             
             /* ALPHA - from alpha value */
@@ -1046,11 +1089,29 @@ static char *code_generate_fragment(ListBase *nodes, GPUNodeLink *outputs[8], co
             } else {
                 BLI_dynstr_append(ds, "\tfloat SPECULAR = 0.5;\n");
             }
+
+            /* SCATTER_RGB — UBO scatter tint colour */
+            if (use_ubo_lighting && mat_ids.ubo_scattercolor_id >= 0) {
+                BLI_dynstr_appendf(ds, "\tvec3 SCATTER_RGB = cons%d;\n", mat_ids.ubo_scattercolor_id);
+            } else {
+                BLI_dynstr_append(ds, "\tvec3 SCATTER_RGB = vec3(1.0);\n");
+            }
+
+            /* SCATTER_FAC — blend factor between Lambert and scatter */
+            if (use_ubo_lighting && mat_ids.ubo_scatterfac_id >= 0) {
+                BLI_dynstr_appendf(ds, "\tfloat SCATTER_FAC = cons%d;\n", mat_ids.ubo_scatterfac_id);
+            } else {
+                BLI_dynstr_append(ds, "\tfloat SCATTER_FAC = 0.0;\n");
+            }
+
+            /* Additional helper variables (World Space for UBO Lighting) */
+            BLI_dynstr_append(ds, "\tvec3 WORLD_POSITION = (unfinvviewmat * vec4(varposition, 1.0)).xyz;\n");
+            BLI_dynstr_append(ds, "\tvec3 WORLD_NORMAL = normalize((unfinvviewmat * vec4(facingnormal, 0.0)).xyz);\n");
+            BLI_dynstr_append(ds, "\tvec3 WORLD_VIEW = normalize(unfinvviewmat[3].xyz - WORLD_POSITION);\n");
             
-            /* Additional helper variables */
-            BLI_dynstr_append(ds, "\tvec3 NORMAL = facingnormal;\n");
-            BLI_dynstr_append(ds, "\tvec3 VERTEX = varposition;\n");
-            BLI_dynstr_append(ds, "\tvec3 VIEW = normalize(-varposition);\n");
+            BLI_dynstr_append(ds, "\tvec3 NORMAL = WORLD_NORMAL;\n");
+            BLI_dynstr_append(ds, "\tvec3 VERTEX = WORLD_POSITION;\n");
+            BLI_dynstr_append(ds, "\tvec3 VIEW = WORLD_VIEW;\n");
             BLI_dynstr_append(ds, "\tfloat TIME = unftime;\n");
             if (builtins & GPU_OBCOLOR) {
                 BLI_dynstr_append(ds, "\tvec4 OBJECT_COLOR = unfobcolor;\n");
@@ -1059,48 +1120,74 @@ static char *code_generate_fragment(ListBase *nodes, GPUNodeLink *outputs[8], co
             }
             BLI_dynstr_append(ds, "\n");
             
-            /* Add custom fragment code */
-            BLI_dynstr_append(ds, "\t/* Custom Fragment Code */\n");
-            BLI_dynstr_append(ds, custom_fragment_code);
+            if (custom_fragment_code) {
+                /* Add custom fragment code */
+                BLI_dynstr_append(ds, "\t/* Custom Fragment Code */\n");
+                BLI_dynstr_append(ds, custom_fragment_code);
+                BLI_dynstr_append(ds, "\n");
+                MEM_freeN(custom_fragment_code);
+            }
+
+            if (use_ubo_lighting) {
+                BLI_dynstr_append(ds, "\t/* Inject UBO Lighting */\n");
+                /* Pass SCATTER_RGB/SCATTER_FAC from material props (instead of fixed placeholders). */
+                BLI_dynstr_append(ds, "\tcalcLight(VERTEX, NORMAL, VIEW, ALBEDO, SPECULAR_RGB * SPECULAR_STRENGTH, SCATTER_RGB, ROUGHNESS, METALLIC, SCATTER_FAC, ubo_result);\n");
+            }
+
+            /* Write modified PBR variables back to material property cons vars.
+             * Only do this when a custom fragment shader is present: those shaders
+             * may modify ALBEDO/NORMAL/etc. and need the values propagated into the
+             * BGE node pipeline.  For pure UBO-lighting (no custom shader) the cons
+             * were declared as 'const' so writing to them is a GLSL compile error,
+             * and calcLight() already received the values directly above. */
+            if (custom_fragment_code) {
+                BLI_dynstr_append(ds, "\t// Apply modified PBR values back to material properties\n");
+
+                if (mat_ids.albedo_id >= 0) {
+                    BLI_dynstr_appendf(ds, "\tcons%d = ALBEDO;\n", mat_ids.albedo_id);
+                }
+
+                if (mat_ids.specrgb_id >= 0) {
+                    BLI_dynstr_appendf(ds, "\tcons%d = SPECULAR_RGB;\n", mat_ids.specrgb_id);
+                }
+
+                if (mat_ids.alpha_id >= 0) {
+                    BLI_dynstr_appendf(ds, "\tcons%d = ALPHA;\n", mat_ids.alpha_id);
+                }
+
+                if (mat_ids.emit_id >= 0) {
+                    BLI_dynstr_appendf(ds, "\tcons%d = EMIT;\n", mat_ids.emit_id);
+                }
+
+                if (mat_ids.roughness_id >= 0) {
+                    BLI_dynstr_appendf(ds, "\tcons%d = ROUGHNESS;\n", mat_ids.roughness_id);
+                }
+
+                if (mat_ids.metallic_id >= 0) {
+                    BLI_dynstr_appendf(ds, "\tcons%d = METALLIC;\n", mat_ids.metallic_id);
+                }
+
+                if (mat_ids.spec_id >= 0) {
+                    BLI_dynstr_appendf(ds, "\tcons%d = SPECULAR;\n", mat_ids.spec_id);
+                }
+
+                /* Writeback SCATTER_RGB and SCATTER_FAC so custom shaders can modify them
+                 * before they reach calcLight. Only available when UBO lighting is active
+                 * (SCATTER_RGB/SCATTER_FAC are only declared in that path). */
+                if (use_ubo_lighting) {
+                    if (mat_ids.ubo_scattercolor_id >= 0) {
+                        BLI_dynstr_appendf(ds, "\tcons%d = SCATTER_RGB;\n", mat_ids.ubo_scattercolor_id);
+                    }
+                    if (mat_ids.ubo_scatterfac_id >= 0) {
+                        BLI_dynstr_appendf(ds, "\tcons%d = SCATTER_FAC;\n", mat_ids.ubo_scatterfac_id);
+                    }
+                    BLI_dynstr_append(ds, "\tfacingnormal = NORMAL;\n");
+                }
+            }
             BLI_dynstr_append(ds, "\n");
-            
-            /* Apply modified PBR variables back to material property cons */
-            BLI_dynstr_append(ds, "\t// Apply modified PBR values back to material properties\n");
-            
-            if (mat_ids.albedo_id >= 0) {
-                BLI_dynstr_appendf(ds, "\tcons%d = ALBEDO;\n", mat_ids.albedo_id);
-            }
-            
-            if (mat_ids.specrgb_id >= 0) {
-                BLI_dynstr_appendf(ds, "\tcons%d = SPECULAR_RGB;\n", mat_ids.specrgb_id);
-            }
-            
-            if (mat_ids.alpha_id >= 0) {
-                BLI_dynstr_appendf(ds, "\tcons%d = ALPHA;\n", mat_ids.alpha_id);
-            }
-            
-            if (mat_ids.emit_id >= 0) {
-                BLI_dynstr_appendf(ds, "\tcons%d = EMIT;\n", mat_ids.emit_id);
-            }
-            
-            if (mat_ids.roughness_id >= 0) {
-                BLI_dynstr_appendf(ds, "\tcons%d = ROUGHNESS;\n", mat_ids.roughness_id);
-            }
-            
-            if (mat_ids.metallic_id >= 0) {
-                BLI_dynstr_appendf(ds, "\tcons%d = METALLIC;\n", mat_ids.metallic_id);
-            }
-            
-            if (mat_ids.spec_id >= 0) {
-                BLI_dynstr_appendf(ds, "\tcons%d = SPECULAR;\n", mat_ids.spec_id);
-            }
-            
-            BLI_dynstr_append(ds, "\tfacingnormal = NORMAL;\n");
-            BLI_dynstr_append(ds, "\n");
-            MEM_freeN(custom_fragment_code);
         }
         
-        /* Declare temp variables and call lighting functions */
+        /* Declare temp variables and call functions for both UBO and non-UBO */
         codegen_declare_tmps(ds, nodes);
         codegen_call_functions(ds, nodes, outputs);
 	}
@@ -1428,7 +1515,7 @@ void GPU_code_generate_glsl_lib(void)
     if (USE_UBO_LIGHTING_SYSTEM) {
         /* Use the new UBO-based lighting shader instead of old lamp functions */
         BLI_dynstr_append(ds, datatoc_gpu_shader_ubo_lighting_glsl);
-        printf("[GPU_codegen] Using UBO lighting system shader\n");
+        printf("[GPU_codegen] Using UBO lighting system shader (Global)\n");
     }
     else {
         /* Use old lighting system (default) */
@@ -1457,6 +1544,10 @@ void GPU_code_generate_glsl_lib(void)
             
             BLI_dynstr_append(ds, datatoc_gpu_shader_material_glsl);
         }
+
+        /* Also append UBO lighting functions for per-material usage */
+        BLI_dynstr_append(ds, "\n// Per-material UBO Lighting Library\n");
+        BLI_dynstr_append(ds, datatoc_gpu_shader_ubo_lighting_glsl);
     }
 
     /* Append custom scattering shader */
@@ -1473,12 +1564,12 @@ void GPU_code_generate_glsl_lib(void)
         "void shade_mul_emit(vec4 col1, vec4 col2, out vec4 outcol)\n"
         "{\n"
         "\toutcol = col1 * col2;\n"
-        "\toutcol.rgb *= EMIT_RGB;\n"
+        "\toutcol.rgb *= vec3(EMIT_RGB);\n"
         "}\n"
         "void shade_mul_emit_value(float fac, vec4 col, out vec4 outcol)\n"
         "{\n"
         "\toutcol = col * fac;\n"
-        "\toutcol.rgb *= EMIT_RGB;\n"
+        "\toutcol.rgb *= vec3(EMIT_RGB);\n"
         "}\n"
         "#endif\n");
 
@@ -2328,7 +2419,8 @@ GPUPass *GPU_generate_pass(
         const bool use_instancing,
         const bool use_new_shading,
         const char *custom_shader,
-        const char *custom_fragment_shader)
+        const char *custom_fragment_shader,
+        const bool use_ubo_lighting)
 {
     GPUShader *shader;
     GPUPass *pass;
@@ -2339,9 +2431,16 @@ GPUPass *GPU_generate_pass(
 
     gpu_nodes_get_vertex_attributes(nodes, attribs);
     gpu_nodes_get_builtin_flag(nodes, builtins);
+    
+    if (use_ubo_lighting) {
+        *builtins |= GPU_INVERSE_VIEW_MATRIX;
+        *builtins |= GPU_VIEW_POSITION;
+        *builtins |= GPU_VIEW_NORMAL;
+        *builtins |= GPU_TIME;
+    }
 
     /* generate code and compile with OpenGL */
-    fragmentcode = code_generate_fragment(nodes, outlinks, custom_fragment_shader);
+    fragmentcode = code_generate_fragment(nodes, outlinks, custom_fragment_shader, use_ubo_lighting);
     vertexcode   = code_generate_vertex(nodes, type, use_instancing, custom_shader);
     geometrycode = code_generate_geometry(nodes, use_opensubdiv);
     

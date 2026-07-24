@@ -214,8 +214,12 @@ typedef enum GPUDynamicType {
 	GPU_DYNAMIC_MAT_ALPHA            = 8  | GPU_DYNAMIC_GROUP_MAT,
 	GPU_DYNAMIC_MAT_MIR              = 9  | GPU_DYNAMIC_GROUP_MAT,
 	GPU_DYNAMIC_MAT_SPECTRA          = 10 | GPU_DYNAMIC_GROUP_MAT,
-	GPU_DYNAMIC_MAT_ROUGHNESS        = 11 | GPU_DYNAMIC_GROUP_MAT,
-	GPU_DYNAMIC_MAT_METALLIC         = 12 | GPU_DYNAMIC_GROUP_MAT,
+	GPU_DYNAMIC_MAT_ROUGHNESS           = 11 | GPU_DYNAMIC_GROUP_MAT,
+	GPU_DYNAMIC_MAT_METALLIC            = 12 | GPU_DYNAMIC_GROUP_MAT,
+	GPU_DYNAMIC_MAT_UBO_SPECCOLOR       = 13 | GPU_DYNAMIC_GROUP_MAT,
+	GPU_DYNAMIC_MAT_UBO_SPECSTRENGTH    = 14 | GPU_DYNAMIC_GROUP_MAT,
+	GPU_DYNAMIC_MAT_UBO_SCATTERCOLOR    = 15 | GPU_DYNAMIC_GROUP_MAT,
+	GPU_DYNAMIC_MAT_UBO_SCATTERFAC      = 16 | GPU_DYNAMIC_GROUP_MAT,
 
 	GPU_DYNAMIC_TEX_COLINTENS        = 1  | GPU_DYNAMIC_GROUP_TEX,
 	GPU_DYNAMIC_TEX_COLFAC           = 2  | GPU_DYNAMIC_GROUP_TEX,
@@ -323,6 +327,10 @@ typedef struct GPUShadeInput {
 	GPUNodeLink *rgb, *specrgb, *vn, *view, *vcol, *ref;
 	GPUNodeLink *alpha, *refl, *spec, *emit, *har, *amb;
 	GPUNodeLink *spectra, *mir, *refcol, *roughness_bsdf, *metallic_bsdf;
+	GPUNodeLink *ubo_spec_color;      /* UBO F0 specular colour (vec3) */
+	GPUNodeLink *ubo_spec_strength;   /* UBO specular strength multiplier (float) */
+	GPUNodeLink *ubo_scatter_color;   /* UBO scatter tint colour (vec3) */
+	GPUNodeLink *ubo_scatter_fac;     /* UBO scatter factor (float) */
 } GPUShadeInput;
 
 typedef struct GPUShadeResult {

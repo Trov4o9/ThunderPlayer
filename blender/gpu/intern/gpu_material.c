@@ -395,7 +395,8 @@ static int gpu_material_construct_end(GPUMaterial *material, const char *passnam
             material->use_instancing,
             GPU_material_use_new_shading_nodes(material),
             custom_shader,
-            custom_fragment_shader);
+            custom_fragment_shader,
+            (material->ma && (material->ma->mode2 & MA_UBO_LIGHTING) != 0));
 
         if (!material->pass)
             return 0;
@@ -742,7 +743,11 @@ void GPU_material_bind(
 
 		GPU_pass_update_uniforms(material->pass);
 
-		/* Bind viewport lighting UBO (binding point 1) */
+		/* Bind viewport lighting UBO to binding point 1.
+		 * For game-engine materials using MA_UBO_LIGHTING the game-engine's
+		 * RAS_LightManager UBO will be rebound immediately after this call
+		 * (in BL_BlenderShader::BindProg), so the viewport value here is a
+		 * short-lived placeholder.  For viewport rendering this IS the final bind. */
 		GPU_viewport_lighting_bind();
 
 		material->bound = 1;
@@ -2235,6 +2240,14 @@ void GPU_shadeinput_set(GPUMaterial *mat, Material *ma, GPUShadeInput *shi)
 	GPU_link(mat, "set_value", GPU_select_uniform(&mat->har, GPU_DYNAMIC_MAT_HARD, ma, ma), &shi->har);
 	GPU_link(mat, "set_value", GPU_select_uniform(&ma->roughness_bsdf, GPU_DYNAMIC_MAT_ROUGHNESS, ma, ma), &shi->roughness_bsdf);
 	GPU_link(mat, "set_value", GPU_select_uniform(&ma->metallic_bsdf, GPU_DYNAMIC_MAT_METALLIC, ma, ma), &shi->metallic_bsdf);
+	/* UBO PBR overrides — always linked so the cons survive prune and get tracked.
+	 * ubo_spec_color defaults to (0.04,0.04,0.04); ubo_spec_strength defaults to 1.0 via
+	 * the DNA field zero-init + versioning.  New fields default to 0 in old .blends,
+	 * but 0 spec_strength would kill specular, so clamp is handled in the shader. */
+	GPU_link(mat, "set_rgb",   GPU_select_uniform(ma->ubo_spec_color,     GPU_DYNAMIC_MAT_UBO_SPECCOLOR,    ma, ma), &shi->ubo_spec_color);
+	GPU_link(mat, "set_value", GPU_select_uniform(&ma->ubo_spec_strength,  GPU_DYNAMIC_MAT_UBO_SPECSTRENGTH, ma, ma), &shi->ubo_spec_strength);
+	GPU_link(mat, "set_rgb",   GPU_select_uniform(ma->ubo_scatter_color,  GPU_DYNAMIC_MAT_UBO_SCATTERCOLOR, ma, ma), &shi->ubo_scatter_color);
+	GPU_link(mat, "set_value", GPU_select_uniform(&ma->ubo_scatter_fac,   GPU_DYNAMIC_MAT_UBO_SCATTERFAC,   ma, ma), &shi->ubo_scatter_fac);
 	GPU_link(mat, "set_value", GPU_select_uniform(&ma->amb, GPU_DYNAMIC_MAT_AMB, ma, ma), &shi->amb);
 	GPU_link(mat, "set_value", GPU_select_uniform(&ma->spectra, GPU_DYNAMIC_MAT_SPECTRA, ma, ma), &shi->spectra);
 	GPU_link(mat, "shade_view", GPU_material_builtin(mat, GPU_VIEW_POSITION), &shi->view);
@@ -2302,156 +2315,138 @@ void GPU_shaderesult_set(GPUShadeInput *shi, GPUShadeResult *shr)
 
 	do_material_tex(shi);
 
-	/* Handle emission FIRST (keep separate as requested) */
-	if (GPU_link_changed(shi->emit) || ma->emit != 0.0f || ma->custom_shader || !(ma->constflag & MA_CONSTANT_MATERIAL)) {
-		if ((ma->mode & (MA_VERTEXCOL | MA_VERTEXCOLP)) == MA_VERTEXCOL) {
-			GPU_link(mat, "shade_add", shi->emit, shi->vcol, &emit);
-			GPU_link(mat, "shade_mul_emit", emit, shi->rgb, &shr->diff);
-		}
-		else
-			GPU_link(mat, "shade_mul_emit_value", shi->emit, shi->rgb, &shr->diff);
-	}
-	else
-		GPU_link(mat, "set_rgb_zero", &shr->diff);
-
 	/* Skip traditional lighting if:
 	 * - GAME_GLSL_NO_LIGHTS flag is set
 	 * - Material is shadeless (MA_SHLESS)
 	 * - Using deferred rendering
+	 * - Using new UBO lighting system
 	 */
 	if ((mat->scene->gm.flag & GAME_GLSL_NO_LIGHTS) || 
 		(ma->mode & MA_SHLESS) || 
 		g_useDeferred_GG)
 	{
-		GPU_link(mat, "set_rgb_zero", &shr->spec);
-		GPU_link(mat, "set_value", shi->alpha, &shr->alpha);
-		shr->combined = shr->diff;
-	}
-	else if (USE_UBO_LIGHTING_SYSTEM) {
-		/* Use new UBO lighting system */
-		GPUNodeLink *world_pos, *world_norm, *world_view;
-		GPUNodeLink *zero_vec3, *zero_float;
-		
-		/* Convert position/normal/view to world space */
-		GPU_link(mat, "point_transform_m4v3", GPU_material_builtin(mat, GPU_VIEW_POSITION), 
-		         GPU_builtin(GPU_INVERSE_VIEW_MATRIX), &world_pos);
-		GPU_link(mat, "direction_transform_m4v3", shi->vn, 
-		         GPU_builtin(GPU_INVERSE_VIEW_MATRIX), &world_norm);
-		GPU_link(mat, "direction_transform_m4v3", shi->view, 
-		         GPU_builtin(GPU_INVERSE_VIEW_MATRIX), &world_view);
-		
-		/* Prepare zero values for unused scatter parameters */
-		GPU_link(mat, "set_rgb_zero", &zero_vec3);
-		GPU_link(mat, "set_value_zero", &zero_float);
-		
-		/* Call calcLight to accumulate lighting into shr->diff */
-		GPU_link(mat, "calcLight", 
-		         world_pos,            /* vec3 pos */
-		         world_norm,           /* vec3 norm */
-		         world_view,           /* vec3 view */
-		         shi->rgb,             /* vec3 albedo */
-		         shi->specrgb,         /* vec3 specular_rgb */
-		         zero_vec3,            /* vec3 scatter_rgb */
-		         shi->roughness_bsdf,  /* float roughness */
-		         shi->metallic_bsdf,   /* float metallic */
-		         zero_float,           /* float scatter_fac */
-		         &shr->diff);          /* inout vec3 result */
-		
+		GPU_link(mat, "set_rgb", shi->rgb, &shr->diff);
 		GPU_link(mat, "set_rgb_zero", &shr->spec);
 		GPU_link(mat, "set_value", shi->alpha, &shr->alpha);
 		shr->combined = shr->diff;
 	}
 	else {
-		/* Traditional lighting system */
+			if (GPU_link_changed(shi->emit) || ma->emit != 0.0f || ma->custom_shader || !(ma->constflag & MA_CONSTANT_MATERIAL)) {
+
+			if ((ma->mode & (MA_VERTEXCOL | MA_VERTEXCOLP)) == MA_VERTEXCOL) {
+				GPU_link(mat, "shade_add", shi->emit, shi->vcol, &emit);
+				GPU_link(mat, "shade_mul_emit", emit, shi->rgb, &shr->diff);
+			}
+			else
+				GPU_link(mat, "shade_mul_emit_value", shi->emit, shi->rgb, &shr->diff);
+		}
+		else
+			GPU_link(mat, "set_rgb_zero", &shr->diff);
+
 		GPU_link(mat, "set_rgb_zero", &shr->spec);
 
-		material_lights(shi, shr);
+		if (ma->mode2 & MA_UBO_LIGHTING) {
+			/* UBO lighting is injected by gpu_codegen.c (codegen_call_functions).
+			 * ubo_lighting_apply is a stub node whose call is replaced entirely by
+			 * the codegen with:  tmp_out = tmp_in.rgb + ubo_result.
+			 * All extra inputs are declared only so their cons nodes survive
+			 * gpu_nodes_prune; their IDs are tracked for ROUGHNESS/METALLIC/
+			 * SCATTER_RGB/SCATTER_FAC variables in main(). */
+			GPU_link(mat, "ubo_lighting_apply", shr->diff,
+			         shi->roughness_bsdf, shi->metallic_bsdf,
+			         shi->ubo_spec_color, shi->ubo_spec_strength,
+			         shi->ubo_scatter_color, shi->ubo_scatter_fac,
+			         &shr->diff);
+		}
+		else {
+			material_lights(shi, shr);
+		}
 
 		shr->combined = shr->diff;
 
 		GPU_link(mat, "set_value", shi->alpha, &shr->alpha);
-	}
 
-	if (world) {
-		/* exposure correction */
-		if (world->exp != 0.0f || world->range != 1.0f || !(ma->constflag & MA_CONSTANT_WORLD)) {
-			GPU_link(mat, "shade_exposure_correct", shr->combined,
-				GPU_select_uniform(&GPUWorld.linfac, GPU_DYNAMIC_WORLD_LINFAC, NULL, ma),
-				GPU_select_uniform(&GPUWorld.logfac, GPU_DYNAMIC_WORLD_LOGFAC, NULL, ma),
-				&shr->combined);
-			GPU_link(mat, "shade_exposure_correct", shr->spec,
-				GPU_select_uniform(&GPUWorld.linfac, GPU_DYNAMIC_WORLD_LINFAC, NULL, ma),
-				GPU_select_uniform(&GPUWorld.logfac, GPU_DYNAMIC_WORLD_LOGFAC, NULL, ma),
-				&shr->spec);
-		}
+		if (world) {
+			/* exposure correction */
+			if (world->exp != 0.0f || world->range != 1.0f || !(ma->constflag & MA_CONSTANT_WORLD)) {
+				GPU_link(mat, "shade_exposure_correct", shr->combined,
+					GPU_select_uniform(&GPUWorld.linfac, GPU_DYNAMIC_WORLD_LINFAC, NULL, ma),
+					GPU_select_uniform(&GPUWorld.logfac, GPU_DYNAMIC_WORLD_LOGFAC, NULL, ma),
+					&shr->combined);
+				GPU_link(mat, "shade_exposure_correct", shr->spec,
+					GPU_select_uniform(&GPUWorld.linfac, GPU_DYNAMIC_WORLD_LINFAC, NULL, ma),
+					GPU_select_uniform(&GPUWorld.logfac, GPU_DYNAMIC_WORLD_LOGFAC, NULL, ma),
+					&shr->spec);
+			}
 
-		/* environment lighting */
-		if (!(mat->scene->gm.flag & GAME_GLSL_NO_ENV_LIGHTING) &&
-		    (world->mode & WO_ENV_LIGHT) &&
-		    (mat->scene->r.mode & R_SHADOW) &&
-		    !BKE_scene_use_new_shading_nodes(mat->scene))
-		{
-			if (((world->ao_env_energy != 0.0f) && (GPU_link_changed(shi->amb) || ma->amb != 0.0f) &&
-			    (GPU_link_changed(shi->refl) || ma->ref != 0.0f)) || !(ma->constflag & MA_CONSTANT_WORLD))
+			/* environment lighting */
+			if (!(mat->scene->gm.flag & GAME_GLSL_NO_ENV_LIGHTING) &&
+			    (world->mode & WO_ENV_LIGHT) &&
+			    (mat->scene->r.mode & R_SHADOW) &&
+			    !BKE_scene_use_new_shading_nodes(mat->scene))
 			{
-				if (world->aocolor == WO_AOSKYCOL) {
-					if (!(is_zero_v3(&world->horr) & is_zero_v3(&world->zenr)) || !(ma->constflag & MA_CONSTANT_WORLD)) {
-						GPUNodeLink *fcol, *f;
-						GPU_link(mat, "math_multiply", shi->amb, shi->refl, &f);
-						GPU_link(mat, "math_multiply", f, GPU_select_uniform(&GPUWorld.envlightenergy, GPU_DYNAMIC_ENVLIGHT_ENERGY, NULL, ma), &f);
-						GPU_link(mat, "shade_mul_value", f, shi->rgb, &fcol);
-						GPU_link(mat, "env_apply", shr->combined,
-						         GPU_select_uniform(GPUWorld.horicol, GPU_DYNAMIC_HORIZON_COLOR, NULL, ma),
-						         GPU_select_uniform(GPUWorld.zencol, GPU_DYNAMIC_ZENITH_COLOR, NULL, ma), fcol,
+				if (((world->ao_env_energy != 0.0f) && (GPU_link_changed(shi->amb) || ma->amb != 0.0f) &&
+				    (GPU_link_changed(shi->refl) || ma->ref != 0.0f)) || !(ma->constflag & MA_CONSTANT_WORLD))
+				{
+					if (world->aocolor == WO_AOSKYCOL) {
+						if (!(is_zero_v3(&world->horr) & is_zero_v3(&world->zenr)) || !(ma->constflag & MA_CONSTANT_WORLD)) {
+							GPUNodeLink *fcol, *f;
+							GPU_link(mat, "math_multiply", shi->amb, shi->refl, &f);
+							GPU_link(mat, "math_multiply", f, GPU_select_uniform(&GPUWorld.envlightenergy, GPU_DYNAMIC_ENVLIGHT_ENERGY, NULL, ma), &f);
+							GPU_link(mat, "shade_mul_value", f, shi->rgb, &fcol);
+							GPU_link(mat, "env_apply", shr->combined,
+							         GPU_select_uniform(GPUWorld.horicol, GPU_DYNAMIC_HORIZON_COLOR, NULL, ma),
+							         GPU_select_uniform(GPUWorld.zencol, GPU_DYNAMIC_ZENITH_COLOR, NULL, ma), fcol,
 									 GPU_material_builtin(mat, GPU_VIEW_MATRIX), shi->vn, &shr->combined);
+						}
 					}
-				}
-				else if (world->aocolor == WO_AOSKYTEX) {
-					if (world->mtex[0] && world->mtex[0]->tex && world->mtex[0]->tex->ima) {
-						GPUNodeLink *fcol, *f;
-						Tex* tex = world->mtex[0]->tex;
-						GPU_link(mat, "math_multiply", shi->amb, shi->refl, &f);
-						GPU_link(mat, "math_multiply", f, GPU_select_uniform(&GPUWorld.envlightenergy, GPU_DYNAMIC_ENVLIGHT_ENERGY, NULL, ma), &f);
-						GPU_link(mat, "shade_mul_value", f, shi->rgb, &fcol);
-						GPU_link(mat, "env_apply_tex", shr->combined, fcol,
+					else if (world->aocolor == WO_AOSKYTEX) {
+						if (world->mtex[0] && world->mtex[0]->tex && world->mtex[0]->tex->ima) {
+							GPUNodeLink *fcol, *f;
+							Tex* tex = world->mtex[0]->tex;
+							GPU_link(mat, "math_multiply", shi->amb, shi->refl, &f);
+							GPU_link(mat, "math_multiply", f, GPU_select_uniform(&GPUWorld.envlightenergy, GPU_DYNAMIC_ENVLIGHT_ENERGY, NULL, ma), &f);
+							GPU_link(mat, "shade_mul_value", f, shi->rgb, &fcol);
+							GPU_link(mat, "env_apply_tex", shr->combined, fcol,
 									 GPU_cube_map(tex->ima, &tex->iuser, false),
 									 GPU_material_builtin(mat, GPU_VIEW_NORMAL),
 									 GPU_material_builtin(mat, GPU_INVERSE_VIEW_MATRIX),
 									 &shr->combined);
+						}
+					}
+					else {
+						GPUNodeLink *f;
+						GPU_link(mat, "math_multiply", shi->amb, shi->refl, &f);
+						GPU_link(mat, "math_multiply", f, GPU_select_uniform(&GPUWorld.envlightenergy, GPU_DYNAMIC_ENVLIGHT_ENERGY, NULL, ma), &f);
+						GPU_link(mat, "shade_maddf", shr->combined, f, shi->rgb, &shr->combined);
 					}
 				}
-				else {
-					GPUNodeLink *f;
-					GPU_link(mat, "math_multiply", shi->amb, shi->refl, &f);
-					GPU_link(mat, "math_multiply", f, GPU_select_uniform(&GPUWorld.envlightenergy, GPU_DYNAMIC_ENVLIGHT_ENERGY, NULL, ma), &f);
-					GPU_link(mat, "shade_maddf", shr->combined, f, shi->rgb, &shr->combined);
-				}
+			}
+
+			/* ambient color */
+			if (GPU_link_changed(shi->amb) || ma->amb != 0.0f || !(ma->constflag & MA_CONSTANT_MATERIAL)) {
+				GPU_link(mat, "shade_maddf", shr->combined, GPU_select_uniform(&ma->amb, GPU_DYNAMIC_MAT_AMB, NULL, ma),
+				         GPU_select_uniform(GPUWorld.ambcol, GPU_DYNAMIC_AMBIENT_COLOR, NULL, ma),
+				         &shr->combined);
 			}
 		}
 
-		/* ambient color */
-		if (GPU_link_changed(shi->amb) || ma->amb != 0.0f || !(ma->constflag & MA_CONSTANT_MATERIAL)) {
-			GPU_link(mat, "shade_maddf", shr->combined, GPU_select_uniform(&ma->amb, GPU_DYNAMIC_MAT_AMB, NULL, ma),
-			         GPU_select_uniform(GPUWorld.ambcol, GPU_DYNAMIC_AMBIENT_COLOR, NULL, ma),
-			         &shr->combined);
+		if (ma->mode & MA_TRANSP && (ma->mode & (MA_ZTRANSP | MA_RAYTRANSP))) {
+			if (GPU_link_changed(shi->spectra) || ma->spectra != 0.0f || !(ma->constflag & MA_CONSTANT_MATERIAL)) {
+				GPU_link(mat, "alpha_spec_correction", shr->spec, shi->spectra,
+				         shi->alpha, &shr->alpha);
+			}
 		}
+
+		if (ma->mode & MA_RAMP_COL) ramp_diffuse_result(shi, &shr->combined);
+		if (ma->mode & MA_RAMP_SPEC) ramp_spec_result(shi, &shr->spec);
+
+		if (GPU_link_changed(shi->refcol))
+			GPU_link(mat, "shade_add_mirror", shi->mir, shi->refcol, shr->combined, &shr->combined);
+
+		if (GPU_link_changed(shi->spec) || ma->spec != 0.0f || !(ma->constflag & MA_CONSTANT_MATERIAL))
+			GPU_link(mat, "shade_add", shr->combined, shr->spec, &shr->combined);
 	}
-
-	if (ma->mode & MA_TRANSP && (ma->mode & (MA_ZTRANSP | MA_RAYTRANSP))) {
-		if (GPU_link_changed(shi->spectra) || ma->spectra != 0.0f || !(ma->constflag & MA_CONSTANT_MATERIAL)) {
-			GPU_link(mat, "alpha_spec_correction", shr->spec, shi->spectra,
-			         shi->alpha, &shr->alpha);
-		}
-	}
-
-	if (ma->mode & MA_RAMP_COL) ramp_diffuse_result(shi, &shr->combined);
-	if (ma->mode & MA_RAMP_SPEC) ramp_spec_result(shi, &shr->spec);
-
-	if (GPU_link_changed(shi->refcol))
-		GPU_link(mat, "shade_add_mirror", shi->mir, shi->refcol, shr->combined, &shr->combined);
-
-	if (GPU_link_changed(shi->spec) || ma->spec != 0.0f || !(ma->constflag & MA_CONSTANT_MATERIAL))
-		GPU_link(mat, "shade_add", shr->combined, shr->spec, &shr->combined);
 
 	if (ma->mode & MA_TRANSP && ma->mode2 & MA_DEPTH_TRANSP) {
 		GPU_link(mat, "shade_alpha_depth",

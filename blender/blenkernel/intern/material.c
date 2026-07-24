@@ -132,8 +132,12 @@ void BKE_material_init(Material *ma)
 	ma->param[3] = 0.1;
 	ma->rms = 0.1;
 	ma->darkness = 1.0;
-	ma->roughness_bsdf = 0.5f;
+	ma->roughness_bsdf = 0.5f;  /* mínimo permitido é 0.04 — ver RNA_def_property_range em rna_material.c */
 	ma->metallic_bsdf = 0.0f;
+	ma->ubo_spec_color[0] = ma->ubo_spec_color[1] = ma->ubo_spec_color[2] = 1.0f;
+	ma->ubo_spec_strength = 0.0f;
+	ma->ubo_scatter_color[0] = ma->ubo_scatter_color[1] = ma->ubo_scatter_color[2] = 1.0f;
+	ma->ubo_scatter_fac = 0.0f;
 	ma->shade_flag |= MA_ENERGY_CONSERV;
 
 	ma->strand_sta = ma->strand_end = 1.0f;

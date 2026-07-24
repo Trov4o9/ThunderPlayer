@@ -1,4 +1,4 @@
-/*
+﻿/*
  * ***** BEGIN GPL LICENSE BLOCK *****
  *
  * This program is free software; you can redistribute it and/or
@@ -311,12 +311,13 @@ void blo_do_versions_upbge(FileData *fd, Library *lib, Main *main)
 		}
 	}
 
+
 	if (!MAIN_VERSION_UPBGE_ATLEAST(main, 2, 5)) {
 		if (!DNA_struct_elem_find(fd->filesdna, "MTex", "short", "parallaxcomp")) {
 			for (Material *ma = main->mat.first; ma; ma = ma->id.next) {
 				for (unsigned short a = 0; a < MAX_MTEX; ++a) {
 					if (ma->mtex[a]) {
-						// Default alpha.
+						/* Default alpha. */
 						ma->mtex[a]->parallaxcomp = 3;
 					}
 				}
@@ -335,19 +336,52 @@ void blo_do_versions_upbge(FileData *fd, Library *lib, Main *main)
 				MTex *mtex;
 				float varfac;
 				int neg;
-				
+
 				for (int i = 0; i < MAX_MTEX; i++) {
 					if (ma->mtex[i]) {
 						mtex = ma->mtex[i];
-			
 						neg = mtex->maptoneg;
 						varfac = mtex->varfac;
-			
-						mtex->roughnessfac = (neg & MAP_ROUGHNESS)? -varfac: varfac;
-						mtex->metallicfac = (neg & MAP_METALLIC)? -varfac: varfac;
+						mtex->roughnessfac = (neg & MAP_ROUGHNESS) ? -varfac : varfac;
+						mtex->metallicfac  = (neg & MAP_METALLIC)  ? -varfac : varfac;
 					}
 				}
 			}
 		}
+	}
+
+	/* -----------------------------------------------------------------------
+	 * Bloco incondicional — roda em TODOS os arquivos independente de versão.
+	 * Corrige campos UBO PBR salvos como 0.0 por versões anteriores do
+	 * executável, porque os blocos guardados por versão (ATLEAST) são
+	 * completamente ignorados quando o arquivo já tem versão >= a guard.
+	 * ----------------------------------------------------------------------- */
+	for (Material *mat = main->mat.first; mat; mat = mat->id.next) {
+		/* roughness_bsdf: mínimo físico 0.04 — valores menores causam artefatos GGX */
+		if (mat->roughness_bsdf < 0.04f) {
+			mat->roughness_bsdf = 0.04f;
+		}
+
+		/* ubo_spec_color: zeros indicam campo nunca inicializado → default branco */
+		if (mat->ubo_spec_color[0] == 0.0f &&
+		    mat->ubo_spec_color[1] == 0.0f &&
+		    mat->ubo_spec_color[2] == 0.0f)
+		{
+			mat->ubo_spec_color[0] = 1.0f;
+			mat->ubo_spec_color[1] = 1.0f;
+			mat->ubo_spec_color[2] = 1.0f;
+		}
+		/* ubo_spec_strength: 0.0 = sem especular — correto, não precisa ajuste */
+
+		/* ubo_scatter_color: zeros indicam campo nunca inicializado → default branco */
+		if (mat->ubo_scatter_color[0] == 0.0f &&
+		    mat->ubo_scatter_color[1] == 0.0f &&
+		    mat->ubo_scatter_color[2] == 0.0f)
+		{
+			mat->ubo_scatter_color[0] = 1.0f;
+			mat->ubo_scatter_color[1] = 1.0f;
+			mat->ubo_scatter_color[2] = 1.0f;
+		}
+		/* ubo_scatter_fac: 0.0 = Lambert puro — correto, não precisa ajuste */
 	}
 }

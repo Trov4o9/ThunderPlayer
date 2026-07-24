@@ -146,6 +146,16 @@ typedef struct Material {
 	float darkness;
 	float metallic_bsdf, roughness_bsdf;
 
+	/* UBO PBR lighting overrides — only used when MA_UBO_LIGHTING is set.
+	 * ubo_spec_color[3]: specular F0 colour (default 0.04, 0.04, 0.04 for dielectrics).
+	 * ubo_spec_strength: multiplier on specular (0=no specular, 1=full).
+	 * ubo_scatter_color[3]: subsurface scatter tint colour (default 1,1,1 = white).
+	 * ubo_scatter_fac: blend between Lambertian and subsurface scatter (0=Lambert, 1=full scatter). */
+	float ubo_spec_color[3];
+	float ubo_spec_strength;
+	float ubo_scatter_color[3];
+	float ubo_scatter_fac;
+
 	/* runtime - OR'd from 'mtex' */
 	short texco, pad6;
 	int mapto, pad7;
@@ -317,6 +327,7 @@ typedef struct Material {
 #define MA_MODE2_PIPELINE	(MA_CASTSHADOW)
 #define MA_TANGENT_CONCRETE	(1 << 1)
 #define MA_DEPTH_TRANSP		(1 << 2)
+#define MA_UBO_LIGHTING		(1 << 3)
 
 /* mapflag */
 #define MA_MAPFLAG_UVPROJECT (1 << 0)

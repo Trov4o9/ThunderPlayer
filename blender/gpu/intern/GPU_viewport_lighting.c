@@ -86,10 +86,10 @@ void GPU_viewport_lighting_update(struct Scene *scene, struct SceneRenderLayer *
 	int light_count = 0;
 	Base *base;
 	
-	/* Iterate through scene objects */
+	/* Iterate through scene objects — include any lamp on an active scene layer */
 	for (base = scene->base.first; base && light_count < MAX_SCENE_LIGHTS; base = base->next) {
-		if (!(base->flag & SELECT) && !(base->lay & scene->lay)) {
-			continue;  /* Skip invisible objects */
+		if (!(base->lay & scene->lay)) {
+			continue;  /* Skip objects not on any visible layer */
 		}
 		
 		Object *ob = base->object;
@@ -100,18 +100,22 @@ void GPU_viewport_lighting_update(struct Scene *scene, struct SceneRenderLayer *
 		Lamp *la = (Lamp *)ob->data;
 		GPUSceneLightData *light = &g_viewport_light_ubo->data.lights[light_count];
 		
-		/* Light type */
-		if (la->type == LA_SPOT) {
-			light->type_mode[0] = 0.0f;  /* SPOT */
+		/* Light type — values must match the GLSL #defines in gpu_shader_ubo_lighting.glsl:
+		 *   SPOT  = 0,  SUN = 1,  POINT = 2
+		 * DNA_lamp_types.h:  LA_LOCAL=0, LA_SUN=1, LA_SPOT=2
+		 * The viewport was previously sending LA_* values directly which
+		 * mapped  LA_LOCAL(0)→SPOT and  LA_SPOT(2)→POINT — both wrong. */
+		if (la->type == LA_LOCAL) {
+			light->type_mode[0] = 2.0f;  /* POINT  (GLSL #define POINT 2) */
 		}
 		else if (la->type == LA_SUN) {
-			light->type_mode[0] = 1.0f;  /* SUN */
+			light->type_mode[0] = 1.0f;  /* SUN    (GLSL #define SUN   1) */
 		}
-		else if (la->type == LA_LOCAL) {
-			light->type_mode[0] = 2.0f;  /* POINT */
+		else if (la->type == LA_SPOT) {
+			light->type_mode[0] = 0.0f;  /* SPOT   (GLSL #define SPOT  0) */
 		}
 		else {
-			continue;  /* Unsupported light type */
+			continue;  /* Unsupported light type (HEMI etc.) */
 		}
 		
 		/* Color and energy */
@@ -152,8 +156,6 @@ void GPU_viewport_lighting_update(struct Scene *scene, struct SceneRenderLayer *
 	/* Store light count */
 	g_viewport_light_ubo->data.sceneLightInfo[0] = (float)light_count;
 	g_viewport_light_ubo->is_dirty = true;
-	
-	printf("[GPU_viewport_lighting] Updated %d lights from viewport scene\n", light_count);
 }
 
 /* Bind UBO to shader (binding point 1) */

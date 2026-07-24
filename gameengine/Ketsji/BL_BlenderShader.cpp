@@ -29,6 +29,8 @@
 #include "GPU_shader.h"
 #include "GPU_extensions.h"
 
+#include "RAS_LightManager.h"
+
 #include "BL_BlenderShader.h"
 
 #include "RAS_BucketManager.h"
@@ -175,6 +177,16 @@ void BL_BlenderShader::BindProg(RAS_Rasterizer *rasty)
 	
 	GPU_material_bind(m_gpuMat, m_blenderScene->lay, rasty->GetTime(), 1,
 					  rasty->GetViewMatrix().Data(), rasty->GetViewInvMatrix().Data(), nullptr, false);
+
+	/* GPU_material_bind calls GPU_viewport_lighting_bind() which overwrites UBO
+	 * binding point 1 with viewport data.  For MA_UBO_LIGHTING materials the game
+	 * engine's RAS_LightManager UBO must be bound instead, so rebind it here. */
+	if (m_mat && (m_mat->mode2 & MA_UBO_LIGHTING)) {
+		RAS_LightManager *lightMgr = RAS_LightManager::GetInstance();
+		if (lightMgr) {
+			lightMgr->BindUBO();
+		}
+	}
 }
 
 void BL_BlenderShader::UnbindProg()

@@ -2114,6 +2114,56 @@ void RNA_def_material(BlenderRNA *brna)
 	                         "Allow this material to cast shadows");
 	RNA_def_property_update(prop, 0, "rna_Material_update");
 
+	prop = RNA_def_property(srna, "use_ubo_lighting", PROP_BOOLEAN, PROP_NONE);
+	RNA_def_property_boolean_sdna(prop, NULL, "mode2", MA_UBO_LIGHTING);
+	RNA_def_property_ui_text(prop, "UBO Lighting",
+	                         "Use the new UBO-based PBR lighting system for this material");
+	RNA_def_property_update(prop, 0, "rna_Material_update");
+
+	prop = RNA_def_property(srna, "ubo_roughness", PROP_FLOAT, PROP_FACTOR);
+	RNA_def_property_float_sdna(prop, NULL, "roughness_bsdf");
+	RNA_def_property_range(prop, 0.04f, 1.0f);
+	RNA_def_property_float_default(prop, 0.5f);
+	RNA_def_property_ui_text(prop, "Roughness", "PBR surface roughness (0=mirror, 1=fully diffuse)");
+	RNA_def_property_update(prop, 0, "rna_Material_update");
+
+	prop = RNA_def_property(srna, "ubo_metallic", PROP_FLOAT, PROP_FACTOR);
+	RNA_def_property_float_sdna(prop, NULL, "metallic_bsdf");
+	RNA_def_property_range(prop, 0.0f, 1.0f);
+	RNA_def_property_float_default(prop, 0.0f);
+	RNA_def_property_ui_text(prop, "Metallic", "PBR metallic factor (0=dielectric, 1=metal)");
+	RNA_def_property_update(prop, 0, "rna_Material_update");
+
+	prop = RNA_def_property(srna, "ubo_spec_color", PROP_FLOAT, PROP_COLOR);
+	RNA_def_property_float_sdna(prop, NULL, "ubo_spec_color");
+	RNA_def_property_array(prop, 3);
+	RNA_def_property_range(prop, 0.0f, 1.0f);
+	RNA_def_property_float_array_default(prop, ((float[]){1.0f, 1.0f, 1.0f}));
+	RNA_def_property_ui_text(prop, "Specular Color", "Specular tint colour");
+	RNA_def_property_update(prop, 0, "rna_Material_update");
+
+	prop = RNA_def_property(srna, "ubo_spec_strength", PROP_FLOAT, PROP_FACTOR);
+	RNA_def_property_float_sdna(prop, NULL, "ubo_spec_strength");
+	RNA_def_property_range(prop, 0.0f, 2.0f);
+	RNA_def_property_float_default(prop, 0.0f);
+	RNA_def_property_ui_text(prop, "Specular Strength", "Multiplier on the specular contribution");
+	RNA_def_property_update(prop, 0, "rna_Material_update");
+
+	prop = RNA_def_property(srna, "ubo_scatter_color", PROP_FLOAT, PROP_COLOR);
+	RNA_def_property_float_sdna(prop, NULL, "ubo_scatter_color");
+	RNA_def_property_array(prop, 3);
+	RNA_def_property_range(prop, 0.0f, 1.0f);
+	RNA_def_property_float_array_default(prop, ((float[]){1.0f, 1.0f, 1.0f}));
+	RNA_def_property_ui_text(prop, "Scatter Color", "Subsurface scatter tint colour");
+	RNA_def_property_update(prop, 0, "rna_Material_update");
+
+	prop = RNA_def_property(srna, "ubo_scatter_fac", PROP_FLOAT, PROP_FACTOR);
+	RNA_def_property_float_sdna(prop, NULL, "ubo_scatter_fac");
+	RNA_def_property_range(prop, 0.0f, 1.0f);
+	RNA_def_property_float_default(prop, 0.0f);
+	RNA_def_property_ui_text(prop, "Scatter", "Blend between Lambertian diffuse (0) and subsurface scatter (1)");
+	RNA_def_property_update(prop, 0, "rna_Material_update");
+
 	prop = RNA_def_property(srna, "use_cast_shadows_only", PROP_BOOLEAN, PROP_NONE);
 	RNA_def_property_boolean_sdna(prop, NULL, "mode", MA_ONLYCAST);
 	RNA_def_property_ui_text(prop, "Cast Shadows Only",

@@ -621,6 +621,19 @@ void set_rgb_zero(out vec3 outval)
 	outval = vec3(0.0);
 }
 
+/* Anchor node for UBO lighting injection.
+ * The GPU codegen intercepts this call and replaces it with:
+ *   out_diff = diff.rgb + ubo_result;
+ * All extra parameters are declared only so their cons nodes survive gpu_nodes_prune
+ * and their IDs are tracked for ROUGHNESS/METALLIC/SPECULAR_RGB/SPECULAR_STRENGTH
+ * variables in main().  The stub body is never actually executed at runtime. */
+void ubo_lighting_apply(vec4 diff, float roughness, float metallic,
+                        vec3 spec_color, float spec_strength,
+                        vec3 scatter_color, float scatter_fac, out vec3 out_diff)
+{
+	out_diff = diff.rgb;
+}
+
 void set_rgb_one(out vec3 outval)
 {
 	outval = vec3(1.0);

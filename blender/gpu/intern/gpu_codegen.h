@@ -165,13 +165,14 @@ struct GPUPass {
 typedef struct GPUPass GPUPass;
 
 GPUPass *GPU_generate_pass(ListBase *nodes, struct GPUNodeLink *outlinks[8],
-                           struct GPUVertexAttribs *attribs, int *builtin,
+                           struct GPUVertexAttribs *attribs, int *builtins,
                            const GPUMatType type, const char *name,
                            const bool use_opensubdiv,
-						   const bool use_instancing,
+                           const bool use_instancing,
                            const bool use_new_shading,
-							const char *custom_shader,
-							const char *custom_fragment_shader);
+                           const char *custom_shader,
+                           const char *custom_fragment_shader,
+                           const bool use_ubo_lighting);
 
 struct GPUShader *GPU_pass_shader(GPUPass *pass);
 
