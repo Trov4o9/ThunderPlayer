@@ -34,6 +34,8 @@
 #include "KX_PyMath.h"
 #include "KX_Scene.h"
 #include "KX_LightObject.h"
+#include "KX_KetsjiEngine.h"
+#include "KX_Globals.h"
 #include "RAS_ILightObject.h"
 #include "RAS_Rasterizer.h"
 #include "GPU_material.h"
@@ -229,7 +231,13 @@ void KX_WorldInfo::RenderBackground(RAS_Rasterizer *rasty)
 			UpdateSunUniform(gpumat);
 
 			static float texcofac[4] = { 0.0f, 0.0f, 1.0f, 1.0f };
-			GPU_material_bind(gpumat, m_scene->lay, 1.0f, false, rasty->GetViewMatrix().Data(),
+			/* Use the engine clock time so TIME advances during gameplay */
+			double sky_time = 1.0;
+			KX_KetsjiEngine *engine = KX_GetActiveEngine();
+			if (engine) {
+				sky_time = engine->GetClockTime();
+			}
+			GPU_material_bind(gpumat, m_scene->lay, sky_time, false, rasty->GetViewMatrix().Data(),
 			                  rasty->GetViewInvMatrix().Data(), texcofac, false);
 
 			/* Disable cull face instead of setting front face as it could be

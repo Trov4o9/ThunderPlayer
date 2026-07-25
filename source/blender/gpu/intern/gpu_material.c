@@ -214,6 +214,7 @@ struct GPUMaterial {
 	char *custom_vertex_code;           /* Código extraído da função vertex() */
 	char *custom_global_code;           /* Código global (uniforms, funcs) */
 	bool has_custom_vertex_shader;      /* Flag rápida */
+	bool custom_sky_override;           /* true = custom define cor final; false = pré-processa entradas */
 
 	/* Shadow shader cache per-material */
 	GPUShader *shadow_shader_black;
@@ -396,7 +397,8 @@ static int gpu_material_construct_end(GPUMaterial *material, const char *passnam
             GPU_material_use_new_shading_nodes(material),
             custom_shader,
             custom_fragment_shader,
-            (material->ma && (material->ma->mode2 & MA_UBO_LIGHTING) != 0));
+            (material->ma && (material->ma->mode2 & MA_UBO_LIGHTING) != 0),
+            material->custom_sky_override);
 
         if (!material->pass)
             return 0;
@@ -2850,7 +2852,30 @@ GPUMaterial *GPU_material_world(Scene *scene, World *wo)
         }
     }
 
-    gpu_material_construct_end(mat, wo->id.name, "","");
+    /* Read custom sky shader from Text data-block */
+    char *custom_sky_code = NULL;
+    if (wo->custom_sky_shader) {
+        Text *text = wo->custom_sky_shader;
+        if (text && (text->id.tag & LIB_TAG_DOIT) == 0) {
+            if (text->lines.first && text->curl && text->sell) {
+                custom_sky_code = txt_to_buf(text);
+            }
+        }
+        else {
+            wo->custom_sky_shader = NULL;
+        }
+    }
+
+    /* Store override flag in GPUMaterial so GPU_generate_pass() can read it */
+    mat->custom_sky_override = (wo->custom_sky_override != 0) && (custom_sky_code != NULL);
+
+    gpu_material_construct_end(mat, wo->id.name,
+        "",                                        /* no custom vertex for sky */
+        custom_sky_code ? custom_sky_code : "");
+
+    if (custom_sky_code) {
+        MEM_freeN(custom_sky_code);
+    }
 
     link = MEM_callocN(sizeof(LinkData), "GPUMaterialLink");
     link->data = mat;

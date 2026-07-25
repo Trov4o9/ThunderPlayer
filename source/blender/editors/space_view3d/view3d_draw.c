@@ -3104,8 +3104,10 @@ static void view3d_main_region_clear(Scene *scene, View3D *v3d, ARegion *ar)
 		RegionView3D *rv3d = ar->regiondata;
 		GPUMaterial *gpumat = GPU_material_world(scene, scene->world);
 
-		/* calculate full shader for background */
-		GPU_material_bind(gpumat, 1, 1.0, true, rv3d->viewmat, rv3d->viewinv, rv3d->viewcamtexcofac, (v3d->scenelock != 0));
+		/* calculate full shader for background — use scene frame time so TIME
+		 * advances in the viewport editor, matching material shader behaviour */
+		double sky_time = BKE_scene_frame_get(scene);
+		GPU_material_bind(gpumat, 1, sky_time, true, rv3d->viewmat, rv3d->viewinv, rv3d->viewcamtexcofac, (v3d->scenelock != 0));
 
 		bool material_not_bound = !GPU_material_bound(gpumat);
 

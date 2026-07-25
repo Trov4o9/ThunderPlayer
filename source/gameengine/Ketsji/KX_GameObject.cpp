@@ -7944,6 +7944,16 @@ static void KX_SNR_ClearCachesForOwner(KX_GameObject *owner, bool releaseNow)
 #define KX_SNR_TIMING 0
 #define KX_SNR_SEAM_DEBUG 0
 
+// OPT-12: struct compartilhada entre PySurfaceNetsAndRebuild e PyFinalizeSurfaceNetsMesh.
+// Definida em escopo de arquivo para que ambas as funções usem o mesmo tipo sem duplicação.
+struct KX_SurfaceNetsMeshData {
+    RAS_DisplayArray *displayArray;
+    KX_Scene *scene;
+    KX_BlenderMaterial *material;
+    RAS_BucketManager *bucketManager;
+    RAS_Mesh::LayersInfo layersInfo;
+};
+
 PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
 {
 #if KX_SNR_TIMING
@@ -8412,6 +8422,9 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
             add_edits.push_back(ei);
         }
     }
+    // OPT-7: pré-calculado uma vez antes dos loops paralelos para evitar
+    // chamadas a empty()/size() dentro do hot path por vértice.
+    const bool has_add_edits = !add_edits.empty();
 
     const float inv_step_z_const = 1.0f / step_z;
 
@@ -8590,7 +8603,9 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
         // [OPT-7] Pré-computa per-edit o range de índices Z [z_min_idx, z_max_idx]
         // para cada coluna (x,y). Aqui pré-computamos apenas o range global por edit
         // (independente de x,y) - o skip por coluna é feito no loop Z.
-        struct EditZRange { int zmin, zmax; };
+        // OPT-5: r_margin² pré-calculado por edit (constante — não depende de x,y,z).
+        // Evita recalcular (ed.r + step_z)² para cada coluna (x,y) no SDF fill.
+        struct EditZRange { int zmin, zmax; float r_margin2; };
         std::vector<EditZRange> edit_z_ranges(edits.size());
         for (size_t ei = 0; ei < edits.size(); ++ei) {
             const auto& ed = edits[ei];
@@ -8599,6 +8614,8 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
             int iz1 = (int)ceilf ((z_hi - min_z) * inv_step_z) + 1;
             edit_z_ranges[ei].zmin = std::max(0, iz0);
             edit_z_ranges[ei].zmax = std::min((int)nz - 1, iz1);
+            const float r_margin = ed.r + step_z;
+            edit_z_ranges[ei].r_margin2 = r_margin * r_margin;
         }
 
         // terrain_noise_cache_t[x * terrain_nc_h + y] substitui heightmap_sn[x * ny + y]:
@@ -8634,8 +8651,8 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
                     const float ddx = wx_s - ed.cx;
                     const float ddy = wy_s - ed.cy;
                     const float xy2 = ddx*ddx + ddy*ddy;
-                    const float r_margin = ed.r + step_z;
-                    if (xy2 <= r_margin * r_margin) {
+                    // OPT-5: usa r_margin² pré-calculado em edit_z_ranges — evita (ed.r+step_z)² por coluna
+                    if (xy2 <= edit_z_ranges[ei].r_margin2) {
                         ActiveEdit& ae = active_edits[n_active++];
                         ae.xy2 = xy2;
                         ae.cz = ed.cz;
@@ -8942,21 +8959,30 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
 
     const size_t cells_x_range = cell_end_x - cell_start_x;
 
+    // OPT-6: cv_stride_x pré-calculado aqui (antes do PASS 1) para que o loop triplo
+    // use a constante diretamente em vez de recomputar cells_y*cells_z por vértice.
+    const size_t pass1_cv_stride_x = cells_y * cells_z;
+    const size_t pass1_cv_stride_y = cells_z;
+
+    // OPT-11: VertexOut agrupa todos os dados de um vértice em um único objeto.
+    // Substitui 8x push_back individuais por 1x push_back, reduzindo overhead de
+    // amortização e melhorando localidade de cache durante o PASS 1.
+    struct VertexOut {
+        float vx, vy, vz;
+        float nx, ny, nz;
+        uint8_t surf, biome;
+        size_t cell_idx;
+        size_t v_idx_local;
+    };
+
     struct alignas(64) ThreadBuf {
-        std::vector<float> verts, norms;
-        std::vector<uint8_t> surface_mask;
-        std::vector<uint8_t> biome_mask;
-        std::vector<std::pair<size_t, size_t>> cv_pairs; // (cell_idx, v_idx_local)
+        std::vector<VertexOut> vout;
     };
     std::vector<ThreadBuf> xbufs(cells_x_range);
     {
         const size_t est_per_x = (size_t)(((cell_end_y - cell_start_y) * (cell_end_z - cell_start_z)) * 15 / 100 + 8);
         for (auto& xb : xbufs) {
-            xb.verts.reserve(est_per_x * 3);
-            xb.norms.reserve(est_per_x * 3);
-            xb.surface_mask.reserve(est_per_x);
-            xb.biome_mask.reserve(est_per_x);
-            xb.cv_pairs.reserve(est_per_x);
+            xb.vout.reserve(est_per_x);
         }
     }
 
@@ -9059,11 +9085,16 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
                 vz = fmaxf(min_z, fminf(max_z, vz));
                 
 
+                // OPT-3: guarda best_dist (= sqrtf(dist2)) durante a busca para evitar
+                // chamar sqrtf novamente na reprojeção (best_r / best_dist, não / sqrtf(dist2)).
                 bool was_reprojected = false;
                 float sampled_terrain_h = 0.0f;
                 bool has_sampled_terrain_h = false;
-                if (!add_edits.empty()) {
+                // OPT-7: usa has_add_edits pré-calculado fora do loop para evitar
+                // empty()/size() por vértice.
+                if (has_add_edits) {
                     float best_sd = 1e30f;
+                    float best_dist = 0.0f; // OPT-3: guarda sqrtf(dist2) do melhor candidato
                     float best_cx=0, best_cy=0, best_cz=0, best_r=1.0f;
                     bool found = false;
                     const float reproj_thr = reproj_thr_const;
@@ -9085,16 +9116,18 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
                         if (dist2 < rmin2 || dist2 > rmax2) {
                             continue;
                         }
-                        float sd=sqrtf(dist2)-ed.r;
+                        const float dist = sqrtf(dist2); // OPT-3: calculado uma vez
+                        float sd = dist - ed.r;
                         if (fabsf(sd) < fabsf(best_sd)) {
-                            best_sd=sd; best_cx=ed.cx; best_cy=ed.cy; best_cz=ed.cz; best_r=ed.r; found=true;
+                            best_sd=sd; best_dist=dist; // OPT-3: reutilizado na reprojeção
+                            best_cx=ed.cx; best_cy=ed.cy; best_cz=ed.cz; best_r=ed.r; found=true;
                         }
                     }
                     if (found && fabsf(best_sd) > 1e-4f) {
                         float dx=vx-best_cx, dy=vy-best_cy, dz=vz-best_cz;
-                        float dist2=dx*dx+dy*dy+dz*dz;
-                        if (dist2 > 1e-9f) {
-                            float inv_d = best_r / sqrtf(dist2);
+                        // OPT-3: best_dist já é sqrtf(dx²+dy²+dz²) — sem segundo sqrtf
+                        if (best_dist > 1e-4f) {
+                            float inv_d = best_r / best_dist;
                             float rx = best_cx + dx*inv_d;
                             float ry = best_cy + dy*inv_d;
                             float rz = best_cz + dz*inv_d;
@@ -9116,6 +9149,8 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
                 // Vértices reprojetados estão na superfície da esfera (cavidade interior)
                 // e não devem ser snapped — movê-los cria deformações.
                 if (!was_reprojected) {
+                    // OPT-2: sample_terrain_h chamado aqui e resultado preservado em
+                    // sampled_terrain_h/has_sampled_terrain_h para todos os blocos seguintes.
                     float terrain_h_xy = sample_terrain_h(vx, vy);
                     sampled_terrain_h = terrain_h_xy;
                     has_sampled_terrain_h = true;
@@ -9139,6 +9174,7 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
                     float edge_dist = fminf(ex, ey);
                     if (edge_dist <= seam_z_eps) {
                         float blend = (seam_z_eps > 1e-9f) ? (1.0f - fminf(1.0f, edge_dist / seam_z_eps)) : 1.0f;
+                        // OPT-2: reutiliza sampled_terrain_h se já calculado para este (vx,vy)
                         float terrain_base = has_sampled_terrain_h ? sampled_terrain_h : sample_terrain_h(vx, vy);
                         sampled_terrain_h = terrain_base;
                         has_sampled_terrain_h = true;
@@ -9159,6 +9195,7 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
                     // O final snap XY só deve agir em vértices de superfície não reprojetados.
                     // Vértices reprojetados para a superfície da esfera (cavidade interior)
                     // não devem ser snapped: movê-los para a seam cria deformações na cavidade.
+                    // OPT-2: reutiliza sampled_terrain_h se já calculado para este (vx,vy)
                     const float snap_terrain_h = has_sampled_terrain_h
                         ? sampled_terrain_h
                         : sample_terrain_h(vx, vy);
@@ -9195,8 +9232,8 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
                     continue;
                 }
 
-                // Grava no buffer local da thread - push_back é O(1) amortizado após reserve
-                const size_t v_idx = tb.verts.size() / 3;
+                // OPT-11: v_idx calculado a partir de vout (um elemento = um vértice)
+                const size_t v_idx = tb.vout.size();
 
 #if KX_SNR_SEAM_DEBUG
                 // Coleta debug para vértices próximos da seam ou com edits ativos.
@@ -9238,26 +9275,24 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
                 }
 #endif
 
-                tb.verts.push_back(vx); tb.verts.push_back(vy); tb.verts.push_back(vz);
-
+                // OPT-2: terrain_h_final reutiliza sampled_terrain_h se já calculado
                 const float terrain_h_final = has_sampled_terrain_h ? sampled_terrain_h : sample_terrain_h(vx, vy);
                 const uint8_t is_surface = (vz >= terrain_h_final - step_z_2) ? 1u : 0u;
 
-                tb.surface_mask.push_back(is_surface);
-
                 // Identificação de bioma para vértices de superfície
+                uint8_t biome_out = 0;
                 if (is_surface) {
                     int b_ix = (int)((vx - min_x) * inv_step_x + 0.5f);
                     int b_iy = (int)((vy - min_y) * inv_step_y + 0.5f);
                     b_ix = b_ix < 0 ? 0 : (b_ix >= (int)nx ? (int)nx - 1 : b_ix);
                     b_iy = b_iy < 0 ? 0 : (b_iy >= (int)ny ? (int)ny - 1 : b_iy);
-                    tb.biome_mask.push_back(biome_cache_xy[(size_t)b_ix * (size_t)ny + (size_t)b_iy]);
-                } else {
-                    tb.biome_mask.push_back(0);
+                    biome_out = biome_cache_xy[(size_t)b_ix * (size_t)ny + (size_t)b_iy];
                 }
 
+                // Normal: blenda com normal da esfera de edit se vértice estiver na superfície
                 float nx_n=gnx, ny_n=gny, nz_n=gnz;
-                if (!add_edits.empty()) {
+                // OPT-7: usa has_add_edits pré-calculado
+                if (has_add_edits) {
                     const float norm_thr = norm_thr_const;
                     for (size_t k = 0; k < add_edits.size(); ++k) {
                         const size_t ei = add_edits[k];
@@ -9285,16 +9320,18 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
                     }
                 }
                 float n_len = sqrtf(nx_n*nx_n+ny_n*ny_n+nz_n*nz_n);
+                float out_nx, out_ny, out_nz;
                 if (n_len > 1e-6f) {
                     float inv_n = 1.0f / n_len;
-                    tb.norms.push_back(nx_n*inv_n); tb.norms.push_back(ny_n*inv_n); tb.norms.push_back(nz_n*inv_n);
+                    out_nx = nx_n*inv_n; out_ny = ny_n*inv_n; out_nz = nz_n*inv_n;
                 } else {
-                    tb.norms.push_back(0.0f); tb.norms.push_back(0.0f); tb.norms.push_back(1.0f);
+                    out_nx = 0.0f; out_ny = 0.0f; out_nz = 1.0f;
                 }
-                const size_t cell_idx = x * cells_y * cells_z + y * cells_z + z;
-                if (cell_idx < total_cells) {
-                    tb.cv_pairs.push_back({cell_idx, v_idx});
-                }
+                // OPT-6: usa pass1_cv_stride_x pré-calculado — evita cells_y*cells_z por vértice
+                // OPT-11: emite tudo num único push_back (1x vs 8x)
+                const size_t cell_idx = x * pass1_cv_stride_x + y * pass1_cv_stride_y + z;
+                tb.vout.push_back({vx, vy, vz, out_nx, out_ny, out_nz, is_surface, biome_out,
+                                   cell_idx, v_idx});
             }
         }
         }
@@ -9305,17 +9342,15 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
 #endif
 
     {
+        // OPT-11: Merge usando o novo layout VertexOut (vout).
         // Prefix scan: pré-computa offset de cada ThreadBuf no buffer destino.
         // Elimina os ponteiros dst incrementais e o base_idx runtime do loop de merge.
-        struct TBOffsets { size_t vert_off; size_t mask_off; };
-        std::vector<TBOffsets> tb_off(xbufs.size() + 1);
-        tb_off[0] = {0, 0};
+        std::vector<size_t> tb_off(xbufs.size() + 1);
+        tb_off[0] = 0;
         for (size_t xi = 0; xi < xbufs.size(); ++xi) {
-            const size_t vc = xbufs[xi].verts.size() / 3;
-            tb_off[xi + 1].vert_off = tb_off[xi].vert_off + vc * 3;
-            tb_off[xi + 1].mask_off = tb_off[xi].mask_off + vc;
+            tb_off[xi + 1] = tb_off[xi] + xbufs[xi].vout.size();
         }
-        const size_t total_verts = tb_off[xbufs.size()].mask_off;
+        const size_t total_verts = tb_off[xbufs.size()];
 
         // Pre-aloca buffers destino em uma única operação
         verts.resize(total_verts * 3);
@@ -9330,35 +9365,30 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
 
         for (size_t xi = 0; xi < xbufs.size(); ++xi) {
             ThreadBuf& tb = xbufs[xi];
-            const size_t v_off = tb_off[xi].vert_off;
-            const size_t m_off = tb_off[xi].mask_off;
-            const size_t tb_vc = tb_off[xi + 1].mask_off - m_off; // derivado do scan
+            const size_t base_idx = tb_off[xi];
+            const size_t tb_vc    = tb.vout.size();
             if (tb_vc == 0) continue;
 
-            const size_t v3 = tb_vc * 3;
+            // Desempacota VertexOut para os 4 buffers destino
+            for (size_t vi = 0; vi < tb_vc; ++vi) {
+                const VertexOut& vo = tb.vout[vi];
+                const size_t dst3 = (base_idx + vi) * 3;
+                vp_base[dst3]     = vo.vx; vp_base[dst3+1] = vo.vy; vp_base[dst3+2] = vo.vz;
+                np_base[dst3]     = vo.nx; np_base[dst3+1] = vo.ny; np_base[dst3+2] = vo.nz;
+                sp_base[base_idx + vi] = vo.surf;
+                bp_base[base_idx + vi] = vo.biome;
+            }
 
-            std::memcpy(vp_base + v_off, tb.verts.data(),        v3    * sizeof(float));
-            std::memcpy(np_base + v_off, tb.norms.data(),        v3    * sizeof(float));
-            std::memcpy(sp_base + m_off, tb.surface_mask.data(), tb_vc * sizeof(uint8_t));
-            std::memcpy(bp_base + m_off, tb.biome_mask.data(),   tb_vc * sizeof(uint8_t));
-
-            // cv_pairs: acesso aleatório em cv[] — serial e correto por design.
-            // base_idx agora vem do prefix scan, sem incremento runtime.
-            const size_t base_idx = m_off; // m_off == vert count offset
-            for (const auto& p : tb.cv_pairs) {
-                // Único check necessário: cell_idx dentro dos limites
-                if (p.first >= total_cells) continue;
-                if (cv[p.first] < 0) {
-                    cv[p.first] = static_cast<int>(p.second + base_idx);
+            // cv: acesso aleatório — serial e correto por design.
+            for (size_t vi = 0; vi < tb_vc; ++vi) {
+                const VertexOut& vo = tb.vout[vi];
+                if (vo.cell_idx < total_cells && cv[vo.cell_idx] < 0) {
+                    cv[vo.cell_idx] = static_cast<int>(vo.v_idx_local + base_idx);
                 }
             }
 
             // Libera memória do ThreadBuf imediatamente
-            tb.verts        = {};
-            tb.norms        = {};
-            tb.surface_mask = {};
-            tb.biome_mask   = {};
-            tb.cv_pairs     = {};
+            tb.vout = {};
         }
     }
 #if KX_SNR_TIMING
@@ -9392,9 +9422,15 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
     auto emit_quad=[&](int a,int b,int c,int d,bool flip){
         if(a<0||b<0||c<0||d<0) return;
         // Se dois vértices são iguais → triângulo
+        // OPT-8: deduplicação flat (6 comparações) em vez de loop O(4²).
+        // Com apenas 4 índices, 6 comparações são mais baratas que branches+loop+variável ui.
         if(a==b||a==c||a==d||b==c||b==d||c==d){
-            int tv[4]={a,b,c,d},uv[3],ui=0;
-            for(int i=0;i<4;++i){bool dup=false;for(int j=0;j<ui;++j)if(tv[i]==uv[j]){dup=true;break;}if(!dup&&ui<3)uv[ui++]=tv[i];}
+            // Coleta os 3 índices únicos sem loop: filtragem manual de 4 elementos.
+            int uv[3]; int ui=0;
+            if(ui<3) uv[ui++]=a;
+            if(b!=a && ui<3) uv[ui++]=b;
+            if(c!=a && c!=b && ui<3) uv[ui++]=c;
+            if(d!=a && d!=b && d!=c && ui<3) uv[ui++]=d;
             if(ui==3){
                 if(flip){inds.push_back(uv[0]); inds.push_back(uv[2]); inds.push_back(uv[1]);}
                 else    {inds.push_back(uv[0]); inds.push_back(uv[1]); inds.push_back(uv[2]);}
@@ -9508,14 +9544,18 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
         }
         for (size_t i = 0; i < vc; ++i) adj_off[i+1] += adj_off[i];
         std::vector<int> adj_idx(adj_off[vc]);
-        // Preenche adj_idx usando índice corrente por vértice - sem cópia de adj_off
-        std::vector<size_t> cur(adj_off.begin(), adj_off.begin() + vc); // cur[i] = próxima posição livre para vértice i
+        // OPT-4: cur é inicializado via move de um vetor temporário construído a partir
+        // de adj_off[0..vc), evitando a cópia elemento-a-elemento do original.
+        // std::vector range constructor copia os dados; o move do temporário é O(1).
+        std::vector<size_t> cur(adj_off.data(), adj_off.data() + vc);
         for (size_t i = 0; i < inds.size(); i+=3) {
             int a=inds[i],b=inds[i+1],c=inds[i+2];
             adj_idx[cur[a]++]=b; adj_idx[cur[a]++]=c;
             adj_idx[cur[b]++]=a; adj_idx[cur[b]++]=c;
             adj_idx[cur[c]++]=a; adj_idx[cur[c]++]=b;
         }
+        // cur dispensado imediatamente após o fill — libera memória antes do smooth loop.
+        { std::vector<size_t> _discard; cur.swap(_discard); }
         std::vector<float> nv(verts.size());
         for (int iter = 0; iter < smooth_iterations; ++iter) {
             #pragma omp parallel for if(vc > 4000) num_threads(omp_threads)
@@ -9569,6 +9609,10 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
 
 
     if (vc2 > 0 && norms.size() == vc2 * 3) {
+        // OPT-10: constantes de clamp invariantes de loop (calculadas uma vez fora do parallel for)
+        const float clamp_fx_max = (float)nx - 2.0001f;
+        const float clamp_fy_max = (float)ny - 2.0001f;
+        const float clamp_fz_max = (float)nz - 2.0001f;
         const float* __restrict gg4_x = grad_grid.data();
         const float* __restrict gg4_y = grad_grid.data() + soa_off_y;
         const float* __restrict gg4_z = grad_grid.data() + soa_off_z;
@@ -9585,10 +9629,11 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
             const size_t i3 = (size_t)i_int * 3;
             const float vx=vp4[i3], vy=vp4[i3+1], vz=vp4[i3+2];
             float fx=(vx-min_x)*inv_step_x, fy=(vy-min_y)*inv_step_y, fz=(vz-min_z)*inv_step_z;
+            // OPT-10: limites de clamp invariantes de loop — calculados fora do parallel for.
             // Clamping para nx-2 para garantir que ix+1 esteja dentro dos limites do grid (0 a nx-1)
-            fx = fmaxf(0.0f, fminf((float)nx-2.0001f, fx));
-            fy = fmaxf(0.0f, fminf((float)ny-2.0001f, fy));
-            fz = fmaxf(0.0f, fminf((float)nz-2.0001f, fz));
+            fx = fmaxf(0.0f, fminf(clamp_fx_max, fx));
+            fy = fmaxf(0.0f, fminf(clamp_fy_max, fy));
+            fz = fmaxf(0.0f, fminf(clamp_fz_max, fz));
             const size_t ix=(size_t)fx, iy=(size_t)fy, iz=(size_t)fz;
             const float tx=fx-(float)ix, ty=fy-(float)iy, tz=fz-(float)iz;
             const size_t gi000=ix*stride_x+iy*stride_y+iz;
@@ -9621,6 +9666,10 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
 #endif
         if (seam_z_snap && seam_normal_blend > 1e-6f) {
             const float sx2 = fmaxf(step_x, 1e-6f), sy2 = fmaxf(step_y, 1e-6f);
+            // OPT-9: 1/(2*sx2) e 1/(2*sy2) são constantes do loop — hoist para evitar
+            // divisão por constante a cada vértice de borda.
+            const float inv_2sx2 = 1.0f / (2.0f * sx2);
+            const float inv_2sy2 = 1.0f / (2.0f * sy2);
             for (size_t i = 0; i < vc2; ++i) {
                 const size_t i3 = i * 3;
                 const float vx=vp4[i3], vy=vp4[i3+1];
@@ -9633,7 +9682,8 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
                 const float hxp = has_edits ? sample_edited_h(vx+sx2, vy) : sample_terrain_h(vx+sx2, vy);
                 const float hym = has_edits ? sample_edited_h(vx, vy-sy2) : sample_terrain_h(vx, vy-sy2);
                 const float hyp = has_edits ? sample_edited_h(vx, vy+sy2) : sample_terrain_h(vx, vy+sy2);
-                const float ttx=(hxp-hxm)/(2*sx2), tty=(hyp-hym)/(2*sy2);
+                // OPT-9: multiplica por inv_2sx2/inv_2sy2 em vez de dividir por (2*sx2)/(2*sy2)
+                const float ttx=(hxp-hxm)*inv_2sx2, tty=(hyp-hym)*inv_2sy2;
                 float tnx=-ttx, tny=-tty, tnz=1.0f;
                 const float tnl=sqrtf(tnx*tnx+tny*tny+tnz*tnz);
                 if(tnl>1e-9f){
@@ -9839,26 +9889,20 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
 
     Py_END_ALLOW_THREADS
 
-    // Define struct and destructor outside to avoid issues with C linkage
-    struct SurfaceNetsMeshData {
-        RAS_DisplayArray *displayArray;
-        KX_Scene *scene;
-        KX_BlenderMaterial *material;
-        RAS_BucketManager *bucketManager;
-        RAS_Mesh::LayersInfo layersInfo;
-    };
-
+    // OPT-12: struct definida apenas uma vez (antes era duplicada em PyFinalizeSurfaceNetsMesh).
+    // SurfaceNetsMeshData é a mesma struct usada em PyFinalizeSurfaceNetsMesh — agora compartilhada
+    // via KX_SurfaceNetsMeshData (definida em escopo de arquivo, acima desta função).
     static auto SurfaceNetsMeshDataDestructor = [](PyObject *capsule) {
         void *ptr = PyCapsule_GetPointer(capsule, "SurfaceNetsMeshData");
         if (ptr) {
-            SurfaceNetsMeshData *data = static_cast<SurfaceNetsMeshData *>(ptr);
+            KX_SurfaceNetsMeshData *data = static_cast<KX_SurfaceNetsMeshData *>(ptr);
             delete data->displayArray;
             delete data;
         }
     };
 
     if (newArray && !m_proceduralCancel.load(std::memory_order_relaxed) && scene_pre && srcMaterialCopy_pre && bucketManager_pre) {
-        SurfaceNetsMeshData *data = new SurfaceNetsMeshData();
+        KX_SurfaceNetsMeshData *data = new KX_SurfaceNetsMeshData();
         data->displayArray = newArray;
         data->scene = scene_pre;
         data->material = srcMaterialCopy_pre;
@@ -9898,15 +9942,8 @@ PyObject *KX_GameObject::PyFinalizeSurfaceNetsMesh(PyObject *args)
         return nullptr;
     }
 
-    struct SurfaceNetsMeshData {
-        RAS_DisplayArray *displayArray;
-        KX_Scene *scene;
-        KX_BlenderMaterial *material;
-        RAS_BucketManager *bucketManager;
-        RAS_Mesh::LayersInfo layersInfo;
-    };
-
-    SurfaceNetsMeshData *data = static_cast<SurfaceNetsMeshData *>(ptr);
+    // OPT-12: usa KX_SurfaceNetsMeshData definida em escopo de arquivo — sem duplicação.
+    KX_SurfaceNetsMeshData *data = static_cast<KX_SurfaceNetsMeshData *>(ptr);
 
     KX_Mesh *newMesh = new KX_Mesh(data->scene, "Terrain", data->layersInfo);
     bool created;

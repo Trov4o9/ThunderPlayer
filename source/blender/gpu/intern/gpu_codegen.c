@@ -598,6 +598,10 @@ typedef struct MaterialPropertyIDs {
 	int ubo_specstrength_id; /* cons ID for UBO specular strength (float) */
 	int ubo_scattercolor_id; /* cons ID for UBO scatter tint colour (vec3) */
 	int ubo_scatterfac_id;   /* cons ID for UBO scatter factor (float) */
+	/* World/sky shader IDs */
+	int world_horizon_id;    /* cons ID for GPU_DYNAMIC_HORIZON_COLOR  → HORIZON_COLOR */
+	int world_zenith_id;     /* cons ID for GPU_DYNAMIC_ZENITH_COLOR   → ZENITH_COLOR  */
+	int world_envlight_id;   /* cons ID for GPU_DYNAMIC_ENVLIGHT_ENERGY → ENV_ENERGY   */
 } MaterialPropertyIDs;
 
 static int codegen_print_uniforms_functions(DynStr *ds, ListBase *nodes, bool use_custom_fragment, MaterialPropertyIDs *mat_ids)
@@ -620,6 +624,9 @@ static int codegen_print_uniforms_functions(DynStr *ds, ListBase *nodes, bool us
 		mat_ids->ubo_specstrength_id = -1;
 		mat_ids->ubo_scattercolor_id = -1;
 		mat_ids->ubo_scatterfac_id = -1;
+		mat_ids->world_horizon_id = -1;
+		mat_ids->world_zenith_id  = -1;
+		mat_ids->world_envlight_id = -1;
 	}
 
 	/* print uniforms */
@@ -689,6 +696,13 @@ static int codegen_print_uniforms_functions(DynStr *ds, ListBase *nodes, bool us
 							mat_ids->ubo_scattercolor_id = input->id;
 						else if (input->dynamictype == GPU_DYNAMIC_MAT_UBO_SCATTERFAC)
 							mat_ids->ubo_scatterfac_id = input->id;
+						/* World dynamic uniforms */
+						else if (input->dynamictype == GPU_DYNAMIC_HORIZON_COLOR)
+							mat_ids->world_horizon_id = input->id;
+						else if (input->dynamictype == GPU_DYNAMIC_ZENITH_COLOR)
+							mat_ids->world_zenith_id = input->id;
+						else if (input->dynamictype == GPU_DYNAMIC_ENVLIGHT_ENERGY)
+							mat_ids->world_envlight_id = input->id;
 					}
 				}
 				else {
@@ -716,6 +730,13 @@ static int codegen_print_uniforms_functions(DynStr *ds, ListBase *nodes, bool us
 							mat_ids->ubo_scattercolor_id = input->id;
 						else if (input->dynamictype == GPU_DYNAMIC_MAT_UBO_SCATTERFAC)
 							mat_ids->ubo_scatterfac_id = input->id;
+						/* World const uniforms */
+						else if (input->dynamictype == GPU_DYNAMIC_HORIZON_COLOR)
+							mat_ids->world_horizon_id = input->id;
+						else if (input->dynamictype == GPU_DYNAMIC_ZENITH_COLOR)
+							mat_ids->world_zenith_id = input->id;
+						else if (input->dynamictype == GPU_DYNAMIC_ENVLIGHT_ENERGY)
+							mat_ids->world_envlight_id = input->id;
 					}
 	
 					/* Use mutable variables when UBO lighting or custom shader is active
@@ -806,7 +827,7 @@ static void codegen_declare_tmps(DynStr *ds, ListBase *nodes)
 	BLI_dynstr_append(ds, "\n");
 }
 
-static void codegen_call_functions(DynStr *ds, ListBase *nodes, GPUNodeLink *finaloutputs[8])
+static void codegen_call_functions(DynStr *ds, ListBase *nodes, GPUNodeLink *finaloutputs[8], MaterialPropertyIDs *mat_ids, bool sky_preprocess_cons)
 {
 	GPUNode *node;
 	GPUInput *input;
@@ -849,8 +870,22 @@ static void codegen_call_functions(DynStr *ds, ListBase *nodes, GPUNodeLink *fin
 					BLI_dynstr_append(ds, GPU_builtin_name(input->builtin));
 			}
 			else if (input->source == GPU_SOURCE_VEC_UNIFORM) {
-				if (input->dynamicvec)
-					BLI_dynstr_appendf(ds, "unf%d", input->id);
+				if (input->dynamicvec) {
+						/* Only route through cons{N} when the pre-process sky path
+						 * explicitly declared those local aliases above.  Without a
+						 * custom sky (or in override mode, which early-returns) the
+						 * cons{N} variables do not exist and must not be referenced. */
+						if (sky_preprocess_cons && mat_ids &&
+						    (input->id == mat_ids->world_horizon_id ||
+						     input->id == mat_ids->world_zenith_id  ||
+						     input->id == mat_ids->world_envlight_id))
+						{
+							BLI_dynstr_appendf(ds, "cons%d", input->id);
+						}
+						else {
+							BLI_dynstr_appendf(ds, "unf%d", input->id);
+						}
+					}
 				else
 					BLI_dynstr_appendf(ds, "cons%d", input->id);
 			}
@@ -886,12 +921,13 @@ static void codegen_call_functions(DynStr *ds, ListBase *nodes, GPUNodeLink *fin
 	}
 }
 bool g_useDeferred_GGG = false;
-static char *code_generate_fragment(ListBase *nodes, GPUNodeLink *outputs[8], const char *custom_shader, const bool use_ubo_lighting)
+static char *code_generate_fragment(ListBase *nodes, GPUNodeLink *outputs[8], const char *custom_shader, const bool use_ubo_lighting, const bool is_world, const bool custom_sky_override)
 {
     DynStr *ds = BLI_dynstr_new();
     char *code;
     int builtins;
     bool has_custom_fragment = (custom_shader && strlen(custom_shader) > 0);
+    bool sky_preprocess_cons = false;  /* true only in sky pre-process path */
     MaterialPropertyIDs mat_ids;
 
 #ifdef WITH_OPENSUBDIV
@@ -955,9 +991,26 @@ static char *code_generate_fragment(ListBase *nodes, GPUNodeLink *outputs[8], co
         BLI_dynstr_append(ds, "\n");
         MEM_freeN(custom_global_frag);
     }
+
+    /* For world/sky shaders: extract and inject sky global code before main() */
+    if (is_world && has_custom_fragment) {
+        const char *sky_fn = strstr(custom_shader, "void sky");
+        if (sky_fn && sky_fn > custom_shader) {
+            size_t sky_global_len = sky_fn - custom_shader;
+            char *sky_global_pre = MEM_mallocN(sky_global_len + 1, "sky_global_pre");
+            memcpy(sky_global_pre, custom_shader, sky_global_len);
+            sky_global_pre[sky_global_len] = '\0';
+            if (strlen(sky_global_pre) > 0) {
+                BLI_dynstr_append(ds, "/* Custom Sky Global Code */\n");
+                BLI_dynstr_append(ds, sky_global_pre);
+                BLI_dynstr_append(ds, "\n");
+            }
+            MEM_freeN(sky_global_pre);
+        }
+    }
     
-    /* Declare additional uniforms needed by custom fragment code that weren't already declared */
-    if (custom_fragment_code || use_ubo_lighting) {
+    /* Declare additional uniforms needed by custom fragment/sky code that weren't already declared */
+    if (custom_fragment_code || use_ubo_lighting || (is_world && has_custom_fragment)) {
         /* Only declare TIME if not already declared by builtins */
         if (!(builtins & GPU_TIME)) {
             const char *time_builtin = GPU_builtin_name(GPU_TIME);
@@ -1186,11 +1239,138 @@ static char *code_generate_fragment(ListBase *nodes, GPUNodeLink *outputs[8], co
             }
             BLI_dynstr_append(ds, "\n");
         }
-        
+
+        /* ---- Custom Sky Shader ---- */
+        if (is_world && has_custom_fragment) {
+            /* Extract void sky(){} body and optional global code */
+            char *sky_global_code = NULL;
+            char *sky_body_code   = NULL;
+
+            const char *sky_start = strstr(custom_shader, "void sky");
+            if (sky_start) {
+                const char *brace_start = strchr(sky_start, '{');
+                if (brace_start) {
+                    int brace_count = 1;
+                    const char *brace_end = brace_start + 1;
+                    while (*brace_end && brace_count > 0) {
+                        if (*brace_end == '{') brace_count++;
+                        else if (*brace_end == '}') brace_count--;
+                        brace_end++;
+                    }
+                    if (brace_count == 0) {
+                        size_t code_len = (brace_end - brace_start) - 2;
+                        sky_body_code = MEM_mallocN(code_len + 1, "sky_body_code");
+                        memcpy(sky_body_code, brace_start + 1, code_len);
+                        sky_body_code[code_len] = '\0';
+
+                        size_t global_len = sky_start - custom_shader;
+                        if (global_len > 0) {
+                            sky_global_code = MEM_mallocN(global_len + 1, "sky_global_code");
+                            memcpy(sky_global_code, custom_shader, global_len);
+                            sky_global_code[global_len] = '\0';
+                        }
+                    }
+                }
+            }
+
+            if (sky_body_code) {
+                /* --- Declare intermediate sky variables --- */
+                BLI_dynstr_append(ds, "\t/* Custom Sky Shader — intermediate variables */\n");
+
+                /* HORIZON_COLOR */
+                if (mat_ids.world_horizon_id >= 0)
+                    BLI_dynstr_appendf(ds, "\tvec3 HORIZON_COLOR = unf%d;\n", mat_ids.world_horizon_id);
+                else
+                    BLI_dynstr_append(ds, "\tvec3 HORIZON_COLOR = vec3(0.3, 0.5, 0.8);\n");
+
+                /* ZENITH_COLOR */
+                if (mat_ids.world_zenith_id >= 0)
+                    BLI_dynstr_appendf(ds, "\tvec3 ZENITH_COLOR = unf%d;\n", mat_ids.world_zenith_id);
+                else
+                    BLI_dynstr_append(ds, "\tvec3 ZENITH_COLOR = vec3(0.1, 0.2, 0.6);\n");
+
+                /* VIEW_DIR — position varying already in world/view space for sky dome */
+                BLI_dynstr_append(ds, "\tvec3 VIEW_DIR = normalize(varposition);\n");
+
+                /* ENV_ENERGY */
+                if (mat_ids.world_envlight_id >= 0)
+                    BLI_dynstr_appendf(ds, "\tfloat ENV_ENERGY = unf%d;\n", mat_ids.world_envlight_id);
+                else
+                    BLI_dynstr_append(ds, "\tfloat ENV_ENERGY = 1.0;\n");
+
+                /* TIME */
+                BLI_dynstr_append(ds, "\tfloat TIME = unftime;\n");
+
+                if (custom_sky_override) {
+                    /* -------------------------------------------------------
+                     * OVERRIDE MODE: custom defines the final sky colour.
+                     * SKY_COLOR starts at vec3(0) — custom must set it.
+                     * Pipeline is NOT called; we write gl_FragColor directly.
+                     * ------------------------------------------------------- */
+                    BLI_dynstr_append(ds, "\tvec3 SKY_COLOR = vec3(0.0);\n");
+                    BLI_dynstr_append(ds, "\t/* Custom Sky Body (override) */\n");
+                    BLI_dynstr_append(ds, sky_body_code);
+                    BLI_dynstr_append(ds, "\n");
+                    /* Write final colour — bypass pipeline completely */
+                    BLI_dynstr_append(ds, "\tgl_FragColor = vec4(SKY_COLOR, 1.0);\n");
+                    BLI_dynstr_append(ds, "}\n");
+                    /* Early return — skip codegen_declare_tmps / codegen_call_functions */
+                    MEM_freeN(sky_body_code);
+                    if (sky_global_code) MEM_freeN(sky_global_code);
+                    code = BLI_dynstr_get_cstring(ds);
+                    BLI_dynstr_free(ds);
+                    return code;
+                }
+                else {
+                    /* -------------------------------------------------------
+                     * PRE-PROCESS MODE: custom runs first, modifying the local
+                     * HORIZON_COLOR / ZENITH_COLOR / ENV_ENERGY variables.
+                     * We declare mutable local aliases cons{N} = unf{N} here in
+                     * the main() body.  codegen_call_functions() routes those
+                     * world-colour inputs through cons{N} (not unf{N}) so the
+                     * pipeline sees the values the custom body wrote.
+                     * ------------------------------------------------------- */
+                    sky_preprocess_cons = true;
+
+                    /* Declare mutable local aliases for world colour uniforms */
+                    BLI_dynstr_append(ds, "\t/* Mutable local aliases for world uniforms (sky pre-process) */\n");
+                    if (mat_ids.world_horizon_id >= 0)
+                        BLI_dynstr_appendf(ds, "\tvec3 cons%d = unf%d;\n",
+                            mat_ids.world_horizon_id, mat_ids.world_horizon_id);
+                    if (mat_ids.world_zenith_id >= 0)
+                        BLI_dynstr_appendf(ds, "\tvec3 cons%d = unf%d;\n",
+                            mat_ids.world_zenith_id, mat_ids.world_zenith_id);
+                    if (mat_ids.world_envlight_id >= 0)
+                        BLI_dynstr_appendf(ds, "\tfloat cons%d = unf%d;\n",
+                            mat_ids.world_envlight_id, mat_ids.world_envlight_id);
+
+                    BLI_dynstr_append(ds, "\tvec3 SKY_COLOR = vec3(0.0);\n");
+                    BLI_dynstr_append(ds, "\t/* Custom Sky Body (pre-process) */\n");
+                    BLI_dynstr_append(ds, sky_body_code);
+                    BLI_dynstr_append(ds, "\n");
+
+                    /* Write-back: copy modified helper vars into the cons aliases */
+                    BLI_dynstr_append(ds, "\t/* Write-back sky vars into pipeline aliases */\n");
+                    if (mat_ids.world_horizon_id >= 0)
+                        BLI_dynstr_appendf(ds, "\tcons%d = HORIZON_COLOR;\n", mat_ids.world_horizon_id);
+                    if (mat_ids.world_zenith_id >= 0)
+                        BLI_dynstr_appendf(ds, "\tcons%d = ZENITH_COLOR;\n", mat_ids.world_zenith_id);
+                    if (mat_ids.world_envlight_id >= 0)
+                        BLI_dynstr_appendf(ds, "\tcons%d = ENV_ENERGY;\n", mat_ids.world_envlight_id);
+                }
+
+                MEM_freeN(sky_body_code);
+            }
+
+            if (sky_global_code) {
+                MEM_freeN(sky_global_code);
+            }
+        }
+
         /* Declare temp variables and call functions for both UBO and non-UBO */
         codegen_declare_tmps(ds, nodes);
-        codegen_call_functions(ds, nodes, outputs);
-	}
+        codegen_call_functions(ds, nodes, outputs, &mat_ids, sky_preprocess_cons);
+ }
 
     BLI_dynstr_append(ds, "}\n");
 
@@ -2420,7 +2600,8 @@ GPUPass *GPU_generate_pass(
         const bool use_new_shading,
         const char *custom_shader,
         const char *custom_fragment_shader,
-        const bool use_ubo_lighting)
+        const bool use_ubo_lighting,
+        const bool custom_sky_override)
 {
     GPUShader *shader;
     GPUPass *pass;
@@ -2439,8 +2620,15 @@ GPUPass *GPU_generate_pass(
         *builtins |= GPU_TIME;
     }
 
+    const bool is_world = (type == GPU_MATERIAL_TYPE_WORLD);
+
+    /* Sky custom shader needs TIME builtin */
+    if (is_world && custom_fragment_shader && custom_fragment_shader[0] != '\0') {
+        *builtins |= GPU_TIME;
+    }
+
     /* generate code and compile with OpenGL */
-    fragmentcode = code_generate_fragment(nodes, outlinks, custom_fragment_shader, use_ubo_lighting);
+    fragmentcode = code_generate_fragment(nodes, outlinks, custom_fragment_shader, use_ubo_lighting, is_world, custom_sky_override);
     vertexcode   = code_generate_vertex(nodes, type, use_instancing, custom_shader);
     geometrycode = code_generate_geometry(nodes, use_opensubdiv);
     

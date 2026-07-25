@@ -3679,6 +3679,8 @@ static void lib_link_world(FileData *fd, Main *main)
 				wrld->nodetree->id.lib = wrld->id.lib;
 			}
 
+			wrld->custom_sky_shader = newlibadr_us(fd, wrld->id.lib, wrld->custom_sky_shader);
+
 			wrld->id.tag &= ~LIB_TAG_NEED_LINK;
 		}
 	}
@@ -9434,6 +9436,9 @@ static void expand_world(FileData *fd, Main *mainvar, World *wrld)
 
 	if (wrld->nodetree)
 		expand_nodetree(fd, mainvar, wrld->nodetree);
+
+	if (wrld->custom_sky_shader)
+		expand_doit(fd, mainvar, wrld->custom_sky_shader);
 }
 
 

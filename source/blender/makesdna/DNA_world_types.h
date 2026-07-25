@@ -120,6 +120,11 @@ typedef struct World {
 	/* nodes */
 	struct bNodeTree *nodetree;
 
+	/* Custom sky shader (BGE only) */
+	struct Text *custom_sky_shader;  /* Text block com código GLSL sky custom */
+	int custom_sky_override;         /* 1=custom é resultado final; 0=pré-processa entradas */
+	int pad_sky;                     /* padding para alinhamento */
+
 	ListBase gpumaterial;		/* runtime */
 } World;
 

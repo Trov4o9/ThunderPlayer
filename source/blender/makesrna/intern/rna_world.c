@@ -529,6 +529,24 @@ void RNA_def_world(BlenderRNA *brna)
 	RNA_def_property_ui_text(prop, "Use Nodes", "Use shader nodes to render the world");
 	RNA_def_property_update(prop, 0, "rna_World_use_nodes_update");
 
+	/* Custom sky shader (BGE) */
+	prop = RNA_def_property(srna, "custom_sky_shader", PROP_POINTER, PROP_NONE);
+	RNA_def_property_pointer_sdna(prop, NULL, "custom_sky_shader");
+	RNA_def_property_struct_type(prop, "Text");
+	RNA_def_property_flag(prop, PROP_EDITABLE | PROP_ID_REFCOUNT);
+	RNA_def_property_ui_text(prop, "Custom Sky Shader",
+	    "Text block with GLSL sky shader code. "
+	    "Define 'void sky(){}' for fragment body; globals go outside it. "
+	    "Available variables: HORIZON_COLOR, ZENITH_COLOR, VIEW_DIR, TIME, ENV_ENERGY, SKY_COLOR.");
+	RNA_def_property_update(prop, NC_WORLD | ND_WORLD, "rna_World_update");
+
+	prop = RNA_def_property(srna, "use_custom_sky_override", PROP_BOOLEAN, PROP_NONE);
+	RNA_def_property_boolean_sdna(prop, NULL, "custom_sky_override", 1);
+	RNA_def_property_ui_text(prop, "Override Sky",
+	    "ON: custom shader defines the final sky color (original pipeline suppressed). "
+	    "OFF: custom shader pre-processes inputs (HORIZON_COLOR etc.) before the original pipeline runs.");
+	RNA_def_property_update(prop, NC_WORLD | ND_WORLD, "rna_World_update");
+
 	rna_def_lighting(brna);
 	rna_def_world_mist(brna);
 	rna_def_world_mtex(brna);

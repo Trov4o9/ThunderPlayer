@@ -384,4 +384,16 @@ void blo_do_versions_upbge(FileData *fd, Library *lib, Main *main)
 		}
 		/* ubo_scatter_fac: 0.0 = Lambert puro — correto, não precisa ajuste */
 	}
+
+	/* Inicializa campos custom sky shader em worlds de arquivos antigos.
+	 * Ponteiros ID são armazenados no DNA com tipo "*" — usa o campo int
+	 * adjacente (custom_sky_override) como proxy confiável para detectar
+	 * se o bloco já contém esses campos. */
+	if (!DNA_struct_elem_find(fd->filesdna, "World", "int", "custom_sky_override")) {
+		for (World *wo = main->world.first; wo; wo = wo->id.next) {
+			wo->custom_sky_shader  = NULL;
+			wo->custom_sky_override = 0;
+			wo->pad_sky            = 0;
+		}
+	}
 }

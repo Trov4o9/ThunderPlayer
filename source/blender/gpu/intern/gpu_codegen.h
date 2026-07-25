@@ -172,7 +172,8 @@ GPUPass *GPU_generate_pass(ListBase *nodes, struct GPUNodeLink *outlinks[8],
                            const bool use_new_shading,
                            const char *custom_shader,
                            const char *custom_fragment_shader,
-                           const bool use_ubo_lighting);
+                           const bool use_ubo_lighting,
+                           const bool custom_sky_override);
 
 struct GPUShader *GPU_pass_shader(GPUPass *pass);
 
