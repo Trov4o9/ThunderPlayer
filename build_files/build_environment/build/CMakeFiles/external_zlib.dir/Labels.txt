@@ -1,0 +1,14 @@
+# Target labels
+ external_zlib
+# Source files and their labels
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/external_zlib
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/98938ed87a9d5979bd05c54e6dd89d06/external_zlib.rule
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/bc9a8b7ff0c35d8559aef7dbc84df642/external_zlib-complete.rule
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/8cd4471b92f351b3c02b101b5d02ad12/external_zlib-after_install.rule
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/8cd4471b92f351b3c02b101b5d02ad12/external_zlib-build.rule
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/8cd4471b92f351b3c02b101b5d02ad12/external_zlib-configure.rule
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/8cd4471b92f351b3c02b101b5d02ad12/external_zlib-download.rule
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/8cd4471b92f351b3c02b101b5d02ad12/external_zlib-install.rule
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/8cd4471b92f351b3c02b101b5d02ad12/external_zlib-mkdir.rule
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/8cd4471b92f351b3c02b101b5d02ad12/external_zlib-patch.rule
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/8cd4471b92f351b3c02b101b5d02ad12/external_zlib-update.rule

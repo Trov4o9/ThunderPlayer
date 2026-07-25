@@ -1,0 +1,13 @@
+# Target labels
+ external_python
+# Source files and their labels
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/external_python
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/98938ed87a9d5979bd05c54e6dd89d06/external_python.rule
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/bc9a8b7ff0c35d8559aef7dbc84df642/external_python-complete.rule
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/ced09a70cc90c10f4344ada15a053fc4/external_python-build.rule
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/ced09a70cc90c10f4344ada15a053fc4/external_python-configure.rule
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/ced09a70cc90c10f4344ada15a053fc4/external_python-download.rule
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/ced09a70cc90c10f4344ada15a053fc4/external_python-install.rule
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/ced09a70cc90c10f4344ada15a053fc4/external_python-mkdir.rule
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/ced09a70cc90c10f4344ada15a053fc4/external_python-patch.rule
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/ced09a70cc90c10f4344ada15a053fc4/external_python-update.rule

@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/external_x264"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/98938ed87a9d5979bd05c54e6dd89d06/external_x264.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/bc9a8b7ff0c35d8559aef7dbc84df642/external_x264-complete.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/b320d0909bd8fe75c403cb72bf2e886b/external_x264-build.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/b320d0909bd8fe75c403cb72bf2e886b/external_x264-configure.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/b320d0909bd8fe75c403cb72bf2e886b/external_x264-download.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/b320d0909bd8fe75c403cb72bf2e886b/external_x264-install.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/b320d0909bd8fe75c403cb72bf2e886b/external_x264-mkdir.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/b320d0909bd8fe75c403cb72bf2e886b/external_x264-patch.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/b320d0909bd8fe75c403cb72bf2e886b/external_x264-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"external_x264"
+		],
+		"name" : "external_x264"
+	}
+}

@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/external_vorbis"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/98938ed87a9d5979bd05c54e6dd89d06/external_vorbis.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/bc9a8b7ff0c35d8559aef7dbc84df642/external_vorbis-complete.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/2f4fbc4536aaa4e53deb5799058c856c/external_vorbis-build.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/2f4fbc4536aaa4e53deb5799058c856c/external_vorbis-configure.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/2f4fbc4536aaa4e53deb5799058c856c/external_vorbis-download.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/2f4fbc4536aaa4e53deb5799058c856c/external_vorbis-install.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/2f4fbc4536aaa4e53deb5799058c856c/external_vorbis-mkdir.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/2f4fbc4536aaa4e53deb5799058c856c/external_vorbis-patch.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/2f4fbc4536aaa4e53deb5799058c856c/external_vorbis-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"external_vorbis"
+		],
+		"name" : "external_vorbis"
+	}
+}

@@ -1,0 +1,14 @@
+# Target labels
+ external_pugixml
+# Source files and their labels
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/external_pugixml
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/98938ed87a9d5979bd05c54e6dd89d06/external_pugixml.rule
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/bc9a8b7ff0c35d8559aef7dbc84df642/external_pugixml-complete.rule
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/66ae4a18b4d2b04b652d0e02b726de2f/external_pugixml-after_install.rule
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/66ae4a18b4d2b04b652d0e02b726de2f/external_pugixml-build.rule
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/66ae4a18b4d2b04b652d0e02b726de2f/external_pugixml-configure.rule
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/66ae4a18b4d2b04b652d0e02b726de2f/external_pugixml-download.rule
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/66ae4a18b4d2b04b652d0e02b726de2f/external_pugixml-install.rule
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/66ae4a18b4d2b04b652d0e02b726de2f/external_pugixml-mkdir.rule
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/66ae4a18b4d2b04b652d0e02b726de2f/external_pugixml-patch.rule
+E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/66ae4a18b4d2b04b652d0e02b726de2f/external_pugixml-update.rule

@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="E:\Mundo Aberto Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_files\build_environment\build\CMakeFiles\56349c9349107cffee49651cf15333be\external_opencolorio-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Mundo Aberto Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_files\build_environment\build\CMakeFiles\56349c9349107cffee49651cf15333be\external_opencolorio-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Mundo Aberto Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_files\build_environment\build\CMakeFiles\56349c9349107cffee49651cf15333be\external_opencolorio-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Mundo Aberto Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_files\build_environment\build\CMakeFiles\56349c9349107cffee49651cf15333be\external_opencolorio-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Mundo Aberto Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_files\build_environment\build\CMakeFiles\56349c9349107cffee49651cf15333be\external_opencolorio-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Mundo Aberto Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_files\build_environment\build\CMakeFiles\56349c9349107cffee49651cf15333be\external_opencolorio-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Mundo Aberto Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_files\build_environment\build\CMakeFiles\56349c9349107cffee49651cf15333be\external_opencolorio-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Mundo Aberto Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_files\build_environment\build\CMakeFiles\56349c9349107cffee49651cf15333be\external_opencolorio-after_install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Mundo Aberto Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_files\build_environment\build\CMakeFiles\bc9a8b7ff0c35d8559aef7dbc84df642\external_opencolorio-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Mundo Aberto Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_files\build_environment\build\CMakeFiles\98938ed87a9d5979bd05c54e6dd89d06\external_opencolorio.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Mundo Aberto Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_files\build_environment\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="E:\Mundo Aberto Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_files\build_environment\build\CMakeFiles\external_opencolorio" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{90F5867D-1CE7-3A72-99CA-9A9BF2BB10C2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

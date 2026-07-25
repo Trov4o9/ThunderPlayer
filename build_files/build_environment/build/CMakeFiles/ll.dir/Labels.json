@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/ll"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/98938ed87a9d5979bd05c54e6dd89d06/ll.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/bc9a8b7ff0c35d8559aef7dbc84df642/ll-complete.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/3bbca07fe2685f89ea02f08faa5c0aa4/ll-after_install.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/3bbca07fe2685f89ea02f08faa5c0aa4/ll-build.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/3bbca07fe2685f89ea02f08faa5c0aa4/ll-configure.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/3bbca07fe2685f89ea02f08faa5c0aa4/ll-download.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/3bbca07fe2685f89ea02f08faa5c0aa4/ll-install.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/3bbca07fe2685f89ea02f08faa5c0aa4/ll-mkdir.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/3bbca07fe2685f89ea02f08faa5c0aa4/ll-patch.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/3bbca07fe2685f89ea02f08faa5c0aa4/ll-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"ll"
+		],
+		"name" : "ll"
+	}
+}

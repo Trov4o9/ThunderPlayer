@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/external_glew"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/98938ed87a9d5979bd05c54e6dd89d06/external_glew.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/bc9a8b7ff0c35d8559aef7dbc84df642/external_glew-complete.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/9d900f39c3f464593559cceec81c4c5d/external_glew-build.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/9d900f39c3f464593559cceec81c4c5d/external_glew-configure.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/9d900f39c3f464593559cceec81c4c5d/external_glew-download.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/9d900f39c3f464593559cceec81c4c5d/external_glew-install.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/9d900f39c3f464593559cceec81c4c5d/external_glew-mkdir.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/9d900f39c3f464593559cceec81c4c5d/external_glew-patch.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/9d900f39c3f464593559cceec81c4c5d/external_glew-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"external_glew"
+		],
+		"name" : "external_glew"
+	}
+}

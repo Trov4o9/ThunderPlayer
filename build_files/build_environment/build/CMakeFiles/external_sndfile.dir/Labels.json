@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/external_sndfile"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/98938ed87a9d5979bd05c54e6dd89d06/external_sndfile.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/bc9a8b7ff0c35d8559aef7dbc84df642/external_sndfile-complete.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/24398cdfab163a58c6ca11e90023cd98/external_sndfile-build.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/24398cdfab163a58c6ca11e90023cd98/external_sndfile-configure.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/24398cdfab163a58c6ca11e90023cd98/external_sndfile-download.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/24398cdfab163a58c6ca11e90023cd98/external_sndfile-install.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/24398cdfab163a58c6ca11e90023cd98/external_sndfile-mkdir.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/24398cdfab163a58c6ca11e90023cd98/external_sndfile-patch.rule"
+		},
+		{
+			"file" : "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/build_files/build_environment/build/CMakeFiles/24398cdfab163a58c6ca11e90023cd98/external_sndfile-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"external_sndfile"
+		],
+		"name" : "external_sndfile"
+	}
+}

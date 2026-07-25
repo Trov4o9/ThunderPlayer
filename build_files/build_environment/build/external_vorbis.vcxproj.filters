@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="E:\Mundo Aberto Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_files\build_environment\build\CMakeFiles\2f4fbc4536aaa4e53deb5799058c856c\external_vorbis-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Mundo Aberto Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_files\build_environment\build\CMakeFiles\2f4fbc4536aaa4e53deb5799058c856c\external_vorbis-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Mundo Aberto Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_files\build_environment\build\CMakeFiles\2f4fbc4536aaa4e53deb5799058c856c\external_vorbis-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Mundo Aberto Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_files\build_environment\build\CMakeFiles\2f4fbc4536aaa4e53deb5799058c856c\external_vorbis-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Mundo Aberto Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_files\build_environment\build\CMakeFiles\2f4fbc4536aaa4e53deb5799058c856c\external_vorbis-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Mundo Aberto Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_files\build_environment\build\CMakeFiles\2f4fbc4536aaa4e53deb5799058c856c\external_vorbis-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Mundo Aberto Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_files\build_environment\build\CMakeFiles\2f4fbc4536aaa4e53deb5799058c856c\external_vorbis-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Mundo Aberto Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_files\build_environment\build\CMakeFiles\bc9a8b7ff0c35d8559aef7dbc84df642\external_vorbis-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Mundo Aberto Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_files\build_environment\build\CMakeFiles\98938ed87a9d5979bd05c54e6dd89d06\external_vorbis.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Mundo Aberto Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_files\build_environment\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="E:\Mundo Aberto Game Dev\ThunderPLayer\ThunderPLayer\ThunderPLayer\upbge-0.2.5b\build_files\build_environment\build\CMakeFiles\external_vorbis" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{90F5867D-1CE7-3A72-99CA-9A9BF2BB10C2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
