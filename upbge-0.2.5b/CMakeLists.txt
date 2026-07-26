@@ -1852,3 +1852,8 @@ endif()
 if(0)
 	print_all_vars()
 endif()
+
+if(MSVC)
+    	string(REGEX REPLACE "/WX" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+    	add_compile_options(/WX-)
+endif()
