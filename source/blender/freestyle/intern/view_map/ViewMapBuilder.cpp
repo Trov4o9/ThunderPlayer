@@ -2133,11 +2133,11 @@ void ViewMapBuilder::ComputeIntersections(ViewMap *ioViewMap, intersection_algo 
 #endif
 }
 
-struct less_SVertex2D : public binary_function<SVertex *, SVertex *, bool>
+struct less_SVertex2D
 {
 	real epsilon;
 
-	less_SVertex2D(real eps) : binary_function<SVertex *, SVertex *, bool>()
+	less_SVertex2D(real eps)
 	{
 		epsilon = eps;
 	}
@@ -2161,11 +2161,11 @@ struct less_SVertex2D : public binary_function<SVertex *, SVertex *, bool>
 typedef Segment<FEdge *, Vec3r> segment;
 typedef Intersection<segment> intersection;
 
-struct less_Intersection : public binary_function<intersection *, intersection *, bool>
+struct less_Intersection
 {
 	segment *edge;
 
-	less_Intersection(segment *iEdge) : binary_function<intersection *, intersection *, bool>()
+	less_Intersection(segment *iEdge)
 	{
 		edge = iEdge;
 	}

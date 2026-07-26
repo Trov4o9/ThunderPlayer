@@ -34,20 +34,6 @@ CCL_NAMESPACE_BEGIN
 
 namespace {
 
-/* Some helpers to silence warning in templated function. */
-bool isfinite(uchar /*value*/)
-{
-	return true;
-}
-bool isfinite(half /*value*/)
-{
-	return true;
-}
-bool isfinite(uint16_t  /*value*/)
-{
-	return true;
-}
-
 /* The lower three bits of a device texture slot number indicate its type.
  * These functions convert the slot ids from ImageManager "images" ones
  * to device ones and vice verse.
@@ -650,7 +636,7 @@ bool ImageManager::file_load_image(Image *img,
 		}
 	}
 	/* Make sure we don't have buggy values. */
-	if(FileFormat == TypeDesc::FLOAT) {
+	if constexpr (FileFormat == TypeDesc::FLOAT) {
 		/* For RGBA buffers we put all channels to 0 if either of them is not
 		 * finite. This way we avoid possible artifacts caused by fully changed
 		 * hue.
