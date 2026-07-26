@@ -70,9 +70,7 @@ extern "C" {
 }
 #include "readerwriterqueue.h"
 #include "BulletCollision/CollisionShapes/btTriangleMesh.h"
-extern "C" {
-#	include "E:/Mundo Aberto Game Dev/ThunderPLayer/ThunderPLayer/ThunderPLayer/upbge-0.2.5b/intern/glew-mx/glew-mx.h"
-}
+#include "GPU_glew.h"
 #endif
 
 extern "C" {
