@@ -41,12 +41,14 @@ set(INC
 	../../../blender/blenlib
 	../../../blender/gpu
 	../../../blender/makesdna
+	../../../../intern/glew-mx
 	../../../../intern/guardedalloc
 )
 
 set(INC_SYS
 	../../../../intern/debugbreak
 	../../../../intern/mathfu
+	${GLEW_INCLUDE_PATH}
 	${PYTHON_INCLUDE_DIRS}
 	${BOOST_INCLUDE_DIR}
 )
