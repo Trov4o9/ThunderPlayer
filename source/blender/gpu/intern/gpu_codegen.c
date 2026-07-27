@@ -2624,9 +2624,13 @@ GPUPass *GPU_generate_pass(
 
     const bool is_world = (type == GPU_MATERIAL_TYPE_WORLD);
 
-    /* Sky custom shader needs TIME builtin */
+    /* Sky custom shader needs TIME and inverse-view-matrix builtins.
+     * GPU_INVERSE_VIEW_MATRIX must be in the bitmask so that gpu_material.c
+     * registers the uniform location and uploads the matrix every frame.
+     * Without this the 'unfinvviewmat' uniform stays zero → WORLD_VIEW_DIR is black. */
     if (is_world && custom_fragment_shader && custom_fragment_shader[0] != '\0') {
         *builtins |= GPU_TIME;
+        *builtins |= GPU_INVERSE_VIEW_MATRIX;
     }
 
     /* generate code and compile with OpenGL */
