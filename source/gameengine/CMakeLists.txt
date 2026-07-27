@@ -31,7 +31,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 if(MSVC)
-	add_compile_options(/std:c++17 /arch:AVX2)
+	add_compile_options(/std:c++17 /arch:AVX2 /openmp:experimental)
 endif()
 
 blender_include_dirs_sys("${TBB_INCLUDE_DIR}")
