@@ -1289,8 +1289,10 @@ static char *code_generate_fragment(ListBase *nodes, GPUNodeLink *outputs[8], co
                 else
                     BLI_dynstr_append(ds, "\tvec3 ZENITH_COLOR = vec3(0.1, 0.2, 0.6);\n");
 
-                /* VIEW_DIR — position varying already in world/view space for sky dome */
+                /* VIEW_DIR — direction in view/camera space (varposition is already in view space for sky dome) */
                 BLI_dynstr_append(ds, "\tvec3 VIEW_DIR = normalize(varposition);\n");
+                /* WORLD_VIEW_DIR — VIEW_DIR rotated into world space via the inverse view matrix */
+                BLI_dynstr_append(ds, "\tvec3 WORLD_VIEW_DIR = normalize((unfinvviewmat * vec4(VIEW_DIR, 0.0)).xyz);\n");
 
                 /* ENV_ENERGY */
                 if (mat_ids.world_envlight_id >= 0)
@@ -1731,9 +1733,9 @@ void GPU_code_generate_glsl_lib(void)
     }
 
     /* Append custom scattering shader */
-    if (gpu_shader_atmospheric_scattering_glsl) {
-        BLI_dynstr_append(ds, gpu_shader_atmospheric_scattering_glsl);
-    }
+    //if (gpu_shader_atmospheric_scattering_glsl) {
+    //    BLI_dynstr_append(ds, gpu_shader_atmospheric_scattering_glsl);
+    //}
 
     BLI_dynstr_append(ds,
         "\n"
