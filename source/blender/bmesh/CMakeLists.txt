@@ -169,10 +169,6 @@ set(SRC
 	bmesh_tools.h
 )
 
-if(MSVC AND NOT MSVC_CLANG)
-	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /WX /wd4101")
-endif()
-
 if(WITH_BULLET)
 	add_definitions(-DWITH_BULLET)
 	list(APPEND INC_SYS
