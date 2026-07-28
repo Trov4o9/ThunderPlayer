@@ -443,11 +443,28 @@ GPUTexture *GPU_texture_from_blender(Image *ima, ImageUser *iuser, int textarget
 		gputt = TEXTARGET_TEXTURE_CUBE_MAP;
 
 	if (ima->gputexture[gputt]) {
-		ima->gputexture[gputt]->bindcode = bindcode;
+		GPUTexture *existing = ima->gputexture[gputt];
+
+		/* AMD bindless fix: before touching bindcode or re-acquiring a handle on the
+		 * same GL object, ensure the texture is unbound and the old handle is fully
+		 * released.  On AMD, calling glGetTextureHandleARB() on an object that still
+		 * has a live handle in driver memory (even after NonResident) may return a
+		 * stale/invalid handle.  By unbinding first we make the driver flush any
+		 * internal state before we create the new handle. */
+
+		/* Step 1: release old handle while we still know the old bindcode */
+		GPU_texture_invalidate_bindless(existing);
+
+		/* Step 2: update bindcode to the freshly (re-)loaded GL texture object */
+		existing->bindcode = bindcode;
+
+		/* Step 3: unbind to ensure no texture unit references this object */
 		glBindTexture(textarget, 0);
-		GPU_texture_invalidate_bindless(ima->gputexture[gputt]);
-		GPU_texture_make_bindless_resident(ima->gputexture[gputt]);
-		return ima->gputexture[gputt];
+
+		/* Step 4: re-acquire handle with the current (post-upload) GL object state */
+		GPU_texture_make_bindless_resident(existing);
+
+		return existing;
 	}
 
 	GPUTexture *tex = MEM_callocN(sizeof(GPUTexture), "GPUTexture");
@@ -730,7 +747,17 @@ int GPU_texture_make_bindless_resident(GPUTexture *tex)
 	if (!tex->bindcode) return 0;
 
 	tex->bindlessHandle = glGetTextureHandleARB(tex->bindcode);
-	if (!tex->bindlessHandle) return 0;
+	if (!tex->bindlessHandle) {
+		fprintf(stderr,
+		        "[Bindless] glGetTextureHandleARB(bindcode=%u) returned 0 — handle inválido! "
+		        "GL error=0x%X\n",
+		        tex->bindcode, (unsigned)glGetError());
+		return 0;
+	}
+
+	fprintf(stdout,
+	        "[Bindless] handle obtido: bindcode=%u  handle=0x%016llX\n",
+	        tex->bindcode, (unsigned long long)tex->bindlessHandle);
 
 	glMakeTextureHandleResidentARB(tex->bindlessHandle);
 	tex->bindlessResident = 1;
@@ -893,10 +920,19 @@ void GPU_texture_generate_mipmap(GPUTexture *tex)
 		return;
 	}
 
-	/* In bindless mode tex->number is always -1; use DSA path. */
+	/* In bindless mode tex->number is always -1; use DSA path.
+	 * ARB_bindless_texture spec: a texture with an active resident handle is
+	 * immutable — calling GenerateMipmap on it is INVALID_OPERATION on AMD.
+	 * Must invalidate the handle first, generate the mipmap, then re-acquire. */
 	if (tex->number == -1) {
-		if (tex->bindcode)
-			glGenerateTextureMipmap(tex->bindcode);
+		if (!tex->bindcode)
+			return;
+		/* Step 1: make handle non-resident so the texture becomes mutable again. */
+		GPU_texture_invalidate_bindless(tex);
+		/* Step 2: generate mipmaps (texture has no active handle now). */
+		glGenerateTextureMipmap(tex->bindcode);
+		/* Step 3: re-acquire a fresh handle with the updated mipmap state. */
+		GPU_texture_make_bindless_resident(tex);
 		return;
 	}
 

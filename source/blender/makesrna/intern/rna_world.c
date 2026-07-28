@@ -530,21 +530,35 @@ void RNA_def_world(BlenderRNA *brna)
 	RNA_def_property_update(prop, 0, "rna_World_use_nodes_update");
 
 	/* Custom sky shader (BGE) */
+	static const EnumPropertyItem sky_shader_mode_items[] = {
+		{0, "PREPROCESS", 0, "Pre-process",
+		 "Custom shader runs first and can modify HORIZON_COLOR, ZENITH_COLOR and ENV_ENERGY "
+		 "before the original pipeline executes"},
+		{1, "OVERRIDE", 0, "Override",
+		 "Custom shader defines the final sky colour entirely; the original pipeline is skipped. "
+		 "Write the result into SKY_COLOR"},
+		{2, "POST", 0, "Post-process",
+		 "The original pipeline runs normally. After it writes gl_FragData[0], "
+		 "SKY_COLOR is initialised to that value and your code can modify it freely "
+		 "before it is written back to the framebuffer"},
+		{0, NULL, 0, NULL, NULL}
+	};
+
 	prop = RNA_def_property(srna, "custom_sky_shader", PROP_POINTER, PROP_NONE);
 	RNA_def_property_pointer_sdna(prop, NULL, "custom_sky_shader");
 	RNA_def_property_struct_type(prop, "Text");
 	RNA_def_property_flag(prop, PROP_EDITABLE | PROP_ID_REFCOUNT);
 	RNA_def_property_ui_text(prop, "Custom Sky Shader",
 	    "Text block with GLSL sky shader code. "
-	    "Define 'void sky(){}' for fragment body; globals go outside it. "
-	    "Available variables: HORIZON_COLOR, ZENITH_COLOR, VIEW_DIR, TIME, ENV_ENERGY, SKY_COLOR.");
+	    "Define 'void sky(){}' for the body; globals go outside it. "
+	    "Available: HORIZON_COLOR, ZENITH_COLOR, VIEW_DIR, WORLD_VIEW_DIR, TIME, ENV_ENERGY, SKY_COLOR.");
 	RNA_def_property_update(prop, NC_WORLD | ND_WORLD, "rna_World_update");
 
-	prop = RNA_def_property(srna, "use_custom_sky_override", PROP_BOOLEAN, PROP_NONE);
-	RNA_def_property_boolean_sdna(prop, NULL, "custom_sky_override", 1);
-	RNA_def_property_ui_text(prop, "Override Sky",
-	    "ON: custom shader defines the final sky color (original pipeline suppressed). "
-	    "OFF: custom shader pre-processes inputs (HORIZON_COLOR etc.) before the original pipeline runs.");
+	prop = RNA_def_property(srna, "sky_shader_mode", PROP_ENUM, PROP_NONE);
+	RNA_def_property_enum_sdna(prop, NULL, "sky_shader_mode");
+	RNA_def_property_enum_items(prop, sky_shader_mode_items);
+	RNA_def_property_ui_text(prop, "Sky Shader Mode",
+	    "How the custom sky shader interacts with the built-in sky pipeline");
 	RNA_def_property_update(prop, NC_WORLD | ND_WORLD, "rna_World_update");
 
 	rna_def_lighting(brna);

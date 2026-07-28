@@ -386,14 +386,13 @@ void blo_do_versions_upbge(FileData *fd, Library *lib, Main *main)
 	}
 
 	/* Inicializa campos custom sky shader em worlds de arquivos antigos.
-	 * Ponteiros ID são armazenados no DNA com tipo "*" — usa o campo int
-	 * adjacente (custom_sky_override) como proxy confiável para detectar
-	 * se o bloco já contém esses campos. */
-	if (!DNA_struct_elem_find(fd->filesdna, "World", "int", "custom_sky_override")) {
+	 * O campo foi renomeado de custom_sky_override (bool) para sky_shader_mode (enum int).
+	 * Detecta pela ausência de sky_shader_mode no DNA do arquivo. */
+	if (!DNA_struct_elem_find(fd->filesdna, "World", "int", "sky_shader_mode")) {
 		for (World *wo = main->world.first; wo; wo = wo->id.next) {
-			wo->custom_sky_shader  = NULL;
-			wo->custom_sky_override = 0;
-			wo->pad_sky            = 0;
+			wo->custom_sky_shader = NULL;
+			wo->sky_shader_mode   = 0;  /* WO_SKY_MODE_PREPROCESS — comportamento antigo */
+			wo->pad_sky           = 0;
 		}
 	}
 }

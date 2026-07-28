@@ -187,8 +187,19 @@ unsigned int BL_Texture::GetTextureType()
 
 void BL_Texture::ActivateTexture(int unit)
 {
-	/* Bindless path: make the handle resident; no slot binding needed. */
-	GPU_texture_set_opengl_bindcode(m_gpuTex, m_bindCode);
+	/* Bindless path: make the handle resident; no slot binding needed.
+	 *
+	 * AMD fix: if the bindcode stored in the GPUTexture struct differs from
+	 * m_bindCode we must invalidate the old handle BEFORE overwriting bindcode,
+	 * otherwise GPU_texture_make_bindless_resident() sees bindlessResident==1 and
+	 * returns early — leaving the handle pointing at the old (possibly deleted) GL
+	 * object.  This is the primary cause of bindless failure on AMD hardware. */
+	int currentBindcode = GPU_texture_opengl_bindcode(m_gpuTex);
+	if (currentBindcode != m_bindCode) {
+		/* bindcode changed — old handle is stale, force re-acquisition */
+		GPU_texture_invalidate_bindless(m_gpuTex);
+		GPU_texture_set_opengl_bindcode(m_gpuTex, m_bindCode);
+	}
 	GPU_texture_make_bindless_resident(m_gpuTex);
 }
 

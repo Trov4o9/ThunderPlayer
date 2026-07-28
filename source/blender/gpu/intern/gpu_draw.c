@@ -999,6 +999,29 @@ void GPU_paint_set_mipmap(Main *bmain, bool mipmap)
 }
 
 
+/* ARB_bindless_texture AMD fix: before any glTexSubImage* or glGenerateMipmap call
+ * that targets ima->bindcode[TEXTARGET_TEXTURE_2D], we must make the associated
+ * GPUTexture handle non-resident.  After the modification is done, the caller is
+ * responsible for re-acquiring the handle (GPU_texture_make_bindless_resident).
+ * On NVIDIA the driver handles this implicitly; on AMD it is INVALID_OPERATION. */
+static void gpu_image_invalidate_and_reacquire_bindless(Image *ima)
+{
+	if (!GLEW_ARB_bindless_texture) return;
+	GPUTexture *gpuTex = ima->gputexture[TEXTARGET_TEXTURE_2D];
+	if (!gpuTex) return;
+	/* Invalidate — makes the GL object mutable again */
+	GPU_texture_invalidate_bindless(gpuTex);
+}
+
+static void gpu_image_reacquire_bindless(Image *ima)
+{
+	if (!GLEW_ARB_bindless_texture) return;
+	GPUTexture *gpuTex = ima->gputexture[TEXTARGET_TEXTURE_2D];
+	if (!gpuTex) return;
+	/* Re-acquire handle now that the texture content/state is final */
+	GPU_texture_make_bindless_resident(gpuTex);
+}
+
 /* check if image has been downscaled and do scaled partial update */
 static bool gpu_check_scaled_image(ImBuf *ibuf, Image *ima, float *frect, int x, int y, int w, int h)
 {
@@ -1023,6 +1046,9 @@ static bool gpu_check_scaled_image(ImBuf *ibuf, Image *ima, float *frect, int x,
 		/* ...but take back if we are over the limit! */
 		if (rectw + x > x_limit) rectw--;
 		if (recth + y > y_limit) recth--;
+
+		/* AMD bindless fix: texture must not have a resident handle while being modified. */
+		gpu_image_invalidate_and_reacquire_bindless(ima);
 
 		/* float rectangles are already continuous in memory so we can use IMB_scaleImBuf */
 		if (frect) {
@@ -1063,6 +1089,9 @@ static bool gpu_check_scaled_image(ImBuf *ibuf, Image *ima, float *frect, int x,
 			ima->tpageflag &= ~IMA_MIPMAP_COMPLETE;
 		}
 
+		/* Re-acquire handle now that the texture is fully updated. */
+		gpu_image_reacquire_bindless(ima);
+
 		return true;
 	}
 
@@ -1086,6 +1115,10 @@ void GPU_paint_update_image(Image *ima, ImageUser *iuser, int x, int y, int w, i
 		/* for the special case, we can do a partial update
 		 * which is much quicker for painting */
 		GLint row_length, skip_pixels, skip_rows;
+
+		/* AMD bindless fix: invalidate any resident handle before modifying the
+		 * texture content.  Re-acquisition happens at the end of each branch. */
+		gpu_image_invalidate_and_reacquire_bindless(ima);
 
 		/* if color correction is needed, we must update the part that needs updating. */
 		if (ibuf->rect_float) {
@@ -1112,6 +1145,9 @@ void GPU_paint_update_image(Image *ima, ImageUser *iuser, int x, int y, int w, i
 			else {
 				ima->tpageflag &= ~IMA_MIPMAP_COMPLETE;
 			}
+
+			/* Re-acquire handle now that float-path update is complete. */
+			gpu_image_reacquire_bindless(ima);
 
 			BKE_image_release_ibuf(ima, ibuf, NULL);
 			return;
@@ -1146,6 +1182,9 @@ void GPU_paint_update_image(Image *ima, ImageUser *iuser, int x, int y, int w, i
 		else {
 			ima->tpageflag &= ~IMA_MIPMAP_COMPLETE;
 		}
+
+		/* Re-acquire handle now that byte-path update is complete. */
+		gpu_image_reacquire_bindless(ima);
 	}
 
 	BKE_image_release_ibuf(ima, ibuf, NULL);

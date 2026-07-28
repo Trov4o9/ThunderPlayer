@@ -122,7 +122,7 @@ typedef struct World {
 
 	/* Custom sky shader (BGE only) */
 	struct Text *custom_sky_shader;  /* Text block com código GLSL sky custom */
-	int custom_sky_override;         /* 1=custom é resultado final; 0=pré-processa entradas */
+	int sky_shader_mode;             /* 0=pre-process, 1=override, 2=post-process */
 	int pad_sky;                     /* padding para alinhamento */
 
 	ListBase gpumaterial;		/* runtime */
@@ -189,6 +189,11 @@ enum {
 #define WOMAP_ZENUP     (1 << 2)
 #define WOMAP_ZENDOWN   (1 << 3)
 // #define WOMAP_MIST   (1 << 4) /* Deprecated */
+
+/* sky_shader_mode */
+#define WO_SKY_MODE_PREPROCESS  0
+#define WO_SKY_MODE_OVERRIDE    1
+#define WO_SKY_MODE_POST        2
 
 /* flag */
 #define WO_DS_EXPAND	(1<<0)
