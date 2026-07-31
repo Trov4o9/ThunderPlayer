@@ -588,21 +588,26 @@ static void codegen_set_unique_ids(ListBase *nodes)
 
 /* Structure to track material property IDs for custom shader injection */
 typedef struct MaterialPropertyIDs {
-	int albedo_id;           /* cons ID for diffuse RGB (albedo) */
-	int specrgb_id;          /* cons ID for specular RGB */
-	int alpha_id;            /* cons ID for alpha */
-	int emit_id;             /* cons ID for emit value */
-	int roughness_id;        /* cons ID for roughness (roughness_bsdf) */
-	int metallic_id;         /* cons ID for metallic (metallic_bsdf) */
-	int spec_id;             /* cons ID for specular intensity */
-	int ubo_speccolor_id;    /* cons ID for UBO specular F0 colour (vec3) */
-	int ubo_specstrength_id; /* cons ID for UBO specular strength (float) */
-	int ubo_scattercolor_id; /* cons ID for UBO scatter tint colour (vec3) */
-	int ubo_scatterfac_id;   /* cons ID for UBO scatter factor (float) */
+	int albedo_id;              /* cons ID for diffuse RGB (albedo) */
+	int specrgb_id;             /* cons ID for specular RGB */
+	int alpha_id;               /* cons ID for alpha */
+	int emit_id;                /* cons ID for emit value */
+	int roughness_id;           /* cons ID for roughness (roughness_bsdf) */
+	int metallic_id;            /* cons ID for metallic (metallic_bsdf) */
+	int spec_id;                /* cons ID for specular intensity */
+	int ubo_speccolor_id;       /* cons ID for UBO specular F0 colour (vec3) */
+	int ubo_specstrength_id;    /* cons ID for UBO specular strength (float) */
+	int ubo_scattercolor_id;    /* cons ID for UBO scatter tint colour (vec3) */
+	int ubo_scatterfac_id;      /* cons ID for UBO scatter factor (float) */
 	/* World/sky shader IDs */
-	int world_horizon_id;    /* cons ID for GPU_DYNAMIC_HORIZON_COLOR  → HORIZON_COLOR */
-	int world_zenith_id;     /* cons ID for GPU_DYNAMIC_ZENITH_COLOR   → ZENITH_COLOR  */
-	int world_envlight_id;   /* cons ID for GPU_DYNAMIC_ENVLIGHT_ENERGY → ENV_ENERGY   */
+	int world_horizon_id;       /* cons ID for GPU_DYNAMIC_HORIZON_COLOR  → HORIZON_COLOR */
+	int world_zenith_id;        /* cons ID for GPU_DYNAMIC_ZENITH_COLOR   → ZENITH_COLOR  */
+	int world_envlight_id;      /* cons ID for GPU_DYNAMIC_ENVLIGHT_ENERGY → ENV_ENERGY   */
+	/* Texture albedo chain */
+	int albedo_blended_output_id; /* output->id of the last mtex_rgb_* node that blends into albedo.
+	                               * -1 when no colour texture exists.  When >= 0, tmp{id}.rgb is the
+	                               * post-texture albedo and must be used instead of cons{albedo_id}
+	                               * for ALBEDO initialisation inside main(). */
 } MaterialPropertyIDs;
 
 static int codegen_print_uniforms_functions(DynStr *ds, ListBase *nodes, bool use_custom_fragment, MaterialPropertyIDs *mat_ids)
@@ -628,6 +633,7 @@ static int codegen_print_uniforms_functions(DynStr *ds, ListBase *nodes, bool us
 		mat_ids->world_horizon_id = -1;
 		mat_ids->world_zenith_id  = -1;
 		mat_ids->world_envlight_id = -1;
+		mat_ids->albedo_blended_output_id = -1;
 	}
 
 	/* print uniforms */
@@ -846,6 +852,198 @@ static void codegen_declare_tmps(DynStr *ds, ListBase *nodes)
 	BLI_dynstr_append(ds, "\n");
 }
 
+/* ---------------------------------------------------------------------------
+ * Texture-albedo chain helpers
+ *
+ * Problem: ALBEDO is initialised from cons{albedo_id} (the raw material colour)
+ * before any nodes run. When a colour texture is present its blend node
+ * (mtex_rgb_blend / mtex_rgb_mul / …) produces the post-texture albedo in
+ * tmp{N} — but that tmp only has a value after codegen_call_functions runs,
+ * which is too late for the custom-fragment block or calcLight.
+ *
+ * Solution: identify the dependency chain that ends at the last albedo-blend
+ * node, emit those nodes early (before custom / calcLight), then patch ALBEDO
+ * to point at the freshly computed tmp.  The remaining pass skips already-
+ * emitted nodes via a per-node flag (node->tag, re-used as a visited bit).
+ * ---------------------------------------------------------------------------*/
+
+/* Returns true when the node name is any of the mtex_rgb_* blend variants. */
+static bool codegen_is_rgb_blend_node(const char *name)
+{
+	return (strncmp(name, "mtex_rgb_", 9) == 0);
+}
+
+/* DFS: recursively mark every node in the upstream dependency tree of `node`.
+ * We use GPUNode.tag as a visited/mark flag (0 = unmarked, 1 = in albedo chain).
+ * Nodes that are only uniforms / builtins / attribs have no GPUNode upstream,
+ * so the recursion stops naturally when input->link is NULL. */
+static void codegen_mark_node_chain(GPUNode *node)
+{
+	GPUInput *input;
+
+	if (!node || node->tag)
+		return;
+
+	node->tag = 1;  /* mark as part of albedo chain */
+
+	for (input = node->inputs.first; input; input = input->next) {
+		if (input->source == GPU_SOURCE_TEX_PIXEL && input->link && input->link->output)
+			codegen_mark_node_chain(input->link->output->node);
+	}
+}
+
+/* Scan the node list and find the last mtex_rgb_* node whose first input
+ * (the "base colour" slot) references cons{albedo_id}.  That is the node that
+ * produces the final blended diffuse colour.  Mark its entire upstream chain.
+ * Returns the output->id of that node, or -1 if none found. */
+static int codegen_find_and_mark_albedo_chain(ListBase *nodes, int albedo_id)
+{
+	GPUNode *node;
+	GPUInput *first_input;
+	int found_output_id = -1;
+
+	if (albedo_id < 0)
+		return -1;
+
+	/* Clear all tags first */
+	for (node = nodes->first; node; node = node->next)
+		node->tag = 0;
+
+	/* Find the last mtex_rgb_* node whose first (base) input is cons{albedo_id}.
+	 * The loop iterates forward so the last match wins — handles cascaded textures
+	 * where the second blend feeds the output of the first. */
+	for (node = nodes->first; node; node = node->next) {
+		if (!codegen_is_rgb_blend_node(node->name))
+			continue;
+
+		first_input = node->inputs.first;
+		if (!first_input)
+			continue;
+
+		/* The base-colour slot may be:
+		 *  - a direct VEC_UNIFORM cons{albedo_id}          (no texture on base)
+		 *  - a TEX_PIXEL link whose upstream produces tmp{albedo_id}   (cascaded)
+		 * We accept both. */
+		bool base_is_albedo = false;
+
+		if (first_input->source == GPU_SOURCE_VEC_UNIFORM &&
+		    first_input->id == albedo_id)
+		{
+			base_is_albedo = true;
+		}
+		else if (first_input->source == GPU_SOURCE_TEX_PIXEL &&
+		         first_input->link &&
+		         first_input->link->output)
+		{
+			/* cascaded: the upstream output id matches a previous blend result */
+			if (first_input->link->output->id == found_output_id)
+				base_is_albedo = true;
+		}
+
+		if (base_is_albedo) {
+			GPUOutput *out = node->outputs.first;
+			if (out)
+				found_output_id = out->id;
+		}
+	}
+
+	if (found_output_id < 0)
+		return -1;
+
+	/* Now walk the list again and mark the full chain ending at the blend node */
+	for (node = nodes->first; node; node = node->next) {
+		GPUOutput *out = node->outputs.first;
+		if (out && out->id == found_output_id) {
+			codegen_mark_node_chain(node);
+			break;
+		}
+	}
+
+	return found_output_id;
+}
+
+/* Emit one node's GLSL call into ds.  Shared by the early-chain pass and the
+ * main pass so the formatting is identical in both paths. */
+static void codegen_emit_one_node(DynStr *ds, GPUNode *node, MaterialPropertyIDs *mat_ids, bool sky_preprocess_cons)
+{
+	GPUInput  *input;
+	GPUOutput *output;
+
+	BLI_dynstr_appendf(ds, "\t%s(", node->name);
+
+	for (input = node->inputs.first; input; input = input->next) {
+		if (input->source == GPU_SOURCE_TEX) {
+			BLI_dynstr_appendf(ds, "samp%d", input->texid);
+			if (input->link)
+				BLI_dynstr_appendf(ds, ", gl_TexCoord[%d].st", input->texid);
+		}
+		else if (input->source == GPU_SOURCE_TEX_PIXEL) {
+			codegen_convert_datatype(ds, input->link->output->type, input->type,
+				"tmp", input->link->output->id);
+		}
+		else if (input->source == GPU_SOURCE_BUILTIN) {
+			if (input->builtin == GPU_VIEW_NORMAL)
+				BLI_dynstr_append(ds, "facingnormal");
+			else
+				BLI_dynstr_append(ds, GPU_builtin_name(input->builtin));
+		}
+		else if (input->source == GPU_SOURCE_VEC_UNIFORM) {
+			if (input->dynamicvec) {
+				if (sky_preprocess_cons && mat_ids &&
+				    (input->id == mat_ids->world_horizon_id ||
+				     input->id == mat_ids->world_zenith_id  ||
+				     input->id == mat_ids->world_envlight_id))
+				{
+					BLI_dynstr_appendf(ds, "cons%d", input->id);
+				}
+				else {
+					BLI_dynstr_appendf(ds, "unf%d", input->id);
+				}
+			}
+			else
+				BLI_dynstr_appendf(ds, "cons%d", input->id);
+		}
+		else if (input->source == GPU_SOURCE_ATTRIB) {
+			BLI_dynstr_appendf(ds, "var%d", input->attribid);
+		}
+		else if (input->source == GPU_SOURCE_OPENGL_BUILTIN) {
+			if (input->oglbuiltin == GPU_MATCAP_NORMAL)
+				BLI_dynstr_append(ds, "gl_SecondaryColor");
+			else if (input->oglbuiltin == GPU_COLOR)
+				BLI_dynstr_append(ds, "gl_Color");
+		}
+
+		BLI_dynstr_append(ds, ", ");
+	}
+
+	for (output = node->outputs.first; output; output = output->next) {
+		BLI_dynstr_appendf(ds, "tmp%d", output->id);
+		if (output->next)
+			BLI_dynstr_append(ds, ", ");
+	}
+
+	BLI_dynstr_append(ds, ");\n");
+}
+
+/* Emit all nodes that are marked as part of the albedo texture chain (tag == 1).
+ * After the call their tag is set to 2 so the main pass skips them. */
+static void codegen_emit_albedo_chain(DynStr *ds, ListBase *nodes, MaterialPropertyIDs *mat_ids, bool sky_preprocess_cons)
+{
+	GPUNode *node;
+
+	for (node = nodes->first; node; node = node->next) {
+		if (node->tag != 1)
+			continue;
+		/* ubo_lighting_apply never ends up in the albedo chain, but guard anyway */
+		if (strcmp(node->name, "ubo_lighting_apply") == 0) {
+			node->tag = 2;
+			continue;
+		}
+		codegen_emit_one_node(ds, node, mat_ids, sky_preprocess_cons);
+		node->tag = 2;  /* mark as already emitted */
+	}
+}
+
 static void codegen_call_functions(DynStr *ds, ListBase *nodes, GPUNodeLink *finaloutputs[8], MaterialPropertyIDs *mat_ids, bool sky_preprocess_cons)
 {
 	GPUNode *node;
@@ -853,6 +1051,10 @@ static void codegen_call_functions(DynStr *ds, ListBase *nodes, GPUNodeLink *fin
 	GPUOutput *output;
 
 	for (node = nodes->first; node; node = node->next) {
+		/* Skip nodes already emitted by the early albedo-chain pass */
+		if (node->tag == 2)
+			continue;
+
 		if (strcmp(node->name, "ubo_lighting_apply") == 0) {
 			output = node->outputs.first;
 			input = node->inputs.first;
@@ -879,8 +1081,30 @@ static void codegen_call_functions(DynStr *ds, ListBase *nodes, GPUNodeLink *fin
 					BLI_dynstr_appendf(ds, ", gl_TexCoord[%d].st", input->texid);
 			}
 			else if (input->source == GPU_SOURCE_TEX_PIXEL) {
-				codegen_convert_datatype(ds, input->link->output->type, input->type,
-					"tmp", input->link->output->id);
+				/* If this input references the albedo-blend output AND a custom
+				 * shader (or texture writeback) updated cons{albedo_id}, redirect
+				 * the reference to cons{albedo_id} so the modified albedo flows
+				 * through the entire remaining pipeline instead of the stale tmp. */
+				if (mat_ids &&
+				    mat_ids->albedo_blended_output_id >= 0 &&
+				    mat_ids->albedo_id >= 0 &&
+				    input->link->output->id == mat_ids->albedo_blended_output_id)
+				{
+					/* cons{albedo_id} is vec3; adapt to whatever type this input expects */
+					if (input->type == GPU_VEC4)
+						BLI_dynstr_appendf(ds, "vec4(cons%d, 1.0)", mat_ids->albedo_id);
+					else if (input->type == GPU_VEC3)
+						BLI_dynstr_appendf(ds, "cons%d", mat_ids->albedo_id);
+					else if (input->type == GPU_FLOAT)
+						BLI_dynstr_appendf(ds, "(cons%d.r + cons%d.g + cons%d.b) / 3.0",
+						    mat_ids->albedo_id, mat_ids->albedo_id, mat_ids->albedo_id);
+					else
+						BLI_dynstr_appendf(ds, "cons%d", mat_ids->albedo_id);
+				}
+				else {
+					codegen_convert_datatype(ds, input->link->output->type, input->type,
+						"tmp", input->link->output->id);
+				}
 			}
 			else if (input->source == GPU_SOURCE_BUILTIN) {
 				if (input->builtin == GPU_VIEW_NORMAL)
@@ -959,6 +1183,16 @@ static char *code_generate_fragment(ListBase *nodes, GPUNodeLink *outputs[8], co
 
     codegen_set_unique_ids(nodes);
     builtins = codegen_print_uniforms_functions(ds, nodes, (has_custom_fragment || use_ubo_lighting), &mat_ids);
+
+    /* Find & mark the texture-albedo blend chain now that IDs are assigned.
+     * This must run AFTER codegen_print_uniforms_functions (which sets albedo_id)
+     * and BEFORE the main() body is emitted.
+     * Use has_custom_fragment here because custom_fragment_code hasn't been
+     * extracted yet (that happens further below). */
+    if (has_custom_fragment || use_ubo_lighting) {
+        mat_ids.albedo_blended_output_id =
+            codegen_find_and_mark_albedo_chain(nodes, mat_ids.albedo_id);
+    }
 
     BLI_dynstr_append(ds, "uniform vec3 u_MatColor;\n");
     BLI_dynstr_append(ds, "uniform float u_MatAlpha;\n");
@@ -1116,20 +1350,42 @@ static char *code_generate_fragment(ListBase *nodes, GPUNodeLink *outputs[8], co
 		BLI_dynstr_appendf(ds, "\tgl_FragData[4] = vec4(vec3(u_MatEmission), 1.0);\n");
     }
     else {
+        /* Declare all tmp variables upfront so they are available both to the
+         * early albedo-chain pass and to the remaining node calls below. */
+        codegen_declare_tmps(ds, nodes);
+
         if (use_ubo_lighting) {
             BLI_dynstr_append(ds, "\tvec3 ubo_result = vec3(0.0);\n");
         }
         if (custom_fragment_code || use_ubo_lighting) {
             /* Initialize PBR variables from tracked material property cons IDs */
             BLI_dynstr_append(ds, "\t// Initialize PBR variables from material properties\n");
-            
-            /* ALBEDO - from diffuse color */
-            if (mat_ids.albedo_id >= 0) {
-                BLI_dynstr_appendf(ds, "\tvec3 ALBEDO = cons%d;\n", mat_ids.albedo_id);
+
+            /* ---------------------------------------------------------------
+             * ALBEDO initialisation
+             *
+             * Priority order:
+             *  1. If a colour texture exists (albedo_blended_output_id >= 0):
+             *     emit the texture-chain nodes first so the tmp is populated,
+             *     then set ALBEDO from that tmp.  This ensures custom shaders
+             *     and calcLight always receive the post-texture colour.
+             *  2. Otherwise fall back to cons{albedo_id} (raw material colour).
+             * --------------------------------------------------------------- */
+            if (mat_ids.albedo_blended_output_id >= 0) {
+                /* Emit all nodes in the texture-albedo chain before anything else.
+                 * All tmps are already declared above; no duplicate declarations. */
+                BLI_dynstr_append(ds, "\t// -- texture albedo chain (pre-custom) --\n");
+                codegen_emit_albedo_chain(ds, nodes, &mat_ids, sky_preprocess_cons);
+                BLI_dynstr_appendf(ds, "\tvec3 ALBEDO = tmp%d.rgb;\n",
+                                   mat_ids.albedo_blended_output_id);
             } else {
-                BLI_dynstr_append(ds, "\tvec3 ALBEDO = vec3(0.8);\n");
+                if (mat_ids.albedo_id >= 0) {
+                    BLI_dynstr_appendf(ds, "\tvec3 ALBEDO = cons%d;\n", mat_ids.albedo_id);
+                } else {
+                    BLI_dynstr_append(ds, "\tvec3 ALBEDO = vec3(0.8);\n");
+                }
             }
-            
+
             /* SPECULAR_RGB — when UBO lighting is active, prefer the dedicated
              * ubo_spec_color field (F0 colour set in the UBO Lighting panel).
              * Fall back to the standard material specular colour, then to 0.04. */
@@ -1219,6 +1475,7 @@ static char *code_generate_fragment(ListBase *nodes, GPUNodeLink *outputs[8], co
                 BLI_dynstr_append(ds, custom_fragment_code);
                 BLI_dynstr_append(ds, "\n");
                 MEM_freeN(custom_fragment_code);
+                custom_fragment_code = NULL;
             }
 
             if (use_ubo_lighting) {
@@ -1228,12 +1485,25 @@ static char *code_generate_fragment(ListBase *nodes, GPUNodeLink *outputs[8], co
             }
 
             /* Write modified PBR variables back to material property cons vars.
-             * Only do this when a custom fragment shader is present: those shaders
-             * may modify ALBEDO/NORMAL/etc. and need the values propagated into the
-             * BGE node pipeline.  For pure UBO-lighting (no custom shader) the cons
-             * were declared as 'const' so writing to them is a GLSL compile error,
-             * and calcLight() already received the values directly above. */
-            if (custom_fragment_code) {
+             *
+             * This writeback serves two purposes:
+             *  a) Custom shader: the user may have modified ALBEDO/ROUGHNESS/etc.;
+             *     those values must be visible to the remaining node pipeline.
+             *  b) Texture-albedo without custom shader: ALBEDO was loaded from
+             *     tmp{blend_id} (pre-computed above), so we write it back into
+             *     cons{albedo_id} so that downstream nodes (shade_mul_emit_value,
+             *     env_apply, etc.) that reference cons{albedo_id} use the correct
+             *     post-texture value.
+             *
+             * Note: when there is neither a custom shader nor a texture albedo, the
+             * cons are 'const' (no custom/UBO path was taken for them), so we must
+             * NOT emit the writeback — it would be a GLSL compile error. */
+            /* Use has_custom_fragment (computed before extraction) because
+             * custom_fragment_code was already freed and set to NULL above. */
+            bool need_writeback = has_custom_fragment ||
+                                  (mat_ids.albedo_blended_output_id >= 0);
+
+            if (need_writeback) {
                 BLI_dynstr_append(ds, "\t// Apply modified PBR values back to material properties\n");
 
                 if (mat_ids.albedo_id >= 0) {
@@ -1411,8 +1681,8 @@ static char *code_generate_fragment(ListBase *nodes, GPUNodeLink *outputs[8], co
             MEM_freeN(sky_global_code);
         }
 
-        /* Declare temp variables and call functions for both UBO and non-UBO */
-        codegen_declare_tmps(ds, nodes);
+        /* Call all remaining node functions (albedo-chain nodes already emitted
+         * are skipped inside codegen_call_functions via tag == 2). */
         codegen_call_functions(ds, nodes, outputs, &mat_ids, sky_preprocess_cons);
 
         /* -------------------------------------------------------

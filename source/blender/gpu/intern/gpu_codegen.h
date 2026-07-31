@@ -65,8 +65,11 @@ struct GPUNode {
 
 	const char *name;
 
-	/* Internal flag to mark nodes during pruning */
-	bool tag;
+	/* Internal flag used for node graph passes.
+	 * 0 = unvisited, 1 = in albedo-chain (marked for early emit),
+	 * 2 = already emitted (skip in main pass).
+	 * Also used as a bool (0/non-zero) during pruning passes. */
+	int tag;
 
 	ListBase inputs;
 	ListBase outputs;
