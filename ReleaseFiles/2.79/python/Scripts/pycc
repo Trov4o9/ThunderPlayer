@@ -1,0 +1,3 @@
+#!E:\Mundo Aberto Game Dev\0.0.1 Protótipo\2.79\python\bin\python.exe
+from numba.pycc import main
+main()
