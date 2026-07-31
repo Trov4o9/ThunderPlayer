@@ -502,18 +502,12 @@ static const char *s_vert =
 "    int bladeIdx   = vtxInInst / 6;\n"
 "    int vtxInBlade = vtxInInst % 6;\n"
 "\n"
-"    // Geometria local da blade calculada diretamente — elimina dependência\n"
-"    // do geomVBO cujos índices ultrapassariam o buffer com múltiplas instâncias.\n"
-"    // Layout por vértice dentro de cada grupo de 6 (2 triângulos × 3v):\n"
-"    //   tri1: v0(-scale,0), v1(+scale,0), v2(0,1)\n"
-"    //   tri2: v3(-scale,0), v4(+scale,0), v5(0,1)  <- rotacionado 90° pelo shader\n"
 "    float bvX, bvY;\n"
 "    int local = vtxInBlade % 3;\n"
 "    if (local == 0) { bvX = -instBlen; bvY = 0.0; }\n"  // base esquerda
 "    else if (local == 1) { bvX =  instBlen; bvY = 0.0; }\n"  // base direita
 "    else                 { bvX = 0.0;       bvY = 1.0; }\n"  // topo
 "\n"
-"    // Seleciona a posição world da grama correta.\n"
 "    vec3 pos;\n"
 "    if (bladeIdx == 0)      pos = worldXYZ;\n"
 "    else if (bladeIdx == 1) pos = worldXYZ2;\n"
@@ -525,7 +519,6 @@ static const char *s_vert =
 "    posXY -= camPosXY;\n"
 #endif
 "\n"
-"    // Segundo triângulo da grama: rotação +90° (sin(A+90)=cosA, cos(A+90)=-sinA)\n"
 "    bool isSecondTri = (vtxInBlade >= 3);\n"
 "    if (isSecondTri) {\n"
 "        float tmp = sinA;\n"
@@ -579,7 +572,6 @@ static const char *s_vert =
 "    v_Light = v_Light * (2.5 / (1.0 + v_Light));\n"
 "}\n";
 #else
-// Vertex shader modo original (uma grama por instância, 6 vértices)
 static const char *s_vert =
 "#extension GL_ARB_bindless_texture : require\n"
 "in vec3 worldXYZ;\n"

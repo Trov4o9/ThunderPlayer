@@ -37,6 +37,7 @@ set(INC
 	../Rasterizer
 	../Rasterizer/Node
 	../Rasterizer/RAS_OpenGLRasterizer
+	../Renderer
 	../SceneGraph
 	../VideoTexture
 	../../blender
@@ -45,6 +46,7 @@ set(INC
 	../../blender/blenlib
 	../../blender/blenloader
 	../../blender/gpu
+	../../blender/gpu/intern
 	../../blender/imbuf
 	../../blender/makesdna
 	../../blender/makesrna
@@ -67,6 +69,19 @@ set(INC_SYS
 )
 
 set(SRC
+	../Renderer/MDEI_DrawGroup.cpp
+	../Renderer/MDEI_Mesh.cpp
+	../Renderer/MDEI_PersistentBuffer.cpp
+	../Renderer/MDEI_Renderer.cpp
+	../Renderer/MDEI_Shader.cpp
+	../Renderer/MDEI_DrawGroup.h
+	../Renderer/MDEI_Instance.h
+	../Renderer/MDEI_Mesh.h
+	../Renderer/MDEI_MeshBuilder.h
+	../Renderer/MDEI_ObjectProxy.h
+	../Renderer/MDEI_PersistentBuffer.h
+	../Renderer/MDEI_Renderer.h
+	../Renderer/MDEI_Shader.h
 	BL_Action.cpp
 	BL_ActionManager.cpp
 	BL_BlenderShader.cpp

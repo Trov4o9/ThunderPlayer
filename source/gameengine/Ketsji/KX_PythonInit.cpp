@@ -124,8 +124,11 @@ extern "C" {
 #include "CM_Message.h"
 
 /* we only need this to get a list of libraries from the main struct */
+#include <stddef.h>
 #include "DNA_ID.h"
 #include "DNA_scene_types.h"
+#include "DNA_material_types.h"
+#include "DNA_world_types.h"
 
 #include "PHY_IPhysicsEnvironment.h"
 
@@ -1547,9 +1550,120 @@ static PyObject *gPyGetDisplayDimensions(PyObject *)
 	return result;
 }
 
+/* ---- Custom shader uniform setters ----------------------------------------
+	* bge.render.setMaterialUniform(mat_name, uniform_name, value)
+	* bge.render.setWorldUniform(uniform_name, value)
+	*
+	* value can be: float, int, or tuple/list of 2-4 floats
+	* --------------------------------------------------------------------------- */
+
+/* Helper: parse value arg into the float[4] storage of a MaterialCustomUniform */
+static bool parse_uniform_value(PyObject *value, MaterialCustomUniform *u)
+{
+	if (PyFloat_Check(value) || PyLong_Check(value)) {
+		if (u->type == MA_CUNIFORM_TYPE_INT)
+			u->value[0] = (float)PyLong_AsLong(value);
+		else
+			u->value[0] = (float)PyFloat_AsDouble(value);
+		return true;
+	}
+	if (PyTuple_Check(value) || PyList_Check(value)) {
+		Py_ssize_t n = PySequence_Size(value);
+		if (n < 1 || n > 4) {
+			PyErr_SetString(PyExc_ValueError, "value must be a sequence of 1 to 4 numbers");
+			return false;
+		}
+		for (Py_ssize_t i = 0; i < n; i++) {
+			PyObject *item = PySequence_GetItem(value, i);
+			u->value[i] = (float)PyFloat_AsDouble(item);
+			Py_DECREF(item);
+		}
+		return true;
+	}
+	PyErr_SetString(PyExc_TypeError, "value must be a number or a sequence of numbers");
+	return false;
+}
+
+static PyObject *gPySetMaterialUniform(PyObject *, PyObject *args)
+{
+	const char *mat_name;
+	const char *unif_name;
+	PyObject *value;
+
+	if (!PyArg_ParseTuple(args, "ssO:setMaterialUniform", &mat_name, &unif_name, &value))
+		return nullptr;
+
+	/* Search in G.main->mat for a Material with this name */
+	Material *ma = (Material *)BLI_findstring(&G.main->mat, mat_name, offsetof(ID, name) + 2);
+	if (!ma) {
+		PyErr_Format(PyExc_KeyError, "setMaterialUniform: material '%s' not found", mat_name);
+		return nullptr;
+	}
+
+	int slot = -1;
+	for (int i = 0; i < ma->custom_uniforms_count; i++) {
+		if (STREQ(ma->custom_uniforms[i].name, unif_name)) {
+			slot = i;
+			break;
+		}
+	}
+	if (slot < 0) {
+		PyErr_Format(PyExc_KeyError, "setMaterialUniform: uniform '%s' not found in material '%s'", unif_name, mat_name);
+		return nullptr;
+	}
+
+	if (!parse_uniform_value(value, &ma->custom_uniforms[slot]))
+		return nullptr;
+
+	Py_RETURN_NONE;
+}
+
+static PyObject *gPySetWorldUniform(PyObject *, PyObject *args)
+{
+	const char *unif_name;
+	PyObject *value;
+
+	if (!PyArg_ParseTuple(args, "sO:setWorldUniform", &unif_name, &value))
+		return nullptr;
+
+	KX_KetsjiEngine *engine = KX_GetActiveEngine();
+	if (!engine) {
+		PyErr_SetString(PyExc_RuntimeError, "setWorldUniform: no active engine");
+		return nullptr;
+	}
+	EXP_ListValue<KX_Scene> *scenes = engine->CurrentScenes();
+	if (!scenes || scenes->GetCount() == 0) {
+		PyErr_SetString(PyExc_RuntimeError, "setWorldUniform: no active scene");
+		return nullptr;
+	}
+	KX_Scene *scene = scenes->GetValue(0);
+	World *wo = scene->GetBlenderScene()->world;
+	if (!wo) {
+		PyErr_SetString(PyExc_RuntimeError, "setWorldUniform: active scene has no world");
+		return nullptr;
+	}
+
+	int slot = -1;
+	for (int i = 0; i < wo->custom_uniforms_count; i++) {
+		if (STREQ(wo->custom_uniforms[i].name, unif_name)) {
+			slot = i;
+			break;
+		}
+	}
+	if (slot < 0) {
+		PyErr_Format(PyExc_KeyError, "setWorldUniform: uniform '%s' not found in world", unif_name);
+		return nullptr;
+	}
+
+	if (!parse_uniform_value(value, &wo->custom_uniforms[slot]))
+		return nullptr;
+
+	Py_RETURN_NONE;
+}
+
 PyDoc_STRVAR(Rasterizer_module_documentation,
-             "This is the Python API for the game engine of Rasterizer"
-             );
+	            "This is the Python API for the game engine of Rasterizer"
+	            );
 
 static struct PyMethodDef rasterizer_methods[] = {
 	{"getWindowWidth", (PyCFunction)gPyGetWindowWidth,
@@ -1609,6 +1723,10 @@ static struct PyMethodDef rasterizer_methods[] = {
 	{"showProperties", (PyCFunction)gPyShowProperties, METH_VARARGS, "show or hide the debug properties"},
 	{"autoDebugList", (PyCFunction)gPyAutoDebugList, METH_VARARGS, "enable or disable auto adding debug properties to the debug  list"},
 	{"clearDebugList", (PyCFunction)gPyClearDebugList, METH_NOARGS, "clears the debug property list"},
+	{"setMaterialUniform", (PyCFunction)gPySetMaterialUniform,
+	 METH_VARARGS, "setMaterialUniform(material_name, uniform_name, value) — set a custom GLSL uniform on a material at runtime"},
+	{"setWorldUniform", (PyCFunction)gPySetWorldUniform,
+	 METH_VARARGS, "setWorldUniform(uniform_name, value) — set a custom GLSL uniform on the active world at runtime"},
 	{ nullptr, (PyCFunction)nullptr, 0, nullptr }
 };
 

@@ -162,6 +162,8 @@ KX_GameObject::KX_GameObject(void *sgReplicationInfo,
 	m_lodManager(nullptr),
 	m_currentLodLevel(0),
 	m_meshUser(nullptr),
+	m_mdeiProxy(nullptr),
+	m_fastRender(false),
 	m_convertInfo(nullptr),
 	m_objectColor(mt::one4),
 	m_bVisible(true),
@@ -200,6 +202,8 @@ KX_GameObject::KX_GameObject(const KX_GameObject& other)
 	m_lodManager(other.m_lodManager),
 	m_currentLodLevel(0),
 	m_meshUser(nullptr),
+	m_mdeiProxy(nullptr),
+	m_fastRender(false),
 	m_convertInfo(other.m_convertInfo),
 	m_objectColor(other.m_objectColor),
 	m_bVisible(other.m_bVisible),
@@ -883,6 +887,9 @@ void KX_GameObject::UpdateBlenderObjectMatrix(Object *blendobj)
 
 void KX_GameObject::AddMeshUser()
 {
+	/* MDEI fast-path: this object has no RAS meshes — skip entirely */
+	if (m_fastRender) return;
+
 	if (m_meshes.empty()) {
 		m_meshUser = nullptr;
 		// No mesh - shadow cache is definitively false.
@@ -909,6 +916,9 @@ void KX_GameObject::AddMeshUser()
 
 void KX_GameObject::UpdateBuckets()
 {
+	/* MDEI fast-path: transform is read directly from NodeGetWorldTransform() at draw time */
+	if (m_fastRender) return;
+
 	RAS_MeshUser *meshUser = m_meshUser;
 	if (!meshUser || !m_sgNode)
 		return;

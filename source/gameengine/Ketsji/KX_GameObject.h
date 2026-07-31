@@ -122,6 +122,10 @@ protected:
 	short								m_currentLodLevel;
 	RAS_MeshUser						*m_meshUser;
 
+	/* MDEI fast-path: proxy replacing RAS_MeshUser for OB_FAST_RENDER objects */
+	class MDEI_ObjectProxy					*m_mdeiProxy;
+	bool								m_fastRender;
+
 	// --- Render-prep caches (avoid O(n*m) per-frame work) ---
 	/// Cached result of HasShadowCasterMaterial() — invalidated on mesh/material change.
 	mutable bool						m_hasShadowCasterMaterial;
@@ -911,6 +915,12 @@ public:
 	
 
 	SG_CullingNode& GetCullingNode();
+
+	/* MDEI fast-path accessors */
+	bool HasFastRenderFlag() const { return m_fastRender; }
+	void SetFastRenderFlag(bool v) { m_fastRender = v; }
+	MDEI_ObjectProxy *GetMdeiProxy() const { return m_mdeiProxy; }
+	void SetMdeiProxy(MDEI_ObjectProxy *proxy) { m_mdeiProxy = proxy; }
 
 	ActivityCullingInfo& GetActivityCullingInfo();
 	void SetActivityCullingInfo(const ActivityCullingInfo& cullingInfo);

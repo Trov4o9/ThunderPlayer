@@ -1077,6 +1077,31 @@ class OBJECT_PT_levels_of_detail(ObjectButtonsPanel, Panel):
         row.menu("OBJECT_MT_lod_tools", text="", icon='TRIA_DOWN')
 
 
+class OBJECT_PT_mdei_render(ObjectButtonsPanel, Panel):
+    bl_label = "MDEI Fast Render"
+    COMPAT_ENGINES = {'BLENDER_GAME'}
+
+    @classmethod
+    def poll(cls, context):
+        ob = context.object
+        return (context.scene.render.engine in cls.COMPAT_ENGINES and
+                ob is not None and ob.type == 'MESH')
+
+    def draw_header(self, context):
+        self.layout.prop(context.object.game, "use_fast_render", text="")
+
+    def draw(self, context):
+        layout = self.layout
+        game = context.object.game
+
+        layout.active = game.use_fast_render
+
+        col = layout.column()
+        col.label(text="Object uses MDEI fast-path renderer.", icon='INFO')
+        col.label(text="Invisible to the standard RAS pipeline.")
+        col.label(text="Logic, physics and Python still work normally.")
+
+
 classes = (
     PHYSICS_PT_game_physics,
     PHYSICS_PT_game_collision_bounds,
@@ -1106,6 +1131,7 @@ classes = (
     OBJECT_MT_culling,
     OBJECT_PT_activity_culling,
     OBJECT_PT_levels_of_detail,
+    OBJECT_PT_mdei_render,
 )
 
 if __name__ == "__main__":  # only for live edit.

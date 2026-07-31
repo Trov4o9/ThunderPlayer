@@ -561,6 +561,23 @@ void RNA_def_world(BlenderRNA *brna)
 	    "How the custom sky shader interacts with the built-in sky pipeline");
 	RNA_def_property_update(prop, NC_WORLD | ND_WORLD, "rna_World_update");
 
+	/* Custom sky shader uniforms — expose all 16 slots with fixed array length from DNA.
+	 * Passing "" as lengthpropname tells the RNA system to use totarraylength (16) as
+	 * the fixed iteration count; custom_uniforms_count tracks how many are logically active. */
+	prop = RNA_def_property(srna, "custom_uniforms", PROP_COLLECTION, PROP_NONE);
+	RNA_def_property_collection_sdna(prop, NULL, "custom_uniforms", "");
+	RNA_def_property_struct_type(prop, "MaterialCustomUniform");
+	RNA_def_property_ui_text(prop, "Custom Uniforms",
+	    "User-defined GLSL uniforms injected into the custom sky shader at compile time and "
+	    "updatable at runtime via bge.render.setWorldUniform()");
+	RNA_def_property_update(prop, NC_WORLD | ND_WORLD, "rna_World_update");
+
+	prop = RNA_def_property(srna, "custom_uniforms_count", PROP_INT, PROP_NONE);
+	RNA_def_property_int_sdna(prop, NULL, "custom_uniforms_count");
+	RNA_def_property_range(prop, 0, MA_MAX_CUSTOM_UNIFORMS);
+	RNA_def_property_ui_text(prop, "Custom Uniform Count", "Number of active custom uniforms (0-16)");
+	RNA_def_property_update(prop, NC_WORLD | ND_WORLD, "rna_World_update");
+
 	rna_def_lighting(brna);
 	rna_def_world_mist(brna);
 	rna_def_world_mtex(brna);

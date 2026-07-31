@@ -161,6 +161,7 @@ static struct GPUWorld {
 struct GPUMaterial {
 	Scene *scene;
 	Material *ma;
+	World *wo;       /* set for world/sky materials */
 
 	/* material for mesh surface, worlds or something else.
 	 * some code generation is done differently depending on the use case */
@@ -215,6 +216,9 @@ struct GPUMaterial {
 	char *custom_global_code;           /* Código global (uniforms, funcs) */
 	bool has_custom_vertex_shader;      /* Flag rápida */
 	int sky_shader_mode;                /* WO_SKY_MODE_PREPROCESS=0, OVERRIDE=1, POST=2 */
+
+	/* Custom uniform locations (resolved after shader compilation) */
+	int custom_uniform_locs[MA_MAX_CUSTOM_UNIFORMS];
 
 	/* Shadow shader cache per-material */
 	GPUShader *shadow_shader_black;
@@ -330,6 +334,10 @@ static GPUMaterial *GPU_material_construct_begin(Material *ma)
 	material->custom_vertex_code = NULL;
 	material->custom_global_code = NULL;
 	material->has_custom_vertex_shader = false;
+
+	/* Initialize custom uniform locations to -1 (not found) */
+	for (int i = 0; i < MA_MAX_CUSTOM_UNIFORMS; i++)
+		material->custom_uniform_locs[i] = -1;
 	
 	/* Initialize shadow shader cache */
 	material->shadow_shader_black = NULL;
@@ -388,6 +396,18 @@ static int gpu_material_construct_end(GPUMaterial *material, const char *passnam
         }
     }
 
+    /* Resolve custom uniforms from material (mesh) or world */
+    const MaterialCustomUniform *cu_arr = NULL;
+    int cu_count = 0;
+    if (material->ma) {
+        cu_arr   = material->ma->custom_uniforms;
+        cu_count = material->ma->custom_uniforms_count;
+    }
+    else if (material->wo) {
+        cu_arr   = material->wo->custom_uniforms;
+        cu_count = material->wo->custom_uniforms_count;
+    }
+
     if (used) {
         material->pass = GPU_generate_pass(&material->nodes, material->outlinks,
             &material->attribs, &material->builtins, material->type,
@@ -398,7 +418,9 @@ static int gpu_material_construct_end(GPUMaterial *material, const char *passnam
             custom_shader,
             custom_fragment_shader,
             (material->ma && (material->ma->mode2 & MA_UBO_LIGHTING) != 0),
-            material->sky_shader_mode);
+            material->sky_shader_mode,
+            cu_arr,
+            cu_count);
 
         if (!material->pass)
             return 0;
@@ -430,6 +452,14 @@ static int gpu_material_construct_end(GPUMaterial *material, const char *passnam
         
         /* Get custom time uniform location if it exists */
         material->custom_time_loc = GPU_shader_get_uniform(shader, "unftime");
+
+        /* Resolve locations for all named custom uniforms */
+        if (cu_arr && cu_count > 0) {
+            for (int i = 0; i < cu_count && i < MA_MAX_CUSTOM_UNIFORMS; i++) {
+                if (cu_arr[i].name[0] != '\0')
+                    material->custom_uniform_locs[i] = GPU_shader_get_uniform(shader, cu_arr[i].name);
+            }
+        }
         
         if (material->builtins & GPU_PARTICLE_SCALAR_PROPS)
             material->partscalarpropsloc = GPU_shader_get_uniform(shader, GPU_builtin_name(GPU_PARTICLE_SCALAR_PROPS));
@@ -743,6 +773,48 @@ void GPU_material_bind(
 			GPU_shader_uniform_vector(shader, material->custom_time_loc, 1, 1, &ftime);
 		}
 
+		/* Upload user-defined custom uniforms */
+		{
+			const MaterialCustomUniform *cu_arr = NULL;
+			int cu_count = 0;
+			if (material->ma) {
+				cu_arr   = material->ma->custom_uniforms;
+				cu_count = material->ma->custom_uniforms_count;
+			}
+			else if (material->wo) {
+				cu_arr   = material->wo->custom_uniforms;
+				cu_count = material->wo->custom_uniforms_count;
+			}
+			if (cu_arr) {
+				for (int i = 0; i < cu_count && i < MA_MAX_CUSTOM_UNIFORMS; i++) {
+					int loc = material->custom_uniform_locs[i];
+					if (loc < 0 || cu_arr[i].name[0] == '\0') continue;
+					switch (cu_arr[i].type) {
+						case MA_CUNIFORM_TYPE_FLOAT:
+							GPU_shader_uniform_vector(shader, loc, 1, 1, cu_arr[i].value);
+							break;
+						case MA_CUNIFORM_TYPE_INT: {
+							int ival = (int)cu_arr[i].value[0];
+							GPU_shader_uniform_int(shader, loc, ival);
+							break;
+						}
+						case MA_CUNIFORM_TYPE_VEC2:
+							GPU_shader_uniform_vector(shader, loc, 2, 1, cu_arr[i].value);
+							break;
+						case MA_CUNIFORM_TYPE_VEC3:
+							GPU_shader_uniform_vector(shader, loc, 3, 1, cu_arr[i].value);
+							break;
+						case MA_CUNIFORM_TYPE_VEC4:
+							GPU_shader_uniform_vector(shader, loc, 4, 1, cu_arr[i].value);
+							break;
+						default:
+							GPU_shader_uniform_vector(shader, loc, 1, 1, cu_arr[i].value);
+							break;
+					}
+				}
+			}
+		}
+
 		GPU_pass_update_uniforms(material->pass);
 
 		/* Bind viewport lighting UBO to binding point 1.
@@ -869,9 +941,246 @@ void GPU_material_unbind(GPUMaterial *material)
 	}
 }
 
+/* ─────────────────────────────────────────────────────────────────────────
+ * MDEI fast-path: bind all uniforms from a GPUMaterial into an external
+ * GPUShader (target) that is already bound.
+ *
+ * This mirrors GPU_material_bind + GPU_material_bind_uniforms but writes
+ * to 'target' rather than to pass->shader.  The obmat is identity because
+ * MDEI stores per-instance matrices in an SSBO; obcol and objectinfo use
+ * safe defaults.
+ * ──────────────────────────────────────────────────────────────────────── */
+void GPU_material_bind_to_shader(
+        GPUMaterial *material,
+        GPUShader   *target,
+        int viewlay, double time, int mipmap,
+        float viewmat[4][4], float viewinv[4][4],
+        float camerafactors[4])
+{
+	if (!material || !material->pass || !target)
+		return;
+
+	/* ── 1. Lamp layer visibility ─────────────────────────────────── */
+	{
+		SceneRenderLayer *srl = NULL;  /* no scene-lock for game engine */
+		if (material->type == GPU_MATERIAL_TYPE_MESH) {
+			for (LinkData *nlink = material->lamps.first; nlink; nlink = nlink->next) {
+				GPULamp *lamp = nlink->data;
+				if (!(lamp->lay & viewlay) || !GPU_lamp_visible(lamp, srl, material->ma)) {
+					lamp->dynlayer = 0;
+				}
+				else if (!(lamp->mode & LA_LAYER)) {
+					lamp->dynlayer = (1 << 20) - 1;
+				}
+				else {
+					lamp->dynlayer = lamp->lay;
+				}
+			}
+		}
+	}
+
+	/* ── 2. Textures: bind/upload to same units as the original pass ─ */
+	{
+		GPUPass  *pass   = material->pass;
+		GPUInput *input;
+
+		/* Refresh image textures from blender data (same as GPU_pass_bind) */
+		for (input = pass->inputs.first; input; input = input->next) {
+			if (input->ima)
+				input->tex = GPU_texture_from_blender(
+				    input->ima, input->iuser, input->textarget,
+				    input->image_isdata, time, mipmap);
+			else if (input->prv)
+				input->tex = GPU_texture_from_preview(input->prv, mipmap);
+		}
+
+		/* Bind textures and resolve sampler locations in target shader */
+		for (input = pass->inputs.first; input; input = input->next) {
+			GPUTexture *tex = input->tex ? input->tex :
+			                  (input->texptr ? *input->texptr : NULL);
+			if (!tex || !input->bindtex) continue;
+
+			if (GLEW_ARB_bindless_texture) {
+				GPU_texture_make_bindless_resident(tex);
+				GLuint64 handle = GPU_texture_bindless_handle(tex);
+				if (handle) {
+					int loc = GPU_shader_get_uniform(target, input->shadername);
+					if (loc >= 0)
+						glProgramUniformHandleui64ARB(
+						    (GLuint)GPU_shader_program(target), loc, handle);
+				}
+			}
+			else {
+				GPU_texture_bind(tex, input->texid);
+				/* Look up sampler by name in our shader and set it */
+				int loc = GPU_shader_get_uniform(target, input->shadername);
+				if (loc >= 0)
+					glUniform1i(loc, input->texid);
+			}
+		}
+	}
+
+	/* ── 3. View-space built-in uniforms ─────────────────────────── */
+	if (material->builtins & GPU_VIEW_MATRIX) {
+		int loc = GPU_shader_get_uniform(target,
+		    GPU_builtin_name(GPU_VIEW_MATRIX));
+		if (loc >= 0) GPU_shader_uniform_vector(target, loc, 16, 1, (float *)viewmat);
+	}
+	if (material->builtins & GPU_INVERSE_VIEW_MATRIX) {
+		int loc = GPU_shader_get_uniform(target,
+		    GPU_builtin_name(GPU_INVERSE_VIEW_MATRIX));
+		if (loc >= 0) GPU_shader_uniform_vector(target, loc, 16, 1, (float *)viewinv);
+	}
+	if (material->builtins & GPU_CAMERA_TEXCO_FACTORS) {
+		int loc = GPU_shader_get_uniform(target,
+		    GPU_builtin_name(GPU_CAMERA_TEXCO_FACTORS));
+		if (loc >= 0) {
+			if (camerafactors) {
+				GPU_shader_uniform_vector(target, loc, 4, 1, camerafactors);
+			}
+			else {
+				float def[4] = {1.0f, 1.0f, 0.0f, 0.0f};
+				GPU_shader_uniform_vector(target, loc, 4, 1, def);
+			}
+		}
+	}
+	if (material->builtins & GPU_TIME) {
+		float ftime = (float)time;
+		int loc = GPU_shader_get_uniform(target, GPU_builtin_name(GPU_TIME));
+		if (loc >= 0) GPU_shader_uniform_vector(target, loc, 1, 1, &ftime);
+	}
+	/* Always try to set unftime (custom time alias) */
+	{
+		int loc = GPU_shader_get_uniform(target, "unftime");
+		if (loc >= 0) {
+			float ftime = (float)time;
+			GPU_shader_uniform_vector(target, loc, 1, 1, &ftime);
+		}
+	}
+
+	/* ── 4. Dynamic pass inputs (lamp vectors, mat colour, world, …) ─
+	 * These are the same values GPU_pass_update_uniforms() writes, but
+	 * targeting our shader rather than pass->shader.                    */
+	{
+		GPUPass  *pass   = material->pass;
+		GPUInput *input;
+		for (input = pass->inputs.first; input; input = input->next) {
+			if (input->ima || input->tex || input->prv || input->texptr)
+				continue; /* textures already handled above */
+			if (!input->dynamicvec)
+				continue;
+			int loc = GPU_shader_get_uniform(target, input->shadername);
+			if (loc < 0) continue;
+			if (input->type == GPU_INT)
+				GPU_shader_uniform_vector_int(target, loc, 1, 1, (int *)input->dynamicvec);
+			else
+				GPU_shader_uniform_vector(target, loc, input->type, 1, input->dynamicvec);
+		}
+	}
+
+	/* ── 5. Per-object built-in uniforms (identity for MDEI) ─────── */
+	{
+		float identity[4][4];
+		unit_m4(identity);
+		float white[4] = {1.0f, 1.0f, 1.0f, 1.0f};
+		float objectinfo[3] = {0.0f, 0.0f, 0.0f};
+		int   oblay = (1 << 20) - 1;  /* all layers visible */
+
+		if (material->builtins & GPU_OBJECT_MATRIX) {
+			int loc = GPU_shader_get_uniform(target, GPU_builtin_name(GPU_OBJECT_MATRIX));
+			if (loc >= 0) GPU_shader_uniform_vector(target, loc, 16, 1, (float *)identity);
+		}
+		if (material->builtins & GPU_INVERSE_OBJECT_MATRIX) {
+			int loc = GPU_shader_get_uniform(target, GPU_builtin_name(GPU_INVERSE_OBJECT_MATRIX));
+			if (loc >= 0) GPU_shader_uniform_vector(target, loc, 16, 1, (float *)identity);
+		}
+		if (material->builtins & GPU_LOC_TO_VIEW_MATRIX) {
+			/* loc-to-view = viewmat * identity = viewmat */
+			int loc = GPU_shader_get_uniform(target, GPU_builtin_name(GPU_LOC_TO_VIEW_MATRIX));
+			if (loc >= 0) GPU_shader_uniform_vector(target, loc, 16, 1, (float *)viewmat);
+		}
+		if (material->builtins & GPU_INVERSE_LOC_TO_VIEW_MATRIX) {
+			int loc = GPU_shader_get_uniform(target, GPU_builtin_name(GPU_INVERSE_LOC_TO_VIEW_MATRIX));
+			if (loc >= 0) GPU_shader_uniform_vector(target, loc, 16, 1, (float *)viewinv);
+		}
+		if (material->builtins & GPU_OBCOLOR) {
+			int loc = GPU_shader_get_uniform(target, GPU_builtin_name(GPU_OBCOLOR));
+			if (loc >= 0) GPU_shader_uniform_vector(target, loc, 4, 1, white);
+		}
+		if (material->builtins & GPU_AUTO_BUMPSCALE) {
+			float one = 1.0f;
+			int loc = GPU_shader_get_uniform(target, GPU_builtin_name(GPU_AUTO_BUMPSCALE));
+			if (loc >= 0) GPU_shader_uniform_vector(target, loc, 1, 1, &one);
+		}
+		if (material->builtins & GPU_OBJECT_INFO) {
+			int loc = GPU_shader_get_uniform(target, GPU_builtin_name(GPU_OBJECT_INFO));
+			if (loc >= 0) GPU_shader_uniform_vector(target, loc, 3, 1, objectinfo);
+		}
+		if (material->builtins & GPU_OBJECT_LAY) {
+			int loc = GPU_shader_get_uniform(target, GPU_builtin_name(GPU_OBJECT_LAY));
+			if (loc >= 0) GPU_shader_uniform_vector_int(target, loc, 1, 1, &oblay);
+		}
+	}
+
+	/* ── 6. Custom uniforms ────────────────────────────────────────── */
+	{
+		const MaterialCustomUniform *cu_arr = NULL;
+		int cu_count = 0;
+		if (material->ma) {
+			cu_arr   = material->ma->custom_uniforms;
+			cu_count = material->ma->custom_uniforms_count;
+		}
+		else if (material->wo) {
+			cu_arr   = material->wo->custom_uniforms;
+			cu_count = material->wo->custom_uniforms_count;
+		}
+		if (cu_arr) {
+			for (int i = 0; i < cu_count && i < MA_MAX_CUSTOM_UNIFORMS; i++) {
+				if (cu_arr[i].name[0] == '\0') continue;
+				int loc = GPU_shader_get_uniform(target, cu_arr[i].name);
+				if (loc < 0) continue;
+				switch (cu_arr[i].type) {
+					case MA_CUNIFORM_TYPE_FLOAT:
+						GPU_shader_uniform_vector(target, loc, 1, 1, cu_arr[i].value); break;
+					case MA_CUNIFORM_TYPE_INT: {
+						int iv = (int)cu_arr[i].value[0];
+						GPU_shader_uniform_int(target, loc, iv); break;
+					}
+					case MA_CUNIFORM_TYPE_VEC2:
+						GPU_shader_uniform_vector(target, loc, 2, 1, cu_arr[i].value); break;
+					case MA_CUNIFORM_TYPE_VEC3:
+						GPU_shader_uniform_vector(target, loc, 3, 1, cu_arr[i].value); break;
+					case MA_CUNIFORM_TYPE_VEC4:
+						GPU_shader_uniform_vector(target, loc, 4, 1, cu_arr[i].value); break;
+					default:
+						GPU_shader_uniform_vector(target, loc, 1, 1, cu_arr[i].value); break;
+				}
+			}
+		}
+	}
+
+	/* ── 7. UBO viewport lighting (binding point 1) ────────────────── */
+	GPU_viewport_lighting_bind();
+}
+
 GPUPass *GPU_material_get_pass(GPUMaterial *material)
 {
 	return material ? material->pass : NULL;
+}
+
+const char *GPU_pass_get_vertexcode(GPUPass *pass)
+{
+	return pass ? pass->vertexcode : NULL;
+}
+
+const char *GPU_pass_get_fragmentcode(GPUPass *pass)
+{
+	return pass ? pass->fragmentcode : NULL;
+}
+
+const char *GPU_pass_get_libcode(GPUPass *pass)
+{
+	return pass ? pass->libcode : NULL;
 }
 
 bool GPU_material_bound(GPUMaterial *material)
@@ -2836,6 +3145,7 @@ GPUMaterial *GPU_material_world(Scene *scene, World *wo)
     /* allocate material */
     mat = GPU_material_construct_begin(NULL);
     mat->scene = scene;
+    mat->wo = wo;
     mat->type = GPU_MATERIAL_TYPE_WORLD;
 
     /* create nodes */

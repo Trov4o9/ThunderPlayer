@@ -87,6 +87,7 @@ class RAS_IMaterial;
 class RAS_Rasterizer;
 class RAS_OffScreen;
 class RAS_2DFilterManager;
+class MDEI_Renderer;
 
 struct Scene;
 struct TaskPool;
@@ -171,6 +172,7 @@ private:
 
 	KX_TextureRendererManager *m_rendererManager;
 	RAS_BucketManager *m_bucketmanager;
+	MDEI_Renderer *m_mdeiRenderer;
 
 	/// Manager used to update all the mesh bounding box.
 	RAS_BoundingBoxManager *m_boundingBoxManager;
@@ -354,6 +356,7 @@ public:
 	RAS_BucketManager *GetBucketManager() const;
 	KX_TextureRendererManager *GetTextureRendererManager() const;
 	RAS_BoundingBoxManager *GetBoundingBoxManager() const;
+	MDEI_Renderer *GetMdeiRenderer() const;
 	void RenderBuckets(const std::vector<KX_GameObject *>& objects, RAS_Rasterizer::DrawType drawingMode,
 	                   const mt::mat3x4& cameratransform, RAS_Rasterizer *rasty, RAS_OffScreen *offScreen);
 	/// Renderiza só sólidos — para inserir grama antes dos alphas.

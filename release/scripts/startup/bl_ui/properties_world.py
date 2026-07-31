@@ -18,7 +18,7 @@
 
 # <pep8 compliant>
 import bpy
-from bpy.types import Panel
+from bpy.types import Panel, Operator
 from rna_prop_ui import PropertyPanel
 
 
@@ -249,6 +249,86 @@ class WORLD_PT_custom_props(WorldButtonsPanel, PropertyPanel, Panel):
     _property_type = bpy.types.World
 
 
+class WORLD_OT_refresh_sky_shader(Operator):
+    """Forca a recompilacao do shader de sky (invalida o cache GPU do world)"""
+    bl_idname = "world.refresh_sky_shader"
+    bl_label = "Refresh Sky Shader"
+    bl_options = {'REGISTER', 'UNDO'}
+
+    @classmethod
+    def poll(cls, context):
+        return context.world is not None
+
+    def execute(self, context):
+        world = context.world
+        if world:
+            # Invalida o cache GPU do world forcando recompilacao
+            world.update_tag()
+            # Redesenha viewports
+            for area in context.screen.areas:
+                if area.type == 'VIEW_3D':
+                    area.tag_redraw()
+            self.report({'INFO'}, "Sky shader recompilado: %s" % world.name)
+        return {'FINISHED'}
+
+
+class WORLD_PT_custom_sky_shader(WorldButtonsPanel, Panel):
+    bl_label = "Custom Sky Shader"
+    bl_options = {'DEFAULT_CLOSED'}
+    COMPAT_ENGINES = {'BLENDER_GAME'}
+
+    def draw(self, context):
+        layout = self.layout
+        world = context.world
+
+        # Selector do arquivo de texto
+        col = layout.column()
+        col.label(text="Shader File:")
+        row = col.row(align=True)
+        row.prop(world, "custom_sky_shader", text="")
+        row.operator("text.new", text="", icon='ZOOMIN')
+
+        layout.separator()
+
+        # Seletor do modo (3 opções via enum)
+        layout.prop(world, "sky_shader_mode", text="Mode")
+
+        layout.separator()
+
+        # Dica contextual dinâmica por modo
+        mode = world.sky_shader_mode
+        box = layout.box()
+        col = box.column(align=True)
+        col.scale_y = 0.8
+
+        if mode == 'PREPROCESS':
+            col.label(text="Pre-process: custom roda antes do pipeline.", icon='INFO')
+            col.label(text="  Modifique HORIZON_COLOR, ZENITH_COLOR, ENV_ENERGY")
+            col.label(text="  para alterar o resultado final do sky padrao.")
+
+        elif mode == 'OVERRIDE':
+            col.label(text="Override: pipeline original e ignorado.", icon='INFO')
+            col.label(text="  Defina SKY_COLOR com a cor final desejada.")
+
+        else:  # POST
+            col.label(text="Post-process: roda APOS o pipeline original.", icon='INFO')
+            col.label(text="  SKY_COLOR = resultado do pipeline (gl_FragData[0]).")
+            col.label(text="  Modifique SKY_COLOR para alterar a saida final.")
+
+        layout.separator()
+        col = layout.column(align=True)
+        col.scale_y = 0.8
+        col.label(text="Variaveis disponiveis (todos os modos):", icon='QUESTION')
+        col.label(text="  vec3  HORIZON_COLOR, ZENITH_COLOR")
+        col.label(text="  vec3  VIEW_DIR, WORLD_VIEW_DIR")
+        col.label(text="  float TIME, ENV_ENERGY")
+        col.label(text="  vec3  SKY_COLOR  (saida)")
+
+        # Botao de refresh
+        layout.separator()
+        layout.operator("world.refresh_sky_shader", text="Refresh Sky Shader", icon='FILE_REFRESH')
+
+
 classes = (
     WORLD_PT_context_world,
     WORLD_PT_preview,
@@ -259,6 +339,8 @@ classes = (
     WORLD_PT_gather,
     WORLD_PT_mist,
     WORLD_PT_custom_props,
+    WORLD_OT_refresh_sky_shader,
+    WORLD_PT_custom_sky_shader,
 )
 
 if __name__ == "__main__":  # only for live edit.

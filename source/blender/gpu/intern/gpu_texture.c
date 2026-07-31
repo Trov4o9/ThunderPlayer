@@ -747,17 +747,7 @@ int GPU_texture_make_bindless_resident(GPUTexture *tex)
 	if (!tex->bindcode) return 0;
 
 	tex->bindlessHandle = glGetTextureHandleARB(tex->bindcode);
-	if (!tex->bindlessHandle) {
-		fprintf(stderr,
-		        "[Bindless] glGetTextureHandleARB(bindcode=%u) returned 0 — handle inválido! "
-		        "GL error=0x%X\n",
-		        tex->bindcode, (unsigned)glGetError());
-		return 0;
-	}
-
-	fprintf(stdout,
-	        "[Bindless] handle obtido: bindcode=%u  handle=0x%016llX\n",
-	        tex->bindcode, (unsigned long long)tex->bindlessHandle);
+	if (!tex->bindlessHandle) return 0;
 
 	glMakeTextureHandleResidentARB(tex->bindlessHandle);
 	tex->bindlessResident = 1;

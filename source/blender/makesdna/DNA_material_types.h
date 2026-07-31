@@ -28,6 +28,29 @@
 #include "DNA_ID.h"
 #include "DNA_listBase.h"
 
+/* ---- Custom shader uniform types ---------------------------------------- */
+#define MA_CUNIFORM_TYPE_FLOAT  0
+#define MA_CUNIFORM_TYPE_INT    1
+#define MA_CUNIFORM_TYPE_VEC2   2
+#define MA_CUNIFORM_TYPE_VEC3   3
+#define MA_CUNIFORM_TYPE_VEC4   4
+
+/* One user-defined uniform slot.
+ * name[64]: GLSL identifier (no spaces, must start with letter/underscore).
+ * type:     one of MA_CUNIFORM_TYPE_*.
+ * pad:      alignment padding (must stay at 4 bytes).
+ * value[4]: storage for float/int data — interpreted according to type:
+ *           FLOAT→value[0], INT→*(int*)value[0],
+ *           VEC2→value[0..1], VEC3→value[0..2], VEC4→value[0..3]. */
+typedef struct MaterialCustomUniform {
+	char  name[64];   /* GLSL uniform name — 63 chars + NUL */
+	int   type;       /* MA_CUNIFORM_TYPE_* */
+	int   pad;
+	float value[4];   /* raw storage; cast to int for INT type */
+} MaterialCustomUniform;
+
+#define MA_MAX_CUSTOM_UNIFORMS 16
+
 #ifndef MAX_MTEX
 #define MAX_MTEX	18
 #endif
@@ -215,6 +238,12 @@ typedef struct Material {
 	                                    * with refresh_texpaint_image_cache */
 	struct Text *custom_shader;
 	struct Text *custom_fragment_shader;
+
+	/* User-defined shader uniforms (editable in UI, settable at runtime via Python) */
+	MaterialCustomUniform custom_uniforms[16]; /* MA_MAX_CUSTOM_UNIFORMS */
+	int                   custom_uniforms_count; /* number of active slots (0..16) */
+	int                   pad_cu;                /* alignment */
+
 	ListBase gpumaterial;		/* runtime */
 	ListBase gpumaterialinstancing;		/* runtime */
 } Material;

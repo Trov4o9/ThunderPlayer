@@ -375,6 +375,13 @@ void KX_KetsjiEngine::StartEngine()
     m_previousRealTime = m_clock.GetTimeSecond();
     m_lastRenderTime = m_previousRealTime;
     m_accumulatedSkippedTime = 0.0;
+    // Reset game time counters so the first frame always starts from t=0.
+    // Without this, any time spent between StartEngine() and the first NextFrame()
+    // (e.g. Python init, audio device setup, scene conversion) is counted as elapsed
+    // game time, causing the engine to skip logic frames on startup/restart and
+    // leaving logic bricks in an inconsistent state.
+    m_clockTime = 0.0;
+    m_frameTime = 0.0;
     m_bInitialized = true;
 }
 

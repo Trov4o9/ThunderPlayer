@@ -116,6 +116,7 @@
 #include "CM_Message.h"
 
 #include "GPU_texture.h"
+#include "MDEI_Renderer.h"
 
 // This little block needed for linking to Blender...
 #ifdef WIN32
@@ -1043,6 +1044,18 @@ static KX_GameObject *BL_GameObjectFromBlenderObject(Object *ob, KX_Scene *kxsce
 
 		case OB_MESH:
 		{
+			/* ── MDEI fast-path: skip the entire RAS mesh pipeline ── */
+			if (ob->gameflag & OB_FAST_RENDER) {
+				gameobj = new KX_GameObject(kxscene, KX_Scene::m_callbacks);
+				/* The mesh will be built directly by MDEI_Renderer::RegisterObject()
+				 * via MDEI_MeshBuilder; no RAS mesh is created here. */
+				Material *blenderMat = give_current_material(ob, 1);
+				Scene   *blenderScene = kxscene->GetBlenderScene();
+				kxscene->GetMdeiRenderer()->RegisterObject(gameobj, ob, blenderMat, blenderScene);
+				gameobj->SetActivityCullingInfo(activityCullingInfoFromBlenderObject(ob));
+				break;
+			}
+
 			Mesh *mesh = static_cast<Mesh *>(ob->data);
 			KX_Mesh *meshobj = BL_ConvertMesh(mesh, ob, kxscene, converter);
 

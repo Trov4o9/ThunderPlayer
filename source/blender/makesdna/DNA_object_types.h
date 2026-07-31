@@ -596,6 +596,7 @@ enum {
 	OB_NAVMESH               = 1 << 20,
 	OB_HASOBSTACLE           = 1 << 21,
 	OB_CHARACTER             = 1 << 22,
+	OB_FAST_RENDER           = 1 << 23,  /* MDEI fast-path renderer, skip all RAS_* */
 };
 
 /* ob->gameflag2 */

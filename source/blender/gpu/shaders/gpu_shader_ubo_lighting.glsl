@@ -96,7 +96,7 @@ void calcLight(
 		if (type == float(SUN)) {
 			vec3 dir = sceneLights[i].spotDirection.xyz;
 			if (dot(dir, dir) < 0.0001) continue;
-			L = normalize(-dir);
+			L = -dir;
 			att = 1.0;
 
 		} else {
@@ -113,7 +113,7 @@ void calcLight(
 				float spotblend = sceneLights[i].attenuation.w;
 				float cosOuter  = cos(spotsize * 0.5);
 				float blend     = (1.0 - cosOuter) * max(spotblend, 0.001);
-				float sv        = max(0.0, dot(-L, normalize(sceneLights[i].spotDirection.xyz)));
+				float sv        = max(0.0, dot(-L, sceneLights[i].spotDirection.xyz));
 				att *= smoothstep(cosOuter, cosOuter + blend, sv);
 			}
 		}

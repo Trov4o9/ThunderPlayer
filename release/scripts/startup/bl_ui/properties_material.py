@@ -1129,11 +1129,17 @@ class MATERIAL_OT_refresh_shader(bpy.types.Operator):
     def execute(self, context):
         mat = context.material
         if mat:
-            # Force shader recompilation by modifying properties
-            # This triggers the rna_Material_draw_update callback
-            old_emit = mat.emit
-            mat.emit = old_emit + 0.00001
-            mat.emit = old_emit
+            # Force shader recompilation by clearing and recreating
+            import bpy
+            from bpy import context as C
+            
+            # Tag material for update
+            mat.update_tag()
+            
+            # Force viewport redraw
+            for area in C.screen.areas:
+                if area.type == 'VIEW_3D':
+                    area.tag_redraw()
             
             self.report({'INFO'}, f"Shader refreshed for material: {mat.name}")
         return {'FINISHED'}
@@ -1147,25 +1153,23 @@ class MATERIAL_OT_create_shader_example(bpy.types.Operator):
 
     def execute(self, context):
         # Create new text block
-        text = bpy.data.texts.new("CustomVertexShader")
+        text = bpy.data.texts.new("CustomVertexShader.vert")
         
         # Add example code
-        example_code = """// Custom Vertex Shader Example
-// Global variables and uniforms (outside functions)
-uniform float wave_amplitude = 0.5;
-uniform float wave_frequency = 2.0;
+        example_code = """
+float wave_amplitude = 0.5;
+float wave_frequency = 2.0;
 
-// Vertex function - code here is injected into main vertex shader
 void vertex() {
-    // TIME is automatically provided
+
     // VERTEX is the vertex position (vec3)
     // NORMAL is the vertex normal (vec3)
     
-    // Example: Simple wave animation
+
     float wave = sin(VERTEX.x * wave_frequency + TIME) * wave_amplitude;
     VERTEX.z += wave;
     
-    // You can also modify normals
+
     // NORMAL = normalize(NORMAL + vec3(0.0, 0.0, wave));
 }
 """
@@ -1181,8 +1185,49 @@ void vertex() {
         return {'FINISHED'}
 
 
+class MATERIAL_OT_create_fragment_shader_example(bpy.types.Operator):
+    """Create an example custom fragment shader"""
+    bl_idname = "material.create_fragment_shader_example"
+    bl_label = "Create Fragment Example"
+    bl_options = {'REGISTER', 'UNDO'}
+
+    def execute(self, context):
+        # Create new text block
+        text = bpy.data.texts.new("CustomFragmentShader.frag")
+        
+        # Add example code
+        example_code = """
+float pulse_speed = 2.0;
+
+void fragment() {
+    float t = TIME;
+
+    ALBEDO = 0.5 + 0.5 * vec3(
+        sin(t),
+        sin(t + 2.0943951),
+        sin(t + 4.1887902)
+    );
+    EMIT = 0.5;
+    EMIT_RGB = vec3(1.0) - ALBEDO;
+    ALPHA = 0.5;
+}
+"""
+        text.write(example_code)
+        
+        # Assign to current material
+        if context.material:
+            context.material.custom_fragment_shader = text
+            self.report({'INFO'}, f"Created fragment example: {text.name}")
+        else:
+            self.report({'WARNING'}, "Created shader but no material selected")
+        
+        return {'FINISHED'}
+        
+        return {'FINISHED'}
+
+
 class MATERIAL_PT_custom_vertex_shader(MaterialButtonsPanel, Panel):
-    bl_label = "Custom Vertex Shader"
+    bl_label = "Custom Shaders"
     bl_options = {'DEFAULT_CLOSED'}
     COMPAT_ENGINES = {'BLENDER_GAME'}
 
@@ -1196,11 +1241,18 @@ class MATERIAL_PT_custom_vertex_shader(MaterialButtonsPanel, Panel):
         layout = self.layout
         mat = active_node_mat(context.material)
 
-        # Text selector
+        # Vertex Shader
         col = layout.column()
         col.label(text="Vertex Shader Code:")
         row = col.row(align=True)
         row.prop(mat, "custom_shader", text="")
+        row.operator("text.new", text="", icon='ZOOMIN')
+
+        # Fragment Shader
+        col = layout.column()
+        col.label(text="Fragment Shader Code:")
+        row = col.row(align=True)
+        row.prop(mat, "custom_fragment_shader", text="")
         row.operator("text.new", text="", icon='ZOOMIN')
 
         # Info box
@@ -1208,17 +1260,66 @@ class MATERIAL_PT_custom_vertex_shader(MaterialButtonsPanel, Panel):
         box.label(text="Format:", icon='INFO')
         col = box.column(align=True)
         col.scale_y = 0.8
-        col.label(text="• Global code goes outside functions")
+        col.label(text="VERTEX SHADER:")
         col.label(text="• Create a 'void vertex()' function")
         col.label(text="• Use VERTEX, NORMAL, TIME variables")
         col.label(text="• Modify VERTEX/NORMAL to affect position")
+        col.label(text="")
+        col.label(text="FRAGMENT SHADER:")
+        col.label(text="• Create a 'void fragment()' function")
+        col.label(text="• Use ALBEDO, ROUGHNESS, METALLIC, etc")
+        col.label(text="• Modify material properties before lighting")
         
         # Buttons
         layout.separator()
         row = layout.row(align=True)
-        row.operator("material.create_shader_example", text="Create Example", icon='FILE_TEXT')
-        row.operator("material.refresh_shader", text="Refresh", icon='FILE_REFRESH')
+        row.operator("material.create_shader_example", text="Vertex Example", icon='FILE_TEXT')
+        row.operator("material.create_fragment_shader_example", text="Fragment Example", icon='FILE_TEXT')
+        layout.row().operator("material.refresh_shader", text="Refresh Shaders", icon='FILE_REFRESH')
 
+
+class MATERIAL_PT_ubo(MaterialButtonsPanel, Panel):
+    bl_label = "UBO Lighting"
+    COMPAT_ENGINES = {'BLENDER_GAME'}
+
+    @classmethod
+    def poll(cls, context):
+        mat = context.material
+        return mat and (context.scene.render.engine in cls.COMPAT_ENGINES)
+
+    def draw_header(self, context):
+        mat = active_node_mat(context.material)
+        self.layout.prop(mat, "use_ubo_lighting", text="")
+
+    def draw(self, context):
+        layout = self.layout
+        mat = active_node_mat(context.material)
+
+        layout.active = mat.use_ubo_lighting
+
+        # --- Surface ---
+        layout.label(text="Surface:")
+        col = layout.column(align=True)
+        col.prop(mat, "ubo_roughness", slider=True)
+        col.prop(mat, "ubo_metallic", slider=True)
+
+        layout.separator()
+
+        # --- Specular ---
+        layout.label(text="Specular:")
+        col = layout.column(align=True)
+        row = col.row(align=True)
+        row.prop(mat, "ubo_spec_color", text="")
+        row.prop(mat, "ubo_spec_strength", text="Strength", slider=True)
+
+        layout.separator()
+
+        # --- Scatter ---
+        layout.label(text="Scatter:")
+        col = layout.column(align=True)
+        row = col.row(align=True)
+        row.prop(mat, "ubo_scatter_color", text="")
+        row.prop(mat, "ubo_scatter_fac", text="Factor", slider=True)
 
 classes = (
     MATERIAL_MT_sss_presets,
@@ -1251,7 +1352,9 @@ classes = (
     MATERIAL_PT_custom_props,
     MATERIAL_OT_refresh_shader,
     MATERIAL_OT_create_shader_example,
+    MATERIAL_OT_create_fragment_shader_example,
     MATERIAL_PT_custom_vertex_shader,
+    MATERIAL_PT_ubo,
 )
 
 if __name__ == "__main__":  # only for live edit.

@@ -39,6 +39,7 @@ set(INC
 	../Rasterizer
 	../Rasterizer/Node
 	../Rasterizer/RAS_OpenGLRasterizer
+	../Renderer
 	../SceneGraph
 	../VideoTexture
 	../../blender
@@ -59,12 +60,16 @@ set(INC_SYS
 	../../../intern/debugbreak
 	../../../intern/mathfu
 	../../../extern/recastnavigation/Detour/Include
+	../../../intern/glew-mx
 	${EIGEN3_INCLUDE_DIRS}
+	${GLEW_INCLUDE_PATH}
 	${PTHREADS_INCLUDE_DIRS}
 	${BOOST_INCLUDE_DIR}
 )
 
 set(SRC
+	../Renderer/MDEI_MeshBuilder.cpp
+	../Renderer/MDEI_MeshBuilder.h
 	BL_ActionActuator.cpp
 	BL_ActionData.cpp
 	BL_ArmatureActuator.cpp

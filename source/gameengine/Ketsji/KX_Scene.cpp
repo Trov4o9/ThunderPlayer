@@ -128,6 +128,8 @@
 #include "CM_Message.h"
 #include "CM_List.h"
 
+#include "MDEI_Renderer.h"
+
 static void *KX_SceneReplicationFunc(SG_Node *node, void *gameobj, void *scene)
 {
 	KX_GameObject *replica = ((KX_Scene *)scene)->AddNodeReplicaObject(node, (KX_GameObject *)gameobj);
@@ -186,7 +188,8 @@ KX_Scene::KX_Scene(SCA_IInputDevice *inputDevice,
 	m_blenderScene(scene),
 	m_previousAnimTime(0.0f),
 	m_isActivedHysteresis(false),
-	m_lodHysteresisValue(0)
+	m_lodHysteresisValue(0),
+	m_mdeiRenderer(nullptr)
 {
 
 	m_objectlist = new EXP_ListValue<KX_GameObject>();
@@ -222,6 +225,7 @@ KX_Scene::KX_Scene(SCA_IInputDevice *inputDevice,
 	m_rendererManager = new KX_TextureRendererManager(this);
 	m_bucketmanager = new RAS_BucketManager(KX_TextMaterial::GetSingleton());
 	m_boundingBoxManager = new RAS_BoundingBoxManager();
+	m_mdeiRenderer = new MDEI_Renderer(this);
 
 	m_animationPool = BLI_task_pool_create(KX_GetActiveEngine()->GetTaskScheduler(), &m_animationPoolData);
 
@@ -354,6 +358,10 @@ KX_Scene::~KX_Scene()
 		delete m_boundingBoxManager;
 	}
 
+	if (m_mdeiRenderer) {
+		delete m_mdeiRenderer;
+	}
+
 	if (m_worldinfo) {
 		delete m_worldinfo;
 	}
@@ -395,6 +403,11 @@ KX_TextureRendererManager *KX_Scene::GetTextureRendererManager() const
 RAS_BoundingBoxManager *KX_Scene::GetBoundingBoxManager() const
 {
 	return m_boundingBoxManager;
+}
+
+MDEI_Renderer *KX_Scene::GetMdeiRenderer() const
+{
+	return m_mdeiRenderer;
 }
 
 EXP_ListValue<KX_GameObject> *KX_Scene::GetObjectList() const
@@ -978,7 +991,21 @@ KX_GameObject *KX_Scene::AddReplicaObject(KX_GameObject *originalobj,
 	for (KX_GameObject *gameobj : m_logicHierarchicalGameObjects) {
 		gameobj->ReParentLogic();
 		gameobj->Relink(m_map_gameobject_to_replica);
-		gameobj->AddMeshUser();
+		gameobj->AddMeshUser(); /* no-op for MDEI objects (guard in KX_GameObject) */
+
+		/* If this replica comes from an MDEI original, register it on the fast-path renderer */
+		if (!gameobj->HasFastRenderFlag()) {
+			for (auto& pair : m_map_gameobject_to_replica) {
+				if (pair.second == gameobj) {
+					KX_GameObject *original = static_cast<KX_GameObject *>(pair.first);
+					if (original->HasFastRenderFlag()) {
+						m_mdeiRenderer->RegisterReplica(gameobj, original);
+					}
+					break;
+				}
+			}
+		}
+
 		gameobj->UpdateBounds(true);
 
 		gameobj->SetLayer(layer);
@@ -1156,6 +1183,11 @@ bool KX_Scene::NewRemoveObject(KX_GameObject *gameobj)
 	}
 
 	m_componentManager.UnregisterObject(gameobj);
+
+	/* MDEI fast-path cleanup: unregister proxy before removing RAS meshes */
+	if (gameobj->HasFastRenderFlag()) {
+		m_mdeiRenderer->UnregisterObject(gameobj);
+	}
 
 	gameobj->RemoveMeshes();
 
@@ -1738,6 +1770,18 @@ void KX_Scene::UpdateParents()
 void KX_Scene::RenderBuckets(const std::vector<KX_GameObject *>& objects, RAS_Rasterizer::DrawType drawingMode, const mt::mat3x4& cameratransform,
                              RAS_Rasterizer *rasty, RAS_OffScreen *offScreen)
 {
+	/* ── MDEI fast-path: must run even when the RAS objects list is empty,
+	 * because MDEI objects are not in the physics DBVT / shadow filter. ── */
+	if (m_mdeiRenderer) {
+		if (drawingMode == RAS_Rasterizer::RAS_SHADOW) {
+			m_mdeiRenderer->RenderShadow(objects, rasty);
+		}
+		else {
+			m_mdeiRenderer->RenderSolid(objects, rasty);
+		}
+	}
+
+	/* Early-out for the standard RAS pipeline (safe after MDEI draw above). */
 	if (objects.empty()) {
 		return;
 	}
@@ -1799,6 +1843,11 @@ void KX_Scene::RenderSolidBuckets(const std::vector<KX_GameObject *>& objects,
                                    const mt::mat3x4& cameratransform,
                                    RAS_Rasterizer *rasty)
 {
+	/* MDEI must run before the early-out — objects list never contains MDEI
+	 * objects (they are invisible to DBVT culling). */
+	if (m_mdeiRenderer)
+		m_mdeiRenderer->RenderSolid(objects, rasty);
+
 	if (objects.empty()) return;
 	for (KX_GameObject *gameobj : objects)
 		gameobj->UpdateBucketsNoOnlyShadow();

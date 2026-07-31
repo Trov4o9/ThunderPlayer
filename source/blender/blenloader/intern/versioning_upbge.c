@@ -395,4 +395,22 @@ void blo_do_versions_upbge(FileData *fd, Library *lib, Main *main)
 			wo->pad_sky           = 0;
 		}
 	}
+
+	/* Inicializa custom_uniforms em Materials de arquivos antigos (campo novo). */
+	if (!DNA_struct_elem_find(fd->filesdna, "Material", "int", "custom_uniforms_count")) {
+		for (Material *ma = main->mat.first; ma; ma = ma->id.next) {
+			memset(ma->custom_uniforms, 0, sizeof(ma->custom_uniforms));
+			ma->custom_uniforms_count = 0;
+			ma->pad_cu                = 0;
+		}
+	}
+
+	/* Inicializa custom_uniforms em Worlds de arquivos antigos (campo novo). */
+	if (!DNA_struct_elem_find(fd->filesdna, "World", "int", "custom_uniforms_count")) {
+		for (World *wo = main->world.first; wo; wo = wo->id.next) {
+			memset(wo->custom_uniforms, 0, sizeof(wo->custom_uniforms));
+			wo->custom_uniforms_count = 0;
+			wo->pad_wcu               = 0;
+		}
+	}
 }

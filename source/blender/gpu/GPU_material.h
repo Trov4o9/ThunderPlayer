@@ -306,7 +306,36 @@ void GPU_material_bind_uniforms(
         GPUMaterial *material, float obmat[4][4], float viewmat[4][4], const float obcol[4],
 		int oblay, float autobumpscale, GPUParticleInfo *pi, float object_info[3]);
 void GPU_material_unbind(GPUMaterial *material);
+
+/**
+ * MDEI fast-path: bind all uniforms (view, textures, lamp dynamics,
+ * object builtins, custom uniforms) from \a material into an externally
+ * compiled \a target shader that is already bound.
+ *
+ * Unlike GPU_material_bind(), this does NOT call GPU_pass_bind (which
+ * would rebind pass->shader).  Textures are re-bound to their original
+ * units and the same sampler uniform locations are looked-up in \a target.
+ *
+ * \param material   GPUMaterial whose pass inputs/lamps/builtins we read.
+ * \param target     An already-bound GPUShader compiled by the MDEI system.
+ * \param viewlay    Active render layer mask (for lamp visibility).
+ * \param time       Current game time (for GPU_TIME builtin + textures).
+ * \param mipmap     Mipmap flag forwarded to GPU_texture_from_blender.
+ * \param viewmat    Camera view matrix (float[4][4]).
+ * \param viewinv    Inverse camera view matrix (float[4][4]).
+ * \param camerafactors  Camera border factors (may be NULL → defaults used).
+ */
+void GPU_material_bind_to_shader(
+        GPUMaterial *material,
+        struct GPUShader *target,
+        int viewlay, double time, int mipmap,
+        float viewmat[4][4], float viewinv[4][4],
+        float camerafactors[4]);
+
 struct GPUPass *GPU_material_get_pass(GPUMaterial *material);
+const char     *GPU_pass_get_vertexcode(struct GPUPass *pass);
+const char     *GPU_pass_get_fragmentcode(struct GPUPass *pass);
+const char     *GPU_pass_get_libcode(struct GPUPass *pass);
 bool GPU_material_bound(GPUMaterial *material);
 struct Scene *GPU_material_scene(GPUMaterial *material);
 GPUMatType GPU_Material_get_type(GPUMaterial *material);

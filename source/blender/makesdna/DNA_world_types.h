@@ -26,6 +26,7 @@
 
 #include "DNA_defs.h"
 #include "DNA_ID.h"
+#include "DNA_material_types.h"  /* MaterialCustomUniform */
 
 struct AnimData;
 struct Ipo;
@@ -124,6 +125,11 @@ typedef struct World {
 	struct Text *custom_sky_shader;  /* Text block com código GLSL sky custom */
 	int sky_shader_mode;             /* 0=pre-process, 1=override, 2=post-process */
 	int pad_sky;                     /* padding para alinhamento */
+
+	/* User-defined sky shader uniforms (same layout as MaterialCustomUniform) */
+	struct MaterialCustomUniform custom_uniforms[16];
+	int                          custom_uniforms_count;
+	int                          pad_wcu;
 
 	ListBase gpumaterial;		/* runtime */
 } World;

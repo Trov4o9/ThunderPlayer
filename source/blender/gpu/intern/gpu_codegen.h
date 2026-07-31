@@ -27,6 +27,7 @@
 
 #include "DNA_customdata_types.h"
 #include "DNA_listBase.h"
+#include "DNA_material_types.h"
 #include "GPU_material.h"
 #include "GPU_glew.h"
 
@@ -173,7 +174,9 @@ GPUPass *GPU_generate_pass(ListBase *nodes, struct GPUNodeLink *outlinks[8],
                            const char *custom_shader,
                            const char *custom_fragment_shader,
                            const bool use_ubo_lighting,
-                           const int sky_shader_mode);
+                           const int sky_shader_mode,
+                           const struct MaterialCustomUniform *custom_uniforms,
+                           int custom_uniforms_count);
 
 struct GPUShader *GPU_pass_shader(GPUPass *pass);
 

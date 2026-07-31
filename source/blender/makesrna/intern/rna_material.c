@@ -1846,6 +1846,9 @@ static void rna_def_material_strand(BlenderRNA *brna)
 	RNA_def_property_update(prop, 0, "rna_Material_update");
 }
 
+/* forward declaration — defined after RNA_def_material */
+static void rna_def_material_custom_uniform(BlenderRNA *brna);
+
 void RNA_def_material(BlenderRNA *brna)
 {
 	StructRNA *srna;
@@ -2311,6 +2314,7 @@ void RNA_def_material(BlenderRNA *brna)
 	rna_def_material_mtex(brna);
 	rna_def_material_strand(brna);
 	rna_def_material_gamesettings(brna);
+	rna_def_material_custom_uniform(brna);
 
 	/* Custom Vertex Shader */
 	prop = RNA_def_property(srna, "custom_shader", PROP_POINTER, PROP_NONE);
@@ -2328,7 +2332,64 @@ void RNA_def_material(BlenderRNA *brna)
 	RNA_def_property_ui_text(prop, "Custom Fragment Shader", "Text data-block containing custom GLSL fragment shader code");
 	RNA_def_property_update(prop, 0, "rna_Material_draw_update");
 
+	/* Custom shader uniforms — expose all 16 slots with fixed array length from DNA.
+	 * Passing "" as lengthpropname tells the RNA system to use totarraylength (16) as
+	 * the fixed iteration count; custom_uniforms_count tracks how many are logically active. */
+	prop = RNA_def_property(srna, "custom_uniforms", PROP_COLLECTION, PROP_NONE);
+	RNA_def_property_collection_sdna(prop, NULL, "custom_uniforms", "");
+	RNA_def_property_struct_type(prop, "MaterialCustomUniform");
+	RNA_def_property_ui_text(prop, "Custom Uniforms",
+	    "User-defined GLSL uniforms injected into the custom shader at compile time and "
+	    "updatable at runtime via bge.render.setMaterialUniform()");
+	RNA_def_property_update(prop, 0, "rna_Material_draw_update");
+
+	prop = RNA_def_property(srna, "custom_uniforms_count", PROP_INT, PROP_NONE);
+	RNA_def_property_int_sdna(prop, NULL, "custom_uniforms_count");
+	RNA_def_property_range(prop, 0, MA_MAX_CUSTOM_UNIFORMS);
+	RNA_def_property_ui_text(prop, "Custom Uniform Count", "Number of active custom uniforms (0-16)");
+	RNA_def_property_update(prop, 0, "rna_Material_draw_update");
+
 	RNA_api_material(srna);
+}
+
+/* ---- MaterialCustomUniform struct RNA ------------------------------------ */
+static void rna_def_material_custom_uniform(BlenderRNA *brna)
+{
+	StructRNA *srna;
+	PropertyRNA *prop;
+
+	static const EnumPropertyItem uniform_type_items[] = {
+		{MA_CUNIFORM_TYPE_FLOAT, "FLOAT", 0, "Float",  "Single float value"},
+		{MA_CUNIFORM_TYPE_INT,   "INT",   0, "Int",    "Single integer value"},
+		{MA_CUNIFORM_TYPE_VEC2,  "VEC2",  0, "Vec2",   "2-component float vector"},
+		{MA_CUNIFORM_TYPE_VEC3,  "VEC3",  0, "Vec3",   "3-component float vector (e.g. colour, direction)"},
+		{MA_CUNIFORM_TYPE_VEC4,  "VEC4",  0, "Vec4",   "4-component float vector"},
+		{0, NULL, 0, NULL, NULL}
+	};
+
+	srna = RNA_def_struct(brna, "MaterialCustomUniform", NULL);
+	RNA_def_struct_sdna(srna, "MaterialCustomUniform");
+	RNA_def_struct_ui_text(srna, "Custom Uniform", "A user-defined GLSL uniform slot for a material");
+
+	prop = RNA_def_property(srna, "name", PROP_STRING, PROP_NONE);
+	RNA_def_property_string_sdna(prop, NULL, "name");
+	RNA_def_property_string_maxlength(prop, 64);
+	RNA_def_property_ui_text(prop, "Name",
+	    "GLSL uniform identifier (must be a valid GLSL name, no spaces)");
+	RNA_def_struct_name_property(srna, prop);
+
+	prop = RNA_def_property(srna, "type", PROP_ENUM, PROP_NONE);
+	RNA_def_property_enum_sdna(prop, NULL, "type");
+	RNA_def_property_enum_items(prop, uniform_type_items);
+	RNA_def_property_ui_text(prop, "Type", "Data type of this uniform");
+
+	prop = RNA_def_property(srna, "value", PROP_FLOAT, PROP_NONE);
+	RNA_def_property_float_sdna(prop, NULL, "value");
+	RNA_def_property_array(prop, 4);
+	RNA_def_property_range(prop, -1e38f, 1e38f);
+	RNA_def_property_ui_text(prop, "Value",
+	    "Raw storage: [0]=x/float/int, [1]=y, [2]=z, [3]=w — "
+	    "unused components are ignored based on the type");
 }
 
 

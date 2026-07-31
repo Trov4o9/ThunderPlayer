@@ -1938,6 +1938,14 @@ static void rna_def_object_game_settings(BlenderRNA *brna)
 	RNA_def_property_boolean_sdna(prop, NULL, "gameflag", OB_HASOBSTACLE);
 	RNA_def_property_ui_text(prop, "Create obstacle", "Create representation for obstacle simulation");
 
+	prop = RNA_def_property(srna, "use_fast_render", PROP_BOOLEAN, PROP_NONE);
+	RNA_def_property_boolean_sdna(prop, NULL, "gameflag", OB_FAST_RENDER);
+	RNA_def_property_ui_text(prop, "MDEI Fast Render",
+	                         "Use the MDEI (Multi-Draw Indirect) fast-path renderer. "
+	                         "The object is invisible to the standard rasterizer and is drawn "
+	                         "via a persistent-buffer instanced pass instead.");
+	RNA_def_property_update(prop, NC_OBJECT | ND_DRAW, NULL);
+
 	prop = RNA_def_property(srna, "obstacle_radius", PROP_FLOAT, PROP_NONE | PROP_UNIT_LENGTH);
 	RNA_def_property_float_sdna(prop, NULL, "obstacleRad");
 	RNA_def_property_range(prop, 0.0, 1000.0);

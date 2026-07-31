@@ -940,7 +940,7 @@ static void codegen_call_functions(DynStr *ds, ListBase *nodes, GPUNodeLink *fin
 	}
 }
 bool g_useDeferred_GGG = false;
-static char *code_generate_fragment(ListBase *nodes, GPUNodeLink *outputs[8], const char *custom_shader, const bool use_ubo_lighting, const bool is_world, const int sky_shader_mode)
+static char *code_generate_fragment(ListBase *nodes, GPUNodeLink *outputs[8], const char *custom_shader, const bool use_ubo_lighting, const bool is_world, const int sky_shader_mode, const MaterialCustomUniform *custom_uniforms, int custom_uniforms_count)
 {
     DynStr *ds = BLI_dynstr_new();
     char *code;
@@ -966,6 +966,24 @@ static char *code_generate_fragment(ListBase *nodes, GPUNodeLink *outputs[8], co
     BLI_dynstr_append(ds, "uniform float u_MatRoughness;\n");
     BLI_dynstr_append(ds, "uniform float u_MatMetallic;\n");
     BLI_dynstr_append(ds, "uniform float u_MatEmission;\n");
+
+    /* Inject user-defined custom uniform declarations */
+    if (custom_uniforms && custom_uniforms_count > 0) {
+        for (int i = 0; i < custom_uniforms_count; i++) {
+            const MaterialCustomUniform *u = &custom_uniforms[i];
+            if (u->name[0] == '\0') continue;
+            const char *glsl_type;
+            switch (u->type) {
+                case MA_CUNIFORM_TYPE_FLOAT: glsl_type = "float"; break;
+                case MA_CUNIFORM_TYPE_INT:   glsl_type = "int";   break;
+                case MA_CUNIFORM_TYPE_VEC2:  glsl_type = "vec2";  break;
+                case MA_CUNIFORM_TYPE_VEC3:  glsl_type = "vec3";  break;
+                case MA_CUNIFORM_TYPE_VEC4:  glsl_type = "vec4";  break;
+                default:                     glsl_type = "float"; break;
+            }
+            BLI_dynstr_appendf(ds, "uniform %s %s;\n", glsl_type, u->name);
+        }
+    }
     
     /* Process custom fragment shader */
     char *custom_global_frag = NULL;
@@ -1452,7 +1470,7 @@ static char *code_generate_fragment(ListBase *nodes, GPUNodeLink *outputs[8], co
     return code;
 }
 
-static char *code_generate_vertex(ListBase *nodes, const GPUMatType type, bool use_instancing, const char *custom_shader)
+static char *code_generate_vertex(ListBase *nodes, const GPUMatType type, bool use_instancing, const char *custom_shader, const MaterialCustomUniform *custom_uniforms, int custom_uniforms_count)
 {
 	DynStr *ds = BLI_dynstr_new();
 	GPUNode *node;
@@ -1486,6 +1504,25 @@ static char *code_generate_vertex(ListBase *nodes, const GPUMatType type, bool u
 	}
 
 	BLI_dynstr_append(ds, "\n");
+
+	/* Inject user-defined custom uniform declarations into vertex shader */
+	if (custom_uniforms && custom_uniforms_count > 0) {
+		for (int i = 0; i < custom_uniforms_count; i++) {
+			const MaterialCustomUniform *u = &custom_uniforms[i];
+			if (u->name[0] == '\0') continue;
+			const char *glsl_type;
+			switch (u->type) {
+				case MA_CUNIFORM_TYPE_FLOAT: glsl_type = "float"; break;
+				case MA_CUNIFORM_TYPE_INT:   glsl_type = "int";   break;
+				case MA_CUNIFORM_TYPE_VEC2:  glsl_type = "vec2";  break;
+				case MA_CUNIFORM_TYPE_VEC3:  glsl_type = "vec3";  break;
+				case MA_CUNIFORM_TYPE_VEC4:  glsl_type = "vec4";  break;
+				default:                     glsl_type = "float"; break;
+			}
+			BLI_dynstr_appendf(ds, "uniform %s %s;\n", glsl_type, u->name);
+		}
+		BLI_dynstr_append(ds, "\n");
+	}
 
 	switch (type) {
 		case GPU_MATERIAL_TYPE_MESH:
@@ -2673,7 +2710,9 @@ GPUPass *GPU_generate_pass(
         const char *custom_shader,
         const char *custom_fragment_shader,
         const bool use_ubo_lighting,
-        const int sky_shader_mode)
+        const int sky_shader_mode,
+        const MaterialCustomUniform *custom_uniforms,
+        int custom_uniforms_count)
 {
     GPUShader *shader;
     GPUPass *pass;
@@ -2704,8 +2743,8 @@ GPUPass *GPU_generate_pass(
     }
 
     /* generate code and compile with OpenGL */
-    fragmentcode = code_generate_fragment(nodes, outlinks, custom_fragment_shader, use_ubo_lighting, is_world, sky_shader_mode);
-    vertexcode   = code_generate_vertex(nodes, type, use_instancing, custom_shader);
+    fragmentcode = code_generate_fragment(nodes, outlinks, custom_fragment_shader, use_ubo_lighting, is_world, sky_shader_mode, custom_uniforms, custom_uniforms_count);
+    vertexcode   = code_generate_vertex(nodes, type, use_instancing, custom_shader, custom_uniforms, custom_uniforms_count);
     geometrycode = code_generate_geometry(nodes, use_opensubdiv);
     
     /* Save world/sky shader to file if it's a world material */
