@@ -19,6 +19,7 @@
 #include "MDEI_Shader.h"
 #include "MDEI_DrawGroup.h"
 #include "MDEI_ObjectProxy.h"
+#include "MDEI_SkinDeformer.h"
 
 #include "KX_GameObject.h"
 #include "KX_Scene.h"
@@ -87,8 +88,10 @@ MDEI_Renderer::MDEI_Renderer(KX_Scene *scene)
 
 MDEI_Renderer::~MDEI_Renderer()
 {
+	for (auto &p : m_skinDeformers)    delete p.second;
 	for (MDEI_DrawGroup *g : m_groups) delete g;
 	for (auto &p : m_meshCache)        delete p.second;
+	for (auto &p : m_skinnedMeshCache) delete p.second;
 	for (auto &p : m_shaderCache)      delete p.second.shader;
 	m_buffer.Shutdown();
 }
@@ -226,9 +229,90 @@ void MDEI_Renderer::RegisterReplica(KX_GameObject *replica,
 	m_registeredObjects.push_back(replica);
 }
 
+void MDEI_Renderer::RegisterArmature(KX_GameObject     *gameobj,
+                                     Object            *blenderObjNew,
+                                     BL_ArmatureObject *arma)
+{
+	if (!gameobj || !arma) return;
+
+	/* The mesh for this object must already be in m_meshCache (registered by
+	 * RegisterObject).  We need a *separate* MDEI_Mesh (with GL_STREAM_DRAW)
+	 * because each skinned object has its own pose. */
+	MDEI_Mesh *mesh = nullptr;
+	{
+		/* Try to find the existing static mesh for this object's data pointer.
+		 * NOTE: blenderObjNew is `ob` from BL_BlenderDataConversion — it is
+		 * always valid here.  gameobj->GetBlenderObject() is NOT yet set at
+		 * conversion time (RegisterGameObject runs after the switch), so we
+		 * must use blenderObjNew everywhere in this function. */
+		void *staticKey = blenderObjNew->data;
+		auto  it        = m_meshCache.find(staticKey);
+		if (it == m_meshCache.end()) {
+			fprintf(stderr, "[MDEI] RegisterArmature '%s': no base mesh in cache\n",
+			        gameobj->GetName().c_str());
+			return;
+		}
+
+		/* Check if a skinned copy already exists for this object.
+		 * Key = blenderObjNew (stable pointer, unique per object). */
+		void *skinnedKey = (void *)blenderObjNew;
+		auto  sit        = m_skinnedMeshCache.find(skinnedKey);
+		if (sit != m_skinnedMeshCache.end()) {
+			mesh = sit->second;
+		}
+		else {
+			/* Build a fresh MDEI_Mesh with origIndexMap populated so Upload()
+			 * allocates a persistent ring-VBO for skin deformation.
+			 * isSkinned=true → origIndexMap is kept and glBufferStorage is used. */
+			mesh = MDEI_MeshBuilder::Build(blenderObjNew,
+			                               m_scene->GetBlenderScene(),
+			                               /*isSkinned=*/true);
+			if (!mesh) {
+				fprintf(stderr, "[MDEI] RegisterArmature '%s': mesh rebuild failed\n",
+				        gameobj->GetName().c_str());
+				return;
+			}
+			m_skinnedMeshCache[skinnedKey] = mesh;
+
+			/* Swap the proxy's mesh pointer so draw uses the skinned VBO */
+			MDEI_ObjectProxy *proxy = gameobj->GetMdeiProxy();
+			if (proxy) {
+				/* Re-create the draw group for the new (unique) mesh */
+				MDEI_DrawGroup *group = GetOrCreateGroup(mesh, proxy->group->GetShader());
+				proxy->mesh  = mesh;
+				proxy->group = group;
+			}
+		}
+	}
+
+	/* Create skin deformer.
+		* Both bmeshobj_old and bmeshobj_new are blenderObjNew — the deformer
+		* only needs the Mesh* (from data) and the reference obmat. */
+	MDEI_SkinDeformer *deformer = new MDEI_SkinDeformer(
+		   gameobj,
+		   blenderObjNew,   /* bmeshobj_old: Object that owns the Mesh* */
+		   blenderObjNew,   /* bmeshobj_new: provides obmat reference   */
+		   mesh,
+		   arma);
+
+	m_skinDeformers[gameobj] = deformer;
+
+#if MDEI_DEBUG_LEVEL >= 1
+	fprintf(stderr, "[MDEI] RegisterArmature '%s': skinned mesh VAO=%u  deformer=%p\n",
+	        gameobj->GetName().c_str(), mesh->GetVAO(), (void *)deformer);
+#endif
+}
+
 void MDEI_Renderer::UnregisterObject(KX_GameObject *gameobj)
 {
 	if (!gameobj || !gameobj->HasFastRenderFlag()) return;
+
+	/* Remove skin deformer if present */
+	auto dit = m_skinDeformers.find(gameobj);
+	if (dit != m_skinDeformers.end()) {
+		delete dit->second;
+		m_skinDeformers.erase(dit);
+	}
 
 	/* Remove from our own list */
 	auto it = std::find(m_registeredObjects.begin(), m_registeredObjects.end(), gameobj);
@@ -241,6 +325,21 @@ void MDEI_Renderer::UnregisterObject(KX_GameObject *gameobj)
 		gameobj->SetMdeiProxy(nullptr);
 	}
 	gameobj->SetFastRenderFlag(false);
+}
+
+void MDEI_Renderer::UpdateDeformerForObject(KX_GameObject *gameobj)
+{
+	auto it = m_skinDeformers.find(gameobj);
+	if (it != m_skinDeformers.end()) {
+		it->second->Update();
+	}
+}
+
+void MDEI_Renderer::UpdateDeformers()
+{
+	for (auto &kv : m_skinDeformers) {
+		kv.second->Update();
+	}
 }
 
 /* ─── DrawGroup lookup ──────────────────────────────────────────────────── */
@@ -401,7 +500,7 @@ void MDEI_Renderer::ExecuteDraw(bool shadowPass, RAS_Rasterizer *rasty)
 			fprintf(stderr,
 			        "[MDEI] #%d [%s]: MDEI call — VAO=%u  cmds=%d  byteOff=%zu\n",
 			        callId, shadowPass ? "SHADOW" : "SOLID",
-			        curMesh ? curMesh->GetVAO() : 0u,
+			        curMesh ? curMesh->GetCurrentVAO() : 0u,
 			        cmdCount, byteOffset);
 #if MDEI_DEBUG_LEVEL >= 2
 		if (doDetail) {
@@ -458,14 +557,14 @@ void MDEI_Renderer::ExecuteDraw(bool shadowPass, RAS_Rasterizer *rasty)
 
 			if (meshChanged) {
 				curMesh = gMesh;
-				glBindVertexArray(curMesh->GetVAO());
+				glBindVertexArray(curMesh->GetCurrentVAO());
 				mdei_gl_check("BindVAO");
 
 				if (doDebug)
-					fprintf(stderr,
-					        "[MDEI] #%d [%s]: VAO=%u  indexCount=%d\n",
-					        callId, shadowPass ? "SHADOW" : "SOLID",
-					        curMesh->GetVAO(), (int)curMesh->GetIndexCount());
+						fprintf(stderr,
+						        "[MDEI] #%d [%s]: VAO=%u  indexCount=%d\n",
+						        callId, shadowPass ? "SHADOW" : "SOLID",
+						        curMesh->GetCurrentVAO(), (int)curMesh->GetIndexCount());
 
 				/* Bind UV generic attributes into the VAO.
 				 * Only needed for solid pass — shadow shader doesn't use UVs. */

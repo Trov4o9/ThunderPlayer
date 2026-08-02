@@ -66,14 +66,17 @@ set(INC_SYS
 	${PTHREADS_INCLUDE_DIRS}
 	${GLEW_INCLUDE_PATH}
 	${BOOST_INCLUDE_DIR}
+	${EIGEN3_INCLUDE_DIRS}
 )
 
 set(SRC
 	../Renderer/MDEI_DrawGroup.cpp
 	../Renderer/MDEI_Mesh.cpp
+	../Renderer/MDEI_MeshBuilder.cpp
 	../Renderer/MDEI_PersistentBuffer.cpp
 	../Renderer/MDEI_Renderer.cpp
 	../Renderer/MDEI_Shader.cpp
+	../Renderer/MDEI_SkinDeformer.cpp
 	../Renderer/MDEI_DrawGroup.h
 	../Renderer/MDEI_Instance.h
 	../Renderer/MDEI_Mesh.h
@@ -82,6 +85,7 @@ set(SRC
 	../Renderer/MDEI_PersistentBuffer.h
 	../Renderer/MDEI_Renderer.h
 	../Renderer/MDEI_Shader.h
+	../Renderer/MDEI_SkinDeformer.h
 	BL_Action.cpp
 	BL_ActionManager.cpp
 	BL_BlenderShader.cpp

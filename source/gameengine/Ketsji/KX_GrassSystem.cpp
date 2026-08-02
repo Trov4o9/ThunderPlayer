@@ -3080,7 +3080,7 @@ void KX_GrassSystem::Draw(RAS_Rasterizer *rasty)
     }
     lb.lightCount = (float)uploadCount;
 
-    glNamedBufferData(m_lightUBO, sizeof(GrassLightBlock), &lb, GL_DYNAMIC_DRAW);
+    glNamedBufferSubData(m_lightUBO, 0, sizeof(GrassLightBlock), &lb);
 
     glDepthMask(GL_TRUE);
     glDisable(GL_BLEND);

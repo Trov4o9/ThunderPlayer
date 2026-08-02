@@ -68,8 +68,6 @@ set(INC_SYS
 )
 
 set(SRC
-	../Renderer/MDEI_MeshBuilder.cpp
-	../Renderer/MDEI_MeshBuilder.h
 	BL_ActionActuator.cpp
 	BL_ActionData.cpp
 	BL_ArmatureActuator.cpp

@@ -1045,16 +1045,46 @@ static KX_GameObject *BL_GameObjectFromBlenderObject(Object *ob, KX_Scene *kxsce
 		case OB_MESH:
 		{
 			/* ── MDEI fast-path: skip the entire RAS mesh pipeline ── */
-			if (ob->gameflag & OB_FAST_RENDER) {
-				gameobj = new KX_GameObject(kxscene, KX_Scene::m_callbacks);
-				/* The mesh will be built directly by MDEI_Renderer::RegisterObject()
-				 * via MDEI_MeshBuilder; no RAS mesh is created here. */
-				Material *blenderMat = give_current_material(ob, 1);
-				Scene   *blenderScene = kxscene->GetBlenderScene();
-				kxscene->GetMdeiRenderer()->RegisterObject(gameobj, ob, blenderMat, blenderScene);
-				gameobj->SetActivityCullingInfo(activityCullingInfoFromBlenderObject(ob));
-				break;
-			}
+				if (ob->gameflag & OB_FAST_RENDER) {
+					gameobj = new KX_GameObject(kxscene, KX_Scene::m_callbacks);
+					/* The mesh will be built directly by MDEI_Renderer::RegisterObject()
+					 * via MDEI_MeshBuilder; no RAS mesh is created here. */
+					Material *blenderMat  = give_current_material(ob, 1);
+					Scene    *blenderScene = kxscene->GetBlenderScene();
+					kxscene->GetMdeiRenderer()->RegisterObject(gameobj, ob, blenderMat, blenderScene);
+					gameobj->SetActivityCullingInfo(activityCullingInfoFromBlenderObject(ob));
+	
+					/* ── Armature detection (same conditions as BL_ConvertDeformer) ──
+					 * If the object has an armature parent + vertex groups, register a
+					 * skin deformer that will update the MDEI VBO every frame.
+					 * Modifier-based deformers and shape keys are deliberately excluded
+					 * from the MDEI fast path (they change topology or need DerivedMesh). */
+					{
+						KX_GameObject *parentobj = nullptr;
+						/* parent is resolved later in the scene graph setup; we read
+						 * the Blender parent directly here instead. */
+						Object *blParent = ob->parent;
+						if (blParent && blParent->type == OB_ARMATURE) {
+							/* Look up the already-converted armature KX_GameObject */
+							KX_GameObject *kxParent = static_cast<KX_GameObject *>(
+							    kxscene->GetLogicManager()->FindGameObjByBlendObj(blParent));
+	
+							const bool bHasArmature =
+							    BL_ModifierDeformer::HasArmatureDeformer(ob) &&
+							    kxParent &&
+							    kxParent->GetGameObjectType() == SCA_IObject::OBJ_ARMATURE &&
+							    ((Mesh *)ob->data)->dvert != nullptr;
+	
+							if (bHasArmature && !BL_ModifierDeformer::HasCompatibleDeformer(ob)) {
+								kxscene->GetMdeiRenderer()->RegisterArmature(
+								    gameobj,
+								    ob,
+								    static_cast<BL_ArmatureObject *>(kxParent));
+							}
+						}
+					}
+					break;
+				}
 
 			Mesh *mesh = static_cast<Mesh *>(ob->data);
 			KX_Mesh *meshobj = BL_ConvertMesh(mesh, ob, kxscene, converter);
