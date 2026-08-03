@@ -17,7 +17,10 @@
 
 #define KX_GRASS_DISABLE_CULLING_LOD 0
 #define KX_GRASS_CAMERA_RELATIVE_XY  1
-#define KX_GRASS_PERSISTENT_INDIRECT 1
+
+// Buffer upload strategy flags
+#define KX_GRASS_PERSISTENT_INSTANCE_MAP 0
+#define KX_GRASS_PERSISTENT_INDIRECT     1  
 
 #include "KX_GrassSystem.h"
 #include "KX_Scene.h"
@@ -2411,13 +2414,25 @@ void KX_GrassSystem::EnsureGPUResources()
     // Geometria da blade — cross-billboard:
     // Modo normal:  2 triângulos × 3 vértices × 2 floats = 12 floats (6 vértices por instância)
     // VBO de instâncias inicial
+    // Estratégia controlada por KX_GRASS_PERSISTENT_INSTANCE_MAP:
+    //   1 = Persistent mapped (explicit flush) - potencialmente melhor para VRAM
+    //   0 = glNamedBufferSubData (fallback tradicional)
     m_vboCapacity = 1024 * 128; // 128k instâncias iniciais
     glCreateBuffers(1, &m_instanceVBO);
-    const GLbitfield storageFlags = GL_DYNAMIC_STORAGE_BIT | GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT | GL_MAP_COHERENT_BIT;
-    const GLbitfield mapFlags = GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT | GL_MAP_COHERENT_BIT;
+    
+#if KX_GRASS_PERSISTENT_INSTANCE_MAP
+    // Persistent mapping SEM GL_MAP_COHERENT_BIT para forçar VRAM
+    const GLbitfield storageFlags = GL_DYNAMIC_STORAGE_BIT | GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT;
+    const GLbitfield mapFlags = GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT | GL_MAP_FLUSH_EXPLICIT_BIT;
     glNamedBufferStorage(m_instanceVBO, (GLsizeiptr)(m_vboCapacity * sizeof(GrassInstance)), nullptr, storageFlags);
     m_instancePtr = glMapNamedBufferRange(m_instanceVBO, 0, (GLsizeiptr)(m_vboCapacity * sizeof(GrassInstance)), mapFlags);
     m_hasPersistentInstance = (m_instancePtr != nullptr);
+#else
+    // Modo tradicional: buffer dinâmico com glNamedBufferSubData
+    glNamedBufferStorage(m_instanceVBO, (GLsizeiptr)(m_vboCapacity * sizeof(GrassInstance)), nullptr, GL_DYNAMIC_STORAGE_BIT);
+    m_instancePtr = nullptr;
+    m_hasPersistentInstance = false;
+#endif
 
     // Inicializa lista de blocos livres
     m_freeBlocks.clear();
@@ -2595,8 +2610,9 @@ void KX_GrassSystem::ResizeIndirectBuffer(int newCapacity)
 
         glCreateBuffers(1, &m_indirectVBO[i]);
 #if KX_GRASS_PERSISTENT_INDIRECT
-        const GLbitfield storageFlags = GL_DYNAMIC_STORAGE_BIT | GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT | GL_MAP_COHERENT_BIT;
-        const GLbitfield mapFlags = GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT | GL_MAP_COHERENT_BIT;
+        // SEM GL_MAP_COHERENT_BIT - usa explicit flushing para forçar VRAM
+        const GLbitfield storageFlags = GL_DYNAMIC_STORAGE_BIT | GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT;
+        const GLbitfield mapFlags = GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT | GL_MAP_FLUSH_EXPLICIT_BIT;
         glNamedBufferStorage(m_indirectVBO[i], bufSize, nullptr, storageFlags);
         m_indirectPtr[i] = (DrawArraysIndirectCommand*)glMapNamedBufferRange(m_indirectVBO[i], 0, bufSize, mapFlags);
 #else
@@ -2689,8 +2705,15 @@ void KX_GrassSystem::AppendToGPUBuffer(const std::vector<GrassInstance> &instanc
         
         GLuint newVBO;
         glCreateBuffers(1, &newVBO);
-        const GLbitfield storageFlags = GL_DYNAMIC_STORAGE_BIT | GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT | GL_MAP_COHERENT_BIT;
+        
+#if KX_GRASS_PERSISTENT_INSTANCE_MAP
+        // Persistent mapping SEM GL_MAP_COHERENT_BIT para forçar VRAM
+        const GLbitfield storageFlags = GL_DYNAMIC_STORAGE_BIT | GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT;
         glNamedBufferStorage(newVBO, (GLsizeiptr)(newCapacity * sizeof(GrassInstance)), nullptr, storageFlags);
+#else
+        // Modo tradicional: buffer dinâmico
+        glNamedBufferStorage(newVBO, (GLsizeiptr)(newCapacity * sizeof(GrassInstance)), nullptr, GL_DYNAMIC_STORAGE_BIT);
+#endif
 
         // Copia apenas o range realmente utilizado
         if (m_instanceVBO != 0 && m_highestUsedOffset > 0) {
@@ -2702,8 +2725,12 @@ void KX_GrassSystem::AppendToGPUBuffer(const std::vector<GrassInstance> &instanc
             glDeleteBuffers(1, &m_instanceVBO);
         }
 
-        const GLbitfield mapFlags = GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT | GL_MAP_COHERENT_BIT;
+#if KX_GRASS_PERSISTENT_INSTANCE_MAP
+        const GLbitfield mapFlags = GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT | GL_MAP_FLUSH_EXPLICIT_BIT;
         void *newPtr = glMapNamedBufferRange(newVBO, 0, (GLsizeiptr)(newCapacity * sizeof(GrassInstance)), mapFlags);
+#else
+        void *newPtr = nullptr;
+#endif
 
         m_instanceVBO = newVBO;
         m_instancePtr = newPtr;
@@ -2731,16 +2758,33 @@ void KX_GrassSystem::AppendToGPUBuffer(const std::vector<GrassInstance> &instanc
 
     // Upload incremental
     data.vboOffset = offset;
+    
+#if KX_GRASS_PERSISTENT_INSTANCE_MAP
+    // Persistent mapped: escreve direto no ponteiro mapeado + explicit flush
     if (m_instancePtr) {
-        std::memcpy((char *)m_instancePtr + (size_t)offset * sizeof(GrassInstance),
-                    instances.data(),
-                    (size_t)instances.size() * sizeof(GrassInstance));
+        const size_t byteOffset = (size_t)offset * sizeof(GrassInstance);
+        const size_t byteSize = (size_t)instances.size() * sizeof(GrassInstance);
+        
+        // Evitar overflow e escritas de tamanho zero
+        if (byteSize > 0 && byteOffset + byteSize <= (size_t)m_vboCapacity * sizeof(GrassInstance)) {
+            std::memcpy((char *)m_instancePtr + byteOffset,
+                        instances.data(),
+                        byteSize);
+            
+            // EXPLICIT FLUSH: Notifica driver que escrevemos no buffer mapeado
+            // Isso força a transferência para VRAM
+            glFlushMappedNamedBufferRange(m_instanceVBO, (GLintptr)byteOffset, (GLsizeiptr)byteSize);
+        }
     }
-    else {
-        glNamedBufferSubData(m_instanceVBO, (GLintptr)(offset * sizeof(GrassInstance)),
+#else
+    // Modo tradicional: glNamedBufferSubData
+    if (instances.size() > 0) {
+        glNamedBufferSubData(m_instanceVBO, 
+                             (GLintptr)(offset * sizeof(GrassInstance)),
                              (GLsizeiptr)(instances.size() * sizeof(GrassInstance)),
                              instances.data());
     }
+#endif
 
     m_totalInstances += count;
 }
@@ -3080,7 +3124,7 @@ void KX_GrassSystem::Draw(RAS_Rasterizer *rasty)
     }
     lb.lightCount = (float)uploadCount;
 
-    glNamedBufferData(m_lightUBO, sizeof(GrassLightBlock), &lb, GL_DYNAMIC_DRAW);
+    glNamedBufferSubData(m_lightUBO, 0, sizeof(GrassLightBlock), &lb);
 
     glDepthMask(GL_TRUE);
     glDisable(GL_BLEND);
@@ -3121,10 +3165,6 @@ void KX_GrassSystem::Draw(RAS_Rasterizer *rasty)
         m_lastCullingTime = currentTime;
         m_forceCullingUpdate = false;
         m_visibleDrawCommandsDirty = true;
-
-        // instanceVBOFence removido — o buffer persistente é mapeado com
-        // GL_MAP_COHERENT_BIT, portanto não requer sincronização CPU→GPU manual
-        // para escrita de bladeLen. Fences apenas para o ring indirect buffer.
 
         const float lodEndSq = m_params.distance;
         const float lodStartSq = (m_params.lodStart >= 0.0f) ? m_params.lodStart : lodEndSq * 0.5f;
@@ -3224,24 +3264,44 @@ void KX_GrassSystem::Draw(RAS_Rasterizer *rasty)
                             const int globalBase = (int)chunk.drawBaseInstance;
                             GrassInstance *inst = nullptr;
                             bool needsUnmap = false;
-
+                            
+#if KX_GRASS_PERSISTENT_INSTANCE_MAP
+                            // Persistent mapped: acessa direto via ponteiro
+                            bool needsFlush = false;
+                            GLintptr flushOffset = 0;
+                            GLsizeiptr flushSize = 0;
+                            
                             if (m_instancePtr) {
                                 GrassInstance *instances = (GrassInstance *)m_instancePtr;
                                 inst = instances + globalBase;
+                                needsFlush = true;
+                                flushOffset = (GLintptr)((size_t)globalBase * sizeof(GrassInstance));
+                                flushSize = (GLsizeiptr)((size_t)chunk.instanceCount * sizeof(GrassInstance));
                             }
-                            else if (m_instanceVBO) {
+#else
+                            // Modo tradicional: mapeia temporariamente para leitura/escrita
+                            if (m_instanceVBO && chunk.instanceCount > 0) {
                                 const GLintptr byteOffset = (GLintptr)((size_t)globalBase * sizeof(GrassInstance));
                                 const GLsizeiptr byteSize = (GLsizeiptr)((size_t)chunk.instanceCount * sizeof(GrassInstance));
                                 const GLbitfield mapFlags = GL_MAP_READ_BIT | GL_MAP_WRITE_BIT;
                                 inst = (GrassInstance *)glMapNamedBufferRange(m_instanceVBO, byteOffset, byteSize, mapFlags);
                                 needsUnmap = (inst != nullptr);
                             }
+#endif
 
-                            if (inst) {
+                            if (inst && chunk.instanceCount > 0) {
                                 for (int j = 0; j < chunk.instanceCount; ++j) {
                                     inst[j].bladeLen = ComputeBladeLen(inst[j].random, m_params);
                                 }
                                 chunk.bladeLenVersion = m_bladeLenVersion;
+                                
+#if KX_GRASS_PERSISTENT_INSTANCE_MAP
+                                // EXPLICIT FLUSH: notifica driver da região modificada
+                                // Evita flush de tamanho 0
+                                if (needsFlush && flushSize > 0) {
+                                    glFlushMappedNamedBufferRange(m_instanceVBO, flushOffset, flushSize);
+                                }
+#endif
                             }
 
                             if (needsUnmap) {
@@ -3414,6 +3474,13 @@ void KX_GrassSystem::Draw(RAS_Rasterizer *rasty)
                                          0,
                                          (GLsizeiptr)(drawCount * sizeof(DrawArraysIndirectCommand)),
                                          m_visibleDrawCommands.data());
+                }
+#else
+                // EXPLICIT FLUSH: Notifica driver da região modificada no buffer indireto
+                // Evita flush de tamanho 0 para chunks vazios
+                if (drawCount > 0) {
+                    const GLsizeiptr flushSize = (GLsizeiptr)(drawCount * sizeof(DrawArraysIndirectCommand));
+                    glFlushMappedNamedBufferRange(m_indirectVBO[indirectIndex], 0, flushSize);
                 }
 #endif
 
