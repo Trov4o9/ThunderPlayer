@@ -640,18 +640,7 @@ static int codegen_print_uniforms_functions(DynStr *ds, ListBase *nodes, bool us
 	for (node = nodes->first; node; node = node->next) {
 		for (input = node->inputs.first; input; input = input->next) {
 			if ((input->source == GPU_SOURCE_TEX) || (input->source == GPU_SOURCE_TEX_PIXEL)) {
-				/* create exactly one sampler for each texture.
-				 *
-				 * AMD bindless fix: when GL_ARB_bindless_texture is active the AMD
-				 * driver requires the layout(bindless_sampler) qualifier on sampler
-				 * uniforms so that glGetUniformLocation() returns a valid location
-				 * and glProgramUniformHandleui64ARB() is accepted for that slot.
-				 * Without it, AMD returns -1 from glGetUniformLocation() for opaque
-				 * sampler uniforms in a bindless shader, so the handle never reaches
-				 * the shader and textures appear black/undefined.
-				 * NVIDIA accepts plain "uniform sampler2D" even in bindless mode
-				 * (implementation-defined tolerance), but the spec requires the
-				 * qualifier for portability. */
+
 				if (codegen_input_has_texture(input) && input->bindtex) {
 					const char *sampler_type =
 						(input->textype == GPU_TEX2D)   ? "sampler2D" :

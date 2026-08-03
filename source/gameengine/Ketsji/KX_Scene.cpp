@@ -1614,7 +1614,11 @@ static void update_anim_thread_func(TaskPool *pool, void *taskdata, int UNUSED(t
 
 		// Check for meshes that haven't been culled
 		for (KX_GameObject *child : children) {
-			if (!child->GetCullingNode().GetCulled()) {
+			// MDEI objects manage their own visibility outside the RAS culling
+			// pipeline, so they never appear in the DBVT broadphase and
+			// GetCulled() always returns true for them.  Treat them as visible
+			// so that the armature pose update runs when they are present.
+			if (!child->GetCullingNode().GetCulled() || child->HasFastRenderFlag()) {
 				needs_update = true;
 				break;
 			}
@@ -1653,6 +1657,19 @@ static void update_anim_thread_func(TaskPool *pool, void *taskdata, int UNUSED(t
 				child->GetDeformer()->Update();
 			}
 		}
+
+		/* MDEI fast-path: update skin deformers for MDEI children of this
+		 * armature while obmat and chan_mat are still in their current-frame
+		 * state (before ApplyPoseLocked restores the bind-pose obmat).
+		 * We do this per-armature so each armature drives only its own MDEI
+		 * children — no global flush needed here. */
+		if (data->mdeiRenderer && gameobj->GetGameObjectType() == SCA_IObject::OBJ_ARMATURE) {
+			for (KX_GameObject *child : children) {
+				if (child->HasFastRenderFlag()) {
+					data->mdeiRenderer->UpdateDeformerForObject(child);
+				}
+			}
+		}
 	}
 }
 
@@ -1673,7 +1690,8 @@ void KX_Scene::UpdateAnimations(double curtime, bool restrict)
 		m_previousAnimTime = curtime;
 	}
 
-	m_animationPoolData.curtime = curtime;
+	m_animationPoolData.curtime       = curtime;
+	m_animationPoolData.mdeiRenderer  = m_mdeiRenderer;
 
 	std::vector<KX_GameObject *> animated;
 	animated.reserve(m_animatedlist.size());
@@ -1692,6 +1710,9 @@ void KX_Scene::UpdateAnimations(double curtime, bool restrict)
 	for (KX_GameObject *gameobj : animated) {
 		gameobj->Release();
 	}
+	/* MDEI skin deformers are now updated inside update_anim_thread_func
+	 * per-armature, before ApplyPoseLocked restores the bind-pose obmat.
+	 * No global flush is needed here. */
 }
 
 void KX_Scene::LogicUpdateFrame(double curtime)

@@ -143,6 +143,7 @@ public:
 	struct AnimationPoolData
 	{
 		double curtime;
+		MDEI_Renderer *mdeiRenderer;
 	};
 
 	static SG_Callbacks m_callbacks;

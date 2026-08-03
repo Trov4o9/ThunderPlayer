@@ -69,7 +69,7 @@ static inline int quantise(float f) { return (int)(f * 16384.0f); }
 
 /* ── Build ───────────────────────────────────────────────────────────────── */
 
-MDEI_Mesh *MDEI_MeshBuilder::Build(Object *ob, Scene * /*blenderScene*/)
+MDEI_Mesh *MDEI_MeshBuilder::Build(Object *ob, Scene * /*blenderScene*/, bool isSkinned)
 {
     if (!ob || ob->type != OB_MESH || !ob->data)
         return nullptr;
@@ -126,9 +126,11 @@ MDEI_Mesh *MDEI_MeshBuilder::Build(Object *ob, Scene * /*blenderScene*/)
     /* ── 4. Iterate triangles — build de-duplicated vertex list ──────── */
     std::vector<MDEI_Vertex>  verts;
     std::vector<unsigned int> indices;
+    std::vector<int>          origIndexMap;   /* vboIndex → Mesh.mvert[] index */
     std::unordered_map<VKey, unsigned int, VKeyHash> cache;
     verts.reserve((size_t)(ntris * 3));
     indices.reserve((size_t)(ntris * 3));
+    origIndexMap.reserve((size_t)(ntris * 3));
 
     for (int i = 0; i < ntris; i++) {
         const MLoopTri &lt = tris[i];
@@ -181,6 +183,7 @@ MDEI_Mesh *MDEI_MeshBuilder::Build(Object *ob, Scene * /*blenderScene*/)
                 }
                 const unsigned int idx = (unsigned int)verts.size();
                 verts.push_back(vert);
+                origIndexMap.push_back((int)vi);   /* store blender vert index */
                 cache[key] = idx;
                 indices.push_back(idx);
             }
@@ -193,6 +196,9 @@ MDEI_Mesh *MDEI_MeshBuilder::Build(Object *ob, Scene * /*blenderScene*/)
         return nullptr;
 
     MDEI_Mesh *mesh = new MDEI_Mesh();
-    mesh->Upload(verts, indices, uvCount, uvNames, activeUv >= 0 ? activeUv : 0);
+    /* Pass origIndexMap only for skinned meshes — static meshes get a plain
+     * GL_STATIC_DRAW VBO and do not need the per-vertex blender index table. */
+    mesh->Upload(verts, indices, uvCount, uvNames, activeUv >= 0 ? activeUv : 0,
+                 isSkinned ? origIndexMap : std::vector<int>());
     return mesh;
 }
