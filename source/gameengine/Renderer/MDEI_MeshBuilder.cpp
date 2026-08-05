@@ -176,7 +176,7 @@ MDEI_Mesh *MDEI_MeshBuilder::Build(Object *ob, Scene * /*blenderScene*/, bool is
                 MDEI_Vertex vert;
                 memset(&vert, 0, sizeof(vert));
                 vert.px = mv.co[0]; vert.py = mv.co[1]; vert.pz = mv.co[2];
-                vert.nx = nx;       vert.ny = ny;       vert.nz = nz;
+                vert.nx = nx;       vert.ny = ny;        vert.nz = nz;
                 for (int j = 0; j < uvCount; j++) {
                     vert.uv[j][0] = uvLayers[j] ? uvLayers[j][li].uv[0] : 0.0f;
                     vert.uv[j][1] = uvLayers[j] ? uvLayers[j][li].uv[1] : 0.0f;

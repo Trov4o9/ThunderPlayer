@@ -12,6 +12,17 @@
 #ifndef __MDEI_SKIN_DEFORMER_H__
 #define __MDEI_SKIN_DEFORMER_H__
 
+/**
+ * MDEI_SKIN_DEBUG — verbosity level for MDEI_SkinDeformer diagnostics.
+ *   0 = silent (default)
+ *   1 = per-frame: armature world pos + lastFrame
+ *   2 = level 1 + deform path + first vertex deformed position
+ * Define before including this header or in the compiler flags to enable.
+ */
+#ifndef MDEI_SKIN_DEBUG
+#  define MDEI_SKIN_DEBUG 2
+#endif
+
 #include "mathfu.h"   /* mt::vec3_packed */
 
 #include <vector>

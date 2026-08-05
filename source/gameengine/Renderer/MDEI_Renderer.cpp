@@ -298,8 +298,14 @@ void MDEI_Renderer::RegisterArmature(KX_GameObject     *gameobj,
 	m_skinDeformers[gameobj] = deformer;
 
 #if MDEI_DEBUG_LEVEL >= 1
-	fprintf(stderr, "[MDEI] RegisterArmature '%s': skinned mesh VAO=%u  deformer=%p\n",
-	        gameobj->GetName().c_str(), mesh->GetVAO(), (void *)deformer);
+	fprintf(stderr, "[MDEI] RegisterArmature '%s': skinned mesh VAO=%u  deformer=%p  "
+	        "total_deformers=%d\n",
+	        gameobj->GetName().c_str(), mesh->GetVAO(), (void *)deformer,
+	        (int)m_skinDeformers.size());
+#else
+	/* Always print armature registration so the user knows deformation is wired up. */
+	fprintf(stderr, "[MDEI] Armature registered for '%s' (skin deformers: %d)\n",
+	        gameobj->GetName().c_str(), (int)m_skinDeformers.size());
 #endif
 }
 
@@ -331,13 +337,28 @@ void MDEI_Renderer::UpdateDeformerForObject(KX_GameObject *gameobj)
 {
 	auto it = m_skinDeformers.find(gameobj);
 	if (it != m_skinDeformers.end()) {
+#if MDEI_DEBUG_LEVEL >= 1
+		fprintf(stderr, "[MDEI] UpdateDeformerForObject: '%s'\n",
+		        gameobj->GetName().c_str());
+#endif
 		it->second->Update();
+	}
+	else {
+#if MDEI_DEBUG_LEVEL >= 1
+		/* Object is MDEI but has no skin deformer — static mesh, expected. */
+		fprintf(stderr, "[MDEI] UpdateDeformerForObject: '%s' — no deformer (static)\n",
+		        gameobj->GetName().c_str());
+#endif
 	}
 }
 
 void MDEI_Renderer::UpdateDeformers()
 {
 	for (auto &kv : m_skinDeformers) {
+#if MDEI_DEBUG_LEVEL >= 1
+		fprintf(stderr, "[MDEI] UpdateDeformers: '%s'\n",
+		        kv.first->GetName().c_str());
+#endif
 		kv.second->Update();
 	}
 }

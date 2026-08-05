@@ -1,16 +1,12 @@
 /*
  * MDEI_SkinDeformer.cpp — Armature deformation for MDEI fast-path meshes.
  *
- * The math is a near-verbatim copy of BL_SkinDeformer (BGEDeformVerts /
- * BlenderDeformVerts) with all RAS_DisplayArray references replaced by
- * direct MDEI_Mesh::UpdatePositionsNormals() calls.
+ * The math mirrors BL_SkinDeformer (BGEDeformVerts / BlenderDeformVerts) with
+ * all RAS_DisplayArray references replaced by MDEI_Mesh ring-VBO writes.
  *
- * Timing: Update() is called from update_anim_thread_func (inside the
- * animation task pool), immediately after UpdateActionManager runs
- * ApplyPoseLocked() for the parent armature.  At that point:
- *   - m_objArma->obmat  = current world position (set by UpdateBlenderObjectMatrix)
- *   - pchan->chan_mat   = correct world-space bone matrices (set by BKE_pose_where_is)
- * This is identical to when BL_SkinDeformer::Update() runs for normal objects.
+ * Timing: Update() calls m_armobj->ApplyPoseLocked() itself (under the pose
+ * mutex) so that BKE_pose_where_is runs and chan_mat values are current.
+ * This is identical to BL_SkinDeformer::UpdateInternal().
  */
 
 /* Eigen3 (same as BL_SkinDeformer) */
@@ -44,6 +40,7 @@ extern "C" {
 #include "CM_Thread.h"
 
 #include <cstring>
+#include <cstdio>
 
 /* ── CM_AutoLock (same as the anonymous namespace in BL_SkinDeformer.cpp) ── */
 namespace {
@@ -320,31 +317,69 @@ void MDEI_SkinDeformer::FlushToVBO()
 
 /* ── Update ──────────────────────────────────────────────────────────────── */
 /*
- * Called from update_anim_thread_func, immediately after UpdateActionManager
- * runs ApplyPoseLocked() for the parent armature.
+ * Mirrors BL_SkinDeformer::UpdateInternal() exactly:
+ *   1. Lock pose mutex
+ *   2. Call ApplyPoseLocked() → BKE_pose_where_is sets chan_mat
+ *   3. Run deformation (BGE or Blender path)
+ *   4. Write result into the ring VBO
  *
- * At this point:
- *   m_objArma->obmat  = current world position of the armature
- *   pchan->chan_mat   = world-space bone matrices computed with that obmat
- *
- * We just need to read those values and deform — no extra BKE_pose_where_is
- * call required.  This is identical to BL_SkinDeformer::Update() timing.
+ * The lock is required because multiple mesh children share the same
+ * armature and UpdateDeformerForObject() can be called concurrently
+ * from the task pool.
  */
 bool MDEI_SkinDeformer::Update()
 {
 	if (!m_armobj) return false;
 
+	/* ── Apply the current pose (calc chan_mat, update obmat) ── */
+	{
+		CM_AutoLock lock(BL_ArmatureObject::GetPoseMutex());
+		m_armobj->ApplyPoseLocked();
+	}
+
+	if (!m_armobj) return false;   /* safety — ApplyPoseLocked might clear it */
+
 	/* Restore rest-pose positions into m_transverts */
 	VerifyStorage();
 
+#if MDEI_SKIN_DEBUG >= 1
+	/* Print armature world position so we can tell if obmat is current. */
+	{
+		Object *armaObj = m_armobj->GetArmatureObject();
+		if (armaObj) {
+			fprintf(stderr, "[MDEI][SKIN] Update '%s': arma_pos=(%.3f %.3f %.3f)  lastFrame=%.3f\n",
+			        m_gameobj->GetName().c_str(),
+			        armaObj->obmat[3][0], armaObj->obmat[3][1], armaObj->obmat[3][2],
+			        (float)m_armobj->GetLastFrame());
+		}
+	}
+#endif
+
 	if (m_armobj->GetVertDeformType() == ARM_VDEF_BGE_CPU) {
+#if MDEI_SKIN_DEBUG >= 2
+		fprintf(stderr, "[MDEI][SKIN]   path=BGE_CPU  totvert=%d  defbase=%d\n",
+		        m_bmesh->totvert,
+		        (int)BLI_listbase_count(&m_objMesh->defbase));
+#endif
 		BGEDeformVerts();
 	}
 	else {
+#if MDEI_SKIN_DEBUG >= 2
+		fprintf(stderr, "[MDEI][SKIN]   path=BLENDER  totvert=%d\n", m_bmesh->totvert);
+#endif
 		BlenderDeformVerts();
 	}
 
 	m_lastArmaUpdate = m_armobj->GetLastFrame();
 	FlushToVBO();
+
+#if MDEI_SKIN_DEBUG >= 2
+	/* Print first deformed vert to confirm movement. */
+	if (!m_transverts.empty()) {
+		fprintf(stderr, "[MDEI][SKIN]   vert[0] deformed=(%.3f %.3f %.3f)\n",
+		        m_transverts[0].x, m_transverts[0].y, m_transverts[0].z);
+	}
+#endif
+
 	return true;
 }

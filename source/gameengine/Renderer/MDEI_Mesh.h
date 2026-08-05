@@ -115,6 +115,9 @@ public:
 	 *  Static mesh → single VAO.
 	 *  Skinned mesh → VAO for the segment written by the last BeginSkinFrame(). */
 	GLuint  GetCurrentVAO()  const;
+	/** Alias para compatibilidade com código de debug que usa GetVAO(). */
+	GLuint  GetVAO()         const { return GetCurrentVAO(); }
+	GLuint  GetVBO()         const { return m_vbo; }
 	GLuint  GetEBO()         const { return m_ebo; }
 	GLsizei GetIndexCount()  const { return m_indexCount; }
 	GLsizei GetVertCount()   const { return m_vertCount; }
