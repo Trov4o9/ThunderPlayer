@@ -20,7 +20,7 @@
  * Define before including this header or in the compiler flags to enable.
  */
 #ifndef MDEI_SKIN_DEBUG
-#  define MDEI_SKIN_DEBUG 2
+#  define MDEI_SKIN_DEBUG 0
 #endif
 
 #include "mathfu.h"   /* mt::vec3_packed */
