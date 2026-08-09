@@ -73,6 +73,14 @@ uniform vec4 unfobcolor;
 
 void main()
 {
+	vec3 tmp2;
+	float tmp4;
+	vec3 tmp6;
+	vec3 tmp8;
+	vec4 tmp12;
+	vec3 tmp14;
+	vec4 tmp16;
+
 	/* Custom Sky Shader — intermediate variables */
 	vec3 HORIZON_COLOR = unf5;
 	vec3 ZENITH_COLOR = unf7;
@@ -94,7 +102,7 @@ void main()
 
     for (int i = 0; i < 32; ++i) {
         if (sceneLights[i].type_mode.x == 1.0) {
-            ldir = normalize(-(sceneLights[i].spotDirection.xyz));
+            ldir = -(sceneLights[i].spotDirection.xyz);
             break;
         }
     }
