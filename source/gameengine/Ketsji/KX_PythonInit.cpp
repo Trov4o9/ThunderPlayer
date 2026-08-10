@@ -115,6 +115,8 @@ extern "C" {
 #include "BL_Shader.h"
 #include "BL_Action.h"
 
+#include "KX_GameObject.h"  /* KX_GameObject, ApplyMovement etc. */
+
 #include "KX_PyMath.h"
 
 #include "EXP_PyObjectPlus.h"
@@ -897,6 +899,107 @@ static PyObject *gPyNextFrame(PyObject *)
 }
 
 
+/* ────────────────────────────────────────────────────────────────────────────
+ * gPyBatchUpdate — bge.logic.batchUpdate(ids, data, local=0, mask=0xF)
+ *
+ * Applies movement / rotation / linear velocity / angular velocity to a batch
+ * of objects in one call, using zero-copy memoryview buffers.
+ *
+ * ids  : memoryview('I') — N uint32 objectId values (from obj.objectId)
+ * data : memoryview('f') — N × 12 float32, stride 48 bytes per object:
+ *          [0..2]  applyMovement  dloc    (x, y, z)
+ *          [3..5]  applyRotation  drot    (x, y, z)
+ *          [6..8]  setLinearVelocity lvel (x, y, z)
+ *          [9..11] setAngularVelocity avel(x, y, z)
+ * local: 0 = world space  |  1 = local space  (global for the whole batch)
+ * mask : bitmask — which ops to execute (global for the whole batch)
+ *          bit 0  (0x1) applyMovement
+ *          bit 1  (0x2) applyRotation
+ *          bit 2  (0x4) setLinearVelocity
+ *          bit 3  (0x8) setAngularVelocity
+ *        default 0xF = all four operations.
+ * ──────────────────────────────────────────────────────────────────────────── */
+static PyObject *gPyBatchUpdate(PyObject * /*self*/, PyObject *args, PyObject *kwds)
+{
+	static const char *kwlist[] = {"ids", "data", "local", "mask", nullptr};
+
+	Py_buffer ids_buf, data_buf;
+	int local = 0;
+	int mask  = 0xF;
+
+	if (!PyArg_ParseTupleAndKeywords(args, kwds, "y*y*|ii:batchUpdate",
+	                                 (char **)kwlist,
+	                                 &ids_buf, &data_buf, &local, &mask))
+	{
+		return nullptr;
+	}
+
+	/* ── Validate buffer layout ─────────────────────────────────────────── */
+	if (ids_buf.itemsize != (Py_ssize_t)sizeof(uint32_t)) {
+		PyBuffer_Release(&ids_buf);
+		PyBuffer_Release(&data_buf);
+		PyErr_SetString(PyExc_TypeError,
+		    "batchUpdate: ids buffer must have itemsize=4 (uint32, format 'I')");
+		return nullptr;
+	}
+	if (data_buf.itemsize != (Py_ssize_t)sizeof(float)) {
+		PyBuffer_Release(&ids_buf);
+		PyBuffer_Release(&data_buf);
+		PyErr_SetString(PyExc_TypeError,
+		    "batchUpdate: data buffer must have itemsize=4 (float32, format 'f')");
+		return nullptr;
+	}
+
+	const int N = (int)(ids_buf.len / (Py_ssize_t)sizeof(uint32_t));
+	if (data_buf.len != (Py_ssize_t)(N * 12 * sizeof(float))) {
+		PyBuffer_Release(&ids_buf);
+		PyBuffer_Release(&data_buf);
+		PyErr_Format(PyExc_ValueError,
+		    "batchUpdate: data buffer length mismatch — "
+		    "expected %d floats (N=%d × 12), got %d",
+		    N * 12, N, (int)(data_buf.len / sizeof(float)));
+		return nullptr;
+	}
+
+	/* ── Fast path ──────────────────────────────────────────────────────── */
+	KX_Scene *scene = KX_GetActiveScene();
+	if (!scene || N == 0) {
+		PyBuffer_Release(&ids_buf);
+		PyBuffer_Release(&data_buf);
+		Py_RETURN_NONE;
+	}
+
+	const uint32_t *idPtr  = static_cast<const uint32_t *>(ids_buf.buf);
+	const float    *dPtr   = static_cast<const float    *>(data_buf.buf);
+	const bool      isLoc  = (local != 0);
+	const bool      doMove = (mask & 0x1) != 0;
+	const bool      doRot  = (mask & 0x2) != 0;
+	const bool      doLVel = (mask & 0x4) != 0;
+	const bool      doAVel = (mask & 0x8) != 0;
+
+	KX_Scene::KX_ObjectRegistry &reg = scene->GetObjectRegistry();
+
+	for (int i = 0; i < N; ++i) {
+		KX_GameObject *ob = reg.Get(idPtr[i]);
+		if (!ob) continue;
+
+		const float *d = dPtr + i * 12;
+
+		if (doMove)
+			ob->ApplyMovement(mt::vec3(d[0], d[1], d[2]), isLoc);
+		if (doRot)
+			ob->ApplyRotation(mt::vec3(d[3], d[4], d[5]), isLoc);
+		if (doLVel)
+			ob->SetLinearVelocity(mt::vec3(d[6], d[7], d[8]), isLoc);
+		if (doAVel)
+			ob->SetAngularVelocity(mt::vec3(d[9], d[10], d[11]), isLoc);
+	}
+
+	PyBuffer_Release(&ids_buf);
+	PyBuffer_Release(&data_buf);
+	Py_RETURN_NONE;
+}
+
 static struct PyMethodDef game_methods[] = {
 	{"expandPath", (PyCFunction)gPyExpandPath, METH_VARARGS, (const char *)gPyExpandPath_doc},
 	{"startGame", (PyCFunction)gPyStartGame, METH_VARARGS, (const char *)gPyStartGame_doc},
@@ -952,6 +1055,17 @@ static struct PyMethodDef game_methods[] = {
 	{"LibNew", (PyCFunction)gLibNew, METH_VARARGS, (const char *)""},
 	{"LibFree", (PyCFunction)gLibFree, METH_VARARGS, (const char *)""},
 	{"LibList", (PyCFunction)gLibList, METH_VARARGS, (const char *)""},
+
+	/* Batch movement/rotation/velocity update — zero Python overhead per object */
+	{"batchUpdate", (PyCFunction)gPyBatchUpdate, METH_VARARGS | METH_KEYWORDS,
+	 (const char *)"batchUpdate(ids, data, local=0, mask=0xF)\n"
+	 "Apply movement/rotation/velocity to N objects via memoryview buffers.\n"
+	 "ids:   memoryview('I') of N uint32 objectId values.\n"
+	 "data:  memoryview('f') of N*12 float32 — stride 12 per object:\n"
+	 "         [0..2] applyMovement dloc, [3..5] applyRotation drot,\n"
+	 "         [6..8] setLinearVelocity, [9..11] setAngularVelocity.\n"
+	 "local: 0=world (default), 1=local — applies to all objects.\n"
+	 "mask:  0x1=move 0x2=rot 0x4=lvel 0x8=avel — default 0xF (all)."},
 
 	{nullptr, (PyCFunction)nullptr, 0, nullptr }
 };

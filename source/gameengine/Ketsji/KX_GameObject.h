@@ -165,6 +165,12 @@ protected:
 	// The action manager is used to play/stop/update actions
 	std::unique_ptr<BL_ActionManager> m_actionManager;
 
+	/* Unique numeric id for this object within its KX_Scene.
+	 * Assigned by KX_Scene::m_objectRegistry on object creation.
+	 * Used by bge.logic.batchUpdate to avoid per-object Python overhead.
+	 * 0 = unregistered / invalid. */
+	uint32_t m_objectId;
+
 	BL_ActionManager* GetActionManager();
 
 public:
@@ -922,6 +928,10 @@ public:
 	MDEI_ObjectProxy *GetMdeiProxy() const { return m_mdeiProxy; }
 	void SetMdeiProxy(MDEI_ObjectProxy *proxy) { m_mdeiProxy = proxy; }
 
+	/* Batch-update id */
+	uint32_t GetObjectId() const { return m_objectId; }
+	void     SetObjectId(uint32_t id) { m_objectId = id; }
+
 	ActivityCullingInfo& GetActivityCullingInfo();
 	void SetActivityCullingInfo(const ActivityCullingInfo& cullingInfo);
 	/// Enable or disable a category of object activity culling.
@@ -1154,6 +1164,9 @@ public:
 	static int			pyattr_set_angularDamping(EXP_PyObjectPlus *self_v, const EXP_PYATTRIBUTE_DEF *attrdef, PyObject *value);
 	static PyObject*	pyattr_get_lodManager(EXP_PyObjectPlus *self_v, const EXP_PYATTRIBUTE_DEF *attrdef);
 	static int			pyattr_set_lodManager(EXP_PyObjectPlus *self_v, const EXP_PYATTRIBUTE_DEF *attrdef, PyObject *value);
+
+	/* objectId — read-only, set by KX_Scene::ObjectRegistry */
+	static PyObject*	pyattr_get_objectId(EXP_PyObjectPlus *self_v, const EXP_PYATTRIBUTE_DEF *attrdef);
 
 	static PyObject*	pyattr_get_sensors(EXP_PyObjectPlus *self_v, const EXP_PYATTRIBUTE_DEF *attrdef);
 	static PyObject*	pyattr_get_controllers(EXP_PyObjectPlus *self_v, const EXP_PYATTRIBUTE_DEF *attrdef);

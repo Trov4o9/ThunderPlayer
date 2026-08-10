@@ -631,6 +631,8 @@ KX_GameObject *KX_Scene::AddNodeReplicaObject(SG_Node *node, KX_GameObject *game
 
 	// This is the list of object that are send to the graphics pipeline.
 	m_objectlist->Add(CM_AddRef(newobj));
+	/* Register in the batch-update registry so bge.logic.batchUpdate can find it */
+	newobj->SetObjectId(m_objectRegistry.Register(newobj));
 
 	const auto& cullingInfo = newobj->GetActivityCullingInfo();
 	if (cullingInfo.m_flags != KX_GameObject::ActivityCullingInfo::ACTIVITY_NONE) {
@@ -1183,6 +1185,12 @@ bool KX_Scene::NewRemoveObject(KX_GameObject *gameobj)
 	}
 
 	m_componentManager.UnregisterObject(gameobj);
+
+	/* Batch-update registry: free the slot so the id lookup returns nullptr */
+	if (gameobj->GetObjectId() != 0) {
+		m_objectRegistry.Unregister(gameobj->GetObjectId());
+		gameobj->SetObjectId(0);
+	}
 
 	/* MDEI fast-path cleanup: unregister proxy before removing RAS meshes */
 	if (gameobj->HasFastRenderFlag()) {
@@ -2258,6 +2266,17 @@ bool KX_Scene::MergeScene(KX_Scene *other)
 		}
 	}
 
+	/* Register all newly-merged objects in the batch-update registry.
+	 * These are the objects from the initial scene conversion (not replicas)
+	 * which bypass AddNodeReplicaObject and land here via MergeList. */
+	{
+		EXP_ListValue<KX_GameObject> *incoming = other->GetObjectList();
+		for (KX_GameObject *gameobj : *incoming) {
+			if (gameobj && gameobj->GetObjectId() == 0) {
+				gameobj->SetObjectId(m_objectRegistry.Register(gameobj));
+			}
+		}
+	}
 	m_objectlist->MergeList(other->GetObjectList());
 	other->GetObjectList()->ReleaseAndRemoveAll();
 

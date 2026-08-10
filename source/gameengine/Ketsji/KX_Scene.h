@@ -189,6 +189,32 @@ private:
 	std::unordered_set<KX_GameObject *> m_euthanasyobjects;
 
 	EXP_ListValue<KX_GameObject> *m_objectlist;
+
+	/* ── Object id registry — O(1) lookup for bge.logic.batchUpdate ────────
+	 * Maps a monotonically-increasing uint32 id → KX_GameObject*.
+	 * id=0 is reserved (means "not registered").
+	 * Slots are set to nullptr when an object is removed, never reused. */
+	struct KX_ObjectRegistry {
+		std::vector<KX_GameObject *> m_table;
+		uint32_t                     m_nextId = 1; /* 0 = invalid */
+
+		uint32_t Register(KX_GameObject *ob) {
+			uint32_t id = m_nextId++;
+			if (id >= (uint32_t)m_table.size())
+				m_table.resize((size_t)id + 1, nullptr);
+			m_table[id] = ob;
+			return id;
+		}
+		void Unregister(uint32_t id) {
+			if (id != 0 && id < (uint32_t)m_table.size())
+				m_table[id] = nullptr;
+		}
+		KX_GameObject *Get(uint32_t id) const {
+			return (id != 0 && id < (uint32_t)m_table.size())
+			       ? m_table[id] : nullptr;
+		}
+	} m_objectRegistry;
+
 	/// All 'root' parents.
 	EXP_ListValue<KX_GameObject> *m_parentlist;
 	EXP_ListValue<KX_LightObject> *m_lightlist;
@@ -398,6 +424,8 @@ public:
 	void UpdateAnimations(double curtime, bool restrict);
 
 	void LogicEndFrame();
+
+	KX_ObjectRegistry &GetObjectRegistry() { return m_objectRegistry; }
 
 	EXP_ListValue<KX_GameObject> *GetObjectList() const;
 	EXP_ListValue<KX_GameObject> *GetInactiveList() const;

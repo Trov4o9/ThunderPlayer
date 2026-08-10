@@ -180,6 +180,7 @@ KX_GameObject::KX_GameObject(void *sgReplicationInfo,
 	m_instanceObjects(nullptr),
 	m_dupliGroupObject(nullptr),
 	m_actionManager(nullptr),
+	m_objectId(0),
 #ifdef WITH_PYTHON
 	m_attr_dict(nullptr),
 	m_collisionCallbacks(nullptr),
@@ -221,6 +222,7 @@ KX_GameObject::KX_GameObject(const KX_GameObject& other)
 	m_instanceObjects(nullptr),
 	m_dupliGroupObject(nullptr),
 	m_actionManager(nullptr),
+	m_objectId(0),
 #ifdef WITH_PYTHON
 	m_attr_dict(other.m_attr_dict),
 	m_collisionCallbacks(other.m_collisionCallbacks),
@@ -2428,8 +2430,18 @@ PyAttributeDef KX_GameObject::Attributes[] = {
 	EXP_PYATTRIBUTE_RO_FUNCTION("sensors",      KX_GameObject, pyattr_get_sensors),
 	EXP_PYATTRIBUTE_RO_FUNCTION("controllers",  KX_GameObject, pyattr_get_controllers),
 	EXP_PYATTRIBUTE_RO_FUNCTION("actuators",        KX_GameObject, pyattr_get_actuators),
+	/* batch-update id — assigned by KX_Scene on object creation */
+	EXP_PYATTRIBUTE_RO_FUNCTION("objectId",     KX_GameObject, pyattr_get_objectId),
 	EXP_PYATTRIBUTE_NULL //Sentinel
 };
+
+/* ── objectId Python getter ──────────────────────────────────────────────── */
+PyObject *KX_GameObject::pyattr_get_objectId(EXP_PyObjectPlus *self_v,
+	                                             const EXP_PYATTRIBUTE_DEF * /*attrdef*/)
+{
+	KX_GameObject *self = static_cast<KX_GameObject *>(self_v);
+	return PyLong_FromUnsignedLong((unsigned long)self->m_objectId);
+}
 
 
 struct ChunkData {
@@ -6383,8 +6395,8 @@ static inline float KX_BiomeHash2D(uint32_t x, uint32_t y)
 
 static FORCE_INLINE float KX_BiomeValueNoise(float x, float y)
 {
-    const int32_t ix = (int32_t)x;
-    const int32_t iy = (int32_t)y;
+    const int32_t ix = PERLIN_FAST_FLOOR(x);
+    const int32_t iy = PERLIN_FAST_FLOOR(y);
 
     const float fx = x - (float)ix;
     const float fy = y - (float)iy;
