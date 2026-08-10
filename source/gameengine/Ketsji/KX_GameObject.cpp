@@ -6158,14 +6158,25 @@ static FORCE_INLINE float perlin_grad_dot(const float * __restrict q, float rx, 
     return rx * q[0] + ry * q[1] + rz * q[2];
 }
 
+// Seed injetada como offset aditivo no hash interno do Perlin.
+// Calculado a partir do int64 da seed via avalanche completo — garante que qualquer
+// seed (100, 14872, 91698713, 2^33+7) produza offsets ortogonais e bem distribuídos.
+// Escrita sob GIL antes de liberar; lida por relaxed no hot-path (2 loads SSE).
+static std::atomic<uint32_t> g_seed_offset{0u};
+
 // Perlin noise completo inline (zero call overhead)
 static FORCE_INLINE float cave_noise_perlin_inline(float x, float y, float z)
 {
-    auto hash3 = [](int x, int y, int z) -> uint32_t
+    const uint32_t seed_off = g_seed_offset.load(std::memory_order_relaxed);
+    auto hash3 = [seed_off](int x, int y, int z) -> uint32_t
     {
         uint32_t h = (uint32_t)x * 374761393u;
         h ^= (uint32_t)y * 668265263u;
         h ^= (uint32_t)z * 2147483647u;
+        // Offset da seed inserido aqui: depois da combinação XY mas antes do
+        // avalanche final — perturba o espaço de noise sem destruir a estrutura
+        // de gradiente, e sem risco de cancelar as constantes base.
+        h ^= seed_off;
 
         h = (h ^ (h >> 13)) * 1274126177u;
         h ^= h >> 16;
@@ -6718,7 +6729,7 @@ PyObject *KX_GameObject::PyComputeVoxelDistance(PyObject *args) {
     float step_z = (max_z - min_z) / (nz - 1);
 
     float noise_scale = (1.0f / h_cache_scale) * freq * noise_scale_multiplier;
-    float seed_z = seed * 0.001f;
+    float seed_z = 0.0f; // seed injetada via g_seed_offset no hash do Perlin
     std::vector<float> world_x(nx);
     std::vector<float> world_y(ny);
     std::vector<float> world_z(nz);
@@ -6998,7 +7009,7 @@ PyObject *KX_GameObject::PySurfaceNetsGenerate(PyObject *args) {
         oct2_height_scale = (float)PyFloat_AsDouble(PyTuple_GET_ITEM(py_base_params, 8));
     }
     float noise_scale = (1.0f / h_cache_scale) * freq * noise_scale_multiplier;
-    float seed_z = seed * 0.001f;
+    float seed_z = 0.0f; // seed injetada via g_seed_offset no hash do Perlin
 
     // CAVERNAS 3D - PARÂMETROS EXATOS DO PYTHON
     const int enable_caves = 1;
@@ -8034,7 +8045,8 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
         // clip bounds (default = bounds)
         float clip_min_x, clip_max_x, clip_min_y, clip_max_y;
         // base params
-        float seed, height_scale, freq, h_cache_scale;
+        int64_t seed;
+        float height_scale, freq, h_cache_scale;
         float noise_scale_multiplier, oct2_freq_mult, oct2_weight, oct2_height_scale;
         // smooth
         float smooth_factor;
@@ -8127,21 +8139,60 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
     {
         std::lock_guard<std::mutex> cacheLock(snr_cache->mutex);
         TerrainSDFParamCache& param_cache = snr_cache->params;
-        if (!param_cache.valid) {
-            const Py_ssize_t bp_size = PyTuple_GET_SIZE(py_base_params);
-            PyObject * const *bp = &PyTuple_GET_ITEM(py_base_params, 0);
-            param_cache.seed         = (float)PyFloat_AsDouble(bp[0]);
-            param_cache.height_scale = (float)PyFloat_AsDouble(bp[1]);
-            param_cache.freq         = (float)PyFloat_AsDouble(bp[2]);
-            param_cache.h_cache_scale= (float)PyFloat_AsDouble(bp[3]);
-            param_cache.noise_scale_multiplier = (bp_size > 5) ? (float)PyFloat_AsDouble(bp[5]) : 1.0f;
-            param_cache.oct2_freq_mult    = (bp_size > 6) ? (float)PyFloat_AsDouble(bp[6]) : 2.0f;
-            param_cache.oct2_weight       = (bp_size > 7) ? (float)PyFloat_AsDouble(bp[7]) : 0.5f;
-            param_cache.oct2_height_scale = (bp_size > 8) ? (float)PyFloat_AsDouble(bp[8]) : param_cache.height_scale;
-            param_cache.smooth_factor     = in.smooth_factor;
-            param_cache.smooth_iterations = in.smooth_iterations;
-            param_cache.valid = true;
+
+        // Lê sempre os parâmetros recebidos do Python.
+        // O cache (param_cache.valid) era a causa raiz de a seed nunca mudar:
+        // uma vez valid=true, os novos valores passados pelo Python eram ignorados.
+        // Agora lemos bp[] toda chamada e comparamos com o cache para detectar mudança.
+        const Py_ssize_t bp_size = PyTuple_GET_SIZE(py_base_params);
+        PyObject * const *bp = &PyTuple_GET_ITEM(py_base_params, 0);
+        const int64_t new_seed            = PyLong_AsLongLong(bp[0]);
+        const float new_height_scale      = (float)PyFloat_AsDouble(bp[1]);
+        const float new_freq              = (float)PyFloat_AsDouble(bp[2]);
+        // bp[3] = LayeredSDF._cache_scale, bp[4] = TerrainSDF._height_cache_scale
+        const float new_h_cache_scale     = (bp_size > 4) ? (float)PyFloat_AsDouble(bp[4]) : (float)PyFloat_AsDouble(bp[3]);
+        const float new_nsm               = (bp_size > 5) ? (float)PyFloat_AsDouble(bp[5]) : 1.0f;
+        const float new_oct2_freq         = (bp_size > 6) ? (float)PyFloat_AsDouble(bp[6]) : 2.0f;
+        const float new_oct2_weight       = (bp_size > 7) ? (float)PyFloat_AsDouble(bp[7]) : 0.5f;
+        const float new_oct2_hs           = (bp_size > 8) ? (float)PyFloat_AsDouble(bp[8]) : new_height_scale;
+
+        // Se qualquer parâmetro SDF mudou, invalida o voxel-cache para forçar recálculo.
+        if (!param_cache.valid ||
+            param_cache.seed         != (float)new_seed  ||
+            param_cache.height_scale != new_height_scale ||
+            param_cache.freq         != new_freq         ||
+            param_cache.h_cache_scale!= new_h_cache_scale)
+        {
+            KX_SNR_ForceRelease(*snr_cache);
         }
+
+        // Deriva o offset da seed a partir dos 64 bits — avalanche completo.
+        // Mistura hi nos bits baixos antes do avalanche para que seeds pequenas
+        // (hi=0, como 100 ou 14872) variem tanto quanto seeds grandes (>2^32).
+        {
+            const uint64_t s  = (uint64_t)new_seed;
+            const uint32_t lo = (uint32_t)(s & 0xFFFFFFFFull);
+            const uint32_t hi = (uint32_t)(s >> 32);
+            uint32_t m = (lo * 2654435761u + hi * 1664525u + 1013904223u) & 0xFFFFFFFFu;
+            m = (m ^ (m >> 16)) * 2246822519u;
+            m ^= m >> 13;
+            m = (m * 3266489917u);
+            m ^= m >> 16;
+            g_seed_offset.store(m, std::memory_order_relaxed);
+        }
+
+        param_cache.seed                   = (float)new_seed;
+        param_cache.height_scale           = new_height_scale;
+        param_cache.freq                   = new_freq;
+        param_cache.h_cache_scale          = new_h_cache_scale;
+        param_cache.noise_scale_multiplier = new_nsm;
+        param_cache.oct2_freq_mult         = new_oct2_freq;
+        param_cache.oct2_weight            = new_oct2_weight;
+        param_cache.oct2_height_scale      = new_oct2_hs;
+        param_cache.smooth_factor          = in.smooth_factor;
+        param_cache.smooth_iterations      = in.smooth_iterations;
+        param_cache.valid                  = true;
+
         in.seed                   = param_cache.seed;
         in.height_scale           = param_cache.height_scale;
         in.freq                   = param_cache.freq;
@@ -8180,7 +8231,6 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
     const float min_z = in.min_z, max_z = in.max_z;
     const float clip_min_x = in.clip_min_x, clip_max_x = in.clip_max_x;
     const float clip_min_y = in.clip_min_y, clip_max_y = in.clip_max_y;
-    const float seed         = in.seed;
     const float height_scale = in.height_scale;
     const float freq         = in.freq;
     const float h_cache_scale         = in.h_cache_scale;
@@ -8193,7 +8243,10 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
     const float oct2_weight           = in.oct2_weight;
     const float oct2_height_scale     = in.oct2_height_scale;
     const float noise_scale = (1.0f / h_cache_scale) * freq * noise_scale_multiplier;
-    const float seed_z      = seed * 0.001f;
+    // A seed é injetada como offset no hash do Perlin via g_seed_offset
+    // (escritas antes de liberar a GIL). seed_z=0 — o eixo Z do Perlin é irrelevante
+    // para o terreno 2D; a variação entre seeds está nas constantes do hash.
+    const float seed_z = 0.0f;
     const float smooth_factor      = in.smooth_factor;
     const int   smooth_iterations  = in.smooth_iterations;
     const float wx = in.wx, wy = in.wy, wz_world = in.wz;
@@ -9299,7 +9352,8 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
 
                 // OPT-2: terrain_h_final reutiliza sampled_terrain_h se já calculado
                 const float terrain_h_final = has_sampled_terrain_h ? sampled_terrain_h : sample_terrain_h(vx, vy);
-                const uint8_t is_surface = (vz >= terrain_h_final - step_z_2) ? 1u : 0u;
+                const float step_z_surf = step_z * 0.6f;
+                const uint8_t is_surface = (vz >= terrain_h_final - step_z_surf) ? 1u : 0u;
 
                 // Identificação de bioma para vértices de superfície
                 uint8_t biome_out = 0;
