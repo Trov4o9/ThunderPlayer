@@ -1427,9 +1427,14 @@ void KX_GrassSystem::WorkerLoop()
 
             const int bladeCount = (int)(area * densityPerSquareMeter);
             for (int d = 0; d < bladeCount; ++d) {
-                const uint32_t h  = hash32f(cx, cy, (uint32_t)d);
-                const float    r1 = sqrtLut[(h >> 8) & 511u];
-                const float    r2 = u01(mix32(h + 0x9e3779b9u));
+                // Cada ponto usa seed derivada do índice d e do centroide do tri.
+                // h1 e h2 são independentes entre si, garantindo que r1 e r2
+                // variem livremente para cada ponto — evita acúmulo nas bordas
+                // causado por r1 fixo quando apenas r2 variava pelo mesmo h.
+                const uint32_t h1 = hash32f(cx, cy, (uint32_t)d);
+                const uint32_t h2 = mix32(h1 ^ 0x9e3779b9u);
+                const float    r1 = sqrtLut[h1 & 511u];
+                const float    r2 = u01(h2);
 
                 const float w0 = 1.0f - r1;
                 const float w1 = r1 * (1.0f - r2);

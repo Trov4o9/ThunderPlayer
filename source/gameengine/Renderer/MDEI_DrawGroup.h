@@ -21,6 +21,11 @@ public:
 	MDEI_Mesh   *GetMesh()   const { return m_mesh; }
 	MDEI_Shader *GetShader() const { return m_shader; }
 
+	/** Swap the mesh pointer.  Used by MDEI_Renderer::ResetMesh() when
+	 *  a procedural object replaces its geometry.  The caller is responsible
+	 *  for the lifetime of both the old and new mesh objects. */
+	void SetMesh(MDEI_Mesh *mesh) { m_mesh = mesh; }
+
 	/** Called once per frame before rendering begins: clear instance list. */
 	void BeginFrame() { m_pendingInstances.clear(); }
 

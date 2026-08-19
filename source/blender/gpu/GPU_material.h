@@ -332,6 +332,17 @@ void GPU_material_bind_to_shader(
         float viewmat[4][4], float viewinv[4][4],
         float camerafactors[4]);
 
+/**
+ * Versão reduzida de GPU_material_bind_to_shader para shaders customizados MDEI.
+ * Apenas carrega inp->tex via GPU_texture_from_blender (necessário para que
+ * ResolveSlotsThroughPass consiga ler as texturas dos slots do GPUPass).
+ * Não escreve nenhum glUniform* — o shader customizado cuida disso via
+ * glProgramUniform* direto após esta chamada.
+ */
+void GPU_material_prepare_textures(
+        GPUMaterial *material,
+        int viewlay, double time, int mipmap);
+
 struct GPUPass *GPU_material_get_pass(GPUMaterial *material);
 const char     *GPU_pass_get_vertexcode(struct GPUPass *pass);
 const char     *GPU_pass_get_fragmentcode(struct GPUPass *pass);

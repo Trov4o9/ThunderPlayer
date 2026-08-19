@@ -137,6 +137,16 @@ public:
 
 	bool UpdateMesh(class KX_GameObject *gameobj, class RAS_Mesh *mesh);
 
+	/** Variante MDEI runtime: alimenta o shape Bullet com a cópia CPU do MDEI_Mesh
+	 *  (gerada após mdei_update_mesh). Usada por reinstancePhysicsMesh. */
+	bool UpdateMeshFromMDEI(const float *verts, int nVerts,
+	                        const unsigned int *inds, int nInds);
+
+	/** Variante MDEI conversão: lê a geometria do Blender Mesh* (ob->data)
+	 *  diretamente — sem RAS_Mesh — para criar o shape inicial durante
+	 *  ConvertObject. Usa a mesma fonte que MDEI_MeshBuilder::Build(). */
+	bool UpdateMeshFromBlenderObject(struct Object *ob);
+
 	CcdShapeConstructionInfo *GetReplica();
 
 	void ProcessReplica();

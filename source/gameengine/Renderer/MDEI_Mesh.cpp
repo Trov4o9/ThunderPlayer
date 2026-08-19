@@ -190,6 +190,19 @@ void MDEI_Mesh::Upload(const std::vector<MDEI_Vertex>& verts,
 		if (v.py > m_aabbMax[1]) m_aabbMax[1] = v.py;
 		if (v.pz > m_aabbMax[2]) m_aabbMax[2] = v.pz;
 	}
+
+	/* Cópia CPU para física: apenas posições + índices, sem normais/UVs.
+	 * Substitui qualquer cópia anterior (novo Upload descarta a antiga). */
+	{
+		const size_t nv = verts.size();
+		m_cpuVerts.resize(nv * 3);
+		for (size_t i = 0; i < nv; ++i) {
+			m_cpuVerts[i * 3 + 0] = verts[i].px;
+			m_cpuVerts[i * 3 + 1] = verts[i].py;
+			m_cpuVerts[i * 3 + 2] = verts[i].pz;
+		}
+		m_cpuInds = indices;
+	}
 }
 
 /* ── BeginSkinFrame / EndSkinFrame ───────────────────────────────────────── */
@@ -344,4 +357,9 @@ void MDEI_Mesh::Release()
 	m_origIndexMap.clear();
 	m_isSkinnedVBO = false;
 	m_vertCount    = 0;
+	m_indexCount   = 0;
+
+	/* Libera cópia CPU junto com a VRAM */
+	m_cpuVerts.clear(); m_cpuVerts.shrink_to_fit();
+	m_cpuInds.clear();  m_cpuInds.shrink_to_fit();
 }

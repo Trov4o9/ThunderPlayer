@@ -36,6 +36,7 @@ set(INC
 	../../Ketsji
 	../../Rasterizer
 	../../Rasterizer/Node
+	../../Renderer
 	../../SceneGraph
 	../../../blender/blenkernel
 	../../../blender/blenlib

@@ -125,6 +125,10 @@ protected:
 	/* MDEI fast-path: proxy replacing RAS_MeshUser for OB_FAST_RENDER objects */
 	class MDEI_ObjectProxy					*m_mdeiProxy;
 	bool								m_fastRender;
+	/* Python-visible shader wrapper — created on first access of obj.mdeiShader */
+	class KX_MDEI_ShaderProxy				*m_mdeiShaderProxy;
+	/* Debug: imprime o diagnóstico de shader compartilhado apenas uma vez. */
+	bool								m_mdeiShaderDbgPrinted;
 
 	// --- Render-prep caches (avoid O(n*m) per-frame work) ---
 	/// Cached result of HasShadowCasterMaterial() — invalidated on mesh/material change.
@@ -1052,6 +1056,7 @@ public:
 	EXP_PYMETHOD_DOC_VARARGS(KX_GameObject, RebuildVoxelMesh);
 	EXP_PYMETHOD_DOC_VARARGS(KX_GameObject, SurfaceNetsAndRebuild);
 	EXP_PYMETHOD_DOC_VARARGS(KX_GameObject, FinalizeSurfaceNetsMesh);
+	EXP_PYMETHOD_DOC_NOARGS(KX_GameObject, MDEIRemoveMesh);
 
 	// GPU-instanced grass rendering (C++ equivalent of geometryGrass Python component)
 	EXP_PYMETHOD_DOC_VARARGS(KX_GameObject, EnableGrass);
@@ -1167,6 +1172,13 @@ public:
 
 	/* objectId — read-only, set by KX_Scene::ObjectRegistry */
 	static PyObject*	pyattr_get_objectId(EXP_PyObjectPlus *self_v, const EXP_PYATTRIBUTE_DEF *attrdef);
+
+	/* MDEI fast-path — read-only properties */
+	static PyObject*	pyattr_get_is_mdei(EXP_PyObjectPlus *self_v, const EXP_PYATTRIBUTE_DEF *attrdef);
+	static PyObject*	pyattr_get_mdei_shader(EXP_PyObjectPlus *self_v, const EXP_PYATTRIBUTE_DEF *attrdef);
+
+	/* MDEI mesh update — replaces replaceMesh() for MDEI objects */
+	EXP_PYMETHOD_DOC(KX_GameObject, MDEIUpdateMesh);
 
 	static PyObject*	pyattr_get_sensors(EXP_PyObjectPlus *self_v, const EXP_PYATTRIBUTE_DEF *attrdef);
 	static PyObject*	pyattr_get_controllers(EXP_PyObjectPlus *self_v, const EXP_PYATTRIBUTE_DEF *attrdef);

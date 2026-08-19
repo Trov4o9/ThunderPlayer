@@ -59,6 +59,10 @@
 #include "RAS_MaterialBucket.h"
 #include "RAS_IMaterial.h"
 
+/* MDEI: acesso ao proxy e à cópia CPU da geometria para física */
+#include "MDEI_ObjectProxy.h"
+#include "MDEI_Mesh.h"
+
 #include "DNA_scene_types.h"
 #include "DNA_world_types.h"
 #include "DNA_object_types.h" // for OB_MAX_COL_MASKS
@@ -124,6 +128,9 @@ struct ReinstanceJob
 
 	PyObject *callback = nullptr;
 	bool success = false;
+	/** Verdadeiro para jobs vindos de EnqueueReinstanceMDEIAsync.
+	 *  ApplyAsyncMesh não é chamado — os shapes são instalados diretamente. */
+	bool isMDEI = false;
 };
 
 static void DeleteBuiltShape(btCollisionShape *shape)
@@ -533,7 +540,7 @@ static bool BuildReinstanceJob(ReinstanceJob *job, const std::atomic<bool>& shut
 		return false;
 	}
 
-	if (!job->shapeInfo || job->shapeInfo->m_shapeType != PHY_SHAPE_MESH) {
+	if (!job->shapeInfo || !ELEM(job->shapeInfo->m_shapeType, PHY_SHAPE_MESH, PHY_SHAPE_POLYTOPE)) {
 		return false;
 	}
 
@@ -843,33 +850,65 @@ void CcdPhysicsEnvironment::ProcessFinishedReinstanceJobs()
 						}
 					}
 					if (same) {
-						btTriangleIndexVertexArray *oldMeshInterface = nullptr;
-						ok = job->shapeInfo->ApplyAsyncMesh(
-							job->triangleMesh,
-							std::move(job->polygonIndexArray),
-							std::move(job->triFaceUVcoArray),
-							job->meshobj,
-							job->deformer,
-							&oldMeshInterface);
-
-						if (ok) {
-							job->triangleMesh = nullptr;
-							for (size_t i = 0; i < job->controllers.size(); ++i) {
-								CcdPhysicsController *ctrl = job->controllers[i];
-								if (!ctrl) {
-									continue;
+							if (job->isMDEI) {
+								/* Caminho MDEI: sem RAS_Mesh para registrar no cache.
+								 * O btTriangleMesh foi alocado por BuildReinstanceJob e
+								 * ficou embutido nos newShapes — instalamos diretamente.
+								 * Antes de trocar, coletamos os btTriangleMesh antigos
+								 * para cleanup diferido (igual ao path RAS). */
+								ok = !job->newShapes.empty();
+								if (ok) {
+									for (size_t i = 0; i < job->controllers.size(); ++i) {
+										CcdPhysicsController *ctrl = job->controllers[i];
+										if (!ctrl) continue;
+										/* Coleta btTriangleMesh do shape antigo antes de substituir. */
+										btCollisionShape *oldShape = ctrl->GetCollisionObject()
+										    ? ctrl->GetCollisionObject()->getCollisionShape()
+										    : nullptr;
+										if (oldShape && oldShape->getShapeType() == SCALED_TRIANGLE_MESH_SHAPE_PROXYTYPE) {
+											btBvhTriangleMeshShape *bvh = static_cast<btBvhTriangleMeshShape *>(
+											    static_cast<btScaledBvhTriangleMeshShape *>(oldShape)->getChildShape());
+											if (bvh) {
+												btStridingMeshInterface *oldMesh = bvh->getMeshInterface();
+												if (oldMesh)
+													m_reinstanceAsync->retiredMeshInterfaces.push_back(oldMesh);
+											}
+										}
+										ctrl->ReplaceControllerShape(job->newShapes[i]);
+										job->newShapes[i] = nullptr;
+										RefreshCcdPhysicsController(ctrl);
+									}
+									job->triangleMesh = nullptr; /* propriedade transferida ao btBvhTriangleMeshShape */
+									committed = true;
 								}
-								ctrl->ReplaceControllerShape(job->newShapes[i]);
-								job->newShapes[i] = nullptr;
-								RefreshCcdPhysicsController(ctrl);
 							}
-							if (oldMeshInterface) {
-								m_reinstanceAsync->retiredMeshInterfaces.push_back(oldMeshInterface);
-								oldMeshInterface = nullptr;
+							else {
+								btTriangleIndexVertexArray *oldMeshInterface = nullptr;
+								ok = job->shapeInfo->ApplyAsyncMesh(
+									job->triangleMesh,
+									std::move(job->polygonIndexArray),
+									std::move(job->triFaceUVcoArray),
+									job->meshobj,
+									job->deformer,
+									&oldMeshInterface);
+	
+								if (ok) {
+									job->triangleMesh = nullptr;
+									for (size_t i = 0; i < job->controllers.size(); ++i) {
+										CcdPhysicsController *ctrl = job->controllers[i];
+										if (!ctrl) continue;
+										ctrl->ReplaceControllerShape(job->newShapes[i]);
+										job->newShapes[i] = nullptr;
+										RefreshCcdPhysicsController(ctrl);
+									}
+									if (oldMeshInterface) {
+										m_reinstanceAsync->retiredMeshInterfaces.push_back(oldMeshInterface);
+										oldMeshInterface = nullptr;
+									}
+									committed = true;
+								}
 							}
-							committed = true;
 						}
-					}
 				}
 			}
 		}
@@ -1022,6 +1061,78 @@ bool CcdPhysicsEnvironment::EnqueueReinstancePhysicsShapeAsync(CcdPhysicsControl
 		delete job;
 		return false;
 	}
+
+	if (!m_reinstanceAsync->inQueue.enqueue(job)) {
+		Py_DECREF(job->callback);
+		job->callback = nullptr;
+		delete job;
+		return false;
+	}
+	m_reinstanceAsync->wakeups.fetch_add(1, std::memory_order_release);
+	m_reinstanceAsync->cv.notify_one();
+
+	return true;
+}
+
+bool CcdPhysicsEnvironment::EnqueueReinstanceMDEIAsync(CcdPhysicsController *requester,
+	                                                      std::vector<float>        cpuVerts,
+	                                                      std::vector<unsigned int> cpuInds,
+	                                                      PyObject *callback)
+{
+	if (!requester || !callback || callback == Py_None || !PyCallable_Check(callback)) {
+		return false;
+	}
+
+	CcdShapeConstructionInfo *shapeInfo = requester->m_shapeInfo;
+	if (!shapeInfo || !ELEM(shapeInfo->m_shapeType, PHY_SHAPE_MESH, PHY_SHAPE_POLYTOPE)) {
+		return false;
+	}
+
+	const int nVerts = (int)(cpuVerts.size() / 3);
+	const int nInds  = (int)cpuInds.size();
+	if (nVerts <= 0 || nInds <= 0 || (nInds % 3) != 0) {
+		return false;
+	}
+
+	StartReinstanceAsyncIfNeeded();
+	if (!m_reinstanceAsync || m_reinstanceAsync->shutdown.load(std::memory_order_acquire)) {
+		return false;
+	}
+
+	/* Monta um ReinstanceJob com um único submesh snapshot MDEI.
+	 * Os vetores cpuVerts e cpuInds são movidos — sem cópia extra. */
+	ReinstanceJob *job = new ReinstanceJob();
+	job->env           = this;
+	job->envGeneration = m_reinstanceGeneration.load(std::memory_order_relaxed);
+	job->shapeInfo     = shapeInfo;
+	job->requester     = requester;   /* FIX: epoch lookup usa job->requester */
+	job->controllers.push_back(requester);
+	job->useGimpact    = requester->GetConstructionInfo().m_bGimpact;
+	job->useBvh        = !requester->GetConstructionInfo().m_bSoft;
+	job->margin        = requester->GetConstructionInfo().m_margin;
+	job->epoch         = ++m_reinstanceAsync->epochs[requester];
+	job->isMDEI        = true;
+	job->callback      = callback;
+	Py_INCREF(callback);
+
+	/* Converte o flat array de floats em mt::vec3_packed para o submesh snapshot. */
+	ReinstanceSubMeshSnapshot sm;
+	sm.polygonStartIndex = 0;
+	sm.positions.resize((size_t)nVerts);
+	for (int i = 0; i < nVerts; ++i) {
+		sm.positions[i].x = cpuVerts[(size_t)i * 3 + 0];
+		sm.positions[i].y = cpuVerts[(size_t)i * 3 + 1];
+		sm.positions[i].z = cpuVerts[(size_t)i * 3 + 2];
+	}
+	sm.triIndices.assign(cpuInds.begin(), cpuInds.end());
+
+	/* UV zerado — MDEI não usa UV para colisão. */
+	sm.triUv.resize((size_t)nInds, {{0.0f, 0.0f}});
+	sm.origIndices.resize((size_t)nVerts);
+	for (int i = 0; i < nVerts; ++i)
+		sm.origIndices[i] = (unsigned int)i;
+
+	job->submeshes.push_back(std::move(sm));
 
 	if (!m_reinstanceAsync->inQueue.enqueue(job)) {
 		Py_DECREF(job->callback);
@@ -4959,8 +5070,26 @@ void CcdPhysicsEnvironment::ConvertObject(BL_SceneConverter& converter, KX_GameO
 			}
 			else {
 				shapeInfo->m_shapeType = PHY_SHAPE_POLYTOPE;
-				// Update from deformer or mesh.
-				shapeInfo->UpdateMesh(gameobj, nullptr);
+				if (!shapeInfo->UpdateMesh(gameobj, nullptr) && gameobj->HasFastRenderFlag()) {
+					/* Objeto MDEI: sem RAS_Mesh.
+					 * Prefere os dados CPU do proxy (já processados para o VBO).
+					 * Fallback para ob->data se o proxy ainda não tiver geometria CPU. */
+					MDEI_ObjectProxy *mdeiProxy = gameobj->GetMdeiProxy();
+					MDEI_Mesh *mdeiMesh = mdeiProxy ? mdeiProxy->mesh : nullptr;
+					if (mdeiMesh &&
+					    !mdeiMesh->m_cpuVerts.empty() &&
+					    !mdeiMesh->m_cpuInds.empty())
+					{
+						shapeInfo->UpdateMeshFromMDEI(
+						    mdeiMesh->m_cpuVerts.data(),
+						    (int)(mdeiMesh->m_cpuVerts.size() / 3),
+						    mdeiMesh->m_cpuInds.data(),
+						    (int)mdeiMesh->m_cpuInds.size());
+					}
+					else {
+						shapeInfo->UpdateMeshFromBlenderObject(blenderobject);
+					}
+				}
 			}
 
 			bm = shapeInfo->CreateBulletShape(ci.m_margin);
@@ -4988,8 +5117,26 @@ void CcdPhysicsEnvironment::ConvertObject(BL_SceneConverter& converter, KX_GameO
 			}
 			else {
 				shapeInfo->m_shapeType = PHY_SHAPE_MESH;
-				// Update from deformer or mesh.
-				shapeInfo->UpdateMesh(gameobj, nullptr);
+				if (!shapeInfo->UpdateMesh(gameobj, nullptr) && gameobj->HasFastRenderFlag()) {
+					/* Objeto MDEI: sem RAS_Mesh.
+					 * Prefere os dados CPU do proxy (já triangulados e prontos para o VBO).
+					 * Fallback para ob->data se o proxy ainda não tiver geometria CPU. */
+					MDEI_ObjectProxy *mdeiProxy = gameobj->GetMdeiProxy();
+					MDEI_Mesh *mdeiMesh = mdeiProxy ? mdeiProxy->mesh : nullptr;
+					if (mdeiMesh &&
+					    !mdeiMesh->m_cpuVerts.empty() &&
+					    !mdeiMesh->m_cpuInds.empty())
+					{
+						shapeInfo->UpdateMeshFromMDEI(
+						    mdeiMesh->m_cpuVerts.data(),
+						    (int)(mdeiMesh->m_cpuVerts.size() / 3),
+						    mdeiMesh->m_cpuInds.data(),
+						    (int)mdeiMesh->m_cpuInds.size());
+					}
+					else {
+						shapeInfo->UpdateMeshFromBlenderObject(blenderobject);
+					}
+				}
 			}
 
 			// Soft bodies can benefit from welding, don't do it on non-soft bodies

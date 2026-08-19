@@ -29,6 +29,8 @@
  *  \ingroup bgerastogl
  */
 
+#include "GPU_glew.h"
+
 #include "RAS_Rasterizer.h"
 #include "RAS_OpenGLRasterizer.h"
 #include "RAS_OpenGLDebugDraw.h"
@@ -923,6 +925,11 @@ const mt::vec3& RAS_Rasterizer::GetCameraPosition()
 bool RAS_Rasterizer::GetCameraOrtho()
 {
 	return m_camortho;
+}
+
+void RAS_Rasterizer::SyncCullFaceFromGL()
+{
+	m_state.cullFace = glIsEnabled(GL_CULL_FACE) ? 1 : 0;
 }
 
 void RAS_Rasterizer::SetCullFace(bool enable)

@@ -48,6 +48,15 @@
 
 #include "BLI_utildefines.h"
 
+/* ── MDEI: acesso direto à geometria Blender para UpdateMeshFromBlenderObject ── */
+#include "DNA_object_types.h"
+#include "DNA_mesh_types.h"
+#include "DNA_meshdata_types.h"
+extern "C" {
+#  include "BKE_mesh.h"
+#  include "MEM_guardedalloc.h"
+}
+
 /// todo: fill all the empty CcdPhysicsController methods, hook them up to the btRigidBody class
 
 //'temporarily' global variables
@@ -2035,6 +2044,152 @@ bool CcdShapeConstructionInfo::UpdateMesh(KX_GameObject *gameobj, RAS_Mesh *mesh
 	m_meshShapeMap[MeshShapeKey(meshobj, deformer, m_shapeType)] = this;
 
 	m_mesh = meshobj;
+
+	return true;
+}
+
+bool CcdShapeConstructionInfo::UpdateMeshFromMDEI(const float *verts, int nVerts,
+                                                   const unsigned int *inds, int nInds)
+{
+	/* Suporte ao reinstance após conversão com placeholder BOX:
+	 * ConvertObject pode ter criado o controller com PHY_SHAPE_BOX quando
+	 * o objeto era MDEI e não tinha mesh ainda. Ao reinstanciar, forçamos
+	 * o tipo correto (MESH) para que a geometria real seja instalada. */
+	if (m_shapeType == PHY_SHAPE_BOX) {
+		m_shapeType = PHY_SHAPE_MESH;
+	}
+	if (!ELEM(m_shapeType, PHY_SHAPE_MESH, PHY_SHAPE_POLYTOPE)) {
+		return false;
+	}
+	if (!verts || nVerts <= 0 || !inds || nInds <= 0) {
+		return false;
+	}
+
+	/* Vértices: cópia direta das posições locais.
+	 * O MDEI não usa origIndex — cada vértice no VBO é único.
+	 * btAlignedObjectArray não tem .data() — usa acesso por índice [i]. */
+	m_vertexArray.resize(nVerts * 3);
+	for (int i = 0; i < nVerts * 3; ++i)
+		m_vertexArray[i] = (btScalar)verts[i];
+
+	/* Remap identidade: vboIndex → physicsIndex é 1:1 no MDEI. */
+	m_vertexRemap.resize((size_t)nVerts);
+	for (int i = 0; i < nVerts; ++i)
+		m_vertexRemap[i] = i;
+
+	if (m_shapeType == PHY_SHAPE_MESH) {
+		const int nTris = nInds / 3;
+		m_triFaceArray.resize((size_t)nInds);
+		m_triFaceUVcoArray.resize((size_t)nInds);
+		m_polygonIndexArray.resize((size_t)nTris);
+
+		for (int t = 0; t < nTris; ++t) {
+			m_polygonIndexArray[t] = t;
+			for (int k = 0; k < 3; ++k) {
+				const int ci = t * 3 + k;
+				m_triFaceArray[ci]  = inds[ci];
+				m_triFaceUVcoArray[ci] = {{0.0f, 0.0f}};
+			}
+		}
+	}
+
+	/* Força reconstrução do btTriangleMesh na próxima chamada de UpdateCcdPhysicsControllerShape. */
+	if (m_triangleIndexVertexArray) {
+		m_forceReInstance = true;
+	}
+
+	/* Remove entradas obsoletas do cache de shapes (sem RAS_Mesh para registrar). */
+	std::vector<MeshShapeKey> keysToRemove;
+	keysToRemove.reserve(m_meshShapeMap.size());
+	for (const auto& kv : m_meshShapeMap) {
+		if (kv.second == this)
+			keysToRemove.push_back(kv.first);
+	}
+	for (const MeshShapeKey& key : keysToRemove)
+		m_meshShapeMap.erase(key);
+
+	/* Não registra em m_meshShapeMap (sem RAS_Mesh key disponível).
+	 * m_mesh fica como estava — não é usado após UpdateMeshFromMDEI. */
+	return true;
+}
+
+bool CcdShapeConstructionInfo::UpdateMeshFromBlenderObject(Object *ob)
+{
+	if (!ELEM(m_shapeType, PHY_SHAPE_MESH, PHY_SHAPE_POLYTOPE)) {
+		return false;
+	}
+	if (!ob || ob->type != OB_MESH || !ob->data) {
+		return false;
+	}
+
+	Mesh *me = static_cast<Mesh *>(ob->data);
+	const int totvert = me->totvert;
+	const int totloop = me->totloop;
+	const int totpoly = me->totpoly;
+	if (totvert == 0 || totloop == 0 || totpoly == 0) {
+		return false;
+	}
+
+	MVert *mverts = me->mvert;
+	MLoop *mloops = me->mloop;
+	MPoly *mpolys = me->mpoly;
+
+	/* Triangula o mesh usando o mesmo método que MDEI_MeshBuilder. */
+	const int ntris = poly_to_tri_count(totpoly, totloop);
+	MLoopTri *tris = (MLoopTri *)MEM_malloc_arrayN(
+	    (size_t)ntris, sizeof(MLoopTri), "ccd_looptri");
+	if (!tris) {
+		return false;
+	}
+	BKE_mesh_recalc_looptri(mloops, mpolys, mverts, totloop, totpoly, tris);
+
+	/* Preenche m_vertexArray com as posições de cada MVert único.
+	 * Para física, não há distinção por UV/normal — usamos apenas posição.
+	 * Todos os nVerts vértices são únicos pelo índice MVert. */
+	m_vertexArray.resize(totvert * 3);
+	m_vertexRemap.resize((size_t)totvert);
+	std::fill(m_vertexRemap.begin(), m_vertexRemap.end(), -1);
+
+	/* Preenche posições e monta remap identidade (MVert[i] → slot i). */
+	for (int i = 0; i < totvert; ++i) {
+		m_vertexArray[i * 3 + 0] = (btScalar)mverts[i].co[0];
+		m_vertexArray[i * 3 + 1] = (btScalar)mverts[i].co[1];
+		m_vertexArray[i * 3 + 2] = (btScalar)mverts[i].co[2];
+		m_vertexRemap[i] = i;
+	}
+
+	if (m_shapeType == PHY_SHAPE_MESH) {
+		m_triFaceArray.resize((size_t)ntris * 3);
+		m_triFaceUVcoArray.resize((size_t)ntris * 3);
+		m_polygonIndexArray.resize((size_t)ntris);
+
+		for (int t = 0; t < ntris; ++t) {
+			m_polygonIndexArray[t] = t;
+			for (int k = 0; k < 3; ++k) {
+				const int ci = t * 3 + k;
+				/* mloops[lt.tri[k]].v = índice do MVert — já é o remap. */
+				m_triFaceArray[ci] = (int)mloops[tris[t].tri[k]].v;
+				m_triFaceUVcoArray[ci] = {{0.0f, 0.0f}};
+			}
+		}
+	}
+
+	MEM_freeN(tris);
+
+	/* Força reconstrução do btTriangleMesh. */
+	if (m_triangleIndexVertexArray) {
+		m_forceReInstance = true;
+	}
+
+	/* Limpa entradas obsoletas do cache. */
+	std::vector<MeshShapeKey> keysToRemove;
+	keysToRemove.reserve(m_meshShapeMap.size());
+	for (const auto& kv : m_meshShapeMap) {
+		if (kv.second == this)
+			keysToRemove.push_back(kv.first);
+	}
+	for (const MeshShapeKey& key : keysToRemove)
+		m_meshShapeMap.erase(key);
 
 	return true;
 }

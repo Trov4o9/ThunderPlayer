@@ -128,6 +128,13 @@ public:
 	mt::vec3 m_aabbMin;
 	mt::vec3 m_aabbMax;
 
+	/** Cópia CPU da geometria de colisão — mantida entre uploads.
+	 *  m_cpuVerts: posições empacotadas [x0,y0,z0, x1,y1,z1, ...]
+	 *  m_cpuInds:  índices dos triângulos (triplas).
+	 *  Liberada por Release() junto com os buffers GL. */
+	std::vector<float>        m_cpuVerts;
+	std::vector<unsigned int> m_cpuInds;
+
 	/* UV metadata */
 	int         m_uvCount;
 	std::string m_uvNames[MDEI_MAX_UV];

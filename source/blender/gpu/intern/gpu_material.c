@@ -1163,6 +1163,55 @@ void GPU_material_bind_to_shader(
 	GPU_viewport_lighting_bind();
 }
 
+/* ── GPU_material_prepare_textures ─────────────────────────────────────────
+ * Versão reduzida de GPU_material_bind_to_shader para shaders customizados
+ * MDEI.  Apenas carrega inp->tex (via GPU_texture_from_blender) nos inputs
+ * do GPUPass original — necessário para que ResolveSlotsThroughPass consiga
+ * ler as texturas dos slots.  Não faz nenhum glUniform* nem glUseProgram.
+ * ──────────────────────────────────────────────────────────────────────── */
+void GPU_material_prepare_textures(GPUMaterial *material,
+                                    int viewlay, double time, int mipmap)
+{
+	if (!material || !material->pass)
+		return;
+
+	/* Lamp layer visibility — mesma lógica da função original, seção 1. */
+	{
+		SceneRenderLayer *srl = NULL;
+		if (material->type == GPU_MATERIAL_TYPE_MESH) {
+			for (LinkData *nlink = material->lamps.first; nlink; nlink = nlink->next) {
+				GPULamp *lamp = nlink->data;
+				if (!(lamp->lay & viewlay) || !GPU_lamp_visible(lamp, srl, material->ma)) {
+					lamp->dynlayer = 0;
+				}
+				else if (!(lamp->mode & LA_LAYER)) {
+					lamp->dynlayer = (1 << 20) - 1;
+				}
+				else {
+					lamp->dynlayer = lamp->lay;
+				}
+			}
+		}
+	}
+
+	/* Carrega inp->tex via GPU_texture_from_blender.
+	 * Isso é o único propósito desta função: preencher os ponteiros de textura
+	 * nos inputs do GPUPass para que ResolveSlotsThroughPass (MDEI) os encontre.
+	 * Nenhum glUniform* é chamado. */
+	{
+		GPUPass  *pass  = material->pass;
+		GPUInput *input;
+		for (input = pass->inputs.first; input; input = input->next) {
+			if (input->ima)
+				input->tex = GPU_texture_from_blender(
+				    input->ima, input->iuser, input->textarget,
+				    input->image_isdata, time, mipmap);
+			else if (input->prv)
+				input->tex = GPU_texture_from_preview(input->prv, mipmap);
+		}
+	}
+}
+
 GPUPass *GPU_material_get_pass(GPUMaterial *material)
 {
 	return material ? material->pass : NULL;

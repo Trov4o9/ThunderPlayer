@@ -7,7 +7,7 @@
  * Active by default as requested.
  * ─────────────────────────────────────────────────────────────────────── */
 #ifndef MDEI_PROXY_DEBUG
-#  define MDEI_PROXY_DEBUG 1
+#  define MDEI_PROXY_DEBUG 0
 #endif
 
 #ifdef WITH_PYTHON
@@ -21,6 +21,7 @@
 
 #include "GPU_glew.h"          /* GLuint, GLuint64, GLEW_ARB_bindless_texture */
 #include "GPU_texture.h"       /* GPUTexture* — needed for setSamplerArrayFromGPUTextures */
+#include "RAS_IMaterial.h"     /* for HasMaterial check */
 
 #include <cstdio>
 #include <cstdint>             /* uintptr_t */
@@ -53,9 +54,13 @@ PyMethodDef KX_MDEI_ShaderProxy::Methods[] = {
 	/* ── classic samplers ─────────────────────────────────────────────── */
 	EXP_PYMETHODTABLE(KX_MDEI_ShaderProxy, setSampler),
 	EXP_PYMETHODTABLE(KX_MDEI_ShaderProxy, setSamplerArray),
+	EXP_PYMETHODTABLE(KX_MDEI_ShaderProxy, setSamplerArrayFromSlots),
 	/* ── bindless samplers ────────────────────────────────────────────── */
 	EXP_PYMETHODTABLE(KX_MDEI_ShaderProxy, setSamplerBindless),
+	EXP_PYMETHODTABLE(KX_MDEI_ShaderProxy, setSamplerBindlessFromId),
+	EXP_PYMETHODTABLE(KX_MDEI_ShaderProxy, setSamplerArrayBindless),
 	EXP_PYMETHODTABLE(KX_MDEI_ShaderProxy, setSamplerArrayFromGPUTextures),
+	EXP_PYMETHODTABLE(KX_MDEI_ShaderProxy, setSamplerArrayBindlessFromSlots),
 	/* ── mipmap control ───────────────────────────────────────────────── */
 	EXP_PYMETHODTABLE(KX_MDEI_ShaderProxy, setMipmapping),
 	EXP_PYMETHODTABLE(KX_MDEI_ShaderProxy, updateMipmappingFilter),
@@ -72,13 +77,17 @@ PyTypeObject KX_MDEI_ShaderProxy::Type = {
 	sizeof(EXP_PyObjectPlus_Proxy),
 	0,
 	py_base_dealloc,
-	0, 0, 0, 0,
+	0,               /* tp_print (deprecated) */
+	0,               /* tp_getattr */
+	0,               /* tp_setattr */
+	0,               /* tp_as_async */
 	py_base_repr,
 	0, 0, 0, 0, 0, 0, 0, 0, 0,
 	Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE,
 	0, 0, 0, 0, 0, 0, 0,
 	Methods,
-	0, 0,
+	0,
+	0,
 	&EXP_Value::Type,
 	0, 0, 0, 0, 0, 0,
 	py_base_new
@@ -130,10 +139,6 @@ EXP_PYMETHODDEF_DOC(KX_MDEI_ShaderProxy, setSource,
 	if (!PyArg_ParseTuple(args, "ss:setSource", &vertSrc, &fragSrc))
 		return nullptr;
 
-#if MDEI_PROXY_DEBUG
-	fprintf(stderr, "[MDEI_ShaderProxy] setSource vert=%zu frag=%zu\n",
-	        vertSrc ? strlen(vertSrc) : 0u, fragSrc ? strlen(fragSrc) : 0u);
-#endif
 	if (vertSrc && vertSrc[0]) m_shader->SetVertexSource(std::string(vertSrc));
 	if (fragSrc && fragSrc[0]) m_shader->SetFragmentSource(std::string(fragSrc));
 	Py_RETURN_NONE;
@@ -410,12 +415,41 @@ EXP_PYMETHODDEF_DOC(KX_MDEI_ShaderProxy, setSampler,
 	Py_RETURN_NONE;
 }
 
+/* ── Helper: parse a Python int-list ─────────────────────────────────────── */
+/* static */ bool KX_MDEI_ShaderProxy::ParseIntList(PyObject *lst,
+                                                     std::vector<int> &out,
+                                                     const char *funcName)
+{
+	if (!PySequence_Check(lst)) {
+		PyErr_Format(PyExc_TypeError, "%s: second argument must be a sequence", funcName);
+		return false;
+	}
+	int count = (int)PySequence_Size(lst);
+	if (count <= 0) {
+		PyErr_Format(PyExc_ValueError, "%s: list is empty", funcName);
+		return false;
+	}
+	out.reserve((size_t)count);
+	for (int i = 0; i < count; i++) {
+		PyObject *item = PySequence_GetItem(lst, i);
+		out.push_back((int)PyLong_AsLong(item));
+		Py_DECREF(item);
+	}
+	if (PyErr_Occurred()) {
+		PyErr_Format(PyExc_TypeError, "%s: list items must be ints", funcName);
+		return false;
+	}
+	return true;
+}
+
 EXP_PYMETHODDEF_DOC(KX_MDEI_ShaderProxy, setSamplerArray,
-"setSamplerArray(name, [glTexId, ...], mipmap=False)\n"
-"Assemble a GL_TEXTURE_2D_ARRAY from plain 2D GL texture ids.\n"
+"setSamplerArray(name, list, mipmap=False)\n"
+"list elements are Blender material slot indices (0-7), resolved lazily\n"
+"via the GPUPass inputs — identical to BL_Shader::setSamplerArray.\n"
+"Resolution is deferred frame-by-frame until textures are loaded.\n"
 "All source textures must have the same resolution.\n"
 "The texture unit is allocated automatically (first free slot >= 8).\n"
-"mipmap: generate mipmaps respecting the global GPU mipmap setting.\n")
+"mipmap: generate mipmaps.\n")
 {
 	MDEI_PROXY_GUARD("setSamplerArray");
 	const char *n;
@@ -424,38 +458,129 @@ EXP_PYMETHODDEF_DOC(KX_MDEI_ShaderProxy, setSamplerArray,
 
 	if (!PyArg_ParseTuple(args, "sO|O:setSamplerArray", &n, &lst, &mipmapObj))
 		return nullptr;
-	if (!PySequence_Check(lst)) {
-		PyErr_SetString(PyExc_TypeError, "setSamplerArray: second argument must be a sequence");
-		return nullptr;
-	}
+
 	bool useMipmap = (PyObject_IsTrue(mipmapObj) == 1);
-	int count = (int)PySequence_Size(lst);
-	if (count <= 0) {
-		PyErr_SetString(PyExc_ValueError, "setSamplerArray: texture list is empty");
+	std::vector<int> intVals;
+	if (!ParseIntList(lst, intVals, "setSamplerArray"))
 		return nullptr;
-	}
-	std::vector<GLuint> ids;
-	ids.reserve((size_t)count);
-	for (int i = 0; i < count; i++) {
-		PyObject *item = PySequence_GetItem(lst, i);
-		ids.push_back((GLuint)PyLong_AsUnsignedLong(item));
-		Py_DECREF(item);
-	}
-	if (PyErr_Occurred()) {
-		PyErr_SetString(PyExc_TypeError, "setSamplerArray: list items must be ints (GL texture ids)");
-		return nullptr;
-	}
+
+	int count = (int)intVals.size();
 #if MDEI_PROXY_DEBUG
 	fprintf(stderr, "[MDEI_ShaderProxy] setSamplerArray '%s' count=%d mipmap=%d\n",
 	        n, count, (int)useMipmap);
 #endif
-	m_shader->SetSamplerArray(n, ids.data(), count, useMipmap);
+	/* Always use slot-based path: resolution happens lazily via m_gpuMat->pass->inputs */
+	m_shader->SetSamplerArrayFromSlots(n, intVals.data(), count, useMipmap);
+	Py_RETURN_NONE;
+}
+
+EXP_PYMETHODDEF_DOC(KX_MDEI_ShaderProxy, setSamplerArrayFromSlots,
+"setSamplerArrayFromSlots(name, [slot, ...], mipmap=False)\n"
+"Explicit slot-based variant: always resolves list elements as Blender\n"
+"material slot indices (0-7), regardless of whether a material reference\n"
+"is available at call time.  The resolution is deferred frame-by-frame\n"
+"until all textures are loaded.\n"
+"Mirrors BL_Shader::setSamplerArray exactly.\n")
+{
+	MDEI_PROXY_GUARD("setSamplerArrayFromSlots");
+	const char *n;
+	PyObject *lst;
+	PyObject *mipmapObj = Py_False;
+	if (!PyArg_ParseTuple(args, "sO|O:setSamplerArrayFromSlots", &n, &lst, &mipmapObj))
+		return nullptr;
+	bool useMipmap = (PyObject_IsTrue(mipmapObj) == 1);
+	std::vector<int> slots;
+	if (!ParseIntList(lst, slots, "setSamplerArrayFromSlots"))
+		return nullptr;
+#if MDEI_PROXY_DEBUG
+	fprintf(stderr, "[MDEI_ShaderProxy] setSamplerArrayFromSlots '%s' count=%d mipmap=%d\n",
+	        n, (int)slots.size(), (int)useMipmap);
+#endif
+	m_shader->SetSamplerArrayFromSlots(n, slots.data(), (int)slots.size(), useMipmap);
 	Py_RETURN_NONE;
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
  * Bindless samplers (GL_ARB_bindless_texture)
  * ══════════════════════════════════════════════════════════════════════════ */
+
+EXP_PYMETHODDEF_DOC(KX_MDEI_ShaderProxy, setSamplerBindlessFromId,
+"setSamplerBindlessFromId(name, glTexId, mipmap=False)\n"
+"Create a bindless handle from a plain GL texture id and upload it.\n"
+"The texture is made resident automatically.\n"
+"glTexId:  raw OpenGL texture id (int).\n"
+"mipmap:   True to generate mipmaps before making the texture resident.\n"
+"Requires GL_ARB_bindless_texture support on the GPU.\n")
+{
+	MDEI_PROXY_GUARD("setSamplerBindlessFromId");
+	const char *n;
+	unsigned int glTex;
+	PyObject *mipmapObj = Py_False;
+	if (!PyArg_ParseTuple(args, "sI|O:setSamplerBindlessFromId", &n, &glTex, &mipmapObj))
+		return nullptr;
+	bool useMipmap = (PyObject_IsTrue(mipmapObj) == 1);
+#if MDEI_PROXY_DEBUG
+	fprintf(stderr, "[MDEI_ShaderProxy] setSamplerBindlessFromId '%s' glTex=%u mipmap=%d\n",
+	        n, glTex, (int)useMipmap);
+#endif
+	m_shader->SetSamplerBindlessFromId(n, (GLuint)glTex, useMipmap);
+	Py_RETURN_NONE;
+}
+
+EXP_PYMETHODDEF_DOC(KX_MDEI_ShaderProxy, setSamplerArrayBindless,
+"setSamplerArrayBindless(name, [glTexId, ...], mipmap=False)\n"
+"Build a GL_TEXTURE_2D_ARRAY from plain GL texture ids and expose it\n"
+"as a bindless handle (uvec2 sampler2DArray uniform).\n"
+"All source textures must share the same resolution.\n"
+"The GL_TEXTURE_2D_ARRAY is owned by the shader and freed on reset.\n"
+"mipmap: generate mipmaps before making the array resident.\n"
+"Requires GL_ARB_bindless_texture support on the GPU.\n")
+{
+	MDEI_PROXY_GUARD("setSamplerArrayBindless");
+	const char *n;
+	PyObject *lst;
+	PyObject *mipmapObj = Py_False;
+	if (!PyArg_ParseTuple(args, "sO|O:setSamplerArrayBindless", &n, &lst, &mipmapObj))
+		return nullptr;
+	bool useMipmap = (PyObject_IsTrue(mipmapObj) == 1);
+	std::vector<int> intVals;
+	if (!ParseIntList(lst, intVals, "setSamplerArrayBindless"))
+		return nullptr;
+	std::vector<GLuint> ids;
+	ids.reserve(intVals.size());
+	for (int v : intVals) ids.push_back((GLuint)v);
+#if MDEI_PROXY_DEBUG
+	fprintf(stderr, "[MDEI_ShaderProxy] setSamplerArrayBindless '%s' count=%d mipmap=%d\n",
+	        n, (int)ids.size(), (int)useMipmap);
+#endif
+	m_shader->SetSamplerArrayBindless(n, ids.data(), (int)ids.size(), useMipmap);
+	Py_RETURN_NONE;
+}
+
+EXP_PYMETHODDEF_DOC(KX_MDEI_ShaderProxy, setSamplerArrayBindlessFromSlots,
+"setSamplerArrayBindlessFromSlots(name, [slot, ...], mipmap=False)\n"
+"Build a GL_TEXTURE_2D_ARRAY from Blender material slot indices and expose\n"
+"via a bindless handle (uvec2 uniform).  Resolves slots via the material\n"
+"reference stored in the MDEI_Shader.\n"
+"Requires GL_ARB_bindless_texture support on the GPU.\n")
+{
+	MDEI_PROXY_GUARD("setSamplerArrayBindlessFromSlots");
+	const char *n;
+	PyObject *lst;
+	PyObject *mipmapObj = Py_False;
+	if (!PyArg_ParseTuple(args, "sO|O:setSamplerArrayBindlessFromSlots", &n, &lst, &mipmapObj))
+		return nullptr;
+	bool useMipmap = (PyObject_IsTrue(mipmapObj) == 1);
+	std::vector<int> slots;
+	if (!ParseIntList(lst, slots, "setSamplerArrayBindlessFromSlots"))
+		return nullptr;
+#if MDEI_PROXY_DEBUG
+	fprintf(stderr, "[MDEI_ShaderProxy] setSamplerArrayBindlessFromSlots '%s' count=%d mipmap=%d\n",
+	        n, (int)slots.size(), (int)useMipmap);
+#endif
+	m_shader->SetSamplerArrayBindlessFromSlots(n, slots.data(), (int)slots.size(), useMipmap);
+	Py_RETURN_NONE;
+}
 
 EXP_PYMETHODDEF_DOC(KX_MDEI_ShaderProxy, setSamplerBindless,
 "setSamplerBindless(name, handle)\n"

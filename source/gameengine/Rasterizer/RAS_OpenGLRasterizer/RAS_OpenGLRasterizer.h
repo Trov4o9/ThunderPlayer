@@ -76,7 +76,6 @@ private:
 		float m_clearColor[4];
 		float m_clearDepth;
 		RAS_Rasterizer::MatrixMode m_matrixMode;
-		int m_shadeModel;
 
 		StateCache() {
 			// Initialize with invalid/default values to force first set
@@ -92,7 +91,6 @@ private:
 			for (int i = 0; i < 4; ++i) m_clearColor[i] = -1.0f;
 			m_clearDepth = -1.0f;
 			m_matrixMode = (RAS_Rasterizer::MatrixMode)-1;
-			m_shadeModel = -1;
 		}
 	} m_cache;
 

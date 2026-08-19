@@ -1801,7 +1801,11 @@ void KX_Scene::RenderBuckets(const std::vector<KX_GameObject *>& objects, RAS_Ra
 {
 	/* ── MDEI fast-path: must run even when the RAS objects list is empty,
 	 * because MDEI objects are not in the physics DBVT / shadow filter. ── */
-	if (m_mdeiRenderer) {
+	if (m_mdeiRenderer && m_mdeiRenderer->HasObjects()) {
+		/* Sincroniza o cache de cull face do rasty com o estado GL real.
+		 * O RAS pode ter deixado GL_CULL_FACE num estado que o cache
+		 * não reflete — o MDEI precisa de um baseline correto. */
+		rasty->SyncCullFaceFromGL();
 		if (drawingMode == RAS_Rasterizer::RAS_SHADOW) {
 			m_mdeiRenderer->RenderShadow(objects, rasty);
 		}
@@ -1874,8 +1878,10 @@ void KX_Scene::RenderSolidBuckets(const std::vector<KX_GameObject *>& objects,
 {
 	/* MDEI must run before the early-out — objects list never contains MDEI
 	 * objects (they are invisible to DBVT culling). */
-	if (m_mdeiRenderer)
+	if (m_mdeiRenderer && m_mdeiRenderer->HasObjects()) {
+		rasty->SyncCullFaceFromGL();
 		m_mdeiRenderer->RenderSolid(objects, rasty);
+	}
 
 	if (objects.empty()) return;
 	for (KX_GameObject *gameobj : objects)

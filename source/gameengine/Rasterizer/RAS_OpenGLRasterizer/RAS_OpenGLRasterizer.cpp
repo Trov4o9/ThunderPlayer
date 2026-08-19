@@ -55,23 +55,23 @@ extern "C" {
 
 // WARNING: Always respect the order from RAS_Rasterizer::EnableBit.
 static const int openGLEnableBitEnums[] = {
-	GL_DEPTH_TEST, // RAS_DEPTH_TEST
-	GL_ALPHA_TEST, // RAS_ALPHA_TEST
-	GL_SCISSOR_TEST, // RAS_SCISSOR_TEST
-	GL_TEXTURE_2D, // RAS_TEXTURE_2D
+	GL_DEPTH_TEST,         // RAS_DEPTH_TEST
+	GL_NONE,               // RAS_ALPHA_TEST  (FFP removed — use discard in shader)
+	GL_SCISSOR_TEST,       // RAS_SCISSOR_TEST
+	GL_TEXTURE_2D,         // RAS_TEXTURE_2D
 	GL_TEXTURE_CUBE_MAP_ARB, // RAS_TEXTURE_CUBE_MAP
-	GL_BLEND, // RAS_BLEND
-	GL_COLOR_MATERIAL, // RAS_COLOR_MATERIAL
-	GL_CULL_FACE, // RAS_CULL_FACE
-	GL_LIGHTING, // RAS_LIGHTING
-	GL_MULTISAMPLE_ARB, // RAS_MULTISAMPLE
-	GL_POLYGON_STIPPLE, // RAS_POLYGON_STIPPLE
+	GL_BLEND,              // RAS_BLEND
+	GL_NONE,               // RAS_COLOR_MATERIAL (FFP removed)
+	GL_CULL_FACE,          // RAS_CULL_FACE
+	GL_NONE,               // RAS_LIGHTING (FFP removed — lighting done in shaders)
+	GL_MULTISAMPLE_ARB,    // RAS_MULTISAMPLE
+	GL_POLYGON_STIPPLE,    // RAS_POLYGON_STIPPLE
 	GL_POLYGON_OFFSET_FILL, // RAS_POLYGON_OFFSET_FILL
 	GL_POLYGON_OFFSET_LINE, // RAS_POLYGON_OFFSET_LINE
-	GL_TEXTURE_GEN_S, // RAS_TEXTURE_GEN_S
-	GL_TEXTURE_GEN_T, // RAS_TEXTURE_GEN_T
-	GL_TEXTURE_GEN_R, // RAS_TEXTURE_GEN_R
-	GL_TEXTURE_GEN_Q // RAS_TEXTURE_GEN_Q
+	GL_NONE,               // RAS_TEXTURE_GEN_S (FFP removed)
+	GL_NONE,               // RAS_TEXTURE_GEN_T (FFP removed)
+	GL_NONE,               // RAS_TEXTURE_GEN_R (FFP removed)
+	GL_NONE                // RAS_TEXTURE_GEN_Q (FFP removed)
 };
 
 // WARNING: Always respect the order from RAS_Rasterizer::DepthFunc.
@@ -184,13 +184,8 @@ RAS_OpenGLRasterizer::~RAS_OpenGLRasterizer()
 
 unsigned short RAS_OpenGLRasterizer::GetNumLights() const
 {
-	int numlights = 0;
-	glGetIntegerv(GL_MAX_LIGHTS, (GLint *)&numlights);
-
-	if (numlights > 8) {
-		return 8;
-	}
-	return numlights;
+	// FFP lighting removed — fixed-function GL_LIGHT slots no longer used.
+	return 0;
 }
 
 void RAS_OpenGLRasterizer::Enable(RAS_Rasterizer::EnableBit bit)
@@ -203,14 +198,14 @@ void RAS_OpenGLRasterizer::Disable(RAS_Rasterizer::EnableBit bit)
 	glDisable(openGLEnableBitEnums[bit]);
 }
 
-void RAS_OpenGLRasterizer::EnableLight(unsigned short count)
+void RAS_OpenGLRasterizer::EnableLight(unsigned short /*count*/)
 {
-	glEnable((GLenum)(GL_LIGHT0 + count));
+	// FFP GL_LIGHT slots removed — lighting is handled in shaders.
 }
 
-void RAS_OpenGLRasterizer::DisableLight(unsigned short count)
+void RAS_OpenGLRasterizer::DisableLight(unsigned short /*count*/)
 {
-	glDisable((GLenum)(GL_LIGHT0 + count));
+	// FFP GL_LIGHT slots removed.
 }
 
 void RAS_OpenGLRasterizer::SetDepthFunc(RAS_Rasterizer::DepthFunc func)
@@ -225,35 +220,27 @@ void RAS_OpenGLRasterizer::SetBlendFunc(RAS_Rasterizer::BlendFunc src, RAS_Raste
 
 void RAS_OpenGLRasterizer::Init()
 {
-	glShadeModel(GL_SMOOTH);
+	// FFP glShadeModel removed — shading model is defined in vertex/fragment shaders.
 }
 
-void RAS_OpenGLRasterizer::SetAmbient(const mt::vec3& amb, float factor)
+void RAS_OpenGLRasterizer::SetAmbient(const mt::vec3& /*amb*/, float /*factor*/)
 {
-	float ambient[] = {amb.x * factor, amb.y * factor, amb.z * factor, 1.0f};
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambient);
+	// FFP glLightModelfv removed — ambient is passed via shader uniform.
 }
 
-void RAS_OpenGLRasterizer::SetFog(short type, float start, float dist, float intensity, const mt::vec3& color)
+void RAS_OpenGLRasterizer::SetFog(short /*type*/, float /*start*/, float /*dist*/, float /*intensity*/, const mt::vec3& /*color*/)
 {
-	float params[4] = {color[0], color[1], color[2], 1.0f};
-	glFogi(GL_FOG_MODE, GL_LINEAR);
-	glFogf(GL_FOG_DENSITY, intensity / 10.0f);
-	glFogf(GL_FOG_START, start);
-	glFogf(GL_FOG_END, start + dist);
-	glFogfv(GL_FOG_COLOR, params);
+	// FFP fog removed — fog is implemented in fragment shaders.
 }
 
 void RAS_OpenGLRasterizer::Exit()
 {
-	if (GLEW_EXT_separate_specular_color || GLEW_VERSION_1_2) {
-		glLightModeli(GL_LIGHT_MODEL_COLOR_CONTROL, GL_SINGLE_COLOR);
-	}
+	// FFP glLightModeli removed.
 }
 
 void RAS_OpenGLRasterizer::BeginFrame()
 {
-	glShadeModel(GL_SMOOTH);
+	// FFP glShadeModel removed.
 }
 
 void RAS_OpenGLRasterizer::SetDepthMask(RAS_Rasterizer::DepthMask depthmask)
@@ -335,31 +322,24 @@ void RAS_OpenGLRasterizer::SetLines(bool enable)
 	}
 }
 
-void RAS_OpenGLRasterizer::SetSpecularity(float specX,
-                                          float specY,
-                                          float specZ,
-                                          float specval)
+void RAS_OpenGLRasterizer::SetSpecularity(float /*specX*/, float /*specY*/, float /*specZ*/, float /*specval*/)
 {
-	GLfloat mat_specular[] = {specX, specY, specZ, specval};
-	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, mat_specular);
+	// FFP glMaterialfv removed — specularity is passed via shader uniform.
 }
 
-void RAS_OpenGLRasterizer::SetShinyness(float shiny)
+void RAS_OpenGLRasterizer::SetShinyness(float /*shiny*/)
 {
-	GLfloat mat_shininess[] = { shiny };
-	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mat_shininess);
+	// FFP glMaterialfv removed — shininess is passed via shader uniform.
 }
 
-void RAS_OpenGLRasterizer::SetDiffuse(float difX, float difY, float difZ, float diffuse)
+void RAS_OpenGLRasterizer::SetDiffuse(float /*difX*/, float /*difY*/, float /*difZ*/, float /*diffuse*/)
 {
-	GLfloat mat_diffuse[] = {difX, difY, difZ, diffuse};
-	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, mat_diffuse);
+	// FFP glMaterialfv removed — diffuse is passed via shader uniform.
 }
 
-void RAS_OpenGLRasterizer::SetEmissive(float eX, float eY, float eZ, float e)
+void RAS_OpenGLRasterizer::SetEmissive(float /*eX*/, float /*eY*/, float /*eZ*/, float /*e*/)
 {
-	GLfloat mat_emit[] = {eX, eY, eZ, e};
-	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, mat_emit);
+	// FFP glMaterialfv removed — emissive is passed via shader uniform.
 }
 
 void RAS_OpenGLRasterizer::SetPolygonOffset(float mult, float add)
@@ -394,9 +374,7 @@ void RAS_OpenGLRasterizer::SetFrontFace(bool ccw)
 
 void RAS_OpenGLRasterizer::EnableLights()
 {
-	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
-	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
-	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, (m_rasterizer->GetCameraOrtho()) ? GL_FALSE : GL_TRUE);
+	// FFP glColorMaterial / glLightModeli removed — lighting state managed in shaders.
 }
 
 void RAS_OpenGLRasterizer::DisableForText()
@@ -428,9 +406,6 @@ void RAS_OpenGLRasterizer::RenderText3D(
     /* Preparação GL */
     m_rasterizer->DisableForText();
     SetFrontFace(true);
-
-    /* Cor */
-    glColor4fv(color);
 
     // BLF state is stored per font id. Caching this with static globals leaks
     // size/matrix/aspect from one font to another and breaks font switching.

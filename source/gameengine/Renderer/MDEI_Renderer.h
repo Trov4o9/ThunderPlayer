@@ -63,6 +63,20 @@ public:
 	 *  Removes from m_registeredObjects and frees the proxy + deformer. */
 	void UnregisterObject(KX_GameObject *gameobj);
 
+	/** Release the GPU geometry (VAO/VBO/EBO) for the MDEI_Mesh owned by
+	 *  this object's proxy, then allocate a fresh empty MDEI_Mesh in its
+	 *  place so the next mdei_update_mesh() can re-upload new geometry.
+	 *  The object remains registered (still in m_registeredObjects and
+	 *  still has a valid proxy + shader); only the vertex/index data is
+	 *  discarded.  Safe to call from Python on the main thread at any time. */
+	void ResetMesh(KX_GameObject *gameobj);
+
+	/** If this object's proxy->mesh still points to a shared (cached) mesh,
+	 *  create a private MDEI_Mesh + dedicated MDEI_DrawGroup for it so that
+	 *  subsequent Upload() calls (mdei_update_mesh) do not corrupt other
+	 *  objects sharing the same Blender mesh.  No-op if already private. */
+	void EnsurePrivateMesh(KX_GameObject *gameobj);
+
 	/** Update the skin deformer for a specific object (called from within
 	 *  update_anim_thread_func while armature obmat is still current). */
 	void UpdateDeformerForObject(KX_GameObject *gameobj);
@@ -77,6 +91,28 @@ public:
 	/** Shadow pass — ignores `objects`, uses m_registeredObjects instead. */
 	void RenderShadow(const std::vector<KX_GameObject *>& objects,
 	                  RAS_Rasterizer *rasty);
+
+	/** Retorna true se há pelo menos um objeto registrado neste renderer.
+	 *  Usado pelos call sites em KX_Scene para evitar o custo de ExecuteDraw
+	 *  (reset de groups, loop de instâncias, uploads GL) em cenas sem MDEI. */
+	bool HasObjects() const { return !m_registeredObjects.empty(); }
+
+	/** Retorna a lista de objetos registrados (para debug). */
+	const std::vector<KX_GameObject *>& GetRegisteredObjects() const
+	    { return m_registeredObjects; }
+
+	/** Aplica o novo nível de filtragem anisotrópica em todos os sampler
+	 *  arrays MDEI já criados, recriando-os com o novo parâmetro.
+	 *  Espelha o que GPU_set_anisotropic + GPU_free_images faz para o RAS:
+	 *  as texturas Blender são liberadas e recriadas com o novo filtro;
+	 *  aqui os GL_TEXTURE_2D_ARRAY MDEI são recriados com o mesmo nível. */
+	void SetAnisotropicFiltering(short level);
+
+	/** Recria todos os sampler arrays MDEI com o novo estado de mipmap.
+	 *  enabled: liga/desliga mipmapping.
+	 *  glFilterType: constante GL_* para GL_TEXTURE_MIN_FILTER (0 = usar
+	 *  GPU_get_mipmap_filter() global, como faz o RAS). */
+	void SetMipmapping(bool enabled, int glFilterType);
 
 private:
 	MDEI_DrawGroup *GetOrCreateGroup(MDEI_Mesh *mesh, MDEI_Shader *shader);
@@ -95,6 +131,9 @@ private:
 	/** Total number of ExecuteDraw calls — used only for debug output. */
 	int m_debugCallCount;
 
+	/** Conta total de vezes que EnsurePrivateMesh criou um mesh privado. */
+	int m_ensurePrivateCount;
+
 	/** All objects that were registered with this renderer.
 	 *  This is the authoritative list used at draw time. */
 	std::vector<KX_GameObject *> m_registeredObjects;
@@ -111,6 +150,7 @@ private:
 	struct ShaderEntry {
 		MDEI_Shader  *shader;
 		GPUMaterial  *gpuMat;
+		bool          cullFace; /* true = GL_CULL_FACE enabled para este material */
 	};
 	std::unordered_map<void *, ShaderEntry> m_shaderCache;
 

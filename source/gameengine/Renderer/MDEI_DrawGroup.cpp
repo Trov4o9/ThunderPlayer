@@ -34,6 +34,9 @@ void MDEI_DrawGroup::WriteInstancesAndCommand(
 		memcpy(dest[i].color,  m_pendingInstances[i].color,  16);
 	}
 
+	/* Pula grupo se o mesh não tem geometria (upload pendente ou após Release) */
+	if (m_mesh->GetIndexCount() == 0 || m_mesh->GetVAO() == 0) return;
+
 	/* One draw command for all instances in this group */
 	DrawElementsIndirectCommand cmd;
 	cmd.count         = (GLuint)m_mesh->GetIndexCount();

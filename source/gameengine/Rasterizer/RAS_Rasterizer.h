@@ -534,6 +534,15 @@ public:
 	 */
 	void SetCullFace(bool enable);
 
+	/** Returns the cached cull face state (true = enabled). */
+	bool GetCullFace() const { return m_state.cullFace != 0; }
+
+	/** Lê o estado real do OpenGL via glIsEnabled(GL_CULL_FACE) e atualiza
+	 *  m_state.cullFace para refletir o estado atual.  Deve ser chamado
+	 *  imediatamente antes de qualquer renderer externo (MDEI) que precise
+	 *  confiar no cache para aplicar o cull correto por material. */
+	void SyncCullFaceFromGL();
+
 	/// Set and enable clip plane.
 	void EnableClipPlane(unsigned short index, const mt::vec4& plane);
 	/// Disable clip plane

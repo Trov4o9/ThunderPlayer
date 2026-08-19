@@ -256,6 +256,12 @@ public:
 
 #ifdef WITH_PYTHON
 	bool EnqueueReinstancePhysicsShapeAsync(CcdPhysicsController *requester, KX_GameObject *from_gameobj, RAS_Mesh *from_meshobj, bool dupli, PyObject *callback);
+	/** Variante MDEI: usa snapshot dos dados CPU (m_cpuVerts / m_cpuInds) já prontos.
+	 *  Não depende de RAS_Mesh — enfileira no mesmo worker thread async. */
+	bool EnqueueReinstanceMDEIAsync(CcdPhysicsController *requester,
+	                                std::vector<float>        cpuVerts,
+	                                std::vector<unsigned int> cpuInds,
+	                                PyObject *callback);
 #endif
 
 	btBroadphaseInterface *GetBroadphase();

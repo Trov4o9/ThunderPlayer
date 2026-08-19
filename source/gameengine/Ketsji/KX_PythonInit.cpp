@@ -109,6 +109,7 @@ extern "C" {
 #include "KX_Scene.h"
 #include "KX_Camera.h"
 #include "KX_Globals.h"
+#include "MDEI_Renderer.h"
 
 #include "KX_NetworkMessageScene.h" //Needed for sendMessage()
 
@@ -1399,7 +1400,16 @@ static PyObject *gPySetAnisotropicFiltering(PyObject *, PyObject *args)
 		return nullptr;
 	}
 
+	/* RAS: libera texturas Blender para que sejam recriadas com o novo filtro. */
 	KX_GetActiveEngine()->GetRasterizer()->SetAnisotropicFiltering(level);
+
+	/* MDEI: recria todos os GL_TEXTURE_2D_ARRAY dos shaders MDEI com o mesmo nível. */
+	KX_Scene *scene = KX_GetActiveScene();
+	if (scene) {
+		MDEI_Renderer *mdeiRend = scene->GetMdeiRenderer();
+		if (mdeiRend)
+			mdeiRend->SetAnisotropicFiltering(level);
+	}
 
 	Py_RETURN_NONE;
 }
@@ -1560,7 +1570,20 @@ static PyObject *gPySetMipmapping(PyObject *, PyObject *args)
 		return nullptr;
 	}
 
+	/* RAS: atualiza estado global GPU + libera texturas Blender. */
 	KX_GetActiveEngine()->GetRasterizer()->SetMipmapping((RAS_Rasterizer::MipmapOption)val);
+
+	/* MDEI: recria todos os GL_TEXTURE_2D_ARRAY com o novo estado.
+	 * glFilterType == 0 → RebuildSamplerArray lê GPU_get_mipmap_filter() global. */
+	KX_Scene *scene = KX_GetActiveScene();
+	if (scene) {
+		MDEI_Renderer *mdeiRend = scene->GetMdeiRenderer();
+		if (mdeiRend) {
+			const bool enabled = (val != RAS_Rasterizer::RAS_MIPMAP_NONE);
+			mdeiRend->SetMipmapping(enabled, 0);
+		}
+	}
+
 	Py_RETURN_NONE;
 }
 

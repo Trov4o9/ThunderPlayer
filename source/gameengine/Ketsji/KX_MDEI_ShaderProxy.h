@@ -27,6 +27,12 @@
  *   setSamplerBindless(name, handle)
  *       Upload a 64-bit bindless handle to the named sampler uniform.
  *       Mirrors BL_Shader.setSampler / KX_BlenderMaterial::ApplyTextures().
+ *   setSamplerBindlessFromId(name, glTexId, mipmap=False)
+ *       Create a resident bindless handle from a raw GL texture id.
+ *       The texture is made resident automatically; no manual handle needed.
+ *   setSamplerArrayBindless(name, [glTexId,...], mipmap=False)
+ *       Build a GL_TEXTURE_2D_ARRAY from plain GL ids, make it bindless.
+ *       The array is owned by the shader and released on destroy / reset.
  *   setSamplerArrayFromGPUTextures(name, [gpuTexPtr,...], mipmap=False)
  *       Build a GL_TEXTURE_2D_ARRAY from GPUTexture* pointers (passed as
  *       Python ints = ctypes.cast pointer); unit allocated automatically.
@@ -86,11 +92,21 @@ public:
 
 	/* ── Classic samplers ────────────────────────────────────────────── */
 	EXP_PYMETHOD_DOC(KX_MDEI_ShaderProxy, setSampler);
+	/** setSamplerArray(name, list, mipmap=False)
+	 *  Accepts either:
+	 *   • Blender material slot indices [0,1,2] (same as RAS BL_Shader) when
+	 *     the underlying MDEI_Shader has a material reference (set via
+	 *     MDEI_Shader::SetMaterial), OR
+	 *   • Raw GL texture ids when no material reference is available. */
 	EXP_PYMETHOD_DOC(KX_MDEI_ShaderProxy, setSamplerArray);
+	EXP_PYMETHOD_DOC(KX_MDEI_ShaderProxy, setSamplerArrayFromSlots);
 
 	/* ── Bindless samplers ───────────────────────────────────────────── */
 	EXP_PYMETHOD_DOC(KX_MDEI_ShaderProxy, setSamplerBindless);
+	EXP_PYMETHOD_DOC(KX_MDEI_ShaderProxy, setSamplerBindlessFromId);
+	EXP_PYMETHOD_DOC(KX_MDEI_ShaderProxy, setSamplerArrayBindless);
 	EXP_PYMETHOD_DOC(KX_MDEI_ShaderProxy, setSamplerArrayFromGPUTextures);
+	EXP_PYMETHOD_DOC(KX_MDEI_ShaderProxy, setSamplerArrayBindlessFromSlots);
 
 	/* ── Mipmap control ──────────────────────────────────────────────── */
 	EXP_PYMETHOD_DOC(KX_MDEI_ShaderProxy, setMipmapping);
@@ -98,6 +114,9 @@ public:
 
 private:
 	MDEI_Shader *m_shader;  /* not owned — owned by MDEI_Renderer */
+
+	/* ── Helper: parse a Python list into a vector of ints ──────────── */
+	static bool ParseIntList(PyObject *lst, std::vector<int> &out, const char *funcName);
 };
 
 #endif /* WITH_PYTHON */

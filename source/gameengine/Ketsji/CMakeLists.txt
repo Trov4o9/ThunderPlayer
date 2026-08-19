@@ -125,6 +125,7 @@ set(SRC
 	KX_MaterialIpoController.cpp
 	KX_MeshBuilder.cpp
 	KX_Mesh.cpp
+	KX_MDEI_ShaderProxy.cpp
 	KX_MotionState.cpp
 	KX_MouseActuator.cpp
 	KX_MouseFocusSensor.cpp
@@ -211,6 +212,7 @@ set(SRC
 	KX_MaterialIpoController.h
 	KX_MeshBuilder.h
 	KX_Mesh.h
+	KX_MDEI_ShaderProxy.h
 	KX_MotionState.h
 	KX_MouseActuator.h
 	KX_MouseFocusSensor.h

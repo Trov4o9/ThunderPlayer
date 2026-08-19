@@ -64,92 +64,10 @@ RAS_OpenGLLight::~RAS_OpenGLLight()
 	}
 }
 
-bool RAS_OpenGLLight::ApplyFixedFunctionLighting(KX_Scene *kxscene, int oblayer, int slot)
+bool RAS_OpenGLLight::ApplyFixedFunctionLighting(KX_Scene * /*kxscene*/, int /*oblayer*/, int /*slot*/)
 {
-    // Early layer/scene checks
-    KX_Scene *lightscene = static_cast<KX_Scene*>(m_scene);
-    if (!(m_layer & oblayer))
-        return false;
-
-    int scenelayer = ~0;
-    if (kxscene && kxscene->GetBlenderScene())
-        scenelayer = kxscene->GetBlenderScene()->lay;
-
-    if (kxscene != lightscene || !(m_layer & scenelayer))
-        return false;
-
-    KX_LightObject *kxlight = static_cast<KX_LightObject*>(m_light);
-    const mt::mat3x4& worldmat = kxlight->NodeGetWorldTransform();
-
-    float worldtrans[12];
-    for (int row = 0; row < 3; ++row) {
-        for (int col = 0; col < 4; ++col) {
-            worldtrans[col + row * 4] = worldmat(row, col);
-        }
-    }
-
-    float vec[4] = {0,0,0,0};
-
-    if (m_type == RAS_ILightObject::LIGHT_SUN) {
-        // Direção do sol (sun light)
-        vec[0] = worldtrans[2];   // col 2
-        vec[1] = worldtrans[6];
-        vec[2] = worldtrans[10];
-        vec[3] = 0.0f;
-        glLightfv(GL_LIGHT0 + slot, GL_POSITION, vec);
-    }
-    else {
-        // Posição da luz pontual ou spot
-        vec[0] = worldtrans[3];   // col 3
-        vec[1] = worldtrans[7];
-        vec[2] = worldtrans[11];
-        vec[3] = 1.0f;
-        glLightfv(GL_LIGHT0 + slot, GL_POSITION, vec);
-
-        // Atenuação
-        glLightf(GL_LIGHT0 + slot, GL_CONSTANT_ATTENUATION, 1.0f);
-        glLightf(GL_LIGHT0 + slot, GL_LINEAR_ATTENUATION, m_att1 / m_distance);
-        glLightf(GL_LIGHT0 + slot, GL_QUADRATIC_ATTENUATION, m_att2 / (m_distance * m_distance));
-
-        if (m_type == RAS_ILightObject::LIGHT_SPOT) {
-            // Direção do spot
-            vec[0] = -worldtrans[2];
-            vec[1] = -worldtrans[6];
-            vec[2] = -worldtrans[10];
-            glLightfv(GL_LIGHT0 + slot, GL_SPOT_DIRECTION, vec);
-            glLightf(GL_LIGHT0 + slot, GL_SPOT_CUTOFF, m_spotsize / 2.0f);
-            glLightf(GL_LIGHT0 + slot, GL_SPOT_EXPONENT, 128.0f * m_spotblend);
-        } else {
-            glLightf(GL_LIGHT0 + slot, GL_SPOT_CUTOFF, 180.0f);
-        }
-    }
-
-    // Diffuse
-    float diffuse[4] = {0,0,0,0};
-    if (!m_nodiffuse) {
-        diffuse[0] = m_energy * m_color[0];
-        diffuse[1] = m_energy * m_color[1];
-        diffuse[2] = m_energy * m_color[2];
-        diffuse[3] = 1.0f;
-    }
-    glLightfv(GL_LIGHT0 + slot, GL_DIFFUSE, diffuse);
-
-    // Specular
-    float specular[4] = {0,0,0,0};
-    if (!m_nospecular) {
-        if (m_nodiffuse) {
-            specular[0] = m_energy * m_color[0];
-            specular[1] = m_energy * m_color[1];
-            specular[2] = m_energy * m_color[2];
-            specular[3] = 1.0f;
-        } else {
-            for (int i = 0; i < 4; ++i) specular[i] = diffuse[i];
-        }
-    }
-    glLightfv(GL_LIGHT0 + slot, GL_SPECULAR, specular);
-
-    glEnable(GL_LIGHT0 + slot);
-    return true;
+	// FFP GL_LIGHT* slots removed — light data is passed via shader UBO/SSBO.
+	return false;
 }
 
 GPULamp *RAS_OpenGLLight::GetGPULamp()

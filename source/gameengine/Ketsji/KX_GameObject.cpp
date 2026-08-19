@@ -66,6 +66,7 @@
 #include "RAS_Mesh.h"
 #include "RAS_MeshMaterial.h"
 #include "RAS_MaterialBucket.h"
+#include "RAS_IMaterial.h"
 #include "RAS_MeshUser.h"
 #include "RAS_BatchGroup.h"
 #include "RAS_BoundingBoxManager.h"
@@ -109,6 +110,13 @@ extern "C" {
 #include "GPU_glew.h"
 #include "GPU_draw.h"
 #include "GPU_texture.h"
+
+#include "MDEI_ObjectProxy.h"
+#include "MDEI_Mesh.h"
+#include "MDEI_DrawGroup.h"
+#include "MDEI_Renderer.h"
+#include "MDEI_Shader.h"
+#include "KX_MDEI_ShaderProxy.h"
 
 #include "BL_BlenderDataConversion.h" // For BL_ConvertDeformer.
 #include "BL_ConvertObjectInfo.h"
@@ -164,6 +172,8 @@ KX_GameObject::KX_GameObject(void *sgReplicationInfo,
 	m_meshUser(nullptr),
 	m_mdeiProxy(nullptr),
 	m_fastRender(false),
+	m_mdeiShaderProxy(nullptr),
+	m_mdeiShaderDbgPrinted(false),
 	m_convertInfo(nullptr),
 	m_objectColor(mt::one4),
 	m_bVisible(true),
@@ -205,6 +215,8 @@ KX_GameObject::KX_GameObject(const KX_GameObject& other)
 	m_meshUser(nullptr),
 	m_mdeiProxy(nullptr),
 	m_fastRender(false),
+	m_mdeiShaderProxy(nullptr),
+	m_mdeiShaderDbgPrinted(false),
 	m_convertInfo(other.m_convertInfo),
 	m_objectColor(other.m_objectColor),
 	m_bVisible(other.m_bVisible),
@@ -254,6 +266,11 @@ KX_GameObject::KX_GameObject(const KX_GameObject& other)
 KX_GameObject::~KX_GameObject()
 {
 #ifdef WITH_PYTHON
+	// Libera o shader proxy MDEI se foi criado (Release() decrementa refcount EXP_Value)
+	if (m_mdeiShaderProxy) {
+		m_mdeiShaderProxy->Release();
+		m_mdeiShaderProxy = nullptr;
+	}
 	KX_SNR_ClearCachesForOwner(this, true);
 	if (m_attr_dict) {
 		PyDict_Clear(m_attr_dict); /* in case of circular refs or other weird cases */
@@ -2228,6 +2245,8 @@ PyMethodDef KX_GameObject::Methods[] = {
 	{"rebuild_voxel_mesh", (PyCFunction)KX_GameObject::sPyRebuildVoxelMesh, METH_VARARGS, (char *)KX_GameObject::RebuildVoxelMesh_doc},
 	{"surface_nets_and_rebuild", (PyCFunction)KX_GameObject::sPySurfaceNetsAndRebuild, METH_VARARGS, (char *)KX_GameObject::SurfaceNetsAndRebuild_doc},
 	{"finalize_surface_nets_mesh", (PyCFunction)KX_GameObject::sPyFinalizeSurfaceNetsMesh, METH_VARARGS, (char *)KX_GameObject::FinalizeSurfaceNetsMesh_doc},
+	{"mdei_update_mesh", (PyCFunction)KX_GameObject::sPyMDEIUpdateMesh, METH_VARARGS, (char *)"mdei_update_mesh(capsule)\nUpdate MDEI object geometry from a surface_nets_and_rebuild capsule.\nOnly valid on objects with isMDEI == True."},
+	{"mdei_remove_mesh", (PyCFunction)KX_GameObject::sPyMDEIRemoveMesh, METH_NOARGS,  (char *)"mdei_remove_mesh()\nRelease GPU geometry (VAO/VBO/EBO) of this MDEI object.\nNo-op on RAS objects."},
 	{"enableGrass", (PyCFunction)KX_GameObject::sPyEnableGrass, METH_VARARGS, (char *)KX_GameObject::EnableGrass_doc},
     {"disableGrass", (PyCFunction)KX_GameObject::sPyDisableGrass, METH_VARARGS, (char *)KX_GameObject::DisableGrass_doc},
 	{"getVisibleTerrainVertices", (PyCFunction)gPyGetVisibleTerrainVertices, METH_NOARGS},
@@ -2432,6 +2451,9 @@ PyAttributeDef KX_GameObject::Attributes[] = {
 	EXP_PYATTRIBUTE_RO_FUNCTION("actuators",        KX_GameObject, pyattr_get_actuators),
 	/* batch-update id — assigned by KX_Scene on object creation */
 	EXP_PYATTRIBUTE_RO_FUNCTION("objectId",     KX_GameObject, pyattr_get_objectId),
+	/* MDEI fast-path detection and shader access */
+	EXP_PYATTRIBUTE_RO_FUNCTION("isMDEI",       KX_GameObject, pyattr_get_is_mdei),
+	EXP_PYATTRIBUTE_RO_FUNCTION("mdeiShader",   KX_GameObject, pyattr_get_mdei_shader),
 	EXP_PYATTRIBUTE_NULL //Sentinel
 };
 
@@ -2441,6 +2463,187 @@ PyObject *KX_GameObject::pyattr_get_objectId(EXP_PyObjectPlus *self_v,
 {
 	KX_GameObject *self = static_cast<KX_GameObject *>(self_v);
 	return PyLong_FromUnsignedLong((unsigned long)self->m_objectId);
+}
+
+/* ── isMDEI — True se o objeto usa o pipeline MDEI (OB_FAST_RENDER) ─────── */
+PyObject *KX_GameObject::pyattr_get_is_mdei(EXP_PyObjectPlus *self_v,
+	                                          const EXP_PYATTRIBUTE_DEF * /*attrdef*/)
+{
+	KX_GameObject *self = static_cast<KX_GameObject *>(self_v);
+	return PyBool_FromLong(self->m_fastRender ? 1 : 0);
+}
+
+/* ── mdeiShader — KX_MDEI_ShaderProxy do objeto, ou None se RAS ─────────── */
+// Criado on-demand na primeira chamada; reutilizado nas seguintes.
+// Ownership: m_mdeiShaderProxy tem AddRef() aqui, Release() no destrutor do KX_GameObject.
+//
+// Ao criar o proxy, injeta também o RAS_IMaterial do objeto no MDEI_Shader
+// para que SetSamplerArrayFromSlots possa resolver slot 0-7 → GL texture id,
+// exatamente como BL_Shader::ApplyTextures faz no caminho RAS.
+// O material é obtido via m_meshes[0] → GetMeshMaterialList()[0] → GetBucket() → GetMaterial(),
+// caminho que funciona mesmo sem pipeline RAS ativo (mesh Blender original permanece).
+PyObject *KX_GameObject::pyattr_get_mdei_shader(EXP_PyObjectPlus *self_v,
+	                                              const EXP_PYATTRIBUTE_DEF * /*attrdef*/)
+{
+	KX_GameObject *self = static_cast<KX_GameObject *>(self_v);
+	if (!self->m_fastRender || !self->m_mdeiProxy || !self->m_mdeiProxy->group) {
+		Py_RETURN_NONE;
+	}
+	MDEI_Shader *shader = self->m_mdeiProxy->group->GetShader();
+	if (!shader) {
+		Py_RETURN_NONE;
+	}
+
+	// Cria o wrapper Python on-demand e mantém referência no objeto.
+	if (!self->m_mdeiShaderProxy) {
+		self->m_mdeiShaderProxy = new KX_MDEI_ShaderProxy(shader);
+		self->m_mdeiShaderProxy->AddRef();
+	}
+	else {
+		/* Se o grupo trocou de shader (após EnsurePrivateMesh), atualiza o proxy */
+		MDEI_Shader *proxyCurrent = self->m_mdeiShaderProxy->GetShader();
+		if (proxyCurrent != shader) {
+			self->m_mdeiShaderProxy->SetShader(shader);
+		}
+	}
+
+	// Injeta o RAS_IMaterial no MDEI_Shader para resolução de slots Blender → GL id.
+	if (!shader->GetMaterial() && !self->m_meshes.empty()) {
+		KX_Mesh *kxMesh = self->m_meshes.front();
+		if (kxMesh) {
+			const auto &matList = kxMesh->GetMeshMaterialList();
+			if (!matList.empty()) {
+				RAS_MeshMaterial *mm = matList[0];
+				if (mm && mm->GetBucket()) {
+					RAS_IMaterial *mat = mm->GetBucket()->GetMaterial();
+					if (mat) {
+						shader->SetMaterial(mat);
+					}
+				}
+			}
+		}
+	}
+
+	return self->m_mdeiShaderProxy->GetProxy();
+}
+
+// KX_SurfaceNetsMeshData — transporta geometria bruta entre a thread worker e a main thread.
+//
+// Dois caminhos:
+//   RAS  → displayArray preenchido, campos MDEI zerados.
+//   MDEI → mdeiVerts/mdeiInds preenchidos diretamente, displayArray == nullptr.
+//
+// O destrutor do PyCapsule deleta apenas o displayArray (se não for nullptr); os
+// vetores MDEI são liberados automaticamente pelo destrutor do struct.
+struct KX_SurfaceNetsMeshData {
+    // ── Caminho RAS ──────────────────────────────────────────────────────
+    RAS_DisplayArray   *displayArray  = nullptr;
+    KX_Scene           *scene         = nullptr;
+    KX_BlenderMaterial *material      = nullptr;
+    RAS_BucketManager  *bucketManager = nullptr;
+    RAS_Mesh::LayersInfo layersInfo;
+    // ── Caminho MDEI ─────────────────────────────────────────────────────
+    std::vector<MDEI_Vertex>       mdeiVerts;   // vazio se caminho RAS
+    std::vector<unsigned int>      mdeiInds;    // vazio se caminho RAS
+    int                            mdeiUvCount = 1;
+};
+
+/* ── mdei_update_mesh — atualiza geometria MDEI a partir de um capsule ───── */
+// Recebe o capsule com dados MDEI nativos (mdeiVerts/mdeiInds) produzidos
+// diretamente pelo caminho MDEI em PySurfaceNetsAndRebuild — sem RAS_DisplayArray.
+EXP_PYMETHODDEF_DOC(KX_GameObject, MDEIUpdateMesh,
+	"mdei_update_mesh(capsule) -> None\n"
+	"Update MDEI object geometry from a surface_nets_and_rebuild() capsule.\n"
+	"Only valid on objects with isMDEI == True. The capsule is consumed.\n")
+{
+	PyObject *capsule;
+	if (!PyArg_ParseTuple(args, "O!:mdei_update_mesh", &PyCapsule_Type, &capsule)) {
+		return nullptr;
+	}
+	if (!m_fastRender || !m_mdeiProxy || !m_mdeiProxy->mesh) {
+		PyErr_SetString(PyExc_RuntimeError,
+			"mdei_update_mesh: object is not an MDEI object (isMDEI is False)");
+		return nullptr;
+	}
+
+	KX_SurfaceNetsMeshData *data = static_cast<KX_SurfaceNetsMeshData *>(
+		PyCapsule_GetPointer(capsule, "SurfaceNetsMeshData"));
+	if (!data) {
+		return nullptr;
+	}
+
+	if (data->mdeiVerts.empty()) {
+		PyErr_SetString(PyExc_RuntimeError,
+			"mdei_update_mesh: capsule has no MDEI vertex data "
+			"(was this capsule produced by an MDEI object?)");
+		return nullptr;
+	}
+
+	// Privatiza o mesh se ainda é compartilhado no cache do renderer.
+	{
+		KX_Scene *scene_chk = GetScene();
+		MDEI_Renderer *renderer_chk = scene_chk ? scene_chk->GetMdeiRenderer() : nullptr;
+		if (renderer_chk) {
+			renderer_chk->EnsurePrivateMesh(this);
+		}
+	}
+
+	// Se o mesh privado já tem geometria de um upload anterior, libera os
+	// buffers GL antes de re-enviar.  Sem esse Release, a segunda chamada
+	// a mdei_update_mesh vazaria VAO/VBO/EBO e deixaria o VAO antigo ligado
+	// ao DrawGroup — causando que todos os chunks renderizassem a mesma
+	// geometria do primeiro upload.
+	{
+		MDEI_Mesh *cur = m_mdeiProxy->mesh;
+		if (cur->GetVAO() != 0 || cur->GetVBO() != 0 || cur->GetEBO() != 0) {
+			cur->Release();
+		}
+	}
+
+	std::string uv_names[MDEI_MAX_UV];
+	uv_names[0] = "UVMap";
+
+	m_mdeiProxy->mesh->Upload(data->mdeiVerts, data->mdeiInds,
+		data->mdeiUvCount, uv_names, /*activeUv=*/0);
+
+	// Atualiza o AABB do culling node com os limites da nova geometria.
+	GetCullingNode().GetAabb().Set(m_mdeiProxy->mesh->m_aabbMin,
+	                               m_mdeiProxy->mesh->m_aabbMax);
+
+	// Consome o capsule.
+	PyCapsule_SetDestructor(capsule, nullptr);
+	delete data;
+
+	Py_RETURN_NONE;
+}
+
+/* ── mdei_remove_mesh — libera geometria GPU do objeto MDEI ──────────────── */
+// Chama MDEI_Renderer::ResetMesh(), que faz Release() no MDEI_Mesh atual e
+// instancia um novo MDEI_Mesh vazio.  O objeto permanece registrado no renderer
+// (proxy e shader intactos).  Útil no dispose() de componentes procedurais para
+// liberar VRAM antes que o objeto seja destruído.
+EXP_PYMETHODDEF_DOC_NOARGS(KX_GameObject, MDEIRemoveMesh,
+	"mdei_remove_mesh() -> None\n"
+	"Release the GPU geometry (VAO/VBO/EBO) held by this MDEI object.\n"
+	"The object stays registered in the renderer; call mdei_update_mesh()\n"
+	"afterwards to upload new geometry.  No-op on non-MDEI objects.\n")
+{
+	if (!m_fastRender || !m_mdeiProxy) {
+		// Objeto RAS ou sem proxy: no-op silencioso.
+		Py_RETURN_NONE;
+	}
+	KX_Scene *scene = GetScene();
+	if (!scene) {
+		PyErr_SetString(PyExc_RuntimeError, "mdei_remove_mesh: object has no scene");
+		return nullptr;
+	}
+	MDEI_Renderer *renderer = scene->GetMdeiRenderer();
+	if (!renderer) {
+		PyErr_SetString(PyExc_RuntimeError, "mdei_remove_mesh: scene has no MDEI renderer");
+		return nullptr;
+	}
+	renderer->ResetMesh(this);
+	Py_RETURN_NONE;
 }
 
 
@@ -2645,6 +2848,18 @@ PyObject *KX_GameObject::PySetMipmapping(PyObject *args)
 	GPU_set_mipmap(NULL, old_domipmap);
 	GPU_set_linear_mipmap(old_linearmipmap);
 
+	/* ── Caminho MDEI: aplica mipmap no shader do objeto se for MDEI ──────
+	 * Para o objeto MDEI, o shader possui seus próprios GL_TEXTURE_2D_ARRAY.
+	 * Não há slot específico neste método (afeta todas as texturas do material).
+	 * O filtro GL 0 significa "usar GPU_get_mipmap_filter() global" — igual ao
+	 * estado que acabamos de restaurar acima. */
+	if (m_fastRender && m_mdeiProxy) {
+		MDEI_DrawGroup *g = m_mdeiProxy->group;
+		MDEI_Shader *sh = g ? g->GetShader() : nullptr;
+		if (sh)
+			sh->SetMipmapping(new_domipmap, 0);
+	}
+
 	Py_RETURN_NONE;
 }
 
@@ -2736,6 +2951,25 @@ PyObject *KX_GameObject::PyUpdateMipmappingFilter(PyObject *args)
 		GPU_set_mipmap_filter((GPU_MipmapFilter)((old_filter + 1) & 3));
 	}
 	GPU_set_mipmap_filter(old_filter);
+
+	/* ── Caminho MDEI: aplica o filtro no shader do objeto ────────────────
+	 * Mapeia mode→GL_MIN_FILTER e passa para UpdateMipmappingFilter no shader.
+	 * slot: -1 = todas as texturas do material, >= 0 = sampler array nesse índice. */
+	if (m_fastRender && m_mdeiProxy) {
+		MDEI_DrawGroup *g = m_mdeiProxy->group;
+		MDEI_Shader *sh = g ? g->GetShader() : nullptr;
+		if (sh) {
+			/* Mesmo mapeamento mode→GL que o RAS usa internamente */
+			static const GLenum kModeGL[5] = {
+				GL_LINEAR_MIPMAP_LINEAR,    /* 0 — linear trilinear */
+				GL_LINEAR,                  /* 1 — sem mipmap       */
+				GL_LINEAR_MIPMAP_NEAREST,   /* 2 — bilinear         */
+				GL_NEAREST_MIPMAP_NEAREST,  /* 3 — nearest          */
+				GL_NEAREST_MIPMAP_LINEAR,   /* 4 — nearest mipmap   */
+			};
+			sh->UpdateMipmappingFilter((int)kModeGL[mode], slot);
+		}
+	}
 
 	Py_RETURN_NONE;
 }
@@ -2854,6 +3088,74 @@ PyObject *KX_GameObject::PyEndObject()
 
 PyObject *KX_GameObject::PyReinstancePhysicsMesh(PyObject *args, PyObject *kwds)
 {
+	/* ── Caminho MDEI: intercept antes de parsear args Python ────────────
+	 * Se o objeto usa o pipeline MDEI, a geometria de colisão está na
+	 * cópia CPU do MDEI_Mesh (m_cpuVerts / m_cpuInds), não em RAS_Mesh.
+	 * Se um callback for fornecido, delega ao worker thread async para não
+	 * bloquear o game loop (btBvhTriangleMeshShape pode ser custoso).
+	 * Sem callback: atualização síncrona imediata (comportamento anterior). */
+	if (m_fastRender && m_mdeiProxy && m_mdeiProxy->mesh) {
+		MDEI_Mesh *mdeiMesh = m_mdeiProxy->mesh;
+		if (!mdeiMesh->m_cpuVerts.empty() && !mdeiMesh->m_cpuInds.empty()) {
+			CcdPhysicsController *ccd =
+			    dynamic_cast<CcdPhysicsController *>(m_physicsController.get());
+
+			/* ── Caminho async: callback fornecido ────────────────────── */
+			PyObject *callback_fast = nullptr;
+			{
+				/* Peek do argumento callback sem consumir o tuple completo.
+				 * Usa array estático para compatibilidade MSVC (sem C99 VLA). */
+				static char kw_go[]  = "gameObject";
+				static char kw_ms[]  = "meshObject";
+				static char kw_du[]  = "dupli";
+				static char kw_cb[]  = "callback";
+				static char *kws_peek[] = { kw_go, kw_ms, kw_du, kw_cb, nullptr };
+				PyObject *tmp_cb = nullptr;
+				PyObject *tmp_go = nullptr;
+				PyObject *tmp_ms = nullptr;
+				int tmp_du = 0;
+				if (PyArg_ParseTupleAndKeywords(
+				        args, kwds, "|OOiO:reinstancePhysicsMesh",
+				        kws_peek,
+				        &tmp_go, &tmp_ms, &tmp_du, &tmp_cb) &&
+				    tmp_cb && tmp_cb != Py_None && PyCallable_Check(tmp_cb))
+				{
+					callback_fast = tmp_cb;
+				}
+				PyErr_Clear(); /* limpa erros do peek acima */
+			}
+
+			if (callback_fast && ccd) {
+				CcdPhysicsEnvironment *env = ccd->GetPhysicsEnvironment();
+				if (env && env->EnqueueReinstanceMDEIAsync(
+				               ccd,
+				               mdeiMesh->m_cpuVerts,
+				               mdeiMesh->m_cpuInds,
+				               callback_fast))
+				{
+					Py_RETURN_TRUE;
+				}
+				Py_RETURN_FALSE;
+			}
+
+			/* ── Caminho síncrono (sem callback) ──────────────────────── */
+			CcdShapeConstructionInfo *shapeInfo = ccd ? ccd->GetShapeInfo() : nullptr;
+			if (shapeInfo) {
+				const int nVerts = (int)(mdeiMesh->m_cpuVerts.size() / 3);
+				const int nInds  = (int)mdeiMesh->m_cpuInds.size();
+				if (shapeInfo->UpdateMeshFromMDEI(
+				        mdeiMesh->m_cpuVerts.data(), nVerts,
+				        mdeiMesh->m_cpuInds.data(),  nInds))
+				{
+					ccd->GetPhysicsEnvironment()
+					    ->UpdateCcdPhysicsControllerShape(shapeInfo);
+					Py_RETURN_TRUE;
+				}
+			}
+		}
+		Py_RETURN_FALSE;
+	}
+
 	KX_GameObject *gameobj = nullptr;
 	KX_Mesh *mesh = nullptr;
 	SCA_LogicManager *logicmgr = GetScene()->GetLogicManager();
@@ -7977,15 +8279,8 @@ static void KX_SNR_ClearCachesForOwner(KX_GameObject *owner, bool releaseNow)
 #define KX_SNR_TIMING 0
 #define KX_SNR_SEAM_DEBUG 0
 
-// OPT-12: struct compartilhada entre PySurfaceNetsAndRebuild e PyFinalizeSurfaceNetsMesh.
-// Definida em escopo de arquivo para que ambas as funções usem o mesmo tipo sem duplicação.
-struct KX_SurfaceNetsMeshData {
-    RAS_DisplayArray *displayArray;
-    KX_Scene *scene;
-    KX_BlenderMaterial *material;
-    RAS_BucketManager *bucketManager;
-    RAS_Mesh::LayersInfo layersInfo;
-};
+// OPT-12: KX_SurfaceNetsMeshData agora é definida antes de MDEIUpdateMesh
+// (~linha 2492) para que ambas as funções usem o mesmo tipo sem duplicação.
 
 PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
 {
@@ -8365,6 +8660,7 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
     KX_BlenderMaterial *srcMaterialCopy_pre = (srcMat_pre && srcMat_pre->GetBucket()) ? static_cast<KX_BlenderMaterial *>(srcMat_pre->GetBucket()->GetMaterial()) : nullptr;
     const RAS_Mesh::LayersInfo layersInfoCopy_pre = srcMesh_pre ? srcMesh_pre->GetLayersInfo() : RAS_Mesh::LayersInfo();
     RAS_DisplayArray *newArray = nullptr;
+    KX_SurfaceNetsMeshData *mdeiData = nullptr;
 
     Py_BEGIN_ALLOW_THREADS
 
@@ -8603,13 +8899,18 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
 #endif
         std::vector<int> y_piy((size_t)nc_h_l);
         std::vector<float> y_fy((size_t)nc_h_l);
+        int*   __restrict piy_ptr = y_piy.data();
+        float* __restrict pfy_ptr = y_fy.data();
+        // C5002/1200: chamada ao lambda fast_floor_to_int impedia vetorização.
+        // floorf() → vroundps (AVX, sem branch); cast → vcvttps2dq. Sem ternário.
+        // __restrict elimina aliasing entre piy_ptr/pfy_ptr e o índice ly.
         #pragma omp simd
         for (int ly = 0; ly < nc_h_l; ++ly) {
             const float wy = min_y + (float)ly * step_y;
             const float sy = wy * h_cache_scale;
-            const int piy = fast_floor_to_int(sy);
-            y_piy[(size_t)ly] = piy;
-            y_fy[(size_t)ly] = sy - (float)piy;
+            const int   piy = (int)floorf(sy);
+            piy_ptr[ly] = piy;
+            pfy_ptr[ly] = sy - (float)piy;
         }
 #if KX_SNR_TIMING
         t_hm_precomp_end = Clock::now();
@@ -9801,58 +10102,103 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
     }
 #endif
 
-    // Rebuild da mesh - C++ puro, sem Python API, pode rodar sem GIL.
-    // NOTA: so RAS_DisplayArray (dados puros) e construido aqui sem GIL.
-    // FindBucket/AddMaterial/EndConversion/RegisterMesh tocam BucketManager e
-    // BoundingBoxManager que sao acessados pela main thread durante o render loop
-    // -- essas chamadas sao feitas APOS Py_END_ALLOW_THREADS para evitar race.
+    // Rebuild da mesh — dois caminhos paralelos (MDEI nativo / RAS).
+    // Ambos rodam sem GIL; nenhum toca em Python state.
 #if KX_SNR_TIMING
     t_rebuild_start = Clock::now();
 #endif
-    if (!m_proceduralCancel.load(std::memory_order_relaxed) && scene && srcMaterialCopy && bucketManager) {
-        newArray = new RAS_DisplayArray(RAS_DisplayArray::TRIANGLES, fmtCopy);
 
-        mt::vec2_packed uvs[RAS_Texture::MaxUnits];
-        unsigned int colors[RAS_Texture::MaxUnits];
-        for (int k = 0; k < RAS_Texture::MaxUnits; ++k) {
-            uvs[k] = mt::vec2_packed(mt::zero2);
-            colors[k] = KX_GetBiomeColor(BIOME_FOREST);
+    const bool is_mdei_obj = (m_fastRender && m_mdeiProxy);
+
+    if (!m_proceduralCancel.load(std::memory_order_relaxed)) {
+
+        // ── Caminho MDEI: monta MDEI_Vertex[] diretamente, sem RAS ───────────
+        if (is_mdei_obj) {
+            const Py_ssize_t nv_count = (Py_ssize_t)verts.size() / 3;
+            const Py_ssize_t ni_count = (Py_ssize_t)inds.size();
+            if (nv_count > 0 && ni_count > 0) {
+                mdeiData = new KX_SurfaceNetsMeshData();
+                mdeiData->mdeiVerts.resize((size_t)nv_count);
+                mdeiData->mdeiInds.resize((size_t)ni_count);
+                mdeiData->mdeiUvCount = 1;
+
+                const float* __restrict vp = verts.data();
+                const float* __restrict np = norms.data();
+                const bool has_surface_mask = (surface_mask.size() == (size_t)nv_count);
+                const unsigned char* __restrict sp = has_surface_mask ? surface_mask.data() : nullptr;
+
+                for (Py_ssize_t i = 0; i < nv_count; ++i) {
+                    MDEI_Vertex& mv = mdeiData->mdeiVerts[(size_t)i];
+                    // posição local (subtraí world offset igual ao caminho RAS)
+                    mv.px = vp[i*3+0] - wx;
+                    mv.py = vp[i*3+1] - wy;
+                    mv.pz = vp[i*3+2] - wz_world;
+                    // normal
+                    mv.nx = np[i*3+0];
+                    mv.ny = np[i*3+1];
+                    mv.nz = np[i*3+2];
+                    // UV layer 0 — world-planar igual ao RAS
+                    mv.uv[0][0] = vp[i*3+0] * 0.1f;
+                    mv.uv[0][1] = vp[i*3+1] * 0.1f;
+                    // camadas UV adicionais zeradas
+                    for (int u = 1; u < MDEI_MAX_UV; ++u)
+                        mv.uv[u][0] = mv.uv[u][1] = 0.0f;
+                    (void)sp; // cor/bioma por uniform, não por vértice no MDEI
+                }
+
+                // índices: cast direto de int → unsigned int (mesmo tamanho)
+                static_assert(sizeof(int) == sizeof(unsigned int), "int/uint size mismatch");
+                const unsigned int* udata = reinterpret_cast<const unsigned int*>(inds.data());
+                std::copy(udata, udata + (size_t)ni_count, mdeiData->mdeiInds.begin());
+            }
         }
-        const mt::vec4_packed tangent(mt::one4);
-        unsigned int origIdx = 0;
 
-        const Py_ssize_t nv_count = (Py_ssize_t)verts.size() / 3;
-        newArray->ReserveVertices((unsigned int)nv_count);
-        const float* __restrict vp = verts.data();
-        const float* __restrict np = norms.data();
-        const bool has_surface_mask = (surface_mask.size() == (size_t)nv_count);
-        const unsigned char* __restrict sp = has_surface_mask ? surface_mask.data() : nullptr;
-        const bool has_biome_mask = (biome_mask.size() == (size_t)nv_count);
-        const unsigned char* __restrict bp = has_biome_mask ? biome_mask.data() : nullptr;
-        for (Py_ssize_t i = 0; i < nv_count; ++i, vp += 3, np += 3) {
-            const float posData[3] = { vp[0]-wx, vp[1]-wy, vp[2]-wz_world };
-            const mt::vec3_packed pos(posData);
-            const mt::vec3_packed norm(np);
-            uvs[0] = mt::vec2_packed(mt::vec2(vp[0]*0.1f, vp[1]*0.1f));
-            const bool is_surface = (sp != nullptr) ? (sp[i] != 0) : true;
-            const int biome_id = (bp != nullptr) ? (int)bp[i] : BIOME_FOREST;
-            unsigned int biome_rgb = KX_GetBiomeColor(biome_id) & 0x00FFFFFF;
-            unsigned int vcolor = biome_rgb | (is_surface ? (0xFF << 24) : 0);
-            colors[0] = vcolor;
-            newArray->AddVertex(pos, norm, tangent, uvs, colors, origIdx++, 0);
+        // ── Caminho RAS: RAS_DisplayArray para objetos não-MDEI ───────────────
+        else if (scene && srcMaterialCopy && bucketManager) {
+            newArray = new RAS_DisplayArray(RAS_DisplayArray::TRIANGLES, fmtCopy);
+
+            mt::vec2_packed uvs[RAS_Texture::MaxUnits];
+            unsigned int colors[RAS_Texture::MaxUnits];
+            for (int k = 0; k < RAS_Texture::MaxUnits; ++k) {
+                uvs[k] = mt::vec2_packed(mt::zero2);
+                colors[k] = KX_GetBiomeColor(BIOME_FOREST);
+            }
+            const mt::vec4_packed tangent(mt::one4);
+            unsigned int origIdx = 0;
+
+            const Py_ssize_t nv_count = (Py_ssize_t)verts.size() / 3;
+            newArray->ReserveVertices((unsigned int)nv_count);
+            const float* __restrict vp = verts.data();
+            const float* __restrict np = norms.data();
+            const bool has_surface_mask = (surface_mask.size() == (size_t)nv_count);
+            const unsigned char* __restrict sp = has_surface_mask ? surface_mask.data() : nullptr;
+            const bool has_biome_mask = (biome_mask.size() == (size_t)nv_count);
+            const unsigned char* __restrict bp = has_biome_mask ? biome_mask.data() : nullptr;
+            for (Py_ssize_t i = 0; i < nv_count; ++i, vp += 3, np += 3) {
+                const float posData[3] = { vp[0]-wx, vp[1]-wy, vp[2]-wz_world };
+                const mt::vec3_packed pos(posData);
+                const mt::vec3_packed norm(np);
+                uvs[0] = mt::vec2_packed(mt::vec2(vp[0]*0.1f, vp[1]*0.1f));
+                const bool is_surface = (sp != nullptr) ? (sp[i] != 0) : true;
+                const int biome_id = (bp != nullptr) ? (int)bp[i] : BIOME_FOREST;
+                unsigned int biome_rgb = KX_GetBiomeColor(biome_id) & 0x00FFFFFF;
+                unsigned int vcolor = biome_rgb | (is_surface ? (0xFF << 24) : 0);
+                colors[0] = vcolor;
+                newArray->AddVertex(pos, norm, tangent, uvs, colors, origIdx++, 0);
+            }
+
+            const Py_ssize_t ni = (Py_ssize_t)inds.size();
+            if (ni > 0) {
+                newArray->ReservePrimitiveIndices(ni);
+                newArray->ReserveTriangleIndices(ni);
+                static_assert(sizeof(int) == sizeof(unsigned int), "int/uint size mismatch");
+                const unsigned int* udata = reinterpret_cast<const unsigned int*>(inds.data());
+                newArray->AddPrimitiveIndices(udata, ni);
+                newArray->AddTriangleIndices(udata, ni);
+            }
+
+            newArray->NotifyUpdate(RAS_DisplayArray::COLORS_MODIFIED | RAS_DisplayArray::SIZE_MODIFIED);
         }
-
-        const Py_ssize_t ni = (Py_ssize_t)inds.size();
-        if (ni > 0) {
-            newArray->ReservePrimitiveIndices(ni);
-            newArray->ReserveTriangleIndices(ni);
-            static_assert(sizeof(int) == sizeof(unsigned int), "int/uint size mismatch");
-            const unsigned int* udata = reinterpret_cast<const unsigned int*>(inds.data());
-            newArray->AddPrimitiveIndices(udata, ni);
-            newArray->AddTriangleIndices(udata, ni);
-        }
-
-        newArray->NotifyUpdate(RAS_DisplayArray::COLORS_MODIFIED | RAS_DisplayArray::SIZE_MODIFIED);
     }
 #if KX_SNR_TIMING
     t_rebuild_end  = Clock::now();
@@ -9977,15 +10323,28 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
         }
     };
 
-    if (newArray && !m_proceduralCancel.load(std::memory_order_relaxed) && scene_pre && srcMaterialCopy_pre && bucketManager_pre) {
-        KX_SurfaceNetsMeshData *data = new KX_SurfaceNetsMeshData();
-        data->displayArray = newArray;
-        data->scene = scene_pre;
-        data->material = srcMaterialCopy_pre;
-        data->bucketManager = bucketManager_pre;
-        data->layersInfo = layersInfoCopy_pre;
+    // ── Caminho MDEI: retorna mdeiData diretamente ────────────────────────────
+    if (mdeiData) {
+        // Destrutor: o struct tem apenas vetores — deleta o próprio struct.
+        static auto MDEIDataDestructor = [](PyObject *cap) {
+            void *p = PyCapsule_GetPointer(cap, "SurfaceNetsMeshData");
+            if (p) delete static_cast<KX_SurfaceNetsMeshData *>(p);
+        };
+        PyObject *capsule = PyCapsule_New(mdeiData, "SurfaceNetsMeshData",
+            reinterpret_cast<PyCapsule_Destructor>(+MDEIDataDestructor));
+        return capsule;
+    }
 
-        PyObject *capsule = PyCapsule_New(data, "SurfaceNetsMeshData", 
+    // ── Caminho RAS: retorna RAS capsule ─────────────────────────────────────
+    if (newArray && !m_proceduralCancel.load(std::memory_order_relaxed)
+            && scene_pre && srcMaterialCopy_pre && bucketManager_pre) {
+        KX_SurfaceNetsMeshData *data = new KX_SurfaceNetsMeshData();
+        data->displayArray  = newArray;
+        data->scene         = scene_pre;
+        data->material      = srcMaterialCopy_pre;
+        data->bucketManager = bucketManager_pre;
+        data->layersInfo    = layersInfoCopy_pre;
+        PyObject *capsule = PyCapsule_New(data, "SurfaceNetsMeshData",
             reinterpret_cast<PyCapsule_Destructor>(+SurfaceNetsMeshDataDestructor));
         return capsule;
     } else if (newArray) {
