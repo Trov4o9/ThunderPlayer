@@ -38,6 +38,9 @@ struct VKey {
     int  px, py, pz;
     int  nx, ny, nz;
     int  uv[MDEI_MAX_UV][2];   /* quantised per-layer UVs */
+    /* Vertex color alpha is NOT part of the dedup key: two loops at the same
+     * position/normal/UV but with different alpha belong to the same GPU vertex.
+     * We store the first-encountered alpha value for each de-duplicated vertex. */
 
     bool operator==(const VKey &o) const {
         if (px != o.px || py != o.py || pz != o.pz) return false;
@@ -123,14 +126,35 @@ MDEI_Mesh *MDEI_MeshBuilder::Build(Object *ob, Scene * /*blenderScene*/, bool is
     /* Active UV layer index (used as fallback when name == ""). */
     const int activeUv = CustomData_get_active_layer(&me->ldata, CD_MLOOPUV);
 
-    /* ── 4. Iterate triangles — build de-duplicated vertex list ──────── */
+    /* ── 4. All MLoopCol layers (vertex colors) — collect up to MDEI_MAX_UV ─ */
+    const int totalColorLayers = CustomData_number_of_layers(&me->ldata, CD_MLOOPCOL);
+    const int colorLayerCount  = (totalColorLayers < MDEI_MAX_UV)
+                                 ? totalColorLayers
+                                 : MDEI_MAX_UV;
+
+    /* Pointers to each color layer's loop data (nullptr if not present). */
+    const MLoopCol *colorLayers[MDEI_MAX_UV];
+    for (int i = 0; i < MDEI_MAX_UV; i++)
+        colorLayers[i] = nullptr;
+    for (int i = 0; i < colorLayerCount; i++) {
+        colorLayers[i] = (const MLoopCol *)CustomData_get_layer_n(
+            &me->ldata, CD_MLOOPCOL, i);
+    }
+
+    /* ── 5. Iterate triangles — build de-duplicated vertex list ──────── */
     std::vector<MDEI_Vertex>  verts;
     std::vector<unsigned int> indices;
     std::vector<int>          origIndexMap;   /* vboIndex → Mesh.mvert[] index */
+    /* cpuColors: packed RGBA uint32 per vertex per layer, interleaved.
+     * Layout: [v0_L0, v0_L1, ..., v1_L0, v1_L1, ...]
+     * Same encoding as RAS: union { MLoopCol col; unsigned int val; } (BL_GetUvRgba). */
+    std::vector<uint32_t>     cpuColors;
     std::unordered_map<VKey, unsigned int, VKeyHash> cache;
     verts.reserve((size_t)(ntris * 3));
     indices.reserve((size_t)(ntris * 3));
     origIndexMap.reserve((size_t)(ntris * 3));
+    if (colorLayerCount > 0)
+        cpuColors.reserve((size_t)(ntris * 3) * (size_t)colorLayerCount);
 
     for (int i = 0; i < ntris; i++) {
         const MLoopTri &lt = tris[i];
@@ -183,7 +207,24 @@ MDEI_Mesh *MDEI_MeshBuilder::Build(Object *ob, Scene * /*blenderScene*/, bool is
                 }
                 const unsigned int idx = (unsigned int)verts.size();
                 verts.push_back(vert);
-                origIndexMap.push_back((int)vi);   /* store blender vert index */
+                origIndexMap.push_back((int)vi);
+
+                /* Collect color layers: same union trick as BL_GetUvRgba —
+                 * reinterprets MLoopCol {r,g,b,a} bytes directly as uint32_t.
+                 * Layers without data get 0xFFFFFFFF (opaque white, same as RAS). */
+                if (colorLayerCount > 0) {
+                    for (int cl = 0; cl < colorLayerCount; cl++) {
+                        if (colorLayers[cl]) {
+                            union { MLoopCol col; uint32_t val; } con;
+                            con.col = colorLayers[cl][li];
+                            cpuColors.push_back(con.val);
+                        }
+                        else {
+                            cpuColors.push_back(0xFFFFFFFFu);
+                        }
+                    }
+                }
+
                 cache[key] = idx;
                 indices.push_back(idx);
             }
@@ -199,6 +240,7 @@ MDEI_Mesh *MDEI_MeshBuilder::Build(Object *ob, Scene * /*blenderScene*/, bool is
     /* Pass origIndexMap only for skinned meshes — static meshes get a plain
      * GL_STATIC_DRAW VBO and do not need the per-vertex blender index table. */
     mesh->Upload(verts, indices, uvCount, uvNames, activeUv >= 0 ? activeUv : 0,
-                 isSkinned ? origIndexMap : std::vector<int>());
+                 isSkinned ? origIndexMap : std::vector<int>(),
+                 cpuColors, colorLayerCount);
     return mesh;
 }

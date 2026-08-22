@@ -2546,8 +2546,13 @@ struct KX_SurfaceNetsMeshData {
     RAS_BucketManager  *bucketManager = nullptr;
     RAS_Mesh::LayersInfo layersInfo;
     // ── Caminho MDEI ─────────────────────────────────────────────────────
-    std::vector<MDEI_Vertex>       mdeiVerts;   // vazio se caminho RAS
-    std::vector<unsigned int>      mdeiInds;    // vazio se caminho RAS
+    std::vector<MDEI_Vertex>       mdeiVerts;        // vazio se caminho RAS
+    std::vector<unsigned int>      mdeiInds;         // vazio se caminho RAS
+    // Cor por vértice — packed RGBA uint32, mesmo formato que RAS (Color::m_flat).
+    // Layout interleaved: [v0_L0, v0_L1, ..., v1_L0, ...]  tamanho = nv × mdeiColorLayers.
+    // Vazio se nenhum dado de cor foi gerado.
+    std::vector<uint32_t>          mdeiCpuColors;
+    int                            mdeiColorLayers = 0;
     int                            mdeiUvCount = 1;
 };
 
@@ -2607,7 +2612,9 @@ EXP_PYMETHODDEF_DOC(KX_GameObject, MDEIUpdateMesh,
 	uv_names[0] = "UVMap";
 
 	m_mdeiProxy->mesh->Upload(data->mdeiVerts, data->mdeiInds,
-		data->mdeiUvCount, uv_names, /*activeUv=*/0);
+		data->mdeiUvCount, uv_names, /*activeUv=*/0,
+		/*origIndexMap=*/std::vector<int>(),
+		data->mdeiCpuColors, data->mdeiColorLayers);
 
 	// Atualiza o AABB do culling node com os limites da nova geometria.
 	GetCullingNode().GetAabb().Set(m_mdeiProxy->mesh->m_aabbMin,
@@ -10139,6 +10146,23 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
                 const bool has_surface_mask = (surface_mask.size() == (size_t)nv_count);
                 const unsigned char* __restrict sp = has_surface_mask ? surface_mask.data() : nullptr;
 
+                // Cor por vértice — packed RGBA uint32 igual ao RAS (Color::m_flat).
+                // Camada 0: encoda biome RGB (bits 0-23) + surface alpha (bits 24-31).
+                // Espelha o caminho RAS: vcolor = biome_rgb | (is_surface ? 0xFF000000 : 0).
+                {
+                    const bool has_biome_mask = (biome_mask.size() == (size_t)nv_count);
+                    const unsigned char* __restrict bp = has_biome_mask ? biome_mask.data() : nullptr;
+                    mdeiData->mdeiCpuColors.resize((size_t)nv_count);
+                    mdeiData->mdeiColorLayers = 1;
+                    for (Py_ssize_t i = 0; i < nv_count; ++i) {
+                        const bool is_surface = (sp != nullptr) ? (sp[i] != 0) : true;
+                        const int biome_id = (bp != nullptr) ? (int)bp[i] : BIOME_FOREST;
+                        const uint32_t biome_rgb = KX_GetBiomeColor(biome_id) & 0x00FFFFFFu;
+                        mdeiData->mdeiCpuColors[(size_t)i] =
+                            biome_rgb | (is_surface ? 0xFF000000u : 0u);
+                    }
+                }
+
                 for (Py_ssize_t i = 0; i < nv_count; ++i) {
                     MDEI_Vertex& mv = mdeiData->mdeiVerts[(size_t)i];
                     // posição local (subtraí world offset igual ao caminho RAS)
@@ -10155,7 +10179,6 @@ PyObject *KX_GameObject::PySurfaceNetsAndRebuild(PyObject *args)
                     // camadas UV adicionais zeradas
                     for (int u = 1; u < MDEI_MAX_UV; ++u)
                         mv.uv[u][0] = mv.uv[u][1] = 0.0f;
-                    (void)sp; // cor/bioma por uniform, não por vértice no MDEI
                 }
 
                 // índices: cast direto de int → unsigned int (mesmo tamanho)

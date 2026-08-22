@@ -37,6 +37,8 @@
 #include "RAS_Rasterizer.h"
 #include "SG_Frustum.h"
 #include "DNA_scene_types.h"
+#include "MDEI_ObjectProxy.h"
+#include "MDEI_Mesh.h"
 
 #include "CcdPhysicsEnvironment.h"
 
@@ -1137,13 +1139,87 @@ void KX_GrassSystem::UnregisterTerrain(KX_GameObject *terrain)
 
 void KX_GrassSystem::CaptureTerrainSnapshot(KX_GameObject *terrain, GrassJobInput &out)
 {
-    // Main thread — única seção que toca em KX_GameObject / RAS_Mesh.
+    // Main thread — única seção que toca em KX_GameObject / RAS_Mesh / MDEI_Mesh.
     // Objetivo: copiar dados brutos contíguos; toda a matemática fica para o worker.
 
     out.terrain  = terrain;
     out.params   = m_params;
     out.worldMat = terrain->NodeGetWorldTransform(); // cópia POD de mt::mat3x4
 
+    // ── Detecta se o objeto usa MDEI (fast-path renderer) ────────────────
+    MDEI_ObjectProxy *mdeiProxy = terrain->GetMdeiProxy();
+    if (mdeiProxy && mdeiProxy->mesh) {
+        // ── Caminho MDEI ─────────────────────────────────────────────────
+        // Usa os dados CPU guardados em MDEI_Mesh::m_cpuVerts / m_cpuInds.
+        MDEI_Mesh *mdeiMesh = mdeiProxy->mesh;
+
+        const mt::vec3 &localMin = mdeiMesh->m_aabbMin;
+        const mt::vec3 &localMax = mdeiMesh->m_aabbMax;
+
+        const mt::vec3 corners[8] = {
+            {localMin.x, localMin.y, localMin.z}, {localMin.x, localMin.y, localMax.z},
+            {localMin.x, localMax.y, localMin.z}, {localMin.x, localMax.y, localMax.z},
+            {localMax.x, localMin.y, localMin.z}, {localMax.x, localMin.y, localMax.z},
+            {localMax.x, localMax.y, localMin.z}, {localMax.x, localMax.y, localMax.z},
+        };
+
+        mt::vec3 wMin = out.worldMat * corners[0];
+        mt::vec3 wMax = wMin;
+        for (int i = 1; i < 8; ++i) {
+            const mt::vec3 w = out.worldMat * corners[i];
+            wMin.x = std::min(wMin.x, w.x); wMin.y = std::min(wMin.y, w.y);
+            wMax.x = std::max(wMax.x, w.x); wMax.y = std::max(wMax.y, w.y);
+        }
+
+        out.invChunkSize = 1.0f / CHUNK_SIZE;
+        out.minChunkX = (int)std::floor(wMin.x / CHUNK_SIZE);
+        out.maxChunkX = (int)std::floor(wMax.x / CHUNK_SIZE);
+        out.minChunkY = (int)std::floor(wMin.y / CHUNK_SIZE);
+        out.maxChunkY = (int)std::floor(wMax.y / CHUNK_SIZE);
+
+        const std::vector<float>        &cpuVerts  = mdeiMesh->m_cpuVerts;
+        const std::vector<unsigned int> &cpuInds   = mdeiMesh->m_cpuInds;
+        const std::vector<uint32_t>     &cpuColors = mdeiMesh->m_cpuColors;
+        const int                        cpuColorLayers = mdeiMesh->m_cpuColorLayers;
+
+        if (cpuVerts.empty() || cpuInds.empty()) return;
+
+        const size_t vCount = cpuVerts.size() / 3;
+        const size_t iCount = cpuInds.size();
+
+        // m_cpuColors é valido quando tem exatamente vCount × cpuColorLayers entradas.
+        const bool hasMdeiColors = (cpuColorLayers > 0 &&
+                                    cpuColors.size() == vCount * (size_t)cpuColorLayers);
+        out.hasColors = hasMdeiColors;
+        out.positions.clear();  out.positions.reserve(vCount);
+        out.triIndices.clear(); out.triIndices.reserve(iCount);
+        out.surfaceAlpha.clear();
+        if (hasMdeiColors) out.surfaceAlpha.reserve(vCount);
+
+        // Posições — constrói mt::vec3_packed a partir de cada tripla de floats
+        for (size_t v = 0; v < vCount; ++v) {
+            out.positions.emplace_back(&cpuVerts[v * 3]);
+        }
+
+        // Alpha de superfície por vértice — extrai bits[24..31] da camada 0
+        // (mesmo semântica do caminho RAS: GetColor(v, 0)[3]).
+        // O packed RGBA uint32 tem: r=bits[0..7], g=bits[8..15], b=bits[16..23], a=bits[24..31].
+        if (hasMdeiColors) {
+            for (size_t v = 0; v < vCount; ++v) {
+                const uint32_t rgba = cpuColors[v * (size_t)cpuColorLayers + 0];
+                out.surfaceAlpha.push_back((uint8_t)((rgba >> 24) & 0xFFu));
+            }
+        }
+
+        // Índices — cópia direta (sem offset: índices já são globais na MDEI_Mesh)
+        for (size_t i = 0; i < iCount; ++i) {
+            out.triIndices.push_back((uint32_t)cpuInds[i]);
+        }
+
+        return;
+    }
+
+    // ── Caminho RAS (legado) ──────────────────────────────────────────────
     const std::vector<KX_Mesh *> &meshes = terrain->GetMeshList();
     if (meshes.empty()) return;
 
@@ -1172,7 +1248,6 @@ void KX_GrassSystem::CaptureTerrainSnapshot(KX_GameObject *terrain, GrassJobInpu
     out.maxChunkX = (int)std::floor(wMax.x / CHUNK_SIZE);
     out.minChunkY = (int)std::floor(wMin.y / CHUNK_SIZE);
     out.maxChunkY = (int)std::floor(wMax.y / CHUNK_SIZE);
-
 
     const RAS_MeshMaterialList &mats = mesh->GetMeshMaterialList();
 

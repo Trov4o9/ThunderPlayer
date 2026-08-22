@@ -74,7 +74,9 @@ void MDEI_Mesh::Upload(const std::vector<MDEI_Vertex>& verts,
                        int uvCount,
                        const std::string uvNames[MDEI_MAX_UV],
                        int activeUv,
-                       const std::vector<int>& origIndexMap)
+                       const std::vector<int>& origIndexMap,
+                       const std::vector<uint32_t>& cpuColors,
+                       int colorLayers)
 {
 	m_indexCount   = (GLsizei)indices.size();
 	m_vertCount    = (GLsizei)verts.size();
@@ -194,7 +196,7 @@ void MDEI_Mesh::Upload(const std::vector<MDEI_Vertex>& verts,
 		if (v.pz > m_aabbMax[2]) m_aabbMax[2] = v.pz;
 	}
 
-	/* Cópia CPU para física: apenas posições + índices, sem normais/UVs.
+	/* Cópia CPU para física, colisão e grass masking.
 	 * Substitui qualquer cópia anterior (novo Upload descarta a antiga). */
 	{
 		const size_t nv = verts.size();
@@ -205,6 +207,20 @@ void MDEI_Mesh::Upload(const std::vector<MDEI_Vertex>& verts,
 			m_cpuVerts[i * 3 + 2] = verts[i].pz;
 		}
 		m_cpuInds = indices;
+
+		/* Cores por vértice — packed RGBA uint32, igual ao RAS (Color::m_flat).
+		 * Layout: [v0_L0, v0_L1, ..., v1_L0, ...] (interleaved por vértice).
+		 * Valida que o tamanho bate exatamente com nv × colorLayers. */
+		const size_t expectedColors = (colorLayers > 0) ? (nv * (size_t)colorLayers) : 0;
+		if (colorLayers > 0 && cpuColors.size() == expectedColors) {
+			m_cpuColors      = cpuColors;
+			m_cpuColorLayers = colorLayers;
+		}
+		else {
+			m_cpuColors.clear();
+			m_cpuColors.shrink_to_fit();
+			m_cpuColorLayers = 0;
+		}
 	}
 }
 
@@ -365,5 +381,7 @@ void MDEI_Mesh::Release()
 	/* Libera cópia CPU junto com a VRAM */
 	m_cpuVerts.clear();    m_cpuVerts.shrink_to_fit();
 	m_cpuInds.clear();     m_cpuInds.shrink_to_fit();
+	m_cpuColors.clear();   m_cpuColors.shrink_to_fit();
+	m_cpuColorLayers = 0;
 	m_packedVerts.clear(); m_packedVerts.shrink_to_fit();
 }

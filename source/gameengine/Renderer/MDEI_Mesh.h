@@ -76,12 +76,26 @@ public:
 	 *  @param origIndexMap Maps vboIndex → Mesh.mvert[] index.  Non-empty means
 	 *                      this is a skinned mesh; a persistent-mapped ring VBO
 	 *                      with MDEI_RING_SEGMENTS VAOs will be allocated. */
+	/** cpuColors: optional per-vertex color data, matching the RAS storage format.
+	 *
+	 *  Layout: flat array of (vertCount × colorLayers) uint32_t values, interleaved
+	 *  per vertex — [v0_L0, v0_L1, ..., v1_L0, v1_L1, ...].
+	 *  Each uint32_t is a packed RGBA value identical to RAS_DisplayArray::Color::m_flat
+	 *  (bytes: r=bits[0..7], g=bits[8..15], b=bits[16..23], a=bits[24..31] — matching
+	 *  the memory layout of MLoopCol { unsigned char r, g, b, a } on a little-endian
+	 *  machine via union reinterpretation, same as BL_GetUvRgba in the converter).
+	 *
+	 *  Empty (or wrong size) → m_cpuColors is cleared; all vertices are treated as
+	 *  fully opaque surface (alpha = 255) by any consumer.
+	 *  colorLayers = 0 → same as empty. */
 	void Upload(const std::vector<MDEI_Vertex>& verts,
 	            const std::vector<unsigned int>& indices,
 	            int uvCount,
 	            const std::string uvNames[MDEI_MAX_UV],
 	            int activeUv,
-	            const std::vector<int>& origIndexMap = std::vector<int>());
+	            const std::vector<int>& origIndexMap = std::vector<int>(),
+	            const std::vector<uint32_t>& cpuColors = std::vector<uint32_t>(),
+	            int colorLayers = 0);
 
 	/* ── Skinned VBO ring-buffer API ─────────────────────────────────────
 	 *
@@ -141,12 +155,24 @@ public:
 	mt::vec3 m_aabbMin;
 	mt::vec3 m_aabbMax;
 
-	/** Cópia CPU da geometria de colisão — mantida entre uploads.
-	 *  m_cpuVerts: posições empacotadas [x0,y0,z0, x1,y1,z1, ...]
-	 *  m_cpuInds:  índices dos triângulos (triplas).
+	/** Cópia CPU da geometria — mantida entre uploads.
+	 *
+	 *  m_cpuVerts:      posições empacotadas [x0,y0,z0, x1,y1,z1, ...]
+	 *  m_cpuInds:       índices dos triângulos (triplas).
+	 *  m_cpuColors:     cor por vértice, packed RGBA uint32 igual ao RAS.
+	 *                   Layout flat interleaved: [v0_L0, v0_L1, ..., v1_L0, ...]
+	 *                   Tamanho = vertCount × m_cpuColorLayers.
+	 *                   Vazio se nenhuma camada de cor foi fornecida.
+	 *  m_cpuColorLayers: número de camadas de cor em m_cpuColors (0 se vazio).
+	 *
+	 *  Para obter o alpha do vértice i, camada 0:
+	 *    uint8_t a = (m_cpuColors[i * m_cpuColorLayers + 0] >> 24) & 0xFF;
+	 *
 	 *  Liberada por Release() junto com os buffers GL. */
-	std::vector<float>        m_cpuVerts;
-	std::vector<unsigned int> m_cpuInds;
+	std::vector<float>         m_cpuVerts;
+	std::vector<unsigned int>  m_cpuInds;
+	std::vector<uint32_t>      m_cpuColors;
+	int                        m_cpuColorLayers = 0;
 
 	/* UV metadata */
 	int         m_uvCount;
