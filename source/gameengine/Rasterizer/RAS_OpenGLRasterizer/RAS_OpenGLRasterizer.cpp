@@ -407,6 +407,10 @@ void RAS_OpenGLRasterizer::RenderText3D(
     m_rasterizer->DisableForText();
     SetFrontFace(true);
 
+    /* Cor do objeto → GL_CURRENT_COLOR, lido pelo gpu_shader_basic_vert via gl_Color.
+     * Não é iluminação FFP — é o único canal de entrada de cor para o shader BLF. */
+    glColor4fv(color);
+
     // BLF state is stored per font id. Caching this with static globals leaks
     // size/matrix/aspect from one font to another and breaks font switching.
     BLF_size(fontid, size, dpi);

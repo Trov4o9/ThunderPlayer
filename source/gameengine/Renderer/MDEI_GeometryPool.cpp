@@ -216,35 +216,33 @@ void MDEI_GeometryPool::Rebuild()
     const GLsizeiptr vertBytes = (GLsizeiptr)(m_allVerts.size() * sizeof(float));
     const GLsizeiptr indBytes  = (GLsizeiptr)(m_allInds.size()  * sizeof(unsigned int));
 
-    /* ── VBO ── */
-    if (!m_vbo) glGenBuffers(1, &m_vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-    glBufferData(GL_ARRAY_BUFFER, vertBytes, m_allVerts.data(), GL_DYNAMIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    /* ── VBO — DSA: sem glBindBuffer(GL_ARRAY_BUFFER) ───────────────────── */
+    if (!m_vbo) glCreateBuffers(1, &m_vbo);
+    glNamedBufferData(m_vbo, vertBytes, m_allVerts.data(), GL_DYNAMIC_DRAW);
 
-    /* ── EBO ── */
-    if (!m_ebo) glGenBuffers(1, &m_ebo);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indBytes, m_allInds.data(), GL_DYNAMIC_DRAW);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    /* ── EBO — DSA: sem glBindBuffer(GL_ELEMENT_ARRAY_BUFFER) ───────────── */
+    if (!m_ebo) glCreateBuffers(1, &m_ebo);
+    glNamedBufferData(m_ebo, indBytes, m_allInds.data(), GL_DYNAMIC_DRAW);
 
-    /* ── VAO ── */
+    /* ── VAO ─────────────────────────────────────────────────────────────── *
+     * glVertexPointer / glNormalPointer são FFP e lêem o VBO do bind point  *
+     * GL_ARRAY_BUFFER no momento da chamada — esse bind é registrado DENTRO  *
+     * do VAO e não polui o estado global após glBindVertexArray(0).          *
+     * O bind do EBO também fica encapsulado no VAO.                          *
+     * Não há equivalente DSA para glVertexPointer/glNormalPointer.           */
     if (m_vao) { glDeleteVertexArrays(1, &m_vao); m_vao = 0; }
     glGenVertexArrays(1, &m_vao);
     glBindVertexArray(m_vao);
-    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 
-    /* Fixed-pipeline pos + normal */
+    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);          /* registra no VAO */
     glEnableClientState(GL_VERTEX_ARRAY);
     glVertexPointer(3, GL_FLOAT, m_stride, (const void *)(GLintptr)0);
-
     glEnableClientState(GL_NORMAL_ARRAY);
     glNormalPointer(GL_FLOAT, m_stride, (const void *)(GLintptr)12);
-
-    /* EBO */
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);  /* registra no VAO */
 
     glBindVertexArray(0);
+    /* Unbind após VAO para não poluir o bind point global */
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
