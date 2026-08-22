@@ -241,8 +241,10 @@ private:
 	/// Cached camera cell positions for activity culling spatial hashing.
 	std::vector<std::pair<int, int>> m_activityCullingCamCells;
 
-	/// Vetor reutilizado por frame para objetos visíveis — evita alocação de heap por frame.
+	/// Vetor reutilizado por frame para objetos visíveis RAS — evita alocação de heap por frame.
 	std::vector<KX_GameObject *> m_visibleObjects;
+	/// Vetor reutilizado por frame para objetos MDEI visíveis (resultado do culling DBVT).
+	std::vector<KX_GameObject *> m_mdeiVisibleObjects;
 	/// Objetos dinâmicos (AutoUpdateBounds=true) — só eles precisam de reset de culling por frame.
 	std::vector<KX_GameObject *> m_dynamicObjects;
 

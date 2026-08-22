@@ -202,7 +202,13 @@ public:
 	virtual PHY_IPhysicsController *RayTest(PHY_IRayCastFilterCallback &filterCallback, float fromX, float fromY, float fromZ, float toX, float toY, float toZ);
 	virtual bool CullingTest(PHY_CullingCallback callback, void *userData, const std::array<mt::vec4, 6>& planes,
 							 int occlusionRes, const int *viewport, const mt::mat4& matrix);
-	bool CullingTestKX(std::vector<KX_GameObject *>& objects, int layer, bool updateState, const std::array<mt::vec4, 6>& planes,
+	/** Frustum culling via DBVT.  Results are split into two separate vectors:
+	 *  rasObjects  — normal RAS objects (HasFastRenderFlag == false)
+	 *  mdeiObjects — MDEI fast-path objects (HasFastRenderFlag == true)
+	 *  Both lists are populated in the same tree traversal; no extra cost. */
+	bool CullingTestKX(std::vector<KX_GameObject *>& rasObjects,
+	                   std::vector<KX_GameObject *>& mdeiObjects,
+	                   int layer, bool updateState, const std::array<mt::vec4, 6>& planes,
 	                   int planeCount,
 	                   int occlusionRes, const int *viewport, const mt::mat4& matrix);
 

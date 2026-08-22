@@ -1377,9 +1377,10 @@ std::vector<KX_GameObject *> KX_Scene::CalculateVisibleMeshes(const SG_Frustum& 
 		}
 	}
 
-	// Reutiliza vetor membro — evita alocação de heap por frame
+	// Reutiliza vetores membros — evita alocação de heap por frame
 	m_visibleObjects.clear();
 	m_visibleObjects.reserve(objectCount);
+	m_mdeiVisibleObjects.clear();
 
 	bool dbvt_culling = false;
 	if (m_dbvtCulling) {
@@ -1397,11 +1398,15 @@ std::vector<KX_GameObject *> KX_Scene::CalculateVisibleMeshes(const SG_Frustum& 
 #ifdef WITH_BULLET
 			if (CcdPhysicsEnvironment *bulletEnv = dynamic_cast<CcdPhysicsEnvironment *>(m_physicsEnvironment)) {
 				const int planeCount = (relaxedDbvtThisSecond && m_dbvtOcclusionRes == 0) ? 4 : 6;
-				dbvt_culling = bulletEnv->CullingTestKX(m_visibleObjects, layer, update_state, planes, planeCount, m_dbvtOcclusionRes, viewport, matrix);
+				/* Split result: RAS → m_visibleObjects, MDEI → m_mdeiVisibleObjects */
+				dbvt_culling = bulletEnv->CullingTestKX(m_visibleObjects, m_mdeiVisibleObjects,
+				                                        layer, update_state, planes, planeCount,
+				                                        m_dbvtOcclusionRes, viewport, matrix);
 			}
 			else
 #endif
 			{
+				/* Non-bullet path: MDEI objects are not visible (no fallback for MDEI). */
 				CullingInfo info(layer, m_visibleObjects, update_state);
 				dbvt_culling = m_physicsEnvironment->CullingTest(PhysicsCullingCallback, &info, planes, m_dbvtOcclusionRes, viewport, matrix);
 			}
@@ -1413,6 +1418,7 @@ std::vector<KX_GameObject *> KX_Scene::CalculateVisibleMeshes(const SG_Frustum& 
 		m_boundingBoxManager->Update(false);
 		KX_CullingHandler handler(m_objectlist, frustum, layer);
 		m_visibleObjects = handler.Process();
+		/* MDEI has no fallback: m_mdeiVisibleObjects remains empty. */
 	}
 
 	{
@@ -1471,6 +1477,30 @@ void KX_Scene::UpdateDbvt(bool update_state, bool update_bounds)
 			for (KX_GameObject *gameobj : m_dynamicObjects) {
 				if (gameobj) {
 					gameobj->UpdateBounds(false);
+				}
+			}
+		}
+	}
+
+	/* ── MDEI objects: update DBVT controllers for dynamic objects ─────────
+	 * Objects with GetAutoUpdateBounds()==true can move each frame.
+	 * We call SetGraphicTransform() on their CcdGraphicController so the
+	 * DBVT AABB matches the current world-space pose.
+	 * Static MDEI objects never move, so they never need this update. */
+	if (m_mdeiRenderer) {
+		if (CcdPhysicsEnvironment *bulletEnv =
+		        dynamic_cast<CcdPhysicsEnvironment *>(m_physicsEnvironment))
+		{
+			MDEI_Renderer *mdei = m_mdeiRenderer;
+			const auto& dbvtCtrls = mdei->GetDbvtControllers();
+			for (KX_GameObject *gameobj : mdei->GetRegisteredObjects()) {
+				if (!gameobj || !gameobj->GetAutoUpdateBounds()) continue;
+				auto it = dbvtCtrls.find(gameobj);
+				if (it != dbvtCtrls.end() && it->second) {
+					/* Re-insert into DBVT if not yet active (object was invisible at registration) */
+					if (!it->second->GetBroadphaseHandle() && gameobj->GetVisible())
+						bulletEnv->AddCcdGraphicController(it->second);
+					it->second->SetGraphicTransform();
 				}
 			}
 		}
@@ -1799,18 +1829,19 @@ void KX_Scene::UpdateParents()
 void KX_Scene::RenderBuckets(const std::vector<KX_GameObject *>& objects, RAS_Rasterizer::DrawType drawingMode, const mt::mat3x4& cameratransform,
                              RAS_Rasterizer *rasty, RAS_OffScreen *offScreen)
 {
-	/* ── MDEI fast-path: must run even when the RAS objects list is empty,
-	 * because MDEI objects are not in the physics DBVT / shadow filter. ── */
-	if (m_mdeiRenderer && m_mdeiRenderer->HasObjects()) {
+	/* ── MDEI fast-path: draws only objects that passed DBVT frustum culling.
+	 * m_mdeiVisibleObjects is filled by CalculateVisibleMeshes() and is empty
+	 * when DBVT culling is disabled or the environment is non-Bullet (no fallback). */
+	if (m_mdeiRenderer && !m_mdeiVisibleObjects.empty()) {
 		/* Sincroniza o cache de cull face do rasty com o estado GL real.
 		 * O RAS pode ter deixado GL_CULL_FACE num estado que o cache
 		 * não reflete — o MDEI precisa de um baseline correto. */
 		rasty->SyncCullFaceFromGL();
 		if (drawingMode == RAS_Rasterizer::RAS_SHADOW) {
-			m_mdeiRenderer->RenderShadow(objects, rasty);
+			m_mdeiRenderer->RenderShadow(m_mdeiVisibleObjects, rasty);
 		}
 		else {
-			m_mdeiRenderer->RenderSolid(objects, rasty);
+			m_mdeiRenderer->RenderSolid(m_mdeiVisibleObjects, rasty);
 		}
 	}
 
@@ -1876,11 +1907,11 @@ void KX_Scene::RenderSolidBuckets(const std::vector<KX_GameObject *>& objects,
                                    const mt::mat3x4& cameratransform,
                                    RAS_Rasterizer *rasty)
 {
-	/* MDEI must run before the early-out — objects list never contains MDEI
-	 * objects (they are invisible to DBVT culling). */
-	if (m_mdeiRenderer && m_mdeiRenderer->HasObjects()) {
+	/* MDEI draws only objects that passed DBVT frustum culling.
+	 * m_mdeiVisibleObjects is empty when DBVT is disabled (no fallback). */
+	if (m_mdeiRenderer && !m_mdeiVisibleObjects.empty()) {
 		rasty->SyncCullFaceFromGL();
-		m_mdeiRenderer->RenderSolid(objects, rasty);
+		m_mdeiRenderer->RenderSolid(m_mdeiVisibleObjects, rasty);
 	}
 
 	if (objects.empty()) return;

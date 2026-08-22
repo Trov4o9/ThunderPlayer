@@ -5,15 +5,17 @@
  *  - Store all MDEI_DrawGroups (one per unique shader — pooled, or one per
  *    (mesh, shader) pair for skinned/private objects)
  *  - Maintain its own list of registered KX_GameObjects (m_registeredObjects)
- *  - Drive RenderSolid() and RenderShadow() using that list directly,
- *    bypassing the RAS culling pipeline entirely.
+ *  - Insert each registered object into the Bullet DBVT culling tree
+ *    (m_dbvtControllers) so frustum culling runs alongside RAS objects.
+ *  - Drive RenderSolid() and RenderShadow() using the DBVT-culled list
+ *    provided by KX_Scene (no fallback — if DBVT is off, nothing is drawn).
  *  - Drive MDEI_SkinDeformer updates for objects with armature parents.
  *
- * WHY a separate list:
- *   Objects with OB_FAST_RENDER have no RAS_MeshUser, no physics body visible
- *   to the DBVT, and no HasShadowCasterMaterial(). The engine's
- *   CalculateVisibleMeshes / shadow filter therefore never includes them.
- *   The MDEI_Renderer manages its own visibility independently.
+ * Design contract:
+ *   MDEI objects are NEVER registered in any RAS class.  Their DBVT presence
+ *   is managed exclusively here, via CcdGraphicController objects owned by
+ *   this renderer.  The separation of RAS vs MDEI results happens in
+ *   CcdPhysicsEnvironment::CullingTestKX (HasFastRenderFlag test).
  */
 
 #ifndef __MDEI_RENDERER_H__
@@ -32,6 +34,7 @@ class MDEI_Shader;
 class MDEI_DrawGroup;
 class MDEI_ObjectProxy;
 class MDEI_SkinDeformer;
+class CcdGraphicController;
 class KX_GameObject;
 class KX_Scene;
 class RAS_Rasterizer;
@@ -88,12 +91,14 @@ public:
 	/** Update ALL active skin deformers (fallback, not used in main path). */
 	void UpdateDeformers();
 
-	/** Solid pass — ignores `objects`, uses m_registeredObjects instead. */
-	void RenderSolid(const std::vector<KX_GameObject *>& objects,
+	/** Solid pass — draws only objects in `visibleObjects` (from DBVT culling).
+	 *  If visibleObjects is empty, nothing is drawn (no fallback). */
+	void RenderSolid(const std::vector<KX_GameObject *>& visibleObjects,
 	                 RAS_Rasterizer *rasty);
 
-	/** Shadow pass — ignores `objects`, uses m_registeredObjects instead. */
-	void RenderShadow(const std::vector<KX_GameObject *>& objects,
+	/** Shadow pass — draws only objects in `visibleObjects` (from DBVT culling).
+	 *  If visibleObjects is empty, nothing is drawn (no fallback). */
+	void RenderShadow(const std::vector<KX_GameObject *>& visibleObjects,
 	                  RAS_Rasterizer *rasty);
 
 	/** Retorna true se há pelo menos um objeto registrado neste renderer.
@@ -101,9 +106,13 @@ public:
 	 *  (reset de groups, loop de instâncias, uploads GL) em cenas sem MDEI. */
 	bool HasObjects() const { return !m_registeredObjects.empty(); }
 
-	/** Retorna a lista de objetos registrados (para debug). */
+	/** Retorna a lista de objetos registrados (para debug e UpdateDbvt). */
 	const std::vector<KX_GameObject *>& GetRegisteredObjects() const
 	    { return m_registeredObjects; }
+
+	/** Retorna o mapa de controladores DBVT (usado por KX_Scene::UpdateDbvt). */
+	const std::unordered_map<KX_GameObject *, CcdGraphicController *>& GetDbvtControllers() const
+	    { return m_dbvtControllers; }
 
 	/** Aplica o novo nível de filtragem anisotrópica em todos os sampler
 	 *  arrays MDEI já criados, recriando-os com o novo parâmetro.
@@ -129,8 +138,9 @@ private:
 	/** Legacy alias — redirects to GetOrCreatePrivateGroup. */
 	MDEI_DrawGroup *GetOrCreateGroup(MDEI_Mesh *mesh, MDEI_Shader *shader);
 
-	/** Core draw: iterates m_registeredObjects (not the RAS list). */
-	void ExecuteDraw(bool shadowPass, RAS_Rasterizer *rasty);
+	/** Core draw: iterates visibleObjects (result of DBVT culling — no fallback). */
+	void ExecuteDraw(bool shadowPass, RAS_Rasterizer *rasty,
+	                 const std::vector<KX_GameObject *>& visibleObjects);
 
 	KX_Scene              *m_scene;
 	MDEI_PersistentBuffer  m_buffer;
@@ -147,8 +157,14 @@ private:
 	int m_ensurePrivateCount;
 
 	/** All objects that were registered with this renderer.
-	 *  This is the authoritative list used at draw time. */
+	 *  Used for HasObjects(), lifecycle management, and deformer updates.
+	 *  At draw time, only objects in the visibleObjects list (from DBVT culling)
+	 *  are rendered — not this list directly. */
 	std::vector<KX_GameObject *> m_registeredObjects;
+
+	/** One CcdGraphicController per registered MDEI object, inserted in the
+	 *  physics environment's DBVT culling tree.  Owned by this renderer. */
+	std::unordered_map<KX_GameObject *, CcdGraphicController *> m_dbvtControllers;
 
 	/* ── Mesh cache ───────────────────────────────────────────────────
 	 * Static meshes: keyed by blenderMesh* (shared across instances).

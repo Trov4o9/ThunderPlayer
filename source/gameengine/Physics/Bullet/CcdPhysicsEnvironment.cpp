@@ -3955,21 +3955,27 @@ bool CcdPhysicsEnvironment::CullingTest(PHY_CullingCallback callback, void *user
 	return true;
 }
 
-bool CcdPhysicsEnvironment::CullingTestKX(std::vector<KX_GameObject *>& objects, int layer, bool updateState, const std::array<mt::vec4, 6>& planes,
-                                         int planeCount, int occlusionRes, const int *viewport, const mt::mat4& matrix)
+bool CcdPhysicsEnvironment::CullingTestKX(std::vector<KX_GameObject *>& rasObjects,
+                                           std::vector<KX_GameObject *>& mdeiObjects,
+                                           int layer, bool updateState, const std::array<mt::vec4, 6>& planes,
+                                           int planeCount, int occlusionRes, const int *viewport, const mt::mat4& matrix)
 {
 	if (!m_cullingTree) {
 		return false;
 	}
 
 	struct DbvtCullingCallbackKX : btDbvt::ICollide {
-		std::vector<KX_GameObject *>& m_objects;
+		std::vector<KX_GameObject *>& m_rasObjects;
+		std::vector<KX_GameObject *>& m_mdeiObjects;
 		int m_layer;
 		bool m_updateState;
 		OcclusionBuffer *m_ocb;
 
-		DbvtCullingCallbackKX(std::vector<KX_GameObject *>& objects, int layer, bool updateState)
-		    :m_objects(objects),
+		DbvtCullingCallbackKX(std::vector<KX_GameObject *>& rasObjs,
+		                      std::vector<KX_GameObject *>& mdeiObjs,
+		                      int layer, bool updateState)
+		    :m_rasObjects(rasObjs),
+		     m_mdeiObjects(mdeiObjs),
 		     m_layer(layer),
 		     m_updateState(updateState),
 		     m_ocb(nullptr)
@@ -4000,11 +4006,18 @@ bool CcdPhysicsEnvironment::CullingTestKX(std::vector<KX_GameObject *>& objects,
 			if (m_updateState) {
 				gameobj->GetCullingNode().SetCulled(false);
 			}
-			m_objects.push_back(gameobj);
+
+			/* Separate MDEI objects from regular RAS objects */
+			if (gameobj->HasFastRenderFlag()) {
+				m_mdeiObjects.push_back(gameobj);
+			}
+			else {
+				m_rasObjects.push_back(gameobj);
+			}
 		}
 	};
 
-	DbvtCullingCallbackKX dispatcher(objects, layer, updateState);
+	DbvtCullingCallbackKX dispatcher(rasObjects, mdeiObjects, layer, updateState);
 	btVector3 planes_n[6];
 	btScalar planes_o[6];
 	for (int i = 0; i < 6; i++) {

@@ -31,6 +31,10 @@
 #include "KX_GameObject.h"
 #include "KX_Scene.h"
 #include "KX_LightObject.h"
+#include "KX_MotionState.h"
+
+#include "CcdPhysicsEnvironment.h"
+#include "CcdGraphicController.h"
 
 #include "RAS_Rasterizer.h"
 #include "RAS_ILightObject.h"
@@ -97,6 +101,11 @@ MDEI_Renderer::MDEI_Renderer(KX_Scene *scene)
 
 MDEI_Renderer::~MDEI_Renderer()
 {
+	/* Destroy DBVT controllers first — their destructors call
+	 * RemoveCcdGraphicController, which needs m_cullingTree intact. */
+	for (auto &p : m_dbvtControllers)  delete p.second;
+	m_dbvtControllers.clear();
+
 	for (auto &p : m_skinDeformers)    delete p.second;
 	for (MDEI_DrawGroup *g : m_groups) delete g;
 	for (auto &p : m_meshCache)        delete p.second;
@@ -254,10 +263,28 @@ void MDEI_Renderer::RegisterObject(KX_GameObject *gameobj,
 
 	m_registeredObjects.push_back(gameobj);
 
+	/* ── 6. DBVT controller ───────────────────────────────────────────── */
+	/* Insert the object into the physics environment's culling tree so that
+	 * it participates in frustum culling together with RAS objects.
+	 * We do this lazily here (not in the constructor) because
+	 * SetPhysicsEnvironment is called after MDEI_Renderer is created. */
+	if (CcdPhysicsEnvironment *bulletEnv =
+	        dynamic_cast<CcdPhysicsEnvironment *>(m_scene->GetPhysicsEnvironment()))
+	{
+		PHY_IMotionState     *ms   = new KX_MotionState(gameobj->GetNode());
+		CcdGraphicController *ctrl = new CcdGraphicController(bulletEnv, ms);
+		ctrl->SetLocalAabb(mesh->m_aabbMin, mesh->m_aabbMax);
+		ctrl->SetNewClientInfo(&gameobj->GetClientInfo());
+		if (gameobj->GetVisible())
+			bulletEnv->AddCcdGraphicController(ctrl);
+		m_dbvtControllers[gameobj] = ctrl;
+	}
+
 #if MDEI_DEBUG_LEVEL >= 1
-	fprintf(stderr, "[MDEI] Register '%s': OK — group=%p  slot=%d  total_registered=%d\n",
+	fprintf(stderr, "[MDEI] Register '%s': OK — group=%p  slot=%d  total_registered=%d  dbvt=%s\n",
 	        gameobj->GetName().c_str(), (void *)group, slot,
-	        (int)m_registeredObjects.size());
+	        (int)m_registeredObjects.size(),
+	        (m_dbvtControllers.count(gameobj) ? "yes" : "no"));
 #endif
 }
 
@@ -282,17 +309,33 @@ void MDEI_Renderer::RegisterReplica(KX_GameObject *replica,
 
 	m_registeredObjects.push_back(replica);
 
+	/* Insert replica into the DBVT culling tree */
+	if (CcdPhysicsEnvironment *bulletEnv =
+	        dynamic_cast<CcdPhysicsEnvironment *>(m_scene->GetPhysicsEnvironment()))
+	{
+		const mt::vec3 aabbMin = src->mesh ? mt::vec3(src->mesh->m_aabbMin) : mt::vec3(-0.5f, -0.5f, -0.5f);
+		const mt::vec3 aabbMax = src->mesh ? mt::vec3(src->mesh->m_aabbMax) : mt::vec3( 0.5f,  0.5f,  0.5f);
+		PHY_IMotionState     *ms   = new KX_MotionState(replica->GetNode());
+		CcdGraphicController *ctrl = new CcdGraphicController(bulletEnv, ms);
+		ctrl->SetLocalAabb(aabbMin, aabbMax);
+		ctrl->SetNewClientInfo(&replica->GetClientInfo());
+		if (replica->GetVisible())
+			bulletEnv->AddCcdGraphicController(ctrl);
+		m_dbvtControllers[replica] = ctrl;
+	}
+
 #if MDEI_DEBUG_LEVEL >= 1
 	fprintf(stderr,
 	        "[MDEI] RegisterReplica '%s' <- original='%s'"
-	        "  mesh=%p  group=%p  slot=%d  shader=%p  total_registered=%d\n",
+	        "  mesh=%p  group=%p  slot=%d  shader=%p  total_registered=%d  dbvt=%s\n",
 	        replica->GetName().c_str(),
 	        original->GetName().c_str(),
 	        (void *)src->mesh,
 	        (void *)src->group,
 	        src->meshSlot,
 	        (void *)(src->group ? src->group->GetShader() : nullptr),
-	        (int)m_registeredObjects.size());
+	        (int)m_registeredObjects.size(),
+	        (m_dbvtControllers.count(replica) ? "yes" : "no"));
 #endif
 }
 
@@ -374,6 +417,13 @@ void MDEI_Renderer::UnregisterObject(KX_GameObject *gameobj)
 {
 	if (!gameobj || !gameobj->HasFastRenderFlag()) return;
 
+	/* Remove DBVT controller — destructor calls RemoveCcdGraphicController */
+	auto cit = m_dbvtControllers.find(gameobj);
+	if (cit != m_dbvtControllers.end()) {
+		delete cit->second;
+		m_dbvtControllers.erase(cit);
+	}
+
 	/* Remove skin deformer if present */
 	auto dit = m_skinDeformers.find(gameobj);
 	if (dit != m_skinDeformers.end()) {
@@ -435,6 +485,12 @@ void MDEI_Renderer::ResetMesh(KX_GameObject *gameobj)
 	if (proxy->group) proxy->group->SetMesh(fresh);
 	/* Pool slot já foi desligado por EnsurePrivateMesh */
 	proxy->meshSlot = MDEI_SLOT_INVALID;
+
+	/* ── DBVT: atualiza AABB para o mesh vazio (será expandido pelo upload) */
+	auto cit = m_dbvtControllers.find(gameobj);
+	if (cit != m_dbvtControllers.end()) {
+		cit->second->SetLocalAabb(fresh->m_aabbMin, fresh->m_aabbMax);
+	}
 
 #if MDEI_DEBUG_LEVEL >= 1
 	fprintf(stderr,
@@ -576,9 +632,10 @@ MDEI_DrawGroup *MDEI_Renderer::GetOrCreateGroup(MDEI_Mesh *mesh, MDEI_Shader *sh
 
 /* ─── Render ────────────────────────────────────────────────────────────── */
 
-void MDEI_Renderer::ExecuteDraw(bool shadowPass, RAS_Rasterizer *rasty)
+void MDEI_Renderer::ExecuteDraw(bool shadowPass, RAS_Rasterizer *rasty,
+                                const std::vector<KX_GameObject *>& visibleObjects)
 {
-	if (m_groups.empty() || m_registeredObjects.empty()) return;
+	if (m_groups.empty() || visibleObjects.empty()) return;
 
 	/* ── 0. Restore GL_MODELVIEW to view-only matrix ─────────────────── */
 	{
@@ -613,10 +670,12 @@ void MDEI_Renderer::ExecuteDraw(bool shadowPass, RAS_Rasterizer *rasty)
 	/* ── 2. Reset groups ─────────────────────────────────────────────── */
 	for (MDEI_DrawGroup *g : m_groups) g->BeginFrame();
 
-	/* ── 3. Accumulate visible instances ─────────────────────────────── */
+	/* ── 3. Accumulate visible instances ─────────────────────────────── *
+	 * Itera apenas os objetos que passaram no frustum culling da DBVT.
+	 * A lista é fornecida pelo KX_Scene — sem fallback. */
 	const int activeLayer = m_scene->GetBlenderScene() ? m_scene->GetBlenderScene()->lay : 0;
 
-	for (KX_GameObject *obj : m_registeredObjects) {
+	for (KX_GameObject *obj : visibleObjects) {
 		if (!obj->GetVisible()) continue;
 		if (activeLayer != 0 && !(obj->GetLayer() & activeLayer)) continue;
 
@@ -847,16 +906,16 @@ void MDEI_Renderer::ExecuteDraw(bool shadowPass, RAS_Rasterizer *rasty)
 
 /* ─── Public render entry points ────────────────────────────────────────── */
 
-void MDEI_Renderer::RenderSolid(const std::vector<KX_GameObject *>& /*objects*/,
+void MDEI_Renderer::RenderSolid(const std::vector<KX_GameObject *>& visibleObjects,
                                 RAS_Rasterizer *rasty)
 {
-	ExecuteDraw(false, rasty);
+	ExecuteDraw(false, rasty, visibleObjects);
 }
 
-void MDEI_Renderer::RenderShadow(const std::vector<KX_GameObject *>& /*objects*/,
+void MDEI_Renderer::RenderShadow(const std::vector<KX_GameObject *>& visibleObjects,
                                  RAS_Rasterizer *rasty)
 {
-	ExecuteDraw(true, rasty);
+	ExecuteDraw(true, rasty, visibleObjects);
 }
 
 void MDEI_Renderer::SetAnisotropicFiltering(short /*level*/)
