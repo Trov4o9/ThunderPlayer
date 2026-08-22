@@ -2,7 +2,8 @@
  * MDEI_Renderer.h — Entry point for the MDEI fast-path rendering system.
  *
  * Responsibilities:
- *  - Store all MDEI_DrawGroups (one per unique mesh+shader pair)
+ *  - Store all MDEI_DrawGroups (one per unique shader — pooled, or one per
+ *    (mesh, shader) pair for skinned/private objects)
  *  - Maintain its own list of registered KX_GameObjects (m_registeredObjects)
  *  - Drive RenderSolid() and RenderShadow() using that list directly,
  *    bypassing the RAS culling pipeline entirely.
@@ -19,9 +20,12 @@
 #define __MDEI_RENDERER_H__
 
 #include "MDEI_PersistentBuffer.h"
+#include "MDEI_GeometryPool.h"   /* MDEI_MeshSlot */
 
 #include <vector>
 #include <unordered_map>
+#include <map>
+#include <utility>
 
 class MDEI_Mesh;
 class MDEI_Shader;
@@ -115,6 +119,14 @@ public:
 	void SetMipmapping(bool enabled, int glFilterType);
 
 private:
+	/** Returns (or creates) the single pooled DrawGroup for a shader. */
+	MDEI_DrawGroup *GetOrCreatePooledGroup(MDEI_Shader *shader);
+
+	/** Returns (or creates) a private (non-pooled) DrawGroup for (mesh, shader).
+	 *  Used for skinned objects and EnsurePrivateMesh. */
+	MDEI_DrawGroup *GetOrCreatePrivateGroup(MDEI_Mesh *mesh, MDEI_Shader *shader);
+
+	/** Legacy alias — redirects to GetOrCreatePrivateGroup. */
 	MDEI_DrawGroup *GetOrCreateGroup(MDEI_Mesh *mesh, MDEI_Shader *shader);
 
 	/** Core draw: iterates m_registeredObjects (not the RAS list). */
@@ -155,6 +167,10 @@ private:
 	std::unordered_map<void *, ShaderEntry> m_shaderCache;
 
 	std::vector<MDEI_DrawGroup *> m_groups;
+
+	/** Maps (pooledGroup*, MDEI_Mesh*) → slot index in that group's pool.
+	 *  Used to detect when a mesh is already uploaded and reuse its slot. */
+	std::map<std::pair<MDEI_DrawGroup *, MDEI_Mesh *>, MDEI_MeshSlot> m_meshToSlot;
 
 	/** One skin deformer per MDEI object that has an armature parent.
 	 *  Key = KX_GameObject*. Owned by this renderer. */

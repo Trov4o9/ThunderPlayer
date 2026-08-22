@@ -71,6 +71,7 @@ set(INC_SYS
 
 set(SRC
 	../Renderer/MDEI_DrawGroup.cpp
+	../Renderer/MDEI_GeometryPool.cpp
 	../Renderer/MDEI_Mesh.cpp
 	../Renderer/MDEI_MeshBuilder.cpp
 	../Renderer/MDEI_PersistentBuffer.cpp
@@ -78,6 +79,7 @@ set(SRC
 	../Renderer/MDEI_Shader.cpp
 	../Renderer/MDEI_SkinDeformer.cpp
 	../Renderer/MDEI_DrawGroup.h
+	../Renderer/MDEI_GeometryPool.h
 	../Renderer/MDEI_Instance.h
 	../Renderer/MDEI_Mesh.h
 	../Renderer/MDEI_MeshBuilder.h

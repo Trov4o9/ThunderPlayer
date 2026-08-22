@@ -1,16 +1,22 @@
 /*
  * MDEI_Renderer.cpp
  *
- * Draw path:
- *   For each unique (shader, mesh) pair that has visible instances:
+ * Draw path (new — single draw call per shader):
+ *   For each unique shader that has visible instances:
  *     1. Bind shader once
- *     2. Bind VAO once
- *     3. ONE glMultiDrawElementsIndirect call covering ALL commands for that pair
+ *     2. Bind the shader's shared GeometryPool VAO once
+ *     3. ONE glMultiDrawElementsIndirect call covering ALL commands for that
+ *        shader — each command points to a different firstIndex/baseVertex
+ *        slice inside the shared VBO+EBO.
  *
- * The command buffer is laid out as:
- *   [ group0_cmd | group1_cmd | ... ]
- * Groups are sorted by (shader ptr, mesh ptr) so that contiguous runs share
- * the same VAO+shader — the multi-draw call covers the whole run in one call.
+ * Non-pooled (skinned / EnsurePrivate) groups still behave as before:
+ *   one draw call per (mesh, shader) pair with all instances batched.
+ *
+ * Lifecycle
+ * ---------
+ * addObject  → RegisterObject  → allocate pool slot; inc ref-count if mesh already pooled
+ * endObject  → UnregisterObject → dec ref-count; free pool slot when ref==0
+ * replaceMesh→ ResetMesh        → free old pool slot; allocate new slot
  */
 
 #include "MDEI_Renderer.h"
@@ -18,6 +24,7 @@
 #include "MDEI_MeshBuilder.h"
 #include "MDEI_Shader.h"
 #include "MDEI_DrawGroup.h"
+#include "MDEI_GeometryPool.h"
 #include "MDEI_ObjectProxy.h"
 #include "MDEI_SkinDeformer.h"
 
@@ -30,8 +37,6 @@
 
 #include "GPU_material.h"
 #include "GPU_shader.h"
-/* gpu_codegen.h omitted — GPUPass is used only as an opaque pointer here,
- * forward-declared via GPU_material.h (GPU_material_get_pass). */
 
 #include "DNA_object_types.h"
 #include "DNA_material_types.h"
@@ -50,11 +55,8 @@
 #  define MDEI_DEBUG_LEVEL 0
 #endif
 
-/* How many frames to keep printing level-1 diagnostics. */
 #define MDEI_MAX_DEBUG_FRAMES 8
 
-/* Capacidade máxima do SSBO ring-buffer de instâncias.
- * Deve bater com MDEI_MAX_INSTANCES em MDEI_PersistentBuffer. */
 #ifndef MDEI_MAX_INSTANCES
 #  define MDEI_MAX_INSTANCES 65536
 #endif
@@ -85,8 +87,8 @@ static void mdei_print_cmd(int idx, const DrawElementsIndirectCommand &c)
 
 MDEI_Renderer::MDEI_Renderer(KX_Scene *scene)
 	: m_scene(scene)
-	, m_solidFrame(0)                    /* slots 0,1,2,3,4,5,0,... */
-	, m_shadowFrame(MDEI_RING_SEGMENTS / 2)  /* starts at 3 — never overlaps solid */
+	, m_solidFrame(0)
+	, m_shadowFrame(MDEI_RING_SEGMENTS / 2)
 	, m_debugCallCount(0)
 	, m_ensurePrivateCount(0)
 {
@@ -189,7 +191,6 @@ void MDEI_Renderer::RegisterObject(KX_GameObject *gameobj,
 				return;
 			}
 
-			/* Cull face: GEMAT_BACKCULL=16 — se setado, cull face está ON. */
 			const bool cullFace = (blenderMat->game.flag & 16) != 0;
 			shader->SetCullFace(cullFace);
 
@@ -204,23 +205,58 @@ void MDEI_Renderer::RegisterObject(KX_GameObject *gameobj,
 		}
 	}
 
-	/* ── 3. DrawGroup ────────────────────────────────────────────────── */
-	MDEI_DrawGroup *group = GetOrCreateGroup(mesh, shader);
+	/* ── 3. DrawGroup (por shader) ───────────────────────────────────── */
+	/* A partir daqui grupos são únicos por shader, não por (shader, mesh).
+	 * Objetos com shaders iguais mas malhas diferentes compartilham o mesmo
+	 * grupo e o GeometryPool interno garante um único draw call. */
+	MDEI_DrawGroup *group = GetOrCreatePooledGroup(shader);
 
-	/* ── 4. Proxy ────────────────────────────────────────────────────── */
-	MDEI_ObjectProxy *proxy = new MDEI_ObjectProxy(mesh, group);
+	/* ── 4. Aloca slot no GeometryPool ───────────────────────────────── */
+	/* Se a mesh já estava no pool (outro objeto já a registrou), apenas
+	 * incrementa o ref-count.  Caso contrário, copia a geometria. */
+	MDEI_MeshSlot slot = MDEI_SLOT_INVALID;
+	{
+		/* Verifica se esse MDEI_Mesh já tem um slot no pool deste grupo */
+		auto sit = m_meshToSlot.find({ group, mesh });
+		if (sit != m_meshToSlot.end()) {
+			slot = sit->second;
+			group->GetPool()->AddRef(slot);
+#if MDEI_DEBUG_LEVEL >= 1
+			fprintf(stderr, "[MDEI] Register '%s': mesh already in pool, slot=%d\n",
+			        gameobj->GetName().c_str(), slot);
+#endif
+		}
+		else {
+			slot = group->GetPool()->Allocate(mesh);
+			if (slot == MDEI_SLOT_INVALID) {
+				/* Stride incompatível ou packedVerts vazio — usa grupo privado. */
+				group = GetOrCreatePrivateGroup(mesh, shader);
+			}
+			else {
+				m_meshToSlot[{ group, mesh }] = slot;
+#if MDEI_DEBUG_LEVEL >= 1
+				fprintf(stderr, "[MDEI] Register '%s': mesh allocated in pool, slot=%d\n",
+				        gameobj->GetName().c_str(), slot);
+#endif
+			}
+		}
+	}
+
+	/* ── 5. Proxy ────────────────────────────────────────────────────── */
+	MDEI_ObjectProxy *proxy = (slot != MDEI_SLOT_INVALID)
+	    ? new MDEI_ObjectProxy(mesh, group, slot)
+	    : new MDEI_ObjectProxy(mesh, group);
+
 	gameobj->SetMdeiProxy(proxy);
 	gameobj->SetFastRenderFlag(true);
 
-	/* AABB in local space — sufficient for static objects. */
 	gameobj->GetCullingNode().GetAabb().Set(mesh->m_aabbMin, mesh->m_aabbMax);
 
-	/* Track this object in our own list — bypasses RAS culling pipeline. */
 	m_registeredObjects.push_back(gameobj);
 
 #if MDEI_DEBUG_LEVEL >= 1
-	fprintf(stderr, "[MDEI] Register '%s': OK — group=%p  total_registered=%d\n",
-	        gameobj->GetName().c_str(), (void *)group,
+	fprintf(stderr, "[MDEI] Register '%s': OK — group=%p  slot=%d  total_registered=%d\n",
+	        gameobj->GetName().c_str(), (void *)group, slot,
 	        (int)m_registeredObjects.size());
 #endif
 }
@@ -233,25 +269,29 @@ void MDEI_Renderer::RegisterReplica(KX_GameObject *replica,
 	MDEI_ObjectProxy *src = original->GetMdeiProxy();
 	if (!src) return;
 
-	MDEI_ObjectProxy *proxy = new MDEI_ObjectProxy(src->mesh, src->group);
+	/* Increment ref-count for the pool slot we are sharing */
+	if (src->meshSlot != MDEI_SLOT_INVALID && src->group && src->group->GetPool())
+		src->group->GetPool()->AddRef(src->meshSlot);
+
+	MDEI_ObjectProxy *proxy = new MDEI_ObjectProxy(src->mesh, src->group, src->meshSlot);
 	replica->SetMdeiProxy(proxy);
 	replica->SetFastRenderFlag(true);
 
-	replica->GetCullingNode().GetAabb().Set(src->mesh->m_aabbMin, src->mesh->m_aabbMax);
+	if (src->mesh)
+		replica->GetCullingNode().GetAabb().Set(src->mesh->m_aabbMin, src->mesh->m_aabbMax);
 
 	m_registeredObjects.push_back(replica);
 
 #if MDEI_DEBUG_LEVEL >= 1
 	fprintf(stderr,
 	        "[MDEI] RegisterReplica '%s' <- original='%s'"
-	        "  mesh=%p  group=%p  shader=%p  VAO=%u"
-	        "  total_registered=%d\n",
+	        "  mesh=%p  group=%p  slot=%d  shader=%p  total_registered=%d\n",
 	        replica->GetName().c_str(),
 	        original->GetName().c_str(),
 	        (void *)src->mesh,
 	        (void *)src->group,
+	        src->meshSlot,
 	        (void *)(src->group ? src->group->GetShader() : nullptr),
-	        src->mesh ? src->mesh->GetVAO() : 0u,
 	        (int)m_registeredObjects.size());
 #endif
 }
@@ -262,16 +302,9 @@ void MDEI_Renderer::RegisterArmature(KX_GameObject     *gameobj,
 {
 	if (!gameobj || !arma) return;
 
-	/* The mesh for this object must already be in m_meshCache (registered by
-	 * RegisterObject).  We need a *separate* MDEI_Mesh (with GL_STREAM_DRAW)
-	 * because each skinned object has its own pose. */
+	/* The mesh for this object must already be in m_meshCache. */
 	MDEI_Mesh *mesh = nullptr;
 	{
-		/* Try to find the existing static mesh for this object's data pointer.
-		 * NOTE: blenderObjNew is `ob` from BL_BlenderDataConversion — it is
-		 * always valid here.  gameobj->GetBlenderObject() is NOT yet set at
-		 * conversion time (RegisterGameObject runs after the switch), so we
-		 * must use blenderObjNew everywhere in this function. */
 		void *staticKey = blenderObjNew->data;
 		auto  it        = m_meshCache.find(staticKey);
 		if (it == m_meshCache.end()) {
@@ -280,17 +313,12 @@ void MDEI_Renderer::RegisterArmature(KX_GameObject     *gameobj,
 			return;
 		}
 
-		/* Check if a skinned copy already exists for this object.
-		 * Key = blenderObjNew (stable pointer, unique per object). */
 		void *skinnedKey = (void *)blenderObjNew;
 		auto  sit        = m_skinnedMeshCache.find(skinnedKey);
 		if (sit != m_skinnedMeshCache.end()) {
 			mesh = sit->second;
 		}
 		else {
-			/* Build a fresh MDEI_Mesh with origIndexMap populated so Upload()
-			 * allocates a persistent ring-VBO for skin deformation.
-			 * isSkinned=true → origIndexMap is kept and glBufferStorage is used. */
 			mesh = MDEI_MeshBuilder::Build(blenderObjNew,
 			                               m_scene->GetBlenderScene(),
 			                               /*isSkinned=*/true);
@@ -301,26 +329,36 @@ void MDEI_Renderer::RegisterArmature(KX_GameObject     *gameobj,
 			}
 			m_skinnedMeshCache[skinnedKey] = mesh;
 
-			/* Swap the proxy's mesh pointer so draw uses the skinned VBO */
+			/* Swap the proxy's mesh pointer to the skinned mesh.
+			 * Skinned objects always use a private (non-pooled) group. */
 			MDEI_ObjectProxy *proxy = gameobj->GetMdeiProxy();
 			if (proxy) {
-				/* Re-create the draw group for the new (unique) mesh */
-				MDEI_DrawGroup *group = GetOrCreateGroup(mesh, proxy->group->GetShader());
-				proxy->mesh  = mesh;
-				proxy->group = group;
+				MDEI_Shader *sh = proxy->group ? proxy->group->GetShader() : nullptr;
+
+				/* Release the pool slot the object had (from RegisterObject) */
+				if (proxy->meshSlot != MDEI_SLOT_INVALID && proxy->group && proxy->group->GetPool()) {
+					proxy->group->GetPool()->Free(proxy->meshSlot);
+					/* Remove from meshToSlot map if we were the last user */
+					auto mkey = std::make_pair(proxy->group, proxy->mesh);
+					auto mit  = m_meshToSlot.find(mkey);
+					if (mit != m_meshToSlot.end()) {
+						const MDEI_PoolMeshInfo &info = proxy->group->GetPool()->GetInfo(proxy->meshSlot);
+						if (info.refCount == 0)
+							m_meshToSlot.erase(mit);
+					}
+				}
+
+				/* Create a private group for this skinned object */
+				MDEI_DrawGroup *privateGroup = GetOrCreatePrivateGroup(mesh, sh);
+				proxy->mesh     = mesh;
+				proxy->group    = privateGroup;
+				proxy->meshSlot = MDEI_SLOT_INVALID;
 			}
 		}
 	}
 
-	/* Create skin deformer.
-		* Both bmeshobj_old and bmeshobj_new are blenderObjNew — the deformer
-		* only needs the Mesh* (from data) and the reference obmat. */
 	MDEI_SkinDeformer *deformer = new MDEI_SkinDeformer(
-		   gameobj,
-		   blenderObjNew,   /* bmeshobj_old: Object that owns the Mesh* */
-		   blenderObjNew,   /* bmeshobj_new: provides obmat reference   */
-		   mesh,
-		   arma);
+	       gameobj, blenderObjNew, blenderObjNew, mesh, arma);
 
 	m_skinDeformers[gameobj] = deformer;
 
@@ -329,10 +367,6 @@ void MDEI_Renderer::RegisterArmature(KX_GameObject     *gameobj,
 	        "total_deformers=%d\n",
 	        gameobj->GetName().c_str(), mesh->GetVAO(), (void *)deformer,
 	        (int)m_skinDeformers.size());
-#else
-	/* Always print armature registration so the user knows deformation is wired up. */
-	fprintf(stderr, "[MDEI] Armature registered for '%s' (skin deformers: %d)\n",
-	        gameobj->GetName().c_str(), (int)m_skinDeformers.size());
 #endif
 }
 
@@ -354,6 +388,22 @@ void MDEI_Renderer::UnregisterObject(KX_GameObject *gameobj)
 
 	MDEI_ObjectProxy *proxy = gameobj->GetMdeiProxy();
 	if (proxy) {
+		/* Release the pool slot — if ref drops to 0 the geometry is freed */
+		if (proxy->meshSlot != MDEI_SLOT_INVALID && proxy->group) {
+			MDEI_GeometryPool *pool = proxy->group->GetPool();
+			if (pool) {
+				pool->Free(proxy->meshSlot);
+				/* If nobody else uses this (mesh, group) pair, remove the map entry */
+				const auto mkey = std::make_pair(proxy->group, proxy->mesh);
+				auto mit = m_meshToSlot.find(mkey);
+				if (mit != m_meshToSlot.end()) {
+					const MDEI_PoolMeshInfo &info = pool->GetInfo(proxy->meshSlot);
+					if (info.refCount == 0)
+						m_meshToSlot.erase(mit);
+				}
+			}
+		}
+
 		delete proxy;
 		gameobj->SetMdeiProxy(nullptr);
 	}
@@ -367,15 +417,15 @@ void MDEI_Renderer::ResetMesh(KX_GameObject *gameobj)
 	MDEI_ObjectProxy *proxy = gameobj->GetMdeiProxy();
 	if (!proxy || !proxy->mesh) return;
 
-	MDEI_Mesh *meshBefore = proxy->mesh;
-	GLuint vaoBefore = meshBefore->GetVAO();
+	MDEI_Mesh *meshBefore  = proxy->mesh;
+	GLuint     vaoBefore   = meshBefore->GetVAO();
 
 	/* ── 1. Garanta mesh e DrawGroup exclusivos ──────────────────────── */
 	EnsurePrivateMesh(gameobj);
 
-	/* Após EnsurePrivateMesh proxy->mesh pode ter mudado */
+	/* Após EnsurePrivateMesh proxy->group é privado */
 	MDEI_Mesh *privateMesh = proxy->mesh;
-	GLuint vaoPrivate = privateMesh->GetVAO();
+	GLuint     vaoPrivate  = privateMesh->GetVAO();
 
 	/* ── 2. Libera geometria GPU e cria mesh vazio ───────────────────── */
 	privateMesh->Release();
@@ -383,6 +433,8 @@ void MDEI_Renderer::ResetMesh(KX_GameObject *gameobj)
 	MDEI_Mesh *fresh = new MDEI_Mesh();
 	proxy->mesh = fresh;
 	if (proxy->group) proxy->group->SetMesh(fresh);
+	/* Pool slot já foi desligado por EnsurePrivateMesh */
+	proxy->meshSlot = MDEI_SLOT_INVALID;
 
 #if MDEI_DEBUG_LEVEL >= 1
 	fprintf(stderr,
@@ -414,72 +466,52 @@ void MDEI_Renderer::EnsurePrivateMesh(KX_GameObject *gameobj)
 	MDEI_ObjectProxy *proxy = gameobj->GetMdeiProxy();
 	if (!proxy || !proxy->mesh) return;
 
+	/* Se o proxy já usa um grupo privado (não-pooled), nada a fazer */
+	if (!proxy->group || !proxy->group->IsPooled()) return;
+
 	MDEI_Mesh   *oldMesh   = proxy->mesh;
-	MDEI_Shader *oldShader = proxy->group ? proxy->group->GetShader() : nullptr;
+	MDEI_Shader *oldShader = proxy->group->GetShader();
 	MDEI_DrawGroup *oldGroup = proxy->group;
 
-	/* Verifica se o mesh ainda é compartilhado. */
-	bool isShared = false;
-	void *sharedKey = nullptr;
-	for (auto &kv : m_meshCache) {
-		if (kv.second == proxy->mesh) {
-			isShared  = true;
-			sharedKey = kv.first;
-			break;
-		}
-	}
-	if (!isShared) {
-		for (auto &kv : m_skinnedMeshCache) {
-			if (kv.second == proxy->mesh) {
-				isShared  = true;
-				sharedKey = kv.first;
-				break;
+	/* Libera o slot do pool */
+	if (proxy->meshSlot != MDEI_SLOT_INVALID) {
+		MDEI_GeometryPool *pool = oldGroup->GetPool();
+		if (pool) {
+			pool->Free(proxy->meshSlot);
+			const auto mkey = std::make_pair(oldGroup, oldMesh);
+			auto mit = m_meshToSlot.find(mkey);
+			if (mit != m_meshToSlot.end()) {
+				const MDEI_PoolMeshInfo &info = pool->GetInfo(proxy->meshSlot);
+				if (info.refCount == 0)
+					m_meshToSlot.erase(mit);
 			}
 		}
 	}
 
-	if (!isShared) return; /* já é privado — nada a fazer */
-
-	/* Conta quantos outros objetos registrados compartilham esse mesmo mesh
-	 * (inclui o próprio gameobj — resultado esperado ≥ 1). */
-	int sharingCount = 0;
-	for (KX_GameObject *other : m_registeredObjects) {
-		MDEI_ObjectProxy *op = other->GetMdeiProxy();
-		if (op && op->mesh == oldMesh) sharingCount++;
-	}
-
-	/* Cria mesh privado + DrawGroup dedicado sem liberar o mesh compartilhado. */
+	/* Cria mesh privado + DrawGroup dedicado */
 	MDEI_Mesh *fresh = new MDEI_Mesh();
-	proxy->mesh = fresh;
+	proxy->mesh     = fresh;
+	proxy->meshSlot = MDEI_SLOT_INVALID;
 
-	MDEI_DrawGroup *dedicated = nullptr;
-	if (oldShader) {
-		dedicated = new MDEI_DrawGroup(fresh, oldShader);
-		m_groups.push_back(dedicated);
-		proxy->group = dedicated;
-	} else if (proxy->group) {
-		proxy->group->SetMesh(fresh);
-	}
+	MDEI_DrawGroup *dedicated = GetOrCreatePrivateGroup(fresh, oldShader);
+	proxy->group = dedicated;
 
 	m_ensurePrivateCount++;
 
 #if MDEI_DEBUG_LEVEL >= 1
 	fprintf(stderr,
 	        "[MDEI] EnsurePrivateMesh '%s': PRIVATIZED #%d"
-	        "  sharedKey=%p  old_mesh=%p (VAO=%u)  old_group=%p"
+	        "  old_mesh=%p (VAO=%u)  old_group=%p"
 	        "  new_mesh=%p  new_group=%p  shader=%p"
-	        "  objects_sharing_old_mesh=%d"
 	        "  total_groups_now=%d\n",
 	        gameobj->GetName().c_str(),
 	        m_ensurePrivateCount,
-	        sharedKey,
 	        (void *)oldMesh,
 	        oldMesh->GetVAO(),
 	        (void *)oldGroup,
 	        (void *)fresh,
 	        (void *)dedicated,
 	        (void *)oldShader,
-	        sharingCount,
 	        (int)m_groups.size());
 #endif
 }
@@ -493,13 +525,6 @@ void MDEI_Renderer::UpdateDeformerForObject(KX_GameObject *gameobj)
 		        gameobj->GetName().c_str());
 #endif
 		it->second->Update();
-	}
-	else {
-#if MDEI_DEBUG_LEVEL >= 1
-		/* Object is MDEI but has no skin deformer — static mesh, expected. */
-		fprintf(stderr, "[MDEI] UpdateDeformerForObject: '%s' — no deformer (static)\n",
-		        gameobj->GetName().c_str());
-#endif
 	}
 }
 
@@ -516,15 +541,37 @@ void MDEI_Renderer::UpdateDeformers()
 
 /* ─── DrawGroup lookup ──────────────────────────────────────────────────── */
 
-MDEI_DrawGroup *MDEI_Renderer::GetOrCreateGroup(MDEI_Mesh *mesh, MDEI_Shader *shader)
+/** Retorna (ou cria) o grupo pooled para um dado shader.
+ *  Existe exatamente UM grupo pooled por shader — todos os objetos com esse
+ *  shader compartilham o mesmo MDEI_GeometryPool + VAO. */
+MDEI_DrawGroup *MDEI_Renderer::GetOrCreatePooledGroup(MDEI_Shader *shader)
 {
 	for (MDEI_DrawGroup *g : m_groups)
-		if (g->GetMesh() == mesh && g->GetShader() == shader)
+		if (g->IsPooled() && g->GetShader() == shader)
+			return g;
+
+	MDEI_DrawGroup *g = new MDEI_DrawGroup(shader);
+	m_groups.push_back(g);
+	return g;
+}
+
+/** Retorna (ou cria) um grupo privado para o par (mesh, shader).
+ *  Usado para objetos com armature e para EnsurePrivateMesh. */
+MDEI_DrawGroup *MDEI_Renderer::GetOrCreatePrivateGroup(MDEI_Mesh *mesh, MDEI_Shader *shader)
+{
+	for (MDEI_DrawGroup *g : m_groups)
+		if (!g->IsPooled() && g->GetMesh() == mesh && g->GetShader() == shader)
 			return g;
 
 	MDEI_DrawGroup *g = new MDEI_DrawGroup(mesh, shader);
 	m_groups.push_back(g);
 	return g;
+}
+
+/* Compatibilidade: usado por código legado que ainda chama GetOrCreateGroup */
+MDEI_DrawGroup *MDEI_Renderer::GetOrCreateGroup(MDEI_Mesh *mesh, MDEI_Shader *shader)
+{
+	return GetOrCreatePrivateGroup(mesh, shader);
 }
 
 /* ─── Render ────────────────────────────────────────────────────────────── */
@@ -533,24 +580,17 @@ void MDEI_Renderer::ExecuteDraw(bool shadowPass, RAS_Rasterizer *rasty)
 {
 	if (m_groups.empty() || m_registeredObjects.empty()) return;
 
-	/* ── 0. Restore GL_MODELVIEW to view-only matrix ─────────────────────
-	 * The RAS may have left GL_MODELVIEW = viewMatrix * lastObjectMatrix.
-	 * Our patched vertex shader applies _inst.modelMatrix itself, then
-	 * multiplies by gl_ModelViewMatrix — so gl_ModelViewMatrix must be
-	 * the view matrix alone, NOT the product with any RAS object matrix.
-	 * --------------------------------------------------------------------- */
+	/* ── 0. Restore GL_MODELVIEW to view-only matrix ─────────────────── */
 	{
 		const mt::mat4& vm = rasty->GetViewMatrix();
 		rasty->SetMatrixMode(RAS_Rasterizer::RAS_MODELVIEW);
 		rasty->LoadMatrix(&vm.Data()[0][0]);
 	}
 
-	/* Each pass has its own ring-buffer index so solid and shadow never
-	 * share a slot within the same game frame. */
 	int &frameIndex = shadowPass ? m_shadowFrame : m_solidFrame;
 
 	const int  callId   = m_debugCallCount++;
-	(void)callId; /* evita warning quando todos os prints estão desativados */
+	(void)callId;
 
 #if MDEI_DEBUG_LEVEL >= 1
 	const bool doDebug = (callId < MDEI_MAX_DEBUG_FRAMES);
@@ -564,18 +604,20 @@ void MDEI_Renderer::ExecuteDraw(bool shadowPass, RAS_Rasterizer *rasty)
 #endif
 	(void)doDebug; (void)doDraw;
 
-	/* ── 1. Reset groups ─────────────────────────────────────────────── */
+	/* ── 1. Upload geometry pools ────────────────────────────────────── */
+	/* Deve acontecer antes do BeginFrame para que os firstIndex/baseVertex
+	 * do pool estejam actualizados quando WriteInstancesAndCommand for chamado. */
+	for (MDEI_DrawGroup *g : m_groups)
+		if (g->IsPooled()) g->UploadPool();
+
+	/* ── 2. Reset groups ─────────────────────────────────────────────── */
 	for (MDEI_DrawGroup *g : m_groups) g->BeginFrame();
 
-	/* ── 2. Accumulate visible instances ─────────────────────────────── */
-	/* Layer ativo da cena: filtra objetos que não estão na layer visível.
-	 * Se lay == 0 (nenhum layer ativo) não filtramos — renderiza tudo. */
+	/* ── 3. Accumulate visible instances ─────────────────────────────── */
 	const int activeLayer = m_scene->GetBlenderScene() ? m_scene->GetBlenderScene()->lay : 0;
 
 	for (KX_GameObject *obj : m_registeredObjects) {
 		if (!obj->GetVisible()) continue;
-		/* Filtro por layer: objeto deve ter ao menos um bit em comum com o
-		 * layer ativo da cena, mesmo comportamento de Renderable() no RAS. */
 		if (activeLayer != 0 && !(obj->GetLayer() & activeLayer)) continue;
 
 		MDEI_ObjectProxy *proxy = obj->GetMdeiProxy();
@@ -590,10 +632,12 @@ void MDEI_Renderer::ExecuteDraw(bool shadowPass, RAS_Rasterizer *rasty)
 		};
 
 		const float (&col)[4] = obj->GetObjectColor().Data();
-		proxy->group->AddInstance(mat, col);
+
+		/* Passa o meshSlot para o grupo pooled; grupos privados ignoram-no */
+		proxy->group->AddInstance(mat, col, proxy->meshSlot);
 	}
 
-	/* ── 3. Snapshot pending counts ─────────────────────────────────── */
+	/* ── 4. Snapshot pending counts ─────────────────────────────────── */
 	std::vector<unsigned int> counts(m_groups.size());
 	unsigned int totalInstances = 0;
 	for (size_t i = 0; i < m_groups.size(); i++) {
@@ -601,14 +645,7 @@ void MDEI_Renderer::ExecuteDraw(bool shadowPass, RAS_Rasterizer *rasty)
 		totalInstances += counts[i];
 	}
 
-	/* Alerta crítico: overflow do indirect buffer (alocado para 4096 cmds) */
-	if ((int)m_groups.size() > 4096) {
-		fprintf(stderr,
-		        "[MDEI] !! INDIRECT OVERFLOW: %d groups > 4096 — cmds truncated!\n",
-		        (int)m_groups.size());
-	}
-
-	/* ── 4. Write instance data into ring-buffer segment ────────────── */
+	/* ── 5. Write instance data into ring-buffer segment ────────────── */
 	MDEI_Instance *ringBase = m_buffer.BeginFrame(frameIndex);
 	if (!ringBase) {
 		fprintf(stderr, "[MDEI] #%d [%s]: ringBase NULL — SSBO not mapped!\n",
@@ -621,11 +658,18 @@ void MDEI_Renderer::ExecuteDraw(bool shadowPass, RAS_Rasterizer *rasty)
 	std::vector<DrawElementsIndirectCommand> cmds;
 	cmds.reserve(m_groups.size());
 
+	/* cmdCounts[i] = number of commands actually appended by group i.
+	 * For pooled groups this equals the number of valid-slot instances;
+	 * for private groups it is always 0 or 1. */
+	std::vector<int> cmdCounts(m_groups.size(), 0);
+
 	unsigned int instanceOffset = 0;
 	for (size_t i = 0; i < m_groups.size(); i++) {
 		if (counts[i] == 0) continue;
+		const int before = (int)cmds.size();
 		m_groups[i]->WriteInstancesAndCommand(ringBase + instanceOffset,
 		                                      instanceOffset, cmds);
+		cmdCounts[i] = (int)cmds.size() - before;
 		instanceOffset += counts[i];
 	}
 
@@ -635,18 +679,28 @@ void MDEI_Renderer::ExecuteDraw(bool shadowPass, RAS_Rasterizer *rasty)
 		return;
 	}
 
+	/* Alerta crítico: overflow do indirect buffer (alocado para 4096 cmds).
+	 * Com o design de 1 cmd por (slot, grupo), isso só acontece com > 4096
+	 * combinações distintas de (shader, mesh) visíveis — extremamente raro. */
+	if ((int)cmds.size() > 4096) {
+		fprintf(stderr,
+		        "[MDEI] !! INDIRECT OVERFLOW: %d commands > 4096 — cmds truncated!\n",
+		        (int)cmds.size());
+	}
+
 	m_buffer.UploadCommands(cmds);
 	mdei_gl_check("UploadCommands");
 	m_buffer.Bind(frameIndex);
 	mdei_gl_check("Bind SSBO+IndirectBuf");
 
-	/* ── 5. Emit one glMultiDrawElementsIndirect per (shader, mesh) run ─
+	/* ── 6. Emit one glMultiDrawElementsIndirect per shader ──────────── *
 	 *
-	 * Groups that share the same (shader, mesh) produce contiguous commands
-	 * in the command buffer — one MDEI call covers all of them.
-	 * -------------------------------------------------------------------- */
+	 * Pooled groups: mesmo shader → mesmo VAO → comandos são contíguos →
+	 *   UM único glMultiDrawElementsIndirect cobre TODAS as meshes.
+	 * Grupos privados (skinned/EnsurePrivate): um draw por grupo (comportamento legado).
+	 * ─────────────────────────────────────────────────────────────────── */
 	MDEI_Shader   *curShader = nullptr;
-	MDEI_Mesh     *curMesh   = nullptr;
+	GLuint         curVAO    = 0;
 	int            cmdStart  = 0;
 	int            cmdCount  = 0;
 	int            cmdCursor = 0;
@@ -662,8 +716,7 @@ void MDEI_Renderer::ExecuteDraw(bool shadowPass, RAS_Rasterizer *rasty)
 			fprintf(stderr,
 			        "[MDEI] #%d [%s]: MDEI call — VAO=%u  cmds=%d  byteOff=%zu\n",
 			        callId, shadowPass ? "SHADOW" : "SOLID",
-			        curMesh ? curMesh->GetCurrentVAO() : 0u,
-			        cmdCount, byteOffset);
+			        curVAO, cmdCount, byteOffset);
 #if MDEI_DEBUG_LEVEL >= 2
 		if (doDraw) {
 			for (int c = cmdStart; c < cmdStart + cmdCount; c++)
@@ -686,28 +739,44 @@ void MDEI_Renderer::ExecuteDraw(bool shadowPass, RAS_Rasterizer *rasty)
 
 		MDEI_DrawGroup *g       = m_groups[i];
 		MDEI_Shader    *gShader = g->GetShader();
-		MDEI_Mesh      *gMesh   = g->GetMesh();
+		GLuint          gVAO    = g->GetCurrentVAO();
 
-		/* Pula grupos cujo mesh ainda não tem geometria (ex: entre Release e
-		 * o próximo mdei_update_mesh).  O cmdCursor NÃO avança pois
-		 * WriteInstancesAndCommand também não adicionou comando ao vetor. */
-		if (!gMesh || gMesh->GetIndexCount() == 0 || gMesh->GetVAO() == 0)
+		/* Verifica se o grupo tem geometria válida para desenhar.
+		 * Se não, avança cmdCursor pelos comandos já gerados (para não
+		 * desalinhar os offsets dos grupos seguintes) e pula. */
+		bool hasValidGeometry = false;
+		if (gVAO != 0) {
+			if (!g->IsPooled()) {
+				MDEI_Mesh *pm = g->GetMesh();
+				hasValidGeometry = (pm && pm->GetIndexCount() > 0 && pm->GetCurrentVAO() != 0);
+			}
+			else {
+				hasValidGeometry = (g->GetPool() && g->GetPool()->HasGeometry());
+			}
+		}
+
+		if (!hasValidGeometry) {
+			/* Avança o cursor para manter alinhamento com o buffer de comandos.
+			 * Também reseta o run se estava a acumular para este grupo — os
+			 * comandos do grupo pulado não foram desenhados, então o próximo
+			 * grupo visível começa um run fresco. */
+			if (cmdCounts[i] > 0) {
+				flushRun();
+				cmdCursor += cmdCounts[i];
+				cmdStart   = cmdCursor;
+				cmdCount   = 0;
+			}
 			continue;
+		}
 
 		bool shaderChanged = (gShader != curShader);
-		bool meshChanged   = (gMesh   != curMesh);
+		bool vaoChanged    = (gVAO    != curVAO);
 
-		if (shaderChanged || meshChanged) {
+		if (shaderChanged || vaoChanged) {
 			flushRun();
 			cmdStart = cmdCursor;
 			cmdCount = 0;
 
-			/* Só faz unbind/bind do shader quando ele realmente muda.
-			 * Se apenas o mesh mudou (mesmo shader, mesh privado diferente)
-			 * o shader permanece bindado — apenas o VAO é trocado.
-			 * Bug anterior: UnbindSolid() era chamado mesmo sem shaderChanged,
-			 * desligando o shader entre grupos com mesmo shader mas VAOs
-			 * diferentes — todos os draws após o primeiro rodavam sem shader. */
 			if (shaderChanged) {
 				if (curShader) {
 					if (shadowPass) curShader->UnbindShadow();
@@ -716,10 +785,7 @@ void MDEI_Renderer::ExecuteDraw(bool shadowPass, RAS_Rasterizer *rasty)
 				curShader = gShader;
 				if (shadowPass) curShader->BindShadow(rasty);
 				else            curShader->BindSolid(rasty);
-	
-				/* Aplica cull face do material se diferente do estado cached.
-				 * O pass de sombra não precisa de cull face por material —
-				 * usa o estado default deixado pelo RAS. */
+
 				if (!shadowPass) {
 					const bool needCull = curShader->GetCullFace();
 					if (needCull != rasty->GetCullFace())
@@ -727,35 +793,50 @@ void MDEI_Renderer::ExecuteDraw(bool shadowPass, RAS_Rasterizer *rasty)
 				}
 			}
 
-			if (meshChanged) {
-				if (curMesh) glBindVertexArray(0);
-				curMesh = gMesh;
-				glBindVertexArray(curMesh->GetCurrentVAO());
+			if (vaoChanged) {
+				if (curVAO) glBindVertexArray(0);
+				curVAO = gVAO;
+				glBindVertexArray(curVAO);
 
 				if (!shadowPass && curShader) {
 					GPUVertexAttribs attribs;
 					memset(&attribs, 0, sizeof(attribs));
-					if (curShader->GetGPUVertexAttribs(attribs))
-						curMesh->BindUVAttribs(attribs);
+					if (curShader->GetGPUVertexAttribs(attribs)) {
+						if (g->IsPooled() && g->GetPool()) {
+							/* Qualquer slot activo serve — mesmo stride/layout. */
+							MDEI_GeometryPool *pool = g->GetPool();
+							for (auto &kv : m_meshToSlot) {
+								if (kv.first.first == g) {
+									pool->BindUVAttribs(kv.second, attribs);
+									break;
+								}
+							}
+						}
+						else if (g->GetMesh()) {
+							g->GetMesh()->BindUVAttribs(attribs);
+						}
+					}
 				}
 			}
 		}
 
-		cmdCount++;
-		cmdCursor++;
+		/* Usa a contagem exacta de comandos gerados por este grupo */
+		const int groupCmds = cmdCounts[i];
+		if (groupCmds > 0) {
+			cmdCount  += groupCmds;
+			cmdCursor += groupCmds;
+		}
 	}
 
 	flushRun();
 
-	/* ── 6. Cleanup ─────────────────────────────────────────────────── */
+	/* ── 7. Cleanup ─────────────────────────────────────────────────── */
 	if (curShader) {
 		if (shadowPass) curShader->UnbindShadow();
 		else            curShader->UnbindSolid();
 	}
-	if (curMesh) glBindVertexArray(0);
+	if (curVAO) glBindVertexArray(0);
 
-	/* Restaura cull face padrão (true) após o draw MDEI. O RAS assume que
-	 * GL_CULL_FACE está ligado ao retomar o pipeline normal. */
 	if (!shadowPass)
 		rasty->SetCullFace(true);
 
@@ -780,11 +861,6 @@ void MDEI_Renderer::RenderShadow(const std::vector<KX_GameObject *>& /*objects*/
 
 void MDEI_Renderer::SetAnisotropicFiltering(short /*level*/)
 {
-	/* GPU_set_anisotropic() já atualizou GTS.anisotropic antes desta chamada.
-	 * Percorremos todos os grupos e forçamos rebuild dos sampler arrays de cada
-	 * shader — RebuildAllSamplerArrays() recriará cada GL_TEXTURE_2D_ARRAY com
-	 * o novo nível lido via GPU_get_anisotropic(), mantendo o estado mipmap.
-	 * Shaders duplicados (mesmo ponteiro) são pulados para não recriar duas vezes. */
 	std::vector<MDEI_Shader *> visited;
 	for (MDEI_DrawGroup *g : m_groups) {
 		MDEI_Shader *sh = g ? g->GetShader() : nullptr;
@@ -799,11 +875,6 @@ void MDEI_Renderer::SetAnisotropicFiltering(short /*level*/)
 
 void MDEI_Renderer::SetMipmapping(bool enabled, int glFilterType)
 {
-	/* Percorre shaders únicos e recria todos os sampler arrays com o novo
-	 * estado de mipmap.  SetMipmapping em cada shader já força srcIds.clear()
-	 * + dirty = true antes de chamar RebuildSamplerArray, portanto as texturas
-	 * sempre serão recriadas independente de as fontes terem mudado.
-	 * glFilterType == 0 significa "usar GPU_get_mipmap_filter() global". */
 	std::vector<MDEI_Shader *> visited;
 	for (MDEI_DrawGroup *g : m_groups) {
 		MDEI_Shader *sh = g ? g->GetShader() : nullptr;

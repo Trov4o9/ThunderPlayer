@@ -124,6 +124,19 @@ public:
 	int     GetFloatsPerVert() const { return (int)(m_stride / sizeof(float)); }
 	bool    IsSkinned()      const { return m_isSkinnedVBO; }
 
+	/* ── Accessors needed by MDEI_GeometryPool ───────────────────────── */
+
+	/** Full packed vertex buffer (pos+nor+uvs) — stored after Upload().
+	 *  Empty for skinned meshes (they write directly to the ring VBO). */
+	const std::vector<float>&        GetPackedVerts() const { return m_packedVerts; }
+	const std::vector<unsigned int>& GetCpuInds()    const { return m_cpuInds; }
+
+	GLsizei  GetStride()           const { return m_stride; }
+	int      GetUVCount()          const { return m_uvCount; }
+	int      GetActiveUV()         const { return m_activeUv; }
+	const std::string& GetUVName(int i) const { return m_uvNames[i]; }
+	GLintptr GetUVOffset(int i)    const { return m_uvOffset[i]; }
+
 	/** AABB (local-space). */
 	mt::vec3 m_aabbMin;
 	mt::vec3 m_aabbMax;
@@ -155,6 +168,9 @@ private:
 	GLsizei m_stride;
 	GLintptr m_uvOffset[MDEI_MAX_UV];
 	bool    m_isSkinnedVBO;
+
+	/** Packed vertex data kept in RAM for MDEI_GeometryPool (static only). */
+	std::vector<float> m_packedVerts;
 
 	/* ── Skinned mesh ring-buffer fields ────────────────────────────── */
 	GLuint  m_vaoRing[MDEI_RING_SEGMENTS];  /* one VAO per segment */

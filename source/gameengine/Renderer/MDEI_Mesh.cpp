@@ -129,6 +129,9 @@ void MDEI_Mesh::Upload(const std::vector<MDEI_Vertex>& verts,
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 		BuildVAO(m_vao, m_vbo, 0);
+
+		/* Keep a CPU copy for MDEI_GeometryPool */
+		m_packedVerts = packed;
 	}
 	else {
 		/* ── Skinned path: persistent ring VBO + N VAOs ───────────────
@@ -360,6 +363,7 @@ void MDEI_Mesh::Release()
 	m_indexCount   = 0;
 
 	/* Libera cópia CPU junto com a VRAM */
-	m_cpuVerts.clear(); m_cpuVerts.shrink_to_fit();
-	m_cpuInds.clear();  m_cpuInds.shrink_to_fit();
+	m_cpuVerts.clear();    m_cpuVerts.shrink_to_fit();
+	m_cpuInds.clear();     m_cpuInds.shrink_to_fit();
+	m_packedVerts.clear(); m_packedVerts.shrink_to_fit();
 }
