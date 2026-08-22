@@ -110,6 +110,7 @@
 #include "PHY_IPhysicsController.h"
 #ifdef WITH_BULLET
 #  include "CcdPhysicsEnvironment.h"
+#  include "CcdGraphicController.h"
 #endif
 #include "BL_Converter.h"
 #include "BL_ArmatureObject.h"
@@ -1382,6 +1383,13 @@ std::vector<KX_GameObject *> KX_Scene::CalculateVisibleMeshes(const SG_Frustum& 
 	m_visibleObjects.reserve(objectCount);
 	m_mdeiVisibleObjects.clear();
 
+	/* Always-drawn MDEI list (no DBVT culling): use the pre-cached list from
+	 * the renderer; it is rebuilt lazily only when the scene composition changes. */
+	if (m_mdeiRenderer)
+		m_mdeiAlwaysObjects = m_mdeiRenderer->GetAlwaysObjects();
+	else
+		m_mdeiAlwaysObjects.clear();
+
 	bool dbvt_culling = false;
 	if (m_dbvtCulling) {
 		{
@@ -1482,29 +1490,28 @@ void KX_Scene::UpdateDbvt(bool update_state, bool update_bounds)
 		}
 	}
 
+#ifdef WITH_BULLET
 	/* ── MDEI objects: update DBVT controllers for dynamic objects ─────────
-	 * Objects with GetAutoUpdateBounds()==true can move each frame.
-	 * We call SetGraphicTransform() on their CcdGraphicController so the
-	 * DBVT AABB matches the current world-space pose.
-	 * Static MDEI objects never move, so they never need this update. */
+	 * Uses m_dbvtDynPairs — pre-filtered list of (obj, ctrl) pairs that are
+	 * both dynamic (AutoUpdateBounds) AND have a DBVT controller.
+	 * Avoids iterating all registered objects and doing a map lookup per frame. */
 	if (m_mdeiRenderer) {
-		if (CcdPhysicsEnvironment *bulletEnv =
-		        dynamic_cast<CcdPhysicsEnvironment *>(m_physicsEnvironment))
-		{
-			MDEI_Renderer *mdei = m_mdeiRenderer;
-			const auto& dbvtCtrls = mdei->GetDbvtControllers();
-			for (KX_GameObject *gameobj : mdei->GetRegisteredObjects()) {
-				if (!gameobj || !gameobj->GetAutoUpdateBounds()) continue;
-				auto it = dbvtCtrls.find(gameobj);
-				if (it != dbvtCtrls.end() && it->second) {
-					/* Re-insert into DBVT if not yet active (object was invisible at registration) */
-					if (!it->second->GetBroadphaseHandle() && gameobj->GetVisible())
-						bulletEnv->AddCcdGraphicController(it->second);
-					it->second->SetGraphicTransform();
+		const auto& dynPairs = m_mdeiRenderer->GetDbvtDynPairs();
+		if (!dynPairs.empty()) {
+			CcdPhysicsEnvironment *bulletEnv =
+			    dynamic_cast<CcdPhysicsEnvironment *>(m_physicsEnvironment);
+			if (bulletEnv) {
+				for (const auto& p : dynPairs) {
+					if (!p.obj) continue;
+					/* Re-insert into DBVT if not yet active (object was invisible) */
+					if (!p.ctrl->GetBroadphaseHandle() && p.obj->GetVisible())
+						bulletEnv->AddCcdGraphicController(p.ctrl);
+					p.ctrl->SetGraphicTransform();
 				}
 			}
 		}
 	}
+#endif  /* WITH_BULLET */
 }
 
 
@@ -1829,19 +1836,19 @@ void KX_Scene::UpdateParents()
 void KX_Scene::RenderBuckets(const std::vector<KX_GameObject *>& objects, RAS_Rasterizer::DrawType drawingMode, const mt::mat3x4& cameratransform,
                              RAS_Rasterizer *rasty, RAS_OffScreen *offScreen)
 {
-	/* ── MDEI fast-path: draws only objects that passed DBVT frustum culling.
-	 * m_mdeiVisibleObjects is filled by CalculateVisibleMeshes() and is empty
-	 * when DBVT culling is disabled or the environment is non-Bullet (no fallback). */
-	if (m_mdeiRenderer && !m_mdeiVisibleObjects.empty()) {
+	/* ── MDEI fast-path.
+	 * m_mdeiVisibleObjects: passed DBVT culling (HasMdeiDbvtCull == true).
+	 * m_mdeiAlwaysObjects:  no DBVT; always drawn (HasMdeiDbvtCull == false). */
+	if (m_mdeiRenderer && (!m_mdeiVisibleObjects.empty() || !m_mdeiAlwaysObjects.empty())) {
 		/* Sincroniza o cache de cull face do rasty com o estado GL real.
 		 * O RAS pode ter deixado GL_CULL_FACE num estado que o cache
 		 * não reflete — o MDEI precisa de um baseline correto. */
 		rasty->SyncCullFaceFromGL();
 		if (drawingMode == RAS_Rasterizer::RAS_SHADOW) {
-			m_mdeiRenderer->RenderShadow(m_mdeiVisibleObjects, rasty);
+			m_mdeiRenderer->RenderShadow(m_mdeiVisibleObjects, m_mdeiAlwaysObjects, rasty);
 		}
 		else {
-			m_mdeiRenderer->RenderSolid(m_mdeiVisibleObjects, rasty);
+			m_mdeiRenderer->RenderSolid(m_mdeiVisibleObjects, m_mdeiAlwaysObjects, rasty);
 		}
 	}
 
@@ -1907,11 +1914,10 @@ void KX_Scene::RenderSolidBuckets(const std::vector<KX_GameObject *>& objects,
                                    const mt::mat3x4& cameratransform,
                                    RAS_Rasterizer *rasty)
 {
-	/* MDEI draws only objects that passed DBVT frustum culling.
-	 * m_mdeiVisibleObjects is empty when DBVT is disabled (no fallback). */
-	if (m_mdeiRenderer && !m_mdeiVisibleObjects.empty()) {
+	/* MDEI: visibles from DBVT + always-drawn (no DBVT). */
+	if (m_mdeiRenderer && (!m_mdeiVisibleObjects.empty() || !m_mdeiAlwaysObjects.empty())) {
 		rasty->SyncCullFaceFromGL();
-		m_mdeiRenderer->RenderSolid(m_mdeiVisibleObjects, rasty);
+		m_mdeiRenderer->RenderSolid(m_mdeiVisibleObjects, m_mdeiAlwaysObjects, rasty);
 	}
 
 	if (objects.empty()) return;

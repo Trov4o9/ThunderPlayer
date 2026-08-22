@@ -46,6 +46,10 @@ struct GPUMaterial;
 
 class MDEI_Renderer {
 public:
+	/** Pair used by KX_Scene::UpdateDbvt to update DBVT controllers for
+	 *  dynamic MDEI objects without scanning all registered objects. */
+	struct DbvtDynPair { KX_GameObject *obj; CcdGraphicController *ctrl; };
+
 	explicit MDEI_Renderer(KX_Scene *scene);
 	~MDEI_Renderer();
 
@@ -91,14 +95,16 @@ public:
 	/** Update ALL active skin deformers (fallback, not used in main path). */
 	void UpdateDeformers();
 
-	/** Solid pass — draws only objects in `visibleObjects` (from DBVT culling).
-	 *  If visibleObjects is empty, nothing is drawn (no fallback). */
+	/** Solid pass.
+	 *  visibleObjects — passed DBVT frustum culling (HasMdeiDbvtCull == true).
+	 *  alwaysObjects  — bypass-culling objects (HasMdeiDbvtCull == false); always drawn. */
 	void RenderSolid(const std::vector<KX_GameObject *>& visibleObjects,
+	                 const std::vector<KX_GameObject *>& alwaysObjects,
 	                 RAS_Rasterizer *rasty);
 
-	/** Shadow pass — draws only objects in `visibleObjects` (from DBVT culling).
-	 *  If visibleObjects is empty, nothing is drawn (no fallback). */
+	/** Shadow pass — same split as RenderSolid. */
 	void RenderShadow(const std::vector<KX_GameObject *>& visibleObjects,
+	                  const std::vector<KX_GameObject *>& alwaysObjects,
 	                  RAS_Rasterizer *rasty);
 
 	/** Retorna true se há pelo menos um objeto registrado neste renderer.
@@ -113,6 +119,18 @@ public:
 	/** Retorna o mapa de controladores DBVT (usado por KX_Scene::UpdateDbvt). */
 	const std::unordered_map<KX_GameObject *, CcdGraphicController *>& GetDbvtControllers() const
 	    { return m_dbvtControllers; }
+
+	/** Atualiza o AABB do CcdGraphicController DBVT para um objeto MDEI.
+	 *  Chamado após mdei_update_mesh() para que o DBVT reflita a nova geometria. */
+	void UpdateDbvtAabb(KX_GameObject *gameobj);
+
+	/** Retorna a lista pre-cacheada de objetos sem DBVT culling (always-drawn).
+	 *  Reconstruída automaticamente quando a composição da cena muda. */
+	const std::vector<KX_GameObject *>& GetAlwaysObjects();
+
+	/** Retorna os pares (obj, ctrl) para MDEI dinâmicos com DBVT controller.
+	 *  Usado por KX_Scene::UpdateDbvt para evitar iterar todos os objetos. */
+	const std::vector<DbvtDynPair>& GetDbvtDynPairs() const { return m_dbvtDynPairs; }
 
 	/** Aplica o novo nível de filtragem anisotrópica em todos os sampler
 	 *  arrays MDEI já criados, recriando-os com o novo parâmetro.
@@ -138,9 +156,11 @@ private:
 	/** Legacy alias — redirects to GetOrCreatePrivateGroup. */
 	MDEI_DrawGroup *GetOrCreateGroup(MDEI_Mesh *mesh, MDEI_Shader *shader);
 
-	/** Core draw: iterates visibleObjects (result of DBVT culling — no fallback). */
+	/** Core draw.
+	 *  visibleObjects — DBVT-culled; alwaysObjects — bypass culling (no DBVT). */
 	void ExecuteDraw(bool shadowPass, RAS_Rasterizer *rasty,
-	                 const std::vector<KX_GameObject *>& visibleObjects);
+	                 const std::vector<KX_GameObject *>& visibleObjects,
+	                 const std::vector<KX_GameObject *>& alwaysObjects);
 
 	KX_Scene              *m_scene;
 	MDEI_PersistentBuffer  m_buffer;
@@ -162,9 +182,19 @@ private:
 	 *  are rendered — not this list directly. */
 	std::vector<KX_GameObject *> m_registeredObjects;
 
+	/** Pre-cached list of registered objects that have HasMdeiDbvtCull()==false.
+	 *  Built lazily when m_alwaysDirty is true; avoids rebuilding every frame. */
+	std::vector<KX_GameObject *> m_alwaysObjects;
+	bool                         m_alwaysDirty = true;
+
 	/** One CcdGraphicController per registered MDEI object, inserted in the
 	 *  physics environment's DBVT culling tree.  Owned by this renderer. */
 	std::unordered_map<KX_GameObject *, CcdGraphicController *> m_dbvtControllers;
+
+	/** Pairs (gameobj, ctrl) for MDEI objects that are dynamic (AutoUpdateBounds)
+	 *  AND have a DBVT controller.  Avoids iterating all registered objects in
+	 *  UpdateDbvt just to skip the static majority. */
+	std::vector<DbvtDynPair> m_dbvtDynPairs;
 
 	/* ── Mesh cache ───────────────────────────────────────────────────
 	 * Static meshes: keyed by blenderMesh* (shared across instances).

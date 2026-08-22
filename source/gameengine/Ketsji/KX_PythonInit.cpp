@@ -118,6 +118,9 @@ extern "C" {
 
 #include "KX_GameObject.h"  /* KX_GameObject, ApplyMovement etc. */
 
+#include <limits>           /* std::numeric_limits — batchGetPositions NaN */
+#include <cstdint>          /* uint32_t */
+
 #include "KX_PyMath.h"
 
 #include "EXP_PyObjectPlus.h"
@@ -901,6 +904,91 @@ static PyObject *gPyNextFrame(PyObject *)
 
 
 /* ────────────────────────────────────────────────────────────────────────────
+ * gPyBatchGetPositions — bge.logic.batchGetPositions(ids, out)
+ *
+ * Reads worldPosition of N objects into a caller-provided float32 buffer.
+ * Zero-copy: writes directly into the memoryview the caller passes in.
+ *
+ * ids : memoryview('I') — N uint32 objectId values
+ * out : writable memoryview('f') — N*3 float32, written in-place
+ *         out[i*3+0] = x
+ *         out[i*3+1] = y
+ *         out[i*3+2] = z
+ * Objects not found (invalid id / destroyed) → NaN written to their slot.
+ * ──────────────────────────────────────────────────────────────────────────── */
+static PyObject *gPyBatchGetPositions(PyObject * /*self*/, PyObject *args, PyObject *kwds)
+{
+	static const char *kwlist[] = {"ids", "out", nullptr};
+
+	Py_buffer ids_buf, out_buf;
+
+	if (!PyArg_ParseTupleAndKeywords(args, kwds, "y*w*:batchGetPositions",
+	                                 (char **)kwlist, &ids_buf, &out_buf))
+	{
+		return nullptr;
+	}
+
+	/* ── Validate ─────────────────────────────────────────────────────── */
+	if (ids_buf.itemsize != (Py_ssize_t)sizeof(uint32_t)) {
+		PyBuffer_Release(&ids_buf);
+		PyBuffer_Release(&out_buf);
+		PyErr_SetString(PyExc_TypeError,
+		    "batchGetPositions: ids buffer must have itemsize=4 (uint32, format 'I')");
+		return nullptr;
+	}
+	if (out_buf.itemsize != (Py_ssize_t)sizeof(float)) {
+		PyBuffer_Release(&ids_buf);
+		PyBuffer_Release(&out_buf);
+		PyErr_SetString(PyExc_TypeError,
+		    "batchGetPositions: out buffer must have itemsize=4 (float32, format 'f')");
+		return nullptr;
+	}
+
+	const int N = (int)(ids_buf.len / (Py_ssize_t)sizeof(uint32_t));
+	if (out_buf.len != (Py_ssize_t)(N * 3 * sizeof(float))) {
+		PyBuffer_Release(&ids_buf);
+		PyBuffer_Release(&out_buf);
+		PyErr_Format(PyExc_ValueError,
+		    "batchGetPositions: out buffer length mismatch — "
+		    "expected %d floats (N=%d × 3), got %d",
+		    N * 3, N, (int)(out_buf.len / sizeof(float)));
+		return nullptr;
+	}
+
+	/* ── Fast path ────────────────────────────────────────────────────── */
+	KX_Scene *scene = KX_GetActiveScene();
+	if (!scene || N == 0) {
+		PyBuffer_Release(&ids_buf);
+		PyBuffer_Release(&out_buf);
+		Py_RETURN_NONE;
+	}
+
+	const uint32_t *idPtr  = static_cast<const uint32_t *>(ids_buf.buf);
+	float          *outPtr = static_cast<float          *>(out_buf.buf);
+
+	KX_Scene::KX_ObjectRegistry &reg = scene->GetObjectRegistry();
+
+	static const float kNaN = std::numeric_limits<float>::quiet_NaN();
+
+	for (int i = 0; i < N; ++i) {
+		KX_GameObject *ob = reg.Get(idPtr[i]);
+		float *slot = outPtr + i * 3;
+		if (!ob) {
+			slot[0] = slot[1] = slot[2] = kNaN;
+			continue;
+		}
+		const mt::vec3 pos = ob->NodeGetWorldPosition();
+		slot[0] = (float)pos.x;
+		slot[1] = (float)pos.y;
+		slot[2] = (float)pos.z;
+	}
+
+	PyBuffer_Release(&ids_buf);
+	PyBuffer_Release(&out_buf);
+	Py_RETURN_NONE;
+}
+
+/* ────────────────────────────────────────────────────────────────────────────
  * gPyBatchUpdate — bge.logic.batchUpdate(ids, data, local=0, mask=0xF)
  *
  * Applies movement / rotation / linear velocity / angular velocity to a batch
@@ -1067,6 +1155,16 @@ static struct PyMethodDef game_methods[] = {
 	 "         [6..8] setLinearVelocity, [9..11] setAngularVelocity.\n"
 	 "local: 0=world (default), 1=local — applies to all objects.\n"
 	 "mask:  0x1=move 0x2=rot 0x4=lvel 0x8=avel — default 0xF (all)."},
+
+	/* Batch world-position read — zero Python overhead per object */
+	{"batchGetPositions", (PyCFunction)gPyBatchGetPositions, METH_VARARGS | METH_KEYWORDS,
+	 (const char *)"batchGetPositions(ids, out)\n"
+	 "Read worldPosition of N objects into a flat float32 memoryview buffer.\n"
+	 "ids: memoryview('I') of N uint32 objectId values.\n"
+	 "out: writable memoryview('f') of N*3 float32 — written in-place.\n"
+	 "     out[i*3+0]=x  out[i*3+1]=y  out[i*3+2]=z\n"
+	 "Objects not found (invalid id) write NaN into their slot.\n"
+	 "Returns None."},
 
 	{nullptr, (PyCFunction)nullptr, 0, nullptr }
 };

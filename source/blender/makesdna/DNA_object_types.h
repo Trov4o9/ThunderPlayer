@@ -597,6 +597,7 @@ enum {
 	OB_HASOBSTACLE           = 1 << 21,
 	OB_CHARACTER             = 1 << 22,
 	OB_FAST_RENDER           = 1 << 23,  /* MDEI fast-path renderer, skip all RAS_* */
+	OB_MDEI_DBVT_CULL        = 1 << 24,  /* MDEI: enable DBVT frustum culling for this object */
 };
 
 /* ob->gameflag2 */

@@ -1047,6 +1047,9 @@ static KX_GameObject *BL_GameObjectFromBlenderObject(Object *ob, KX_Scene *kxsce
 			/* ── MDEI fast-path: skip the entire RAS mesh pipeline ── */
 			if (ob->gameflag & OB_FAST_RENDER) {
 				gameobj = new KX_GameObject(kxscene, KX_Scene::m_callbacks);
+				/* Propagate the DBVT culling flag from the .blend before RegisterObject,
+				 * so the renderer can decide whether to insert into the culling tree. */
+				gameobj->SetMdeiDbvtCull((ob->gameflag & OB_MDEI_DBVT_CULL) != 0);
 				/* The mesh will be built directly by MDEI_Renderer::RegisterObject()
 				 * via MDEI_MeshBuilder; no RAS mesh is created here. */
 				Material *blenderMat  = give_current_material(ob, 1);
@@ -1379,6 +1382,9 @@ static void bl_ConvertBlenderObject_Single(BL_SceneConverter& converter,
 	// Only draw/use objects in active 'blender' layers.
 	if (isInActiveLayer) {
 		objectlist->Add(CM_AddRef(gameobj));
+		/* Register in the batch-update registry (objectId=0 means not yet registered) */
+		if (gameobj->GetObjectId() == 0)
+			gameobj->SetObjectId(kxscene->GetObjectRegistry().Register(gameobj));
 
 		gameobj->NodeUpdate();
 	}

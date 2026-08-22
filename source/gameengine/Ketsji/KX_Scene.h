@@ -245,6 +245,8 @@ private:
 	std::vector<KX_GameObject *> m_visibleObjects;
 	/// Vetor reutilizado por frame para objetos MDEI visíveis (resultado do culling DBVT).
 	std::vector<KX_GameObject *> m_mdeiVisibleObjects;
+	/// Vetor reutilizado por frame para objetos MDEI sem DBVT culling (sempre desenhados).
+	std::vector<KX_GameObject *> m_mdeiAlwaysObjects;
 	/// Objetos dinâmicos (AutoUpdateBounds=true) — só eles precisam de reset de culling por frame.
 	std::vector<KX_GameObject *> m_dynamicObjects;
 

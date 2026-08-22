@@ -95,6 +95,7 @@ MDEI_Renderer::MDEI_Renderer(KX_Scene *scene)
 	, m_shadowFrame(MDEI_RING_SEGMENTS / 2)
 	, m_debugCallCount(0)
 	, m_ensurePrivateCount(0)
+	, m_alwaysDirty(true)
 {
 	m_buffer.Init();
 }
@@ -262,22 +263,27 @@ void MDEI_Renderer::RegisterObject(KX_GameObject *gameobj,
 	gameobj->GetCullingNode().GetAabb().Set(mesh->m_aabbMin, mesh->m_aabbMax);
 
 	m_registeredObjects.push_back(gameobj);
+	m_alwaysDirty = true; /* list will be rebuilt on next GetAlwaysObjects() */
 
 	/* ── 6. DBVT controller ───────────────────────────────────────────── */
-	/* Insert the object into the physics environment's culling tree so that
-	 * it participates in frustum culling together with RAS objects.
-	 * We do this lazily here (not in the constructor) because
-	 * SetPhysicsEnvironment is called after MDEI_Renderer is created. */
-	if (CcdPhysicsEnvironment *bulletEnv =
-	        dynamic_cast<CcdPhysicsEnvironment *>(m_scene->GetPhysicsEnvironment()))
-	{
-		PHY_IMotionState     *ms   = new KX_MotionState(gameobj->GetNode());
-		CcdGraphicController *ctrl = new CcdGraphicController(bulletEnv, ms);
-		ctrl->SetLocalAabb(mesh->m_aabbMin, mesh->m_aabbMax);
-		ctrl->SetNewClientInfo(&gameobj->GetClientInfo());
-		if (gameobj->GetVisible())
-			bulletEnv->AddCcdGraphicController(ctrl);
-		m_dbvtControllers[gameobj] = ctrl;
+	/* Only insert into the DBVT if the object has OB_MDEI_DBVT_CULL set.
+	 * Objects without the flag skip the DBVT entirely: they use only the
+	 * layer test done in ExecuteDraw and are always rendered when visible. */
+	if (gameobj->HasMdeiDbvtCull()) {
+		if (CcdPhysicsEnvironment *bulletEnv =
+		        dynamic_cast<CcdPhysicsEnvironment *>(m_scene->GetPhysicsEnvironment()))
+		{
+			PHY_IMotionState     *ms   = new KX_MotionState(gameobj->GetNode());
+			CcdGraphicController *ctrl = new CcdGraphicController(bulletEnv, ms);
+			ctrl->SetLocalAabb(mesh->m_aabbMin, mesh->m_aabbMax);
+			ctrl->SetNewClientInfo(&gameobj->GetClientInfo());
+			if (gameobj->GetVisible())
+				bulletEnv->AddCcdGraphicController(ctrl);
+			m_dbvtControllers[gameobj] = ctrl;
+			/* Track for fast UpdateDbvt — only dynamic objects need per-frame update */
+			if (gameobj->GetAutoUpdateBounds())
+				m_dbvtDynPairs.push_back({gameobj, ctrl});
+		}
 	}
 
 #if MDEI_DEBUG_LEVEL >= 1
@@ -308,20 +314,28 @@ void MDEI_Renderer::RegisterReplica(KX_GameObject *replica,
 		replica->GetCullingNode().GetAabb().Set(src->mesh->m_aabbMin, src->mesh->m_aabbMax);
 
 	m_registeredObjects.push_back(replica);
+	m_alwaysDirty = true;
 
-	/* Insert replica into the DBVT culling tree */
-	if (CcdPhysicsEnvironment *bulletEnv =
-	        dynamic_cast<CcdPhysicsEnvironment *>(m_scene->GetPhysicsEnvironment()))
-	{
-		const mt::vec3 aabbMin = src->mesh ? mt::vec3(src->mesh->m_aabbMin) : mt::vec3(-0.5f, -0.5f, -0.5f);
-		const mt::vec3 aabbMax = src->mesh ? mt::vec3(src->mesh->m_aabbMax) : mt::vec3( 0.5f,  0.5f,  0.5f);
-		PHY_IMotionState     *ms   = new KX_MotionState(replica->GetNode());
-		CcdGraphicController *ctrl = new CcdGraphicController(bulletEnv, ms);
-		ctrl->SetLocalAabb(aabbMin, aabbMax);
-		ctrl->SetNewClientInfo(&replica->GetClientInfo());
-		if (replica->GetVisible())
-			bulletEnv->AddCcdGraphicController(ctrl);
-		m_dbvtControllers[replica] = ctrl;
+	/* Replica inherits the DBVT culling flag from the original */
+	replica->SetMdeiDbvtCull(original->HasMdeiDbvtCull());
+
+	/* Insert replica into the DBVT culling tree only if flag is set */
+	if (replica->HasMdeiDbvtCull()) {
+		if (CcdPhysicsEnvironment *bulletEnv =
+		        dynamic_cast<CcdPhysicsEnvironment *>(m_scene->GetPhysicsEnvironment()))
+		{
+			const mt::vec3 aabbMin = src->mesh ? mt::vec3(src->mesh->m_aabbMin) : mt::vec3(-0.5f, -0.5f, -0.5f);
+			const mt::vec3 aabbMax = src->mesh ? mt::vec3(src->mesh->m_aabbMax) : mt::vec3( 0.5f,  0.5f,  0.5f);
+			PHY_IMotionState     *ms   = new KX_MotionState(replica->GetNode());
+			CcdGraphicController *ctrl = new CcdGraphicController(bulletEnv, ms);
+			ctrl->SetLocalAabb(aabbMin, aabbMax);
+			ctrl->SetNewClientInfo(&replica->GetClientInfo());
+			if (replica->GetVisible())
+				bulletEnv->AddCcdGraphicController(ctrl);
+			m_dbvtControllers[replica] = ctrl;
+			if (replica->GetAutoUpdateBounds())
+				m_dbvtDynPairs.push_back({replica, ctrl});
+		}
 	}
 
 #if MDEI_DEBUG_LEVEL >= 1
@@ -422,7 +436,14 @@ void MDEI_Renderer::UnregisterObject(KX_GameObject *gameobj)
 	if (cit != m_dbvtControllers.end()) {
 		delete cit->second;
 		m_dbvtControllers.erase(cit);
+		/* Remove from dynamic pairs list */
+		auto dit2 = std::find_if(m_dbvtDynPairs.begin(), m_dbvtDynPairs.end(),
+		    [gameobj](const DbvtDynPair &p){ return p.obj == gameobj; });
+		if (dit2 != m_dbvtDynPairs.end())
+			m_dbvtDynPairs.erase(dit2);
 	}
+
+	m_alwaysDirty = true;
 
 	/* Remove skin deformer if present */
 	auto dit = m_skinDeformers.find(gameobj);
@@ -572,6 +593,33 @@ void MDEI_Renderer::EnsurePrivateMesh(KX_GameObject *gameobj)
 #endif
 }
 
+const std::vector<KX_GameObject *>& MDEI_Renderer::GetAlwaysObjects()
+{
+	if (m_alwaysDirty) {
+		m_alwaysObjects.clear();
+		for (KX_GameObject *obj : m_registeredObjects) {
+			if (obj && !obj->HasMdeiDbvtCull())
+				m_alwaysObjects.push_back(obj);
+		}
+		m_alwaysDirty = false;
+	}
+	return m_alwaysObjects;
+}
+
+void MDEI_Renderer::UpdateDbvtAabb(KX_GameObject *gameobj)
+{
+	if (!gameobj) return;
+	MDEI_ObjectProxy *proxy = gameobj->GetMdeiProxy();
+	if (!proxy || !proxy->mesh) return;
+
+	auto cit = m_dbvtControllers.find(gameobj);
+	if (cit == m_dbvtControllers.end()) return;
+
+	CcdGraphicController *ctrl = cit->second;
+	/* Update the local AABB and re-push to the DBVT broadphase */
+	ctrl->SetLocalAabb(proxy->mesh->m_aabbMin, proxy->mesh->m_aabbMax);
+}
+
 void MDEI_Renderer::UpdateDeformerForObject(KX_GameObject *gameobj)
 {
 	auto it = m_skinDeformers.find(gameobj);
@@ -633,9 +681,10 @@ MDEI_DrawGroup *MDEI_Renderer::GetOrCreateGroup(MDEI_Mesh *mesh, MDEI_Shader *sh
 /* ─── Render ────────────────────────────────────────────────────────────── */
 
 void MDEI_Renderer::ExecuteDraw(bool shadowPass, RAS_Rasterizer *rasty,
-                                const std::vector<KX_GameObject *>& visibleObjects)
+                                const std::vector<KX_GameObject *>& visibleObjects,
+                                const std::vector<KX_GameObject *>& alwaysObjects)
 {
-	if (m_groups.empty() || visibleObjects.empty()) return;
+	if (m_groups.empty() || (visibleObjects.empty() && alwaysObjects.empty())) return;
 
 	/* ── 0. Restore GL_MODELVIEW to view-only matrix ─────────────────── */
 	{
@@ -671,16 +720,17 @@ void MDEI_Renderer::ExecuteDraw(bool shadowPass, RAS_Rasterizer *rasty,
 	for (MDEI_DrawGroup *g : m_groups) g->BeginFrame();
 
 	/* ── 3. Accumulate visible instances ─────────────────────────────── *
-	 * Itera apenas os objetos que passaram no frustum culling da DBVT.
-	 * A lista é fornecida pelo KX_Scene — sem fallback. */
+	 * visibleObjects: passed DBVT frustum culling (HasMdeiDbvtCull == true).
+	 * alwaysObjects:  no DBVT; always drawn when visible (HasMdeiDbvtCull == false). */
 	const int activeLayer = m_scene->GetBlenderScene() ? m_scene->GetBlenderScene()->lay : 0;
 
-	for (KX_GameObject *obj : visibleObjects) {
-		if (!obj->GetVisible()) continue;
-		if (activeLayer != 0 && !(obj->GetLayer() & activeLayer)) continue;
+	/* Helper lambda to process one object — avoids code duplication */
+	auto accumulateObj = [&](KX_GameObject *obj) {
+		if (!obj->GetVisible()) return;
+		if (activeLayer != 0 && !(obj->GetLayer() & activeLayer)) return;
 
 		MDEI_ObjectProxy *proxy = obj->GetMdeiProxy();
-		if (!proxy) continue;
+		if (!proxy) return;
 
 		mt::mat4 W = mt::mat4::FromAffineTransform(obj->NodeGetWorldTransform());
 		const float mat[16] = {
@@ -694,7 +744,10 @@ void MDEI_Renderer::ExecuteDraw(bool shadowPass, RAS_Rasterizer *rasty,
 
 		/* Passa o meshSlot para o grupo pooled; grupos privados ignoram-no */
 		proxy->group->AddInstance(mat, col, proxy->meshSlot);
-	}
+	};
+
+	for (KX_GameObject *obj : visibleObjects) accumulateObj(obj);
+	for (KX_GameObject *obj : alwaysObjects)  accumulateObj(obj);
 
 	/* ── 4. Snapshot pending counts ─────────────────────────────────── */
 	std::vector<unsigned int> counts(m_groups.size());
@@ -907,15 +960,17 @@ void MDEI_Renderer::ExecuteDraw(bool shadowPass, RAS_Rasterizer *rasty,
 /* ─── Public render entry points ────────────────────────────────────────── */
 
 void MDEI_Renderer::RenderSolid(const std::vector<KX_GameObject *>& visibleObjects,
+                                const std::vector<KX_GameObject *>& alwaysObjects,
                                 RAS_Rasterizer *rasty)
 {
-	ExecuteDraw(false, rasty, visibleObjects);
+	ExecuteDraw(false, rasty, visibleObjects, alwaysObjects);
 }
 
 void MDEI_Renderer::RenderShadow(const std::vector<KX_GameObject *>& visibleObjects,
+                                 const std::vector<KX_GameObject *>& alwaysObjects,
                                  RAS_Rasterizer *rasty)
 {
-	ExecuteDraw(true, rasty, visibleObjects);
+	ExecuteDraw(true, rasty, visibleObjects, alwaysObjects);
 }
 
 void MDEI_Renderer::SetAnisotropicFiltering(short /*level*/)

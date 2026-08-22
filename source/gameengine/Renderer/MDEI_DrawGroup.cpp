@@ -28,6 +28,7 @@ MDEI_DrawGroup::MDEI_DrawGroup(MDEI_Shader *shader)
     , m_pool(new MDEI_GeometryPool())
     , m_privateMesh(nullptr)
 {
+    m_pendingInstances.reserve(64);
 }
 
 MDEI_DrawGroup::MDEI_DrawGroup(MDEI_Mesh *mesh, MDEI_Shader *shader)
@@ -35,6 +36,7 @@ MDEI_DrawGroup::MDEI_DrawGroup(MDEI_Mesh *mesh, MDEI_Shader *shader)
     , m_pool(nullptr)
     , m_privateMesh(mesh)
 {
+    m_pendingInstances.reserve(16);
 }
 
 MDEI_DrawGroup::~MDEI_DrawGroup()
@@ -99,28 +101,29 @@ void MDEI_DrawGroup::WriteInstancesAndCommand(
          * na prática (geralmente 1–4 por grupo pooled).                  *
          * ─────────────────────────────────────────────────────────────── */
 
-        /* Passo 1: reordenar logicamente — acumular instâncias por slot  *
-         * Usamos a ordem em que os slots aparecem pela primeira vez para  *
-         * preservar o comportamento determinístico entre frames.          */
-
-        /* Lista de slots únicos na ordem de aparição */
-        std::vector<MDEI_MeshSlot> slotOrder;
-        slotOrder.reserve(8);
+        /* Passo 1: reordenar logicamente — acumular instâncias por slot.
+         * Usa array on-stack (sem heap) para os slots únicos.
+         * O número de slots distintos por grupo é quase sempre < 16. */
+        static const int kMaxSlots = 32;
+        MDEI_MeshSlot    slotOrder[kMaxSlots];
+        int              slotCount_unique = 0;
 
         for (unsigned int i = 0; i < count; i++) {
             const MDEI_MeshSlot s = m_pendingInstances[i].slot;
             if (s == MDEI_SLOT_INVALID) continue;
             bool found = false;
-            for (MDEI_MeshSlot us : slotOrder) {
-                if (us == s) { found = true; break; }
+            for (int j = 0; j < slotCount_unique; j++) {
+                if (slotOrder[j] == s) { found = true; break; }
             }
-            if (!found) slotOrder.push_back(s);
+            if (!found && slotCount_unique < kMaxSlots)
+                slotOrder[slotCount_unique++] = s;
         }
 
         /* Passo 2: para cada slot único, escrever instâncias e emitir cmd */
         unsigned int ssboOffset = 0; /* offset dentro do bloco deste grupo */
 
-        for (MDEI_MeshSlot targetSlot : slotOrder) {
+        for (int si = 0; si < slotCount_unique; si++) {
+            const MDEI_MeshSlot targetSlot = slotOrder[si];
             const MDEI_PoolMeshInfo &info = m_pool->GetInfo(targetSlot);
             if (info.indexCount == 0) continue;
 

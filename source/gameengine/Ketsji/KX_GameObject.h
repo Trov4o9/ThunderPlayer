@@ -125,6 +125,10 @@ protected:
 	/* MDEI fast-path: proxy replacing RAS_MeshUser for OB_FAST_RENDER objects */
 	class MDEI_ObjectProxy					*m_mdeiProxy;
 	bool								m_fastRender;
+	/** When true the object has OB_MDEI_DBVT_CULL set: it is registered in
+	 *  the DBVT culling tree and only rendered when inside the frustum.
+	 *  When false the DBVT registration is skipped (always rendered if visible). */
+	bool								m_mdeiDbvtCull;
 	/* Python-visible shader wrapper — created on first access of obj.mdeiShader */
 	class KX_MDEI_ShaderProxy				*m_mdeiShaderProxy;
 	/* Debug: imprime o diagnóstico de shader compartilhado apenas uma vez. */
@@ -929,6 +933,10 @@ public:
 	/* MDEI fast-path accessors */
 	bool HasFastRenderFlag() const { return m_fastRender; }
 	void SetFastRenderFlag(bool v) { m_fastRender = v; }
+	/** Whether DBVT frustum culling is enabled for this MDEI object.
+	 *  Mirrors OB_MDEI_DBVT_CULL from the .blend file. */
+	bool HasMdeiDbvtCull() const { return m_mdeiDbvtCull; }
+	void SetMdeiDbvtCull(bool v) { m_mdeiDbvtCull = v; }
 	MDEI_ObjectProxy *GetMdeiProxy() const { return m_mdeiProxy; }
 	void SetMdeiProxy(MDEI_ObjectProxy *proxy) { m_mdeiProxy = proxy; }
 

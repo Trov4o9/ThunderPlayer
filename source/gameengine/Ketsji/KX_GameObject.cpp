@@ -172,6 +172,7 @@ KX_GameObject::KX_GameObject(void *sgReplicationInfo,
 	m_meshUser(nullptr),
 	m_mdeiProxy(nullptr),
 	m_fastRender(false),
+	m_mdeiDbvtCull(false),
 	m_mdeiShaderProxy(nullptr),
 	m_mdeiShaderDbgPrinted(false),
 	m_convertInfo(nullptr),
@@ -215,6 +216,7 @@ KX_GameObject::KX_GameObject(const KX_GameObject& other)
 	m_meshUser(nullptr),
 	m_mdeiProxy(nullptr),
 	m_fastRender(false),
+	m_mdeiDbvtCull(other.m_mdeiDbvtCull),
 	m_mdeiShaderProxy(nullptr),
 	m_mdeiShaderDbgPrinted(false),
 	m_convertInfo(other.m_convertInfo),
@@ -1092,7 +1094,8 @@ RAS_MeshUser *KX_GameObject::GetMeshUser() const
 
 bool KX_GameObject::Renderable(int layer) const
 {
-	return (m_meshUser != nullptr) && m_bVisible && (layer == 0 || m_layer & layer);
+	const bool hasMesh = (m_meshUser != nullptr) || (m_mdeiProxy != nullptr);
+	return hasMesh && m_bVisible && (layer == 0 || m_layer & layer);
 }
 
 void KX_GameObject::SetLodManager(KX_LodManager *lodManager)
@@ -2609,6 +2612,15 @@ EXP_PYMETHODDEF_DOC(KX_GameObject, MDEIUpdateMesh,
 	// Atualiza o AABB do culling node com os limites da nova geometria.
 	GetCullingNode().GetAabb().Set(m_mdeiProxy->mesh->m_aabbMin,
 	                               m_mdeiProxy->mesh->m_aabbMax);
+
+	// Atualiza o AABB do CcdGraphicController DBVT para que o frustum culling
+	// use os bounds corretos da nova geometria (espelha SetBoundsAabb do RAS).
+	{
+		KX_Scene *sc = GetScene();
+		MDEI_Renderer *mdeiRend = sc ? sc->GetMdeiRenderer() : nullptr;
+		if (mdeiRend)
+			mdeiRend->UpdateDbvtAabb(this);
+	}
 
 	// Consome o capsule.
 	PyCapsule_SetDestructor(capsule, nullptr);

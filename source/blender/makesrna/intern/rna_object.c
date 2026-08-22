@@ -1946,6 +1946,15 @@ static void rna_def_object_game_settings(BlenderRNA *brna)
 	                         "via a persistent-buffer instanced pass instead.");
 	RNA_def_property_update(prop, NC_OBJECT | ND_DRAW, NULL);
 
+	prop = RNA_def_property(srna, "use_mdei_dbvt_cull", PROP_BOOLEAN, PROP_NONE);
+	RNA_def_property_boolean_sdna(prop, NULL, "gameflag", OB_MDEI_DBVT_CULL);
+	RNA_def_property_ui_text(prop, "MDEI DBVT Frustum Culling",
+	                         "Enable DBVT frustum culling for this MDEI object. "
+	                         "When enabled, the object is inserted into the Bullet culling tree "
+	                         "and only rendered when inside the camera frustum. "
+	                         "Disable for objects that must always be visible (e.g. UI geometry).");
+	RNA_def_property_update(prop, NC_OBJECT | ND_DRAW, NULL);
+
 	prop = RNA_def_property(srna, "obstacle_radius", PROP_FLOAT, PROP_NONE | PROP_UNIT_LENGTH);
 	RNA_def_property_float_sdna(prop, NULL, "obstacleRad");
 	RNA_def_property_range(prop, 0.0, 1000.0);
