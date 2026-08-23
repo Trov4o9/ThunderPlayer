@@ -61,37 +61,59 @@ class RAS_Rasterizer;
 // ============================================================================
 // Per-instance data
 // ============================================================================
+// ── Merge mode (KX_GRASS_DENSITY_SHADER_MERGE=1) — 64 bytes ──────────────────
+// Layout reorganizado para cache L1: todos os floats primeiro (posições + bladeLen),
+// depois todos os int8_t agrupados (random, sinA, cosA, tiltX, tiltY, tiltZ).
+// Isso garante que o atributo instSinCos (offset 52) começa em offset múltiplo de 4,
+// eliminando leituras misalinhadas que fragmentavam transações L1TEX LSU.
+//
+//  Offset  0: worldX,  worldY,  worldZ   (12 bytes) — grama 1
+//  Offset 12: worldX2, worldY2, worldZ2  (12 bytes) — grama 2
+//  Offset 24: worldX3, worldY3, worldZ3  (12 bytes) — grama 3
+//  Offset 36: worldX4, worldY4, worldZ4  (12 bytes) — grama 4
+//  Offset 48: bladeLen                    (4 bytes)
+//  Offset 52: random, sinA, cosA, tiltX, tiltY, tiltZ, _pad[2]  (8 bytes)
+//  Offset 60: selectionKey               (4 bytes)
+//  Total = 64 bytes
 #if KX_GRASS_DENSITY_SHADER_MERGE
-// 64 bytes: posição de até 4 gramas fundidas + dados compartilhados da instância
 struct GrassInstance {
-    float   worldX,  worldY,  worldZ;  // grama 1 — posição world  (12 bytes)
-    float   worldX2, worldY2, worldZ2; // grama 2 — posição world  (12 bytes)
-    float   worldX3, worldY3, worldZ3; // grama 3 — posição world  (12 bytes)
-    float   worldX4, worldY4, worldZ4; // grama 4 — posição world  (12 bytes)
-    float   bladeLen;                  //  4 bytes (blen pré-calculado na CPU)
-    uint8_t random;                    //  1 byte  [0,255]→[0,1]
-    int8_t  sinA;                      //  1 byte  [-127,127]→[-1,1]
-    int8_t  cosA;                      //  1 byte  [-127,127]→[-1,1]
-    int8_t  tiltX;                     //  1 byte  tilt X compactada
-    int8_t  tiltY;                     //  1 byte  tilt Y compactada
-    int8_t  tiltZ;                     //  1 byte  tilt Z compactada
-    int8_t  _pad[2];                   //  2 bytes alinhamento
-    uint32_t selectionKey;
+    // ── Floats: todas as posições + comprimento da lâmina ────────────────────
+    float   worldX,  worldY,  worldZ;  // grama 1 — posição world  (offset  0, 12 bytes)
+    float   worldX2, worldY2, worldZ2; // grama 2 — posição world  (offset 12, 12 bytes)
+    float   worldX3, worldY3, worldZ3; // grama 3 — posição world  (offset 24, 12 bytes)
+    float   worldX4, worldY4, worldZ4; // grama 4 — posição world  (offset 36, 12 bytes)
+    float   bladeLen;                  // comprimento da lâmina     (offset 48,  4 bytes)
+    // ── Bytes: compactados e alinhados a 4 bytes (offset 52) ─────────────────
+    uint8_t random;                    // [0,255]→[0,1]             (offset 52,  1 byte)
+    int8_t  sinA;                      // [-127,127]→[-1,1]         (offset 53,  1 byte)
+    int8_t  cosA;                      // [-127,127]→[-1,1]         (offset 54,  1 byte)
+    int8_t  tiltX;                     // tilt X compactada         (offset 55,  1 byte)
+    int8_t  tiltY;                     // tilt Y compactada         (offset 56,  1 byte)
+    int8_t  tiltZ;                     // tilt Z compactada         (offset 57,  1 byte)
+    int8_t  _pad[2];                   // alinhamento para uint32   (offset 58,  2 bytes)
+    // ── selectionKey: usado só na CPU (sort/radix), não lido pela GPU ─────────
+    uint32_t selectionKey;             //                            (offset 60,  4 bytes)
 };
 static_assert(sizeof(GrassInstance) == 64, "GrassInstance must be 64 bytes (merge mode)");
 #else
-// 28 bytes: modo original, uma grama por instância
+// ── Single mode (KX_GRASS_DENSITY_SHADER_MERGE=0) — 28 bytes ─────────────────
+// Mesmo princípio: float (pos + bladeLen) antes dos int8_t.
+//  Offset  0: worldX, worldY, worldZ  (12 bytes)
+//  Offset 12: bladeLen                ( 4 bytes)
+//  Offset 16: random, sinA, cosA, tiltX, tiltY, tiltZ, _pad[2]  (8 bytes)
+//  Offset 24: selectionKey            ( 4 bytes)
+//  Total = 28 bytes
 struct GrassInstance {
-    float   worldX, worldY, worldZ; // 12 bytes
-    float   bladeLen;               //  4 bytes
-    uint8_t random;                 //  1 byte
-    int8_t  sinA;                   //  1 byte
-    int8_t  cosA;                   //  1 byte
-    int8_t  tiltX;                  //  1 byte
-    int8_t  tiltY;                  //  1 byte
-    int8_t  tiltZ;                  //  1 byte
-    int8_t  _pad[2];                //  2 bytes
-    uint32_t selectionKey;
+    float   worldX, worldY, worldZ; // posição world  (offset  0, 12 bytes)
+    float   bladeLen;               // comprimento    (offset 12,  4 bytes)
+    uint8_t random;                 // [0,255]        (offset 16,  1 byte)
+    int8_t  sinA;                   // sin compactado (offset 17,  1 byte)
+    int8_t  cosA;                   // cos compactado (offset 18,  1 byte)
+    int8_t  tiltX;                  // tilt X         (offset 19,  1 byte)
+    int8_t  tiltY;                  // tilt Y         (offset 20,  1 byte)
+    int8_t  tiltZ;                  // tilt Z         (offset 21,  1 byte)
+    int8_t  _pad[2];                // alinhamento    (offset 22,  2 bytes)
+    uint32_t selectionKey;          //                (offset 24,  4 bytes)
 };
 static_assert(sizeof(GrassInstance) == 28, "GrassInstance must be 28 bytes");
 #endif

@@ -20,7 +20,12 @@
 
 // Buffer upload strategy flags
 #define KX_GRASS_PERSISTENT_INSTANCE_MAP 0
-#define KX_GRASS_PERSISTENT_INDIRECT     1  
+#define KX_GRASS_PERSISTENT_INDIRECT     1
+
+// Fragment shader alpha masking strategy:
+//   0 = discard clássico (if alpha < 0.1 discard) — compatível com qualquer pipeline
+//   1 = alpha-to-coverage — elimina discard; requer MSAA ativo; melhora PS Warp Can't Launch
+#define KX_GRASS_USE_ALPHA_TO_COVERAGE 1
 
 #include "KX_GrassSystem.h"
 #include "KX_Scene.h"
@@ -55,6 +60,7 @@ extern "C" {
 #include <utility>
 #include <cstring>
 #include <iterator>
+#include <climits>
 #include <limits>
 #include <memory_resource>
 #include <thread>
@@ -520,9 +526,9 @@ static const char *s_vert =
 "    else                    pos = worldXYZ4;\n"
 "\n"
 "    vec2 posXY = pos.xy;\n"
-#if KX_GRASS_CAMERA_RELATIVE_XY
+"#if KX_GRASS_CAMERA_RELATIVE_XY\n"
 "    posXY -= camPosXY;\n"
-#endif
+"#endif\n"
 "\n"
 "    bool isSecondTri = (vtxInBlade >= 3);\n"
 "    if (isSecondTri) {\n"
@@ -668,9 +674,9 @@ static const char *s_vert =
 "    vec3 tilt = instTilt;\n"
 "\n"
 "    vec2 posXY = worldXYZ.xy;\n"
-#if KX_GRASS_CAMERA_RELATIVE_XY
+"#if KX_GRASS_CAMERA_RELATIVE_XY\n"
 "    posXY -= camPosXY;\n"
-#endif
+"#endif\n"
 "\n"
 "#if KX_GRASS_CAMERA_RELATIVE_XY\n"
 "    vec2 d = posXY;\n"
@@ -737,8 +743,14 @@ static const char *s_frag =
 "void main() {\n"
 "    sampler2D grassMap = sampler2D(hTexGrass0);\n"
 "    vec4 g0 = texture2D(grassMap, v_Coord);\n"
+"#if KX_GRASS_USE_ALPHA_TO_COVERAGE\n"
+// alpha-to-coverage: sem discard — a GPU elimina amostras via MSAA coverage mask.
+// Remapeia [0.1, 1.0] → [0.0, 1.0] para maximizar a resolução de coverage.
+"    gl_FragColor = vec4(g0.rgb * v_Light, (g0.a - 0.1) / 0.9);\n"
+"#else\n"
 "    if (g0.a < 0.1) discard;\n"
 "    gl_FragColor = vec4(g0.rgb * v_Light, 1.0);\n"
+"#endif\n"
 "}\n";
 
 // ============================================================================
@@ -2471,7 +2483,28 @@ void KX_GrassSystem::EnsureGPUResources()
 {
     if (m_prog) return;
 
-    m_prog = GPU_shader_create(s_vert, s_frag, nullptr, nullptr, nullptr, 0, 0, 0);
+    // Constrói string de defines para o compilador GLSL — garante que #if dentro
+    // dos shaders veja os mesmos valores que o C++ usa em tempo de compilação.
+    // GPU_shader_create injeta essa string antes do código do shader.
+    const char *shaderDefines =
+#if KX_GRASS_DENSITY_SHADER_MERGE
+        "#define KX_GRASS_DENSITY_SHADER_MERGE 1\n"
+#else
+        "#define KX_GRASS_DENSITY_SHADER_MERGE 0\n"
+#endif
+#if KX_GRASS_CAMERA_RELATIVE_XY
+        "#define KX_GRASS_CAMERA_RELATIVE_XY 1\n"
+#else
+        "#define KX_GRASS_CAMERA_RELATIVE_XY 0\n"
+#endif
+#if KX_GRASS_USE_ALPHA_TO_COVERAGE
+        "#define KX_GRASS_USE_ALPHA_TO_COVERAGE 1\n"
+#else
+        "#define KX_GRASS_USE_ALPHA_TO_COVERAGE 0\n"
+#endif
+        ;
+
+    m_prog = GPU_shader_create(s_vert, s_frag, nullptr, nullptr, shaderDefines, 0, 0, 0);
     if (!m_prog) return;
 
     const GLuint prog = (GLuint)GPU_shader_program(m_prog);
@@ -3334,61 +3367,75 @@ void KX_GrassSystem::Draw(RAS_Rasterizer *rasty)
                 }
 
                 if (megaHasDraw) {
+#if KX_GRASS_PERSISTENT_INSTANCE_MAP
+                    // ── Persistent mapped: acessa diretamente via ponteiro ────────
+                    // Um flush por chunk (já era correto: sem stall de pipeline).
                     for (int i = 0; i < mc.chunkCount; ++i) {
                         const int chunkIndex = mc.firstChunk + i;
-                        if (td.lodSoA.drawInstanceCount[(size_t)chunkIndex] == 0) {
-                            continue;
-                        }
+                        if (td.lodSoA.drawInstanceCount[(size_t)chunkIndex] == 0) continue;
                         GrassChunk &chunk = chunks[chunkIndex];
-                        if (chunk.bladeLenVersion != m_bladeLenVersion) {
-                            const int globalBase = (int)chunk.drawBaseInstance;
-                            GrassInstance *inst = nullptr;
-                            bool needsUnmap = false;
-                            
-#if KX_GRASS_PERSISTENT_INSTANCE_MAP
-                            // Persistent mapped: acessa direto via ponteiro
-                            bool needsFlush = false;
-                            GLintptr flushOffset = 0;
-                            GLsizeiptr flushSize = 0;
-                            
-                            if (m_instancePtr) {
-                                GrassInstance *instances = (GrassInstance *)m_instancePtr;
-                                inst = instances + globalBase;
-                                needsFlush = true;
-                                flushOffset = (GLintptr)((size_t)globalBase * sizeof(GrassInstance));
-                                flushSize = (GLsizeiptr)((size_t)chunk.instanceCount * sizeof(GrassInstance));
-                            }
-#else
-                            // Modo tradicional: mapeia temporariamente para leitura/escrita
-                            if (m_instanceVBO && chunk.instanceCount > 0) {
-                                const GLintptr byteOffset = (GLintptr)((size_t)globalBase * sizeof(GrassInstance));
-                                const GLsizeiptr byteSize = (GLsizeiptr)((size_t)chunk.instanceCount * sizeof(GrassInstance));
-                                const GLbitfield mapFlags = GL_MAP_READ_BIT | GL_MAP_WRITE_BIT;
-                                inst = (GrassInstance *)glMapNamedBufferRange(m_instanceVBO, byteOffset, byteSize, mapFlags);
-                                needsUnmap = (inst != nullptr);
-                            }
-#endif
+                        if (chunk.bladeLenVersion == m_bladeLenVersion) continue;
 
-                            if (inst && chunk.instanceCount > 0) {
+                        if (m_instancePtr && chunk.instanceCount > 0) {
+                            const int globalBase = (int)chunk.drawBaseInstance;
+                            GrassInstance *inst = (GrassInstance *)m_instancePtr + globalBase;
+                            for (int j = 0; j < chunk.instanceCount; ++j) {
+                                inst[j].bladeLen = ComputeBladeLen(inst[j].random, m_params);
+                            }
+                            chunk.bladeLenVersion = m_bladeLenVersion;
+                            const GLintptr   flushOffset = (GLintptr)((size_t)globalBase * sizeof(GrassInstance));
+                            const GLsizeiptr flushSize   = (GLsizeiptr)((size_t)chunk.instanceCount * sizeof(GrassInstance));
+                            glFlushMappedNamedBufferRange(m_instanceVBO, flushOffset, flushSize);
+                        }
+                    }
+#else
+                    // ── Modo tradicional (KX_GRASS_PERSISTENT_INSTANCE_MAP=0) ───────
+                    // Acumula todos os chunks dirty deste megachunk e faz um ÚNICO
+                    // glMapNamedBufferRange cobrindo o range total, eliminando o stall
+                    // de pipeline que ocorria com map/unmap por chunk individual.
+
+                    int dirtyMin = INT_MAX; // menor offset global (em instâncias) dirty
+                    int dirtyMax = INT_MIN; // maior offset global (exclusive) dirty
+
+                    for (int i = 0; i < mc.chunkCount; ++i) {
+                        const int chunkIndex = mc.firstChunk + i;
+                        if (td.lodSoA.drawInstanceCount[(size_t)chunkIndex] == 0) continue;
+                        GrassChunk &chunk = chunks[chunkIndex];
+                        if (chunk.bladeLenVersion == m_bladeLenVersion) continue;
+                        if (chunk.instanceCount <= 0) continue;
+
+                        const int base = (int)chunk.drawBaseInstance;
+                        dirtyMin = std::min(dirtyMin, base);
+                        dirtyMax = std::max(dirtyMax, base + chunk.instanceCount);
+                    }
+
+                    if (dirtyMin < dirtyMax && m_instanceVBO) {
+                        const GLintptr   byteOffset = (GLintptr)((size_t)dirtyMin * sizeof(GrassInstance));
+                        const GLsizeiptr byteSize   = (GLsizeiptr)((size_t)(dirtyMax - dirtyMin) * sizeof(GrassInstance));
+                        const GLbitfield mapFlags   = GL_MAP_READ_BIT | GL_MAP_WRITE_BIT;
+                        GrassInstance *mapped = (GrassInstance *)glMapNamedBufferRange(
+                            m_instanceVBO, byteOffset, byteSize, mapFlags);
+
+                        if (mapped) {
+                            // Itera de novo para escrever — os offsets são relativos ao início do range
+                            for (int i = 0; i < mc.chunkCount; ++i) {
+                                const int chunkIndex = mc.firstChunk + i;
+                                if (td.lodSoA.drawInstanceCount[(size_t)chunkIndex] == 0) continue;
+                                GrassChunk &chunk = chunks[chunkIndex];
+                                if (chunk.bladeLenVersion == m_bladeLenVersion) continue;
+                                if (chunk.instanceCount <= 0) continue;
+
+                                const int base = (int)chunk.drawBaseInstance;
+                                GrassInstance *inst = mapped + (base - dirtyMin);
                                 for (int j = 0; j < chunk.instanceCount; ++j) {
                                     inst[j].bladeLen = ComputeBladeLen(inst[j].random, m_params);
                                 }
                                 chunk.bladeLenVersion = m_bladeLenVersion;
-                                
-#if KX_GRASS_PERSISTENT_INSTANCE_MAP
-                                // EXPLICIT FLUSH: notifica driver da região modificada
-                                // Evita flush de tamanho 0
-                                if (needsFlush && flushSize > 0) {
-                                    glFlushMappedNamedBufferRange(m_instanceVBO, flushOffset, flushSize);
-                                }
-#endif
                             }
-
-                            if (needsUnmap) {
-                                glUnmapNamedBuffer(m_instanceVBO);
-                            }
+                            glUnmapNamedBuffer(m_instanceVBO);
                         }
                     }
+#endif
                 }
 
                 if (occlusionEnv && megaHasDraw) {
@@ -3581,7 +3628,7 @@ void KX_GrassSystem::Draw(RAS_Rasterizer *rasty)
     glDepthMask(GL_TRUE);
     glDisable(GL_BLEND);
     glEnable(GL_DEPTH_TEST);
-    
+
     // CORREÇÃO: Usar SetCullFace do rasterizer ao invés de chamada OpenGL direta
     // Isso mantém o estado interno sincronizado para que materiais funcionem corretamente
     if (rasty) {
@@ -3589,6 +3636,12 @@ void KX_GrassSystem::Draw(RAS_Rasterizer *rasty)
     } else {
         glDisable(GL_CULL_FACE); // fallback se rasterizer não disponível
     }
+
+    // Alpha-to-coverage: elimina discard no fragment shader, reduz PS Warp Can't Launch.
+    // Requer MSAA ativo; sem MSAA a cobertura degenera para dithering de 1 bit.
+#if KX_GRASS_USE_ALPHA_TO_COVERAGE
+    glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE);
+#endif
 
     if (m_visibleDrawCount != 0) {
         if (m_hasIndirect) {
@@ -3609,6 +3662,10 @@ void KX_GrassSystem::Draw(RAS_Rasterizer *rasty)
             m_indirectFence[indirectIndex] = glFenceSync(GL_SYNC_GPU_COMMANDS_COMPLETE, 0);
         }
     }
+
+#if KX_GRASS_USE_ALPHA_TO_COVERAGE
+    glDisable(GL_SAMPLE_ALPHA_TO_COVERAGE);
+#endif
 
     GPU_unbind_vertex_array();
     glDepthMask(GL_TRUE);
