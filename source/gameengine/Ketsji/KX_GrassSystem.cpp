@@ -25,7 +25,7 @@
 // Fragment shader alpha masking strategy:
 //   0 = discard clássico (if alpha < 0.1 discard) — compatível com qualquer pipeline
 //   1 = alpha-to-coverage — elimina discard; requer MSAA ativo; melhora PS Warp Can't Launch
-#define KX_GRASS_USE_ALPHA_TO_COVERAGE 1
+#define KX_GRASS_USE_ALPHA_TO_COVERAGE 0
 
 #include "KX_GrassSystem.h"
 #include "KX_Scene.h"
@@ -429,6 +429,29 @@ static inline int FastFloorToInt(float x)
 // ============================================================================
 // Vertex shader
 // ============================================================================
+// ── flat v_Light + GL_FIRST_VERTEX_CONVENTION ─────────────────────────────────
+// Antes do draw chamamos glProvokingVertex(GL_FIRST_VERTEX_CONVENTION).
+// Com essa convenção, o provoking vertex de cada triângulo é o PRIMEIRO (v0 e v3).
+// O shader calcula calcLight() apenas quando vtxInBlade == 0 (provoking do tri1);
+// todos os outros vértices executam `else { v_Light = vec3(0.0); }` — dead write
+// necessária para satisfazer o compilador GLSL (sem UB de variável não inicializada).
+// A GPU descarta esses valores; apenas o provoking vertex (v0) é usado pelo
+// rasterizador com flat shading. Economia: calcLight() executa 1× em vez de 6×
+// por lâmina (loop de 4 luzes + inversesqrt nos 5 vértices restantes eliminado).
+//
+// ── Investigação: posição como GL_UNSIGNED_BYTE (int24) ──────────────────────
+// Hipótese: comprimir worldXYZ para 3 bytes via glVertexAttribIPointer(GL_UNSIGNED_BYTE)
+// e reconstruir no shader com:
+//   uint value = packed.x | (packed.y << 8) | (packed.z << 16);
+//   float x = float(value) * scale - cameraOffset;
+//
+// Resultado: tecnicamente suportado pelo OpenGL 3.0+ via glVertexAttribIPointer.
+// Porém inviável para grama: com 1 unidade = 1cm, int24 cobre 167m de range —
+// insuficiente para LOD a 500m. Com 1 unidade = 0.1m (10cm): range = 1677m OK,
+// mas precisão de 10cm causa jitter visível na base da grama.
+// A posição já é camera-relative float (KX_GRASS_CAMERA_RELATIVE_XY=1), mantendo
+// precisão total sem custo de quantização ou código extra. Não implementado.
+// ============================================================================
 #if KX_GRASS_DENSITY_SHADER_MERGE
 static const char *s_vert =
 "#extension GL_ARB_bindless_texture : require\n"
@@ -453,8 +476,11 @@ static const char *s_vert =
 "    vec4  lParams[4];\n"
 "};\n"
 "\n"
-"out vec2  v_Coord;\n"
-"out vec3  v_Light;\n"
+"out vec2       v_Coord;\n"
+// flat + GL_FIRST_VERTEX_CONVENTION: v_Light calculada só no provoking vertex (vtxInBlade==0).
+// Os demais vértices escrevem vec3(0.0) como dead-write para evitar UB de variável não
+// inicializada — o rasterizador descarta esses valores e usa apenas o do provoking vertex.
+"flat out vec3  v_Light;\n"
 "\n"
 "vec3 calcSun(vec3 norm) {\n"
 "    int cnt = int(timerCamLight.w);\n"
@@ -576,11 +602,20 @@ static const char *s_vert =
 "        gl_Position = gl_ModelViewProjectionMatrix * vec4(tip, 1.0);\n"
 "    }\n"
 "\n"
-"    if (nearGrassSun)\n"
-"        v_Light = calcLight(pos, tilt);\n"
-"    else\n"
-"        v_Light = calcSun(tilt);\n"
-"    v_Light = v_Light * (2.5 / (1.0 + v_Light));\n"
+// Com GL_FIRST_VERTEX_CONVENTION, os provoking vertices de cada lâmina são:
+//   tri1 (v0,v1,v2) → provoking = v0 → vtxInBlade == 0
+//   tri2 (v3,v4,v5) → provoking = v3 → vtxInBlade == 3
+// calcLight() é chamado nos dois; a posição `pos` é a mesma (base da lâmina).
+// Os demais vértices (1,2,4,5) fazem dead-write vec3(0.0) para evitar UB GLSL.
+"    if (vtxInBlade == 0 || vtxInBlade == 3) {\n"
+"        if (nearGrassSun)\n"
+"            v_Light = calcLight(pos, tilt);\n"
+"        else\n"
+"            v_Light = calcSun(tilt);\n"
+"        v_Light = v_Light * (2.5 / (1.0 + v_Light));\n"
+"    } else {\n"
+"        v_Light = vec3(0.0);\n"
+"    }\n"
 "}\n";
 #else
 static const char *s_vert =
@@ -602,8 +637,9 @@ static const char *s_vert =
 "    vec4  lParams[4];\n"
 "};\n"
 "\n"
-"out vec2  v_Coord;\n"
-"out vec3  v_Light;\n"
+"out vec2       v_Coord;\n"
+// flat + GL_FIRST_VERTEX_CONVENTION: v_Light calculada só no provoking vertex (vtxInBlade==0).
+"flat out vec3  v_Light;\n"
 "\n"
 "vec3 calcSun(vec3 norm) {\n"
 "    int cnt = int(timerCamLight.w);\n"
@@ -713,11 +749,19 @@ static const char *s_vert =
 "        gl_Position = gl_ModelViewProjectionMatrix * vec4(tip, 1.0);\n"
 "    }\n"
 "\n"
-"    if (nearGrassSun)\n"
-"        v_Light = calcLight(worldXYZ, tilt);\n"
-"    else\n"
-"        v_Light = calcSun(tilt);\n"
-"    v_Light = v_Light * (2.5 / (1.0 + v_Light));\n"
+// Com GL_FIRST_VERTEX_CONVENTION:
+//   tri1 (v0,v1,v2) → provoking = v0 → vtxInBlade == 0
+//   tri2 (v3,v4,v5) → provoking = v3 → vtxInBlade == 3
+// Os vértices 1,2,4,5 fazem dead-write vec3(0.0) para evitar UB GLSL.
+"    if (vtxInBlade == 0 || vtxInBlade == 3) {\n"
+"        if (nearGrassSun)\n"
+"            v_Light = calcLight(worldXYZ, tilt);\n"
+"        else\n"
+"            v_Light = calcSun(tilt);\n"
+"        v_Light = v_Light * (2.5 / (1.0 + v_Light));\n"
+"    } else {\n"
+"        v_Light = vec3(0.0);\n"
+"    }\n"
 "}\n";
 #endif
 // ============================================================================
@@ -725,8 +769,8 @@ static const char *s_vert =
 // ============================================================================
 static const char *s_frag =
 "#extension GL_ARB_bindless_texture : require\n"
-"in vec2  v_Coord;\n"
-"in vec3  v_Light;\n"
+"in vec2       v_Coord;\n"
+"flat in vec3  v_Light;\n"
 "\n"
 "layout(std140, binding=2) uniform GrassLightBlock {\n"
 "    vec4  timerCamLight;\n"
@@ -875,53 +919,19 @@ static inline const float *GetSqrtLut()
     return table;
 }
 
-static inline void RadixSortBySelectionKey(GrassInstance *begin, GrassInstance *end,
-                                          std::vector<GrassInstance> &scratch)
-{
-    const size_t n = (size_t)(end - begin);
-    if (n <= 1) {
-        return;
-    }
-
-    scratch.resize(n);
-
-    GrassInstance *src = begin;
-    GrassInstance *dst = scratch.data();
-
-    for (uint32_t pass = 0; pass < 4; ++pass) {
-        const uint32_t shift = pass * 8u;
-
-        size_t count[256];
-        std::memset(count, 0, sizeof(count));
-        for (size_t i = 0; i < n; ++i) {
-            ++count[(src[i].selectionKey >> shift) & 0xFFu];
-        }
-
-        size_t offset[256];
-        offset[0] = 0;
-        for (size_t i = 1; i < 256; ++i) {
-            offset[i] = offset[i - 1] + count[i - 1];
-        }
-
-        for (size_t i = 0; i < n; ++i) {
-            const uint32_t b = (src[i].selectionKey >> shift) & 0xFFu;
-            dst[offset[b]++] = src[i];
-        }
-
-        std::swap(src, dst);
-        dst = (src == begin) ? scratch.data() : begin;
-    }
-
-    if (src != begin) {
-        std::memcpy(begin, src, n * sizeof(GrassInstance));
-    }
-}
+// ── RadixSort com array paralelo de selectionKey (CPU-only) ──────────────────
+// selectionKey foi separado da struct GPU GrassInstance para reduzir o stride
+// do VBO (60→60 bytes, sem os 4 bytes de selectionKey que a GPU nunca lê).
+// O sort opera apenas sobre os arrays de keys (4 bytes cada), com localidade de
+// cache muito melhor do que varrer structs de 60/24 bytes inteiras.
 
 static inline void RadixSortBySelectionKey(GrassInstance *instances,
                                            GrassPackedNormal *baseNormals,
+                                           uint32_t *selectionKeys,
                                            size_t n,
                                            std::vector<GrassInstance> &scratchInstances,
-                                           std::vector<GrassPackedNormal> &scratchNormals)
+                                           std::vector<GrassPackedNormal> &scratchNormals,
+                                           std::vector<uint32_t> &scratchKeys)
 {
     if (n <= 1) {
         return;
@@ -929,11 +939,14 @@ static inline void RadixSortBySelectionKey(GrassInstance *instances,
 
     scratchInstances.resize(n);
     scratchNormals.resize(n);
+    scratchKeys.resize(n);
 
-    GrassInstance *srcI = instances;
-    GrassPackedNormal *srcN = baseNormals;
-    GrassInstance *dstI = scratchInstances.data();
-    GrassPackedNormal *dstN = scratchNormals.data();
+    GrassInstance    *srcI = instances;
+    GrassPackedNormal*srcN = baseNormals;
+    uint32_t         *srcK = selectionKeys;
+    GrassInstance    *dstI = scratchInstances.data();
+    GrassPackedNormal*dstN = scratchNormals.data();
+    uint32_t         *dstK = scratchKeys.data();
 
     for (uint32_t pass = 0; pass < 4; ++pass) {
         const uint32_t shift = pass * 8u;
@@ -941,7 +954,7 @@ static inline void RadixSortBySelectionKey(GrassInstance *instances,
         size_t count[256];
         std::memset(count, 0, sizeof(count));
         for (size_t i = 0; i < n; ++i) {
-            ++count[(srcI[i].selectionKey >> shift) & 0xFFu];
+            ++count[(srcK[i] >> shift) & 0xFFu];
         }
 
         size_t offset[256];
@@ -951,21 +964,25 @@ static inline void RadixSortBySelectionKey(GrassInstance *instances,
         }
 
         for (size_t i = 0; i < n; ++i) {
-            const uint32_t b = (srcI[i].selectionKey >> shift) & 0xFFu;
+            const uint32_t b = (srcK[i] >> shift) & 0xFFu;
             const size_t out = offset[b]++;
             dstI[out] = srcI[i];
             dstN[out] = srcN[i];
+            dstK[out] = srcK[i];
         }
 
         std::swap(srcI, dstI);
         std::swap(srcN, dstN);
-        dstI = (srcI == instances) ? scratchInstances.data() : instances;
-        dstN = (srcN == baseNormals) ? scratchNormals.data() : baseNormals;
+        std::swap(srcK, dstK);
+        dstI = (srcI == instances)     ? scratchInstances.data() : instances;
+        dstN = (srcN == baseNormals)   ? scratchNormals.data()   : baseNormals;
+        dstK = (srcK == selectionKeys) ? scratchKeys.data()      : selectionKeys;
     }
 
     if (srcI != instances) {
-        std::memcpy(instances, srcI, n * sizeof(GrassInstance));
-        std::memcpy(baseNormals, srcN, n * sizeof(GrassPackedNormal));
+        std::memcpy(instances,     srcI, n * sizeof(GrassInstance));
+        std::memcpy(baseNormals,   srcN, n * sizeof(GrassPackedNormal));
+        std::memcpy(selectionKeys, srcK, n * sizeof(uint32_t));
     }
 }
 
@@ -1446,13 +1463,14 @@ void KX_GrassSystem::WorkerLoop()
         struct ChunkBuilder {
             std::pmr::vector<GrassInstance>     instances;
             std::pmr::vector<GrassPackedNormal> baseNormals;
+            std::pmr::vector<uint32_t>          selectionKeys; // CPU-only, paralelo a instances
             float minZ =  1e9f, maxZ = -1e9f;
             int32_t ccx = 0, ccy = 0;
 #if KX_GRASS_DENSITY_SHADER_MERGE
             int  lastSlot = 4; // quantas gramas já foram escritas na última instância (0=nenhuma)
 #endif
             explicit ChunkBuilder(std::pmr::memory_resource *r)
-                : instances(r), baseNormals(r) {}
+                : instances(r), baseNormals(r), selectionKeys(r) {}
         };
 
         std::vector<int> chunkIndexGrid;
@@ -1586,8 +1604,8 @@ void KX_GrassSystem::WorkerLoop()
                     baseN.y = (int8_t)(nny * 127.0f);
                     baseN.z = (int8_t)(nnz * 127.0f);
                     inst.tiltX = 0; inst.tiltY = 0; inst.tiltZ = 127;
-                    inst.selectionKey = hw;
                     inst._pad[0] = 0; inst._pad[1] = 0;
+                    builder.selectionKeys.push_back(hw); // array paralelo CPU-only
                     builder.lastSlot = 1; // grama 1 preenchida
                 }
                 else {
@@ -1617,8 +1635,8 @@ void KX_GrassSystem::WorkerLoop()
                 baseN.y = (int8_t)(nny * 127.0f);
                 baseN.z = (int8_t)(nnz * 127.0f);
                 inst.tiltX = 0; inst.tiltY = 0; inst.tiltZ = 127;
-                inst.selectionKey = hw;
                 inst._pad[0] = 0; inst._pad[1] = 0;
+                builder.selectionKeys.push_back(hw); // array paralelo CPU-only
 #endif
 
                 if (wz < builder.minZ) builder.minZ = wz;
@@ -1669,6 +1687,7 @@ void KX_GrassSystem::WorkerLoop()
 
         std::vector<GrassInstance>     radixScratch;
         std::vector<GrassPackedNormal> radixScratchNormals;
+        std::vector<uint32_t>          radixScratchKeys;
         size_t nextOffset = 0;
 
         const float bladeLenMax  = in.params.lengthMax * in.params.heightScale;
@@ -1685,8 +1704,9 @@ void KX_GrassSystem::WorkerLoop()
                 if (cb.instances.empty()) continue;
 
                 const size_t count = cb.instances.size();
-                RadixSortBySelectionKey(cb.instances.data(), cb.baseNormals.data(), count,
-                                        radixScratch, radixScratchNormals);
+                RadixSortBySelectionKey(cb.instances.data(), cb.baseNormals.data(),
+                                        cb.selectionKeys.data(), count,
+                                        radixScratch, radixScratchNormals, radixScratchKeys);
                 std::memcpy(out.instances.data() + nextOffset,   cb.instances.data(),   count * sizeof(GrassInstance));
                 std::memcpy(out.baseNormals.data() + nextOffset, cb.baseNormals.data(), count * sizeof(GrassPackedNormal));
 
@@ -2090,8 +2110,9 @@ TerrainGrassData* KX_GrassSystem::BuildTerrainData(KX_GameObject *terrain)
     std::pmr::monotonic_buffer_resource chunkArena;
     std::pmr::memory_resource *chunkResource = &chunkArena;
     struct ChunkBuilder {
-        std::pmr::vector<GrassInstance> instances;
+        std::pmr::vector<GrassInstance>     instances;
         std::pmr::vector<GrassPackedNormal> baseNormals;
+        std::pmr::vector<uint32_t>          selectionKeys; // CPU-only, paralelo a instances
         float minZ = 1e9f;
         float maxZ = -1e9f;
         int32_t ccx = 0;
@@ -2102,7 +2123,8 @@ TerrainGrassData* KX_GrassSystem::BuildTerrainData(KX_GameObject *terrain)
 
         explicit ChunkBuilder(std::pmr::memory_resource *resource)
             : instances(resource),
-              baseNormals(resource)
+              baseNormals(resource),
+              selectionKeys(resource)
         {
         }
     };
@@ -2223,9 +2245,9 @@ TerrainGrassData* KX_GrassSystem::BuildTerrainData(KX_GameObject *terrain)
                 inst.tiltX = 0;
                 inst.tiltY = 0;
                 inst.tiltZ = 127;
-                inst.selectionKey = hw;
                 inst._pad[0] = 0;
                 inst._pad[1] = 0;
+                builder.selectionKeys.push_back(hw); // array paralelo CPU-only
                 builder.lastSlot = 1;
             }
             else {
@@ -2255,9 +2277,9 @@ TerrainGrassData* KX_GrassSystem::BuildTerrainData(KX_GameObject *terrain)
             inst.tiltX = 0;
             inst.tiltY = 0;
             inst.tiltZ = 127;
-            inst.selectionKey = hw;
             inst._pad[0] = 0;
             inst._pad[1] = 0;
+            builder.selectionKeys.push_back(hw); // array paralelo CPU-only
 #endif
 
             if (wz < builder.minZ) builder.minZ = wz;
@@ -2329,8 +2351,9 @@ TerrainGrassData* KX_GrassSystem::BuildTerrainData(KX_GameObject *terrain)
     std::vector<GrassPackedNormal> terrainBaseNormals;
     terrainBaseNormals.resize(totalInstances);
 
-    std::vector<GrassInstance> radixScratch;
+    std::vector<GrassInstance>     radixScratch;
     std::vector<GrassPackedNormal> radixScratchNormals;
+    std::vector<uint32_t>          radixScratchKeys;
     size_t nextOffset = 0;
 
     for (auto &kv : megaBuilders) {
@@ -2349,7 +2372,9 @@ TerrainGrassData* KX_GrassSystem::BuildTerrainData(KX_GameObject *terrain)
             const int ccy = cb.ccy;
             const size_t count = cb.instances.size();
 
-            RadixSortBySelectionKey(cb.instances.data(), cb.baseNormals.data(), count, radixScratch, radixScratchNormals);
+            RadixSortBySelectionKey(cb.instances.data(), cb.baseNormals.data(),
+                                    cb.selectionKeys.data(), count,
+                                    radixScratch, radixScratchNormals, radixScratchKeys);
             std::memcpy(terrainInstances.data() + nextOffset, cb.instances.data(), count * sizeof(GrassInstance));
             std::memcpy(terrainBaseNormals.data() + nextOffset, cb.baseNormals.data(), count * sizeof(GrassPackedNormal));
 
@@ -2645,11 +2670,11 @@ void KX_GrassSystem::EnsureGPUResources()
     "    uint tz = packS8(tilt.z);\n"
     "    uint g = baseInstance + id;\n"
 #if KX_GRASS_DENSITY_SHADER_MERGE
-    // sizeof(GrassInstance) = 64 bytes = 16 uint32s
+    // sizeof(GrassInstance) = 60 bytes = 15 uint32s (selectionKey removido do VBO)
     // tiltX @ byte 55 = word13, byteIndex 3
     // tiltY @ byte 56 = word14, byteIndex 0
     // tiltZ @ byte 57 = word14, byteIndex 1
-    "    uint word0 = (g * 64u) >> 2;\n"
+    "    uint word0 = (g * 60u) >> 2;\n"
     "    uint w10 = inst[word0 + 13u];\n"
     "    w10 = replaceByte(w10, 3u, tx);\n"
     "    inst[word0 + 13u] = w10;\n"
@@ -2658,11 +2683,11 @@ void KX_GrassSystem::EnsureGPUResources()
     "    w11 = replaceByte(w11, 1u, tz);\n"
     "    inst[word0 + 14u] = w11;\n"
 #else
-    // sizeof(GrassInstance) = 28 bytes = 7 uint32s
+    // sizeof(GrassInstance) = 24 bytes = 6 uint32s (selectionKey removido do VBO)
     // tiltX @ byte 19 = word4, byteIndex 3
     // tiltY @ byte 20 = word5, byteIndex 0
     // tiltZ @ byte 21 = word5, byteIndex 1
-    "    uint word0 = (g * 28u) >> 2;\n"
+    "    uint word0 = (g * 24u) >> 2;\n"
     "    uint w4 = inst[word0 + 4u];\n"
     "    w4 = replaceByte(w4, 3u, tx);\n"
     "    inst[word0 + 4u] = w4;\n"
@@ -3647,6 +3672,12 @@ void KX_GrassSystem::Draw(RAS_Rasterizer *rasty)
         if (m_hasIndirect) {
             const int indirectIndex = m_visibleIndirectIndex;
             glBindBuffer(GL_DRAW_INDIRECT_BUFFER, m_indirectVBO[indirectIndex]);
+            // GL_FIRST_VERTEX_CONVENTION: garante que o vértice 0 de cada triângulo
+            // é o provoking vertex para `flat` outputs — necessário para que
+            // calcLight() (executado apenas no vtxInBlade==0) seja o valor propagado.
+            // Restauramos GL_LAST_VERTEX_CONVENTION após o draw para não afetar
+            // outros sistemas de renderização do engine.
+            glProvokingVertex(GL_FIRST_VERTEX_CONVENTION);
 #if KX_GRASS_CAMERA_RELATIVE_XY
             const mt::vec3 rc = renderCam->NodeGetWorldPosition();
             glMatrixMode(GL_MODELVIEW);
@@ -3657,6 +3688,7 @@ void KX_GrassSystem::Draw(RAS_Rasterizer *rasty)
 #if KX_GRASS_CAMERA_RELATIVE_XY
             glPopMatrix();
 #endif
+            glProvokingVertex(GL_LAST_VERTEX_CONVENTION);
 
             DeleteIndirectSlotFence(m_indirectFence[indirectIndex]);
             m_indirectFence[indirectIndex] = glFenceSync(GL_SYNC_GPU_COMMANDS_COMPLETE, 0);
